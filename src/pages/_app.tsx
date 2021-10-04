@@ -1,10 +1,15 @@
 import React from "react";
-import { Provider as StoreProvider } from "react-redux";
 import type { AppProps } from "next/app";
+import { store } from "src/redux/store";
+import { Provider as StoreProvider } from "react-redux";
+
+import { QueryClient, QueryClientProvider } from "react-query";
+
 import { StylesProvider, ThemeProvider } from "@material-ui/styles";
 import { CssBaseline } from "@material-ui/core";
 import * as theme from "theme";
-import { store } from "src/redux/store";
+
+const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
   React.useEffect(() => {
@@ -15,13 +20,15 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <StoreProvider store={store}>
-      <ThemeProvider theme={theme.main}>
-        <StylesProvider injectFirst>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </StylesProvider>
-      </ThemeProvider>
-    </StoreProvider>
+    <QueryClientProvider client={queryClient}>
+      <StoreProvider store={store}>
+        <ThemeProvider theme={theme.main}>
+          <StylesProvider injectFirst>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </StylesProvider>
+        </ThemeProvider>
+      </StoreProvider>
+    </QueryClientProvider>
   );
 }
