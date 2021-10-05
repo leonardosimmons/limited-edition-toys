@@ -1,10 +1,11 @@
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import Typography from "@material-ui/core/Typography";
+
+import Layout from "src/containers/Layout";
 
 function Index({
   test,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
-  return <Typography variant="h1">{test}</Typography>;
+  return <Layout title={"Limited Edition Toys | Home"}></Layout>;
 }
 
 export default Index;
