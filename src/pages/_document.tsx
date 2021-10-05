@@ -1,5 +1,5 @@
 import React from "react";
-import { ServerStyleSheets } from "@material-ui/styles";
+import ServerStyleSheets from "@material-ui/styles/ServerStyleSheets";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 import * as theme from "theme";
@@ -18,7 +18,7 @@ export default class MyDocument extends Document {
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Pacifico|Raleway:100,400,400i,700|Roboto:300,400,500,700&display=swap"
+            href="https://fonts.googleapis.com/css?family=Pacifico|Jost:600,700|Raleway:100,400,400i,700|Roboto:300,400,500,700&display=swap"
           />
           <link
             rel="stylesheet"

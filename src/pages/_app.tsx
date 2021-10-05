@@ -1,13 +1,13 @@
 import React from "react";
+import { store } from "src/store";
 import type { AppProps } from "next/app";
-import { store } from "src/redux/store";
 import { Provider as StoreProvider } from "react-redux";
-
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import { StylesProvider, ThemeProvider } from "@material-ui/styles";
-import { CssBaseline } from "@material-ui/core";
 import * as theme from "theme";
+import StylesProvider from "@material-ui/styles/StylesProvider";
+import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const queryClient = new QueryClient();
 
