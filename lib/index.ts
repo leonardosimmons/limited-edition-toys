@@ -1,4 +1,3 @@
-export * from "./functions";
-export * from "./redux";
-export * from "./vend";
-export * from "./woocommerce";
+export * from './functions';
+export * from './vend';
+export * from './woocommerce';

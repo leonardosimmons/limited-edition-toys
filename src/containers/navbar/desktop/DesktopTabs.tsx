@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import useDesktopTabStyles from "./DesktopTabStyles";
+import useDesktopTabStyles from './DesktopTabStyles';
 
-import Divider from "@material-ui/core/Divider";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import FaceTwoTone from "@material-ui/icons/FaceTwoTone";
-import AssignmentTwoToneIcon from "@material-ui/icons/AssignmentTwoTone";
-import ShoppingCartTwoToneIcon from "@material-ui/icons/ShoppingCartTwoTone";
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import FaceTwoTone from '@material-ui/icons/FaceTwoTone';
+import AssignmentTwoToneIcon from '@material-ui/icons/AssignmentTwoTone';
+import ShoppingCartTwoToneIcon from '@material-ui/icons/ShoppingCartTwoTone';
 
 type Props = {};
 

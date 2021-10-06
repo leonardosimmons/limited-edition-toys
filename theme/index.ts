@@ -1,7 +1,7 @@
-import { createTheme } from "@material-ui/core";
-import { Color } from "utils/keys";
+import { createTheme } from '@material-ui/core';
+import { Color } from 'utils/keys';
 
-declare module "@material-ui/core/styles/createBreakpoints" {
+declare module '@material-ui/core/styles/createBreakpoints' {
   interface BreakpointOverrides {
     xs: false;
     sm: false;
@@ -20,7 +20,7 @@ declare module "@material-ui/core/styles/createBreakpoints" {
   }
 }
 
-declare module "@material-ui/core/styles/createTheme" {
+declare module '@material-ui/core/styles/createTheme' {
   interface Theme {}
 
   interface ThemeOptions {}

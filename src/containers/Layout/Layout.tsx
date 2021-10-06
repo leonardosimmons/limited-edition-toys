@@ -1,10 +1,10 @@
-import React from "react";
-import Head from "next/head";
+import React from 'react';
+import Head from 'next/head';
 
-import useLayoutStyles from "./LayoutStyles";
+import useLayoutStyles from './LayoutStyles';
 
-import Box from "@material-ui/core/Box";
-import Navbar from "src/containers/navbar";
+import Box from '@material-ui/core/Box';
+import Navbar from 'src/containers/navbar';
 
 type Props = {
   title: string;
@@ -35,16 +35,14 @@ const Layout: React.FunctionComponent<Props> = ({
           classes
             ? classes.root && `${styles.root} ${classes.root}`
             : styles.root
-        }
-      >
+        }>
         <Navbar />
         <main
           className={
             classes
               ? classes.main && `${styles.main} ${classes.main}`
               : styles.main
-          }
-        >
+          }>
           {children}
         </main>
         {/* FOOTER */}
