@@ -1,8 +1,8 @@
-import React from "react";
-import ServerStyleSheets from "@material-ui/styles/ServerStyleSheets";
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import React from 'react';
+import { ServerStyleSheets } from '@material-ui/styles';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-import * as theme from "theme";
+import * as theme from 'theme';
 
 export default class MyDocument extends Document {
   render() {
@@ -16,9 +16,15 @@ export default class MyDocument extends Document {
           <meta name="robots" content="no index, no follow" />
           <meta name="AdsBot-Google" content="none" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin=""
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Jost:wght@500;700&family=Pacifico&family=Raleway:wght@100;400;700&family=Roboto:wght@100;300;400;500;700;900&display=swap"
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Pacifico|Jost:600,700|Raleway:100,400,400i,700|Roboto:300,400,500,700&display=swap"
           />
           <link
             rel="stylesheet"
