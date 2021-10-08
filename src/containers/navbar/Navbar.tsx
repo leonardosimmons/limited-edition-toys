@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Images, Links } from 'utils/keys';
 
-import useNavbarStyles from './NavbarStyles';
+import { useNavbarStyles } from './NavbarStyles';
 
 import Image from 'next/Image';
 import Box from '@material-ui/core/Box';
@@ -13,14 +13,15 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import DesktopTabs from './desktop/DesktopTabs';
 import ElevationScroll from 'lib/components/ElevationScroll';
+import DesktopTabs from './desktop/DesktopTabs';
+import MobileMenu from './mobile/MobileMenu';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   const theme = useTheme();
   const router = useRouter();
   const styles = useNavbarStyles();
-  const desktop = useMediaQuery(theme.breakpoints.up('desktopSm'));
+  const mobile = useMediaQuery(theme.breakpoints.down('md'));
 
   // -------------------------------------------
   function handleLogoClick(): void {
@@ -34,17 +35,15 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
         aria-label="Main header"
         className={styles.navbar}>
         <Toolbar disableGutters>
-          {desktop && (
-            <Box className={styles.promoBox} aria-label="promotional box">
-              <Image
-                src={Images.NAVBAR_PROMO}
-                alt={'promo image'}
-                height={100}
-                width={200}
-                role="img"
-              />
-            </Box>
-          )}
+          <Box className={styles.promoBox} aria-label="promotional box">
+            <Image
+              src={Images.NAVBAR_PROMO}
+              alt={'promo image'}
+              height={100}
+              width={200}
+              role="img"
+            />
+          </Box>
           <Button
             disableRipple
             onClick={handleLogoClick}
@@ -58,7 +57,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             </Typography>
           </Button>
           <Box className={styles.menuBox}>
-            <DesktopTabs />
+            {mobile ? <MobileMenu /> : <DesktopTabs />}
           </Box>
         </Toolbar>
       </AppBar>
