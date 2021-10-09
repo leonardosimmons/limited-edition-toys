@@ -1,8 +1,9 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import createStyles from '@material-ui/styles/createStyles';
+import { Color } from 'utils/keys';
 
 export const useNavbarStyles = makeStyles(
-  ({ breakpoints, mixins, palette, zIndex }: Theme) =>
+  ({ breakpoints, mixins, palette, shadows, zIndex }: Theme) =>
     createStyles({
       menuBox: {
         flex: '0 1 20%',
@@ -16,11 +17,27 @@ export const useNavbarStyles = makeStyles(
       },
 
       navbar: {
-        zIndex: zIndex.modal + 1,
+        zIndex: zIndex.drawer - 1,
+        height: '110px',
+        display: 'flex',
+        justifyContent: 'center',
         padding: '.35rem .5rem',
-        backgroundColor: 'transparent',
+        backgroundColor: `rgba(${Color.PRIMARY_RGB}, 0.2)`,
+        boxShadow: shadows[3],
+        [breakpoints.up('mobileMd')]: {
+          height: '65px',
+        },
+        [breakpoints.up('mobileLg')]: {
+          height: '80px',
+        },
+        [breakpoints.up('tabletLg')]: {
+          height: '150px',
+        },
         [breakpoints.up('desktopSm')]: {
+          marginTop: '1rem',
           padding: '.5rem 2.5rem',
+          backgroundColor: 'transparent',
+          boxShadow: 'none',
         },
       },
 
@@ -68,14 +85,15 @@ export const useNavbarStyles = makeStyles(
           flexDirection: 'column',
         },
         '& span:nth-child(1)': {
-          marginRight: '10px',
+          marginRight: '5px',
           fontFamily: 'Jost, sans-serif',
           fontSize: '1.5rem',
           fontWeight: 700,
           [breakpoints.up('mobileMd')]: {
-            fontSize: '1.35rem',
+            //fontSize: '1.65rem',
           },
           [breakpoints.up('tabletSm')]: {
+            marginRight: '7px',
             fontSize: '2.35rem',
           },
           [breakpoints.up('tabletMd')]: {
@@ -83,20 +101,23 @@ export const useNavbarStyles = makeStyles(
           },
           [breakpoints.up('tabletLg')]: {
             fontSize: '2.5rem',
+            margin: 0,
           },
           [breakpoints.up('desktopMd')]: {
             fontSize: '3.5rem',
           },
         },
         '& span:nth-child(2)': {
-          marginLeft: '10px',
+          marginLeft: '5px',
           fontFamily: 'Pacifico, cursive',
-          fontSize: '1.35rem',
+          fontSize: '1.5rem',
           [breakpoints.up('tabletSm')]: {
+            marginLeft: '7px',
             fontSize: '2.5rem',
           },
           [breakpoints.up('tabletLg')]: {
             fontSize: '3.5rem',
+            margin: 0,
           },
           [breakpoints.up('desktopMd')]: {
             fontSize: '4.25rem',
@@ -106,8 +127,14 @@ export const useNavbarStyles = makeStyles(
 
       titleButton: {
         flex: 1,
+        display: 'flex',
+        justifyContent: 'flex-start',
         '&:hover': {
           backgroundColor: 'transparent',
+        },
+        [breakpoints.up('mobileLg')]: {
+          justifyContent: 'center',
+          padding: '1rem',
         },
       },
     }),
