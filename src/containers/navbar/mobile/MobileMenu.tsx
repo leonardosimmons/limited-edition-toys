@@ -12,18 +12,18 @@ import MobileMenuTabs from './components/MobileMenuTabs';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import {
   closeNavbarMobileMenu,
-  openNavbarMobileMenu,
   uiSelector,
+  openNavbarMobileMenu,
 } from 'src/redux/models/ui';
 
 type Props = {};
 
 const MobileMenu: React.FunctionComponent<Props> = (): JSX.Element => {
+  const ui = useAppSelector(uiSelector);
   const styles = useMobileMenuStyles();
   const dispatch = useAppDispatch();
-  const status = useAppSelector(uiSelector);
-  // Drawer --------------------
 
+  // Drawer --------------------
   const handleDrawerToggle =
     (open: boolean) => (e: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -46,7 +46,7 @@ const MobileMenu: React.FunctionComponent<Props> = (): JSX.Element => {
     <React.Fragment>
       <SwipeableDrawer
         anchor="right"
-        open={status.navbar.mobileMenuOpen}
+        open={ui.drawers.navbarMobileMenuOpen}
         onOpen={handleDrawerToggle(true)}
         onClose={handleDrawerToggle(false)}
         classes={{ paper: styles.menuDrawer }}>

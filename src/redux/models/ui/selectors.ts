@@ -1,13 +1,12 @@
-import { AppState } from 'src/redux';
 import { createSelector } from 'reselect';
 
-const getNavbarStatus = (state: AppState) => state.ui.navbar;
-const getViewportType = (state: AppState) => state.ui.viewport;
+import { drawerSelector } from './drawer/selectors';
+import { uiStatusSelector } from './status/selectors';
 
 export const uiSelector = createSelector(
-  [getNavbarStatus, getViewportType],
-  (navbar, viewport) => ({
-    navbar,
-    isMobile: viewport === 'mobile' ? true : false,
+  [drawerSelector, uiStatusSelector],
+  (drawer, status) => ({
+    drawers: drawer,
+    status,
   }),
 );

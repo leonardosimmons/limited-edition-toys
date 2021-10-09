@@ -23,8 +23,8 @@ import SearchBar from './search/SearchBar';
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   useViewport();
   const router = useRouter();
+  const ui = useAppSelector(uiSelector);
   const styles = useNavbarStyles();
-  const status = useAppSelector(uiSelector);
 
   // -------------------------------------------
   function handleLogoClick(): void {
@@ -60,7 +60,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             </Typography>
           </Button>
           <Box className={styles.menuBox}>
-            {status.isMobile ? <MobileMenu /> : <DesktopTabs />}
+            {ui.status.isMobile ? <MobileMenu /> : <DesktopTabs />}
           </Box>
         </Toolbar>
         <SearchBar />
