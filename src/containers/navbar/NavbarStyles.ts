@@ -18,21 +18,12 @@ export const useNavbarStyles = makeStyles(
 
       navbar: {
         zIndex: zIndex.drawer - 1,
-        height: '110px',
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         padding: '.35rem .5rem',
         backgroundColor: `rgba(${Color.PRIMARY_RGB}, 0.2)`,
         boxShadow: shadows[3],
-        [breakpoints.up('mobileMd')]: {
-          height: '65px',
-        },
-        [breakpoints.up('mobileLg')]: {
-          height: '80px',
-        },
-        [breakpoints.up('tabletLg')]: {
-          height: '150px',
-        },
         [breakpoints.up('desktopSm')]: {
           marginTop: '1rem',
           padding: '.5rem 2.5rem',
@@ -87,10 +78,10 @@ export const useNavbarStyles = makeStyles(
         '& span:nth-child(1)': {
           marginRight: '5px',
           fontFamily: 'Jost, sans-serif',
-          fontSize: '1.5rem',
+          fontSize: '1.25rem',
           fontWeight: 700,
           [breakpoints.up('mobileMd')]: {
-            //fontSize: '1.65rem',
+            fontSize: '1.5rem',
           },
           [breakpoints.up('tabletSm')]: {
             marginRight: '7px',
@@ -135,6 +126,16 @@ export const useNavbarStyles = makeStyles(
         [breakpoints.up('mobileLg')]: {
           justifyContent: 'center',
           padding: '1rem',
+        },
+      },
+
+      toolbar: {
+        height: '50px',
+        [breakpoints.up('mobileMd')]: {
+          height: '40px',
+        },
+        [breakpoints.up('tabletLg')]: {
+          height: '100%',
         },
       },
     }),

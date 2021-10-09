@@ -18,6 +18,7 @@ import Button from '@material-ui/core/Button';
 import ElevationScroll from 'lib/components/ElevationScroll';
 import DesktopTabs from './desktop/DesktopTabs';
 import MobileMenu from './mobile/MobileMenu';
+import SearchBar from './search/SearchBar';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   useViewport();
@@ -36,7 +37,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
         position="fixed"
         aria-label="Main header"
         className={styles.navbar}>
-        <Toolbar disableGutters>
+        <Toolbar disableGutters className={styles.toolbar}>
           <Box className={styles.promoBox} aria-label="promotional box">
             <Image
               src={Images.NAVBAR_PROMO}
@@ -62,6 +63,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             {status.isMobile ? <MobileMenu /> : <DesktopTabs />}
           </Box>
         </Toolbar>
+        <SearchBar />
       </AppBar>
     </ElevationScroll>
   );
