@@ -9,14 +9,21 @@ import Typography from '@material-ui/core/Typography';
 
 import MobileMenuList from './components/MobileMenuList';
 import MobileMenuTabs from './components/MobileMenuTabs';
+import { useAppDispatch, useAppSelector } from 'src/redux';
+import {
+  closeNavbarMobileMenu,
+  openNavbarMobileMenu,
+  uiSelector,
+} from 'src/redux/models/ui';
 
 type Props = {};
 
 const MobileMenu: React.FunctionComponent<Props> = (): JSX.Element => {
   const styles = useMobileMenuStyles();
-
+  const dispatch = useAppDispatch();
+  const status = useAppSelector(uiSelector);
   // Drawer --------------------
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+
   const handleDrawerToggle =
     (open: boolean) => (e: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -28,14 +35,18 @@ const MobileMenu: React.FunctionComponent<Props> = (): JSX.Element => {
         return;
       }
 
-      setIsOpen(open);
+      if (open) {
+        dispatch(openNavbarMobileMenu());
+        return;
+      }
+      dispatch(closeNavbarMobileMenu());
     };
 
   return (
     <React.Fragment>
       <SwipeableDrawer
         anchor="right"
-        open={isOpen}
+        open={status.navbar.mobileMenuOpen}
         onOpen={handleDrawerToggle(true)}
         onClose={handleDrawerToggle(false)}
         classes={{ paper: styles.menuDrawer }}>

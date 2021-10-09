@@ -2,26 +2,28 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Images, Links } from 'utils/keys';
 
+import { useAppSelector } from 'src/redux';
+import { uiSelector } from 'src/redux/models/ui';
+import { useViewport } from 'src/helpers/useViewport';
+
 import { useNavbarStyles } from './NavbarStyles';
 
 import Image from 'next/Image';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import useTheme from '@material-ui/core/styles/useTheme';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import ElevationScroll from 'lib/components/ElevationScroll';
 import DesktopTabs from './desktop/DesktopTabs';
 import MobileMenu from './mobile/MobileMenu';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
-  const theme = useTheme();
+  useViewport();
   const router = useRouter();
   const styles = useNavbarStyles();
-  const mobile = useMediaQuery(theme.breakpoints.down('md'));
+  const status = useAppSelector(uiSelector);
 
   // -------------------------------------------
   function handleLogoClick(): void {
@@ -57,7 +59,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             </Typography>
           </Button>
           <Box className={styles.menuBox}>
-            {mobile ? <MobileMenu /> : <DesktopTabs />}
+            {status.isMobile ? <MobileMenu /> : <DesktopTabs />}
           </Box>
         </Toolbar>
       </AppBar>
