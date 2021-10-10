@@ -1,10 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import {
-  openNavbarMobileMenu,
-  closeNavbarMobileMenu,
-  resetUi,
-  setViewportType,
-} from './actions';
+import { openNavbarMobileMenu, closeNavbarMobileMenu } from './actions';
 
 type DrawerState = {
   navbarMobileMenuOpen: boolean;
