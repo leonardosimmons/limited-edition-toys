@@ -27,7 +27,6 @@ export const useNavbarStyles = makeStyles(
         [breakpoints.up('desktopSm')]: {
           marginTop: '1rem',
           padding: '.5rem 2.5rem',
-          backgroundColor: 'transparent',
           boxShadow: 'none',
         },
       },
