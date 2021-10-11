@@ -60,7 +60,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             </Typography>
           </Button>
           <Box className={styles.menuBox}>
-            {ui.status.isMobile ? <MobileMenu /> : <DesktopTabs />}
+            {ui.status.viewport === 'mobile' ? <MobileMenu /> : <DesktopTabs />}
           </Box>
         </Toolbar>
         <SearchBar />

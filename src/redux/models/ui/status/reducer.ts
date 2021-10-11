@@ -1,12 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { UiStatus, Viewport } from 'utils/types';
 import { setStatus, setViewportType } from '..';
 
-type UiStatus = {
-  current: 'completed' | 'error' | 'loading' | 'ready';
-  viewport: 'mobile' | 'desktop' | undefined;
+type UiState = {
+  current: UiStatus;
+  viewport: Viewport;
 };
 
-const initialState: UiStatus = {
+const initialState: UiState = {
   current: 'ready',
   viewport: undefined,
 };

@@ -1,20 +1,21 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { OverlayState } from 'utils/types';
 import { closeNavbarSearchMenu, openNavbarSearchMenu } from './actions';
 
 type PopupState = {
-  navbarSearchMenuOpen: boolean;
+  navbarSearchMenu: OverlayState;
 };
 
 const initialState: PopupState = {
-  navbarSearchMenuOpen: false,
+  navbarSearchMenu: 'closed',
 };
 
 export const popupReducer = createReducer(initialState, (builder) =>
   builder
     .addCase(openNavbarSearchMenu, (state) => {
-      state.navbarSearchMenuOpen = true;
+      state.navbarSearchMenu = 'open';
     })
     .addCase(closeNavbarSearchMenu, (state) => {
-      state.navbarSearchMenuOpen = false;
+      state.navbarSearchMenu = 'closed';
     }),
 );

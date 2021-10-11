@@ -1,20 +1,21 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { OverlayState } from 'utils/types';
 import { openNavbarMobileMenu, closeNavbarMobileMenu } from './actions';
 
 type DrawerState = {
-  navbarMobileMenuOpen: boolean;
+  navbarMobileMenu: OverlayState;
 };
 
 const initialState: DrawerState = {
-  navbarMobileMenuOpen: false,
+  navbarMobileMenu: 'closed',
 };
 
 export const drawerReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(closeNavbarMobileMenu, (state) => {
-      state.navbarMobileMenuOpen = false;
+      state.navbarMobileMenu = 'closed';
     })
     .addCase(openNavbarMobileMenu, (state) => {
-      state.navbarMobileMenuOpen = true;
+      state.navbarMobileMenu = 'open';
     });
 });

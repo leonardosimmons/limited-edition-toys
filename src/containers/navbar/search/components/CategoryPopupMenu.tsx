@@ -35,16 +35,16 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
       id={Id.NAVBAR_SEARCH_MENU}
       anchorEl={anchorEl}
       getContentAnchorEl={undefined}
-      open={ui.popups.navbarSearchMenuOpen}
+      open={ui.navbar.searchMenuOpen}
       elevation={2}
       onClose={menuClose}
       anchorOrigin={
-        ui.status.isMobile
+        ui.status.viewport === 'mobile'
           ? undefined
           : { vertical: 'bottom', horizontal: 'right' }
       }
       transformOrigin={
-        ui.status.isMobile
+        ui.status.viewport === 'mobile'
           ? undefined
           : { vertical: 'top', horizontal: 'center' }
       }

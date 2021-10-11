@@ -66,7 +66,7 @@ const SearchBar: React.FunctionComponent = (): JSX.Element => {
           onMouseOver={handleMenuOpen}
           aria-owns={Id.NAVBAR_SEARCH_MENU}
           aria-controls={Id.NAVBAR_SEARCH_MENU}
-          aria-expanded={ui.popups.navbarSearchMenuOpen ? 'true' : undefined}>
+          aria-expanded={ui.navbar.searchMenuOpen ? 'true' : undefined}>
           <MenuIcon />
         </IconButton>
         <Divider className={styles.divider} orientation="vertical" />

@@ -7,8 +7,10 @@ import { uiStatusSelector } from './status/selectors';
 export const uiSelector = createSelector(
   [drawerSelector, popupSelector, uiStatusSelector],
   (drawer, popup, status) => ({
-    drawers: drawer,
-    popups: popup,
+    navbar: {
+      searchMenuOpen: popup.navbarSearchMenuOpen,
+      mobileMenuOpen: drawer.navbarMobileMenuOpen,
+    },
     status,
   }),
 );

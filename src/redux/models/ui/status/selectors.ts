@@ -8,11 +8,6 @@ export const uiStatusSelector = createSelector(
   [getStatus, getViewport],
   (status, viewport) => ({
     current: status,
-    isMobile:
-      viewport === 'mobile' && viewport !== undefined
-        ? true
-        : viewport === 'desktop'
-        ? false
-        : undefined,
+    viewport,
   }),
 );

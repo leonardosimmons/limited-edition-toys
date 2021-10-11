@@ -46,7 +46,7 @@ const MobileMenu: React.FunctionComponent<Props> = (): JSX.Element => {
     <React.Fragment>
       <SwipeableDrawer
         anchor="right"
-        open={ui.drawers.navbarMobileMenuOpen}
+        open={ui.navbar.mobileMenuOpen}
         onOpen={handleDrawerToggle(true)}
         onClose={handleDrawerToggle(false)}
         classes={{ paper: styles.menuDrawer }}>
