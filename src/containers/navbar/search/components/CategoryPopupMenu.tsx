@@ -1,6 +1,10 @@
 import React from 'react';
-import { NextLinkComposed } from 'lib/components/NextLinkComposed';
+import { useAppSelector } from 'src/redux';
+import { uiSelector } from 'src/redux/models/ui';
+import { ProductTagInfo } from 'src/models/product/types';
 import { Id } from 'utils/keys';
+
+import { useProductTags } from 'src/models/product/queries';
 
 import { useSearchBarStyles } from '../SearchBarStyles';
 
@@ -8,25 +12,22 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import { useAppSelector } from 'src/redux';
-import { uiSelector } from 'src/redux/models/ui';
 
 type Props = {
   anchorEl: null | HTMLElement;
-  open: boolean;
   menuClose: () => void;
 };
 
 const CategoryPopupMenu: React.FunctionComponent<Props> = ({
   anchorEl,
-  open,
   menuClose,
 }): JSX.Element => {
   const styles = useSearchBarStyles();
   const ui = useAppSelector(uiSelector);
+  const { status, data: tags, error } = useProductTags();
 
   const handleMenuItemClick = (e: React.MouseEvent<HTMLLIElement>): void => {
-    // fetch selected category(s) from db
+    // go to selected category page
   };
 
   return (
@@ -34,8 +35,8 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
       id={Id.NAVBAR_SEARCH_MENU}
       anchorEl={anchorEl}
       getContentAnchorEl={undefined}
-      open={open}
-      elevation={4}
+      open={ui.popups.navbarSearchMenuOpen}
+      elevation={2}
       onClose={menuClose}
       anchorOrigin={
         ui.status.isMobile
@@ -59,37 +60,15 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
         Categories
       </Typography>
       <Divider />
-      <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
-        Test Row One
-      </MenuItem>
-      <Divider />
-      <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
-        Test Row One
-      </MenuItem>
-      <Divider />
-      <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
-        Test Row One
-      </MenuItem>
-      <Divider />
-      <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
-        Test Row One
-      </MenuItem>
-      <Divider />
-      <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
-        Test Row One
-      </MenuItem>
-      <Divider />
-      <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
-        Test Row One
-      </MenuItem>
-      <Divider />
-      <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
-        Test Row One
-      </MenuItem>
-      <Divider />
-      <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
-        Test Row One
-      </MenuItem>
+      {tags &&
+        tags.map((t: ProductTagInfo, index: number) => (
+          <MenuItem
+            key={index}
+            className={styles.menuItem}
+            onClick={handleMenuItemClick}>
+            {status === 'loading' ? '...' : t.name}
+          </MenuItem>
+        ))}
     </Menu>
   );
 };

@@ -15,3 +15,7 @@ export enum Images {
 export enum Links {
   HOME = '/',
 }
+
+export enum Queries {
+  PRODUCT_TAGS = 'product-tags',
+}
