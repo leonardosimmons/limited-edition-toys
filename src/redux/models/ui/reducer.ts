@@ -5,7 +5,7 @@ import { popupReducer } from './popup/reducer';
 import { uiStatusReducer } from './status/reducer';
 
 export const uiReducer = combineReducers({
-  drawer: drawerReducer,
-  popup: popupReducer,
+  drawers: drawerReducer,
+  popups: popupReducer,
   status: uiStatusReducer,
 });

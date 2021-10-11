@@ -87,11 +87,7 @@ const SearchBar: React.FunctionComponent = (): JSX.Element => {
           <SearchIcon />
         </IconButton>
       </Paper>
-      <CategoryPopupMenu
-        anchorEl={anchorEl}
-        open={ui.popups.navbarSearchMenuOpen}
-        menuClose={handleMenuClose}
-      />
+      <CategoryPopupMenu anchorEl={anchorEl} menuClose={handleMenuClose} />
     </React.Fragment>
   );
 };
