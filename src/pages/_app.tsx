@@ -2,16 +2,16 @@ import React from 'react';
 import { store } from 'src/redux';
 import type { AppProps } from 'next/app';
 import { Provider as StoreProvider } from 'react-redux';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import * as theme from 'theme';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import StylesProvider from '@material-ui/styles/StylesProvider';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [queryClient] = React.useState<QueryClient>(() => new QueryClient());
+
   React.useEffect(() => {
     const serverStyles = document.querySelector('#jss-server-side');
     if (serverStyles) {
@@ -21,14 +21,16 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <StoreProvider store={store}>
-        <ThemeProvider theme={theme.main}>
-          <StylesProvider injectFirst>
-            <CssBaseline />
-            <Component {...pageProps} />
-          </StylesProvider>
-        </ThemeProvider>
-      </StoreProvider>
+      <Hydrate state={pageProps.dehydratedState}>
+        <StoreProvider store={store}>
+          <ThemeProvider theme={theme.main}>
+            <StylesProvider injectFirst>
+              <CssBaseline />
+              <Component {...pageProps} />
+            </StylesProvider>
+          </ThemeProvider>
+        </StoreProvider>
+      </Hydrate>
     </QueryClientProvider>
   );
 }
