@@ -6,7 +6,7 @@ import { Id } from 'utils/keys';
 
 import { useProductTags } from 'src/models/product/queries';
 
-import { useSearchBarStyles } from '../SearchBarStyles';
+import { useTagSearchStyles } from '../TagSearchStyles';
 
 import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
@@ -23,7 +23,7 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
   anchorEl,
   menuClose,
 }): JSX.Element => {
-  const styles = useSearchBarStyles();
+  const styles = useTagSearchStyles();
   const ui = useAppSelector(uiSelector);
   const { status, data: tags, error } = useProductTags();
 
@@ -63,7 +63,7 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
       transitionDuration={300}
       MenuListProps={{ onMouseLeave: menuClose }}>
       <Typography variant="h3" className={styles.menuTitle}>
-        Categories
+        {'Search'}
       </Typography>
       {tags &&
         tags.map((t: ProductTagInfo, index: number) => (

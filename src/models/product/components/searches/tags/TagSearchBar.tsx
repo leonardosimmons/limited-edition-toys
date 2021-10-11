@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useSearchBarStyles } from './SearchBarStyles';
+import { useTagSearchStyles } from './TagSearchStyles';
 import { Id } from 'utils/keys';
 
 import Paper from '@material-ui/core/Paper';
@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import CategoryPopupMenu from './components/CategoryPopupMenu';
+import TagPopupMenu from './components/TagPopupMenu';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import {
   closeNavbarSearchMenu,
@@ -18,8 +18,8 @@ import {
   uiSelector,
 } from 'src/redux/models/ui';
 
-const SearchBar: React.FunctionComponent = (): JSX.Element => {
-  const styles = useSearchBarStyles();
+const TagSearchBar: React.FunctionComponent = (): JSX.Element => {
+  const styles = useTagSearchStyles();
   const dispatch = useAppDispatch();
   const ui = useAppSelector(uiSelector);
 
@@ -89,9 +89,9 @@ const SearchBar: React.FunctionComponent = (): JSX.Element => {
           <SearchIcon />
         </IconButton>
       </Paper>
-      <CategoryPopupMenu anchorEl={anchorEl} menuClose={handleMenuClose} />
+      <TagPopupMenu anchorEl={anchorEl} menuClose={handleMenuClose} />
     </React.Fragment>
   );
 };
 
-export default SearchBar;
+export default TagSearchBar;

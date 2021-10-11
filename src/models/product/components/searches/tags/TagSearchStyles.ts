@@ -1,7 +1,7 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import createStyles from '@material-ui/styles/createStyles';
 
-export const useSearchBarStyles = makeStyles(
+export const useTagSearchStyles = makeStyles(
   ({ breakpoints, palette, zIndex }: Theme) =>
     createStyles({
       divider: {

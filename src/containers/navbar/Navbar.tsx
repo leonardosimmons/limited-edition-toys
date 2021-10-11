@@ -18,7 +18,7 @@ import Button from '@material-ui/core/Button';
 import ElevationScroll from 'lib/components/ElevationScroll';
 import DesktopTabs from './desktop/DesktopTabs';
 import MobileMenu from './mobile/MobileMenu';
-import SearchBar from './search/SearchBar';
+import TagSearchBar from 'src/models/product/components/searches/tags';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   useViewport();
@@ -60,7 +60,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
                 <span>{'Toys'}</span>
               </Typography>
             </Button>
-            <SearchBar />
+            <TagSearchBar />
           </Box>
           <Box className={styles.menuBox}>
             {ui.status.viewport === 'mobile' ? <MobileMenu /> : <DesktopTabs />}
