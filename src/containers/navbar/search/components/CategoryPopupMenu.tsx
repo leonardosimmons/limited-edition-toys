@@ -8,6 +8,7 @@ import { useProductTags } from 'src/models/product/queries';
 
 import { useSearchBarStyles } from '../SearchBarStyles';
 
+import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
@@ -39,14 +40,18 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
       elevation={2}
       onClose={menuClose}
       anchorOrigin={
-        ui.status.viewport === 'mobile'
-          ? undefined
-          : { vertical: 'bottom', horizontal: 'right' }
+        (ui.status.viewport === 'desktop' && {
+          vertical: 'bottom',
+          horizontal: 'right',
+        }) ||
+        undefined
       }
       transformOrigin={
-        ui.status.viewport === 'mobile'
-          ? undefined
-          : { vertical: 'top', horizontal: 'center' }
+        (ui.status.viewport === 'desktop' && {
+          vertical: 'top',
+          horizontal: 'center',
+        }) ||
+        undefined
       }
       classes={{ paper: styles.menu }}
       PaperProps={{
@@ -55,19 +60,19 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
           width: '15ch',
         },
       }}
+      transitionDuration={300}
       MenuListProps={{ onMouseLeave: menuClose }}>
       <Typography variant="h3" className={styles.menuTitle}>
         Categories
       </Typography>
-      <Divider />
       {tags &&
         tags.map((t: ProductTagInfo, index: number) => (
-          <MenuItem
-            key={index}
-            className={styles.menuItem}
-            onClick={handleMenuItemClick}>
-            {status === 'loading' ? '...' : t.name}
-          </MenuItem>
+          <Box key={index}>
+            <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
+              {status === 'loading' ? '...' : t.name}
+            </MenuItem>
+            <Divider className={styles.tabDivider} />
+          </Box>
         ))}
     </Menu>
   );

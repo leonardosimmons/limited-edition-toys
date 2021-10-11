@@ -17,6 +17,10 @@ export const useMobileMenuStyles = makeStyles(
 
       listText: {
         fontSize: '1rem',
+        fontFamily: 'Jost, sans-serif',
+        fontWeight: 700,
+        letterSpacing: 1.6,
+        color: palette.grey[700],
       },
 
       menuButtonContainer: {
@@ -39,6 +43,12 @@ export const useMobileMenuStyles = makeStyles(
       menuButton: {
         height: '40px',
         width: '40px',
+        [breakpoints.up('mobileLg')]: {
+          margin: '0 .25rem',
+        },
+        [breakpoints.up('tabletMd')]: {
+          margin: '0 .5rem',
+        },
       },
 
       menuDrawer: {

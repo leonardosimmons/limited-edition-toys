@@ -47,23 +47,25 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
               role="img"
             />
           </Box>
-          <Button
-            disableRipple
-            onClick={handleLogoClick}
-            className={styles.titleButton}>
-            <Typography
-              variant="h1"
-              className={styles.title}
-              aria-label="Main Heading">
-              <span>{'LIMITED EDITION'}</span>
-              <span>{'Toys'}</span>
-            </Typography>
-          </Button>
+          <Box className={styles.titleBox}>
+            <Button
+              disableRipple
+              onClick={handleLogoClick}
+              className={styles.titleButton}>
+              <Typography
+                variant="h1"
+                className={styles.title}
+                aria-label="Main Heading">
+                <span>{'LIMITED EDITION'}</span>
+                <span>{'Toys'}</span>
+              </Typography>
+            </Button>
+            <SearchBar />
+          </Box>
           <Box className={styles.menuBox}>
             {ui.status.viewport === 'mobile' ? <MobileMenu /> : <DesktopTabs />}
           </Box>
         </Toolbar>
-        <SearchBar />
       </AppBar>
     </ElevationScroll>
   );

@@ -14,6 +14,9 @@ export const useNavbarStyles = makeStyles(
         [breakpoints.up('desktopSm')]: {
           flex: '0 1 30%',
         },
+        [breakpoints.up('desktopMd')]: {
+          flex: '0 1 25%',
+        },
       },
 
       navbar: {
@@ -21,12 +24,11 @@ export const useNavbarStyles = makeStyles(
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: '.35rem .5rem',
-        backgroundColor: `rgba(${Color.PRIMARY_RGB}, 0.2)`,
+        padding: '.35rem .35rem',
+        backgroundColor: `rgba(${Color.PRIMARY_RGB}, 0.35)`,
         boxShadow: shadows[3],
         [breakpoints.up('desktopSm')]: {
-          marginTop: '1rem',
-          padding: '.5rem 2.5rem',
+          padding: '0 1.5rem',
           boxShadow: 'none',
         },
       },
@@ -47,11 +49,19 @@ export const useNavbarStyles = makeStyles(
           alignItems: 'center',
         },
         [breakpoints.up('tabletLg')]: {
+          marginRight: 'auto',
           transform: 'scale(1)',
         },
         [breakpoints.up('desktopSm')]: {
           flex: '0 1 30%',
           justifyContent: 'flex-start',
+        },
+        [breakpoints.up('desktopMd')]: {
+          flex: '0 1 25%',
+          transform: 'scale(1.2)',
+        },
+        [breakpoints.up('desktopMd')]: {
+          marginLeft: '1rem',
         },
       },
 
@@ -72,7 +82,7 @@ export const useNavbarStyles = makeStyles(
           textShadow: `4px 4px 0 ${palette.secondary.dark}, -1px -1px 0 ${palette.secondary.dark}, 1px -1px 0 ${palette.secondary.dark}, -1px 1px 0 ${palette.secondary.dark}, 1px 1px 0 ${palette.secondary.dark}`,
         },
         [breakpoints.up('tabletLg')]: {
-          flexDirection: 'column',
+          //flexDirection: 'column',
         },
         '& span:nth-child(1)': {
           marginRight: '5px',
@@ -91,10 +101,13 @@ export const useNavbarStyles = makeStyles(
           },
           [breakpoints.up('tabletLg')]: {
             fontSize: '2.5rem',
-            margin: 0,
+            marginRight: '15px',
+          },
+          [breakpoints.up('desktopSm')]: {
+            fontSize: '2.25rem',
           },
           [breakpoints.up('desktopMd')]: {
-            fontSize: '3.5rem',
+            fontSize: '3.25rem',
           },
         },
         '& span:nth-child(2)': {
@@ -106,11 +119,14 @@ export const useNavbarStyles = makeStyles(
             fontSize: '2.5rem',
           },
           [breakpoints.up('tabletLg')]: {
-            fontSize: '3.5rem',
+            fontSize: '3rem',
             margin: 0,
           },
+          [breakpoints.up('desktopSm')]: {
+            fontSize: '2.75rem',
+          },
           [breakpoints.up('desktopMd')]: {
-            fontSize: '4.25rem',
+            fontSize: '3.5rem',
           },
         },
       },
@@ -124,18 +140,19 @@ export const useNavbarStyles = makeStyles(
         },
         [breakpoints.up('mobileLg')]: {
           justifyContent: 'center',
-          padding: '1rem',
         },
       },
 
+      titleBox: {
+        flex: 1,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      },
+
       toolbar: {
-        height: '50px',
-        [breakpoints.up('mobileMd')]: {
-          height: '40px',
-        },
-        [breakpoints.up('tabletLg')]: {
-          height: '100%',
-        },
+        height: '100%',
       },
     }),
 );

@@ -23,8 +23,10 @@ const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
       <Button startIcon={<FaceTwoTone />} className={styles.button}>
         My Account
       </Button>
-      <Divider orientation="vertical" flexItem className={styles.divider} />
-      <IconButton aria-label="shopping cart" size="small">
+      <IconButton
+        aria-label="shopping cart"
+        size="small"
+        className={styles.cartIcon}>
         <ShoppingCartTwoToneIcon fontSize="inherit" />
       </IconButton>
     </React.Fragment>

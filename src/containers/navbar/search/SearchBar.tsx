@@ -61,6 +61,7 @@ const SearchBar: React.FunctionComponent = (): JSX.Element => {
           id={Id.NAVBAR_SEARCH_MENU}
           aria-label="product category menu"
           className={styles.icon}
+          classes={{ root: styles.menuIcon }}
           onBlur={handleMenuClose}
           onFocus={handleMenuOpen}
           onMouseOver={handleMenuOpen}
@@ -82,7 +83,8 @@ const SearchBar: React.FunctionComponent = (): JSX.Element => {
         <IconButton
           type="submit"
           aria-label="search"
-          className={styles.icon}
+          disableRipple
+          className={`${styles.icon} ${styles.searchIcon} .Mui-focusVisible`}
           onClick={handleEnteredSearch}>
           <SearchIcon />
         </IconButton>
