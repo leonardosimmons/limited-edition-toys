@@ -32,7 +32,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # User
-/public
 temp.tsx
 .vscode
 favicon.ico
