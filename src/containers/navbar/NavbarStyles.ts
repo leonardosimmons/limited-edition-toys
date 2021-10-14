@@ -15,7 +15,7 @@ export const useNavbarStyles = makeStyles(
           flex: '0 1 30%',
         },
         [breakpoints.up('desktopMd')]: {
-          flex: '0 1 25%',
+          flex: '0 1 30%',
         },
       },
 
