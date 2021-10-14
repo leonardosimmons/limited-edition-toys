@@ -8,6 +8,7 @@ export const uiSelector = createSelector(
   [drawerSelector, popupSelector, uiStatusSelector],
   (drawer, popup, status) => ({
     navbar: {
+      categoryMenuOpen: popup.categorySearchMenuOpen,
       searchMenuOpen: popup.navbarSearchMenuOpen,
       mobileMenuOpen: drawer.navbarMobileMenuOpen,
     },

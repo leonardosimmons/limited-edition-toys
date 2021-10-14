@@ -19,6 +19,7 @@ import ElevationScroll from 'lib/components/ElevationScroll';
 import DesktopTabs from './desktop/DesktopTabs';
 import MobileMenu from './mobile/MobileMenu';
 import TagSearchBar from 'src/models/product/components/searches/tags';
+import CategorySearchBar from 'src/models/product/components/searches/categories/CategorySearchBar';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   useViewport();
@@ -33,40 +34,49 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <ElevationScroll>
-      <AppBar
-        position="fixed"
-        aria-label="Main header"
-        className={styles.navbar}>
-        <Toolbar disableGutters className={styles.toolbar}>
-          <Box className={styles.promoBox} aria-label="promotional box">
-            <Image
-              src={Images.NAVBAR_PROMO}
-              alt={'promo image'}
-              height={100}
-              width={200}
-              role="img"
-            />
-          </Box>
-          <Box className={styles.titleBox}>
-            <Button
-              disableRipple
-              onClick={handleLogoClick}
-              className={styles.titleButton}>
-              <Typography
-                variant="h1"
-                className={styles.title}
-                aria-label="Main Heading">
-                <span>{'LIMITED EDITION'}</span>
-                <span>{'Toys'}</span>
-              </Typography>
-            </Button>
-            <TagSearchBar />
-          </Box>
-          <Box className={styles.menuBox}>
-            {ui.status.viewport === 'mobile' ? <MobileMenu /> : <DesktopTabs />}
-          </Box>
-        </Toolbar>
-      </AppBar>
+      <React.Fragment>
+        <AppBar
+          position="fixed"
+          aria-label="Main header"
+          className={styles.navbar}>
+          <Toolbar disableGutters className={styles.toolbar}>
+            <Box className={styles.promoBox} aria-label="promotional box">
+              <Image
+                src={Images.NAVBAR_PROMO}
+                alt={'promo image'}
+                height={100}
+                width={200}
+                role="img"
+              />
+            </Box>
+            <Box className={styles.titleBox}>
+              <Button
+                disableRipple
+                onClick={handleLogoClick}
+                className={styles.titleButton}>
+                <Typography
+                  variant="h1"
+                  className={styles.title}
+                  aria-label="Main Heading">
+                  <span>{'LIMITED EDITION'}</span>
+                  <span>{'Toys'}</span>
+                </Typography>
+              </Button>
+              <TagSearchBar />
+            </Box>
+            <Box className={styles.menuBox}>
+              {ui.status.viewport === 'mobile' ? (
+                <MobileMenu />
+              ) : (
+                <DesktopTabs />
+              )}
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <div className={styles.navbarOffset} />
+        <div className={styles.navbarOffset} />
+        {ui.status.viewport === 'desktop' && <CategorySearchBar />}
+      </React.Fragment>
     </ElevationScroll>
   );
 };

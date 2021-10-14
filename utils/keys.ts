@@ -6,6 +6,7 @@ export enum Color {
 
 export enum Id {
   NAVBAR_SEARCH_MENU = 'navbar-search-menu',
+  CATEGORY_SEARCH_BAR = 'category-search-bar',
 }
 
 export enum Images {
