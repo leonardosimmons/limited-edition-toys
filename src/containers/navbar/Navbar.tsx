@@ -8,7 +8,7 @@ import { useViewport } from 'src/helpers/useViewport';
 
 import { useNavbarStyles } from './NavbarStyles';
 
-import Image from 'next/Image';
+import Image from 'next/image';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
