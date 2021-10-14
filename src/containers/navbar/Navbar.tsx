@@ -38,7 +38,8 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
         <AppBar
           position="fixed"
           aria-label="Main header"
-          className={styles.navbar}>
+          className={styles.navbar}
+          classes={{ colorPrimary: styles.navbarColors }}>
           <Toolbar disableGutters className={styles.toolbar}>
             <Box className={styles.promoBox} aria-label="promotional box">
               <Image

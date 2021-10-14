@@ -86,6 +86,11 @@ export const useCategorySearchStyles = makeStyles(
         alignItems: 'center',
       },
 
+      productContainerRoot: {
+        display: 'flex',
+        flexDirection: 'row',
+      },
+
       productBox: {
         height: '100%',
         width: '200px',

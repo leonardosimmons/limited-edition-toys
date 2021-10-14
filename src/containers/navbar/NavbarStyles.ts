@@ -33,6 +33,11 @@ export const useNavbarStyles = makeStyles(
         },
       },
 
+      navbarColors: {
+        color: '#fff',
+        backgroundColor: '#bbdcff',
+      },
+
       navbarOffset: {
         ...mixins.toolbar,
       },

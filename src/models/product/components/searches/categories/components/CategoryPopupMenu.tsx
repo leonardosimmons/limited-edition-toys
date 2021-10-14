@@ -34,7 +34,7 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
       id={Id.CATEGORY_SEARCH_BAR}
       anchorEl={anchorEl}
       getContentAnchorEl={undefined}
-      open={true}
+      open={ui.navbar.categoryMenuOpen}
       elevation={2}
       onClose={menuClose}
       anchorOrigin={
@@ -56,7 +56,9 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
       MenuListProps={{ onMouseLeave: menuClose }}>
       <Box className={styles.menuContainer}>
         <CategoryListMenu activeIndex={activeIndex} />
-        <Container className={styles.productContainer}>
+        <Container
+          className={styles.productContainer}
+          classes={{ root: styles.productContainerRoot }}>
           <CategoryProductPreview />
           <CategoryProductPreview />
           <CategoryProductPreview />
