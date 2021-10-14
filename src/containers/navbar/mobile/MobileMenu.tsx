@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useMobileMenuStyles } from './MobileMenuStyles';
 
-import Image from 'next/Image';
+import Image from 'next/image';
 import Box from '@material-ui/core/Box';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Typography from '@material-ui/core/Typography';

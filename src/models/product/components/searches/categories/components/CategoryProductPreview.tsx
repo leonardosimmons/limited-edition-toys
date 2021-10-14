@@ -3,7 +3,7 @@ import React from 'react';
 import { useCategorySearchStyles } from '../CategorySearchStyles';
 
 import Box from '@material-ui/core/Box';
-import Image from 'next/Image';
+import Image from 'next/image';
 
 type Props = {};
 
