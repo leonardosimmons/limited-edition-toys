@@ -25,7 +25,7 @@ export const useNavbarStyles = makeStyles(
         flexDirection: 'column',
         justifyContent: 'center',
         padding: '.35rem .35rem',
-        backgroundColor: `rgba(${Color.PRIMARY_RGB}, 0.35)`,
+        backgroundColor: Color.NAVBAR_BACKGROUND,
         boxShadow: shadows[3],
         [breakpoints.up('desktopSm')]: {
           padding: '0 1.5rem',

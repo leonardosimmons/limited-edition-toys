@@ -58,6 +58,7 @@ const CategorySearchBar: React.FunctionComponent = (): JSX.Element => {
               className={styles.tab}
               aria-haspopup={tab.ariaPopup}
               onMouseOver={handleMenuOpen}
+              classes={{ wrapper: styles.tabWrapper }}
             />
           ))}
         </Tabs>

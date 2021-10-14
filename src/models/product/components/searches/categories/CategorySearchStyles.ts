@@ -43,6 +43,9 @@ export const useCategorySearchStyles = makeStyles(
         minWidth: 0,
         padding: 0,
         margin: '0 .5rem',
+      },
+
+      tabWrapper: {
         fontSize: '.9rem',
         [breakpoints.up('desktopMd')]: {
           margin: '0 1rem',
