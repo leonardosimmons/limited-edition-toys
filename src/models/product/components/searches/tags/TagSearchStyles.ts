@@ -40,10 +40,10 @@ export const useTagSearchStyles = makeStyles(
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: zIndex.modal + 2,
-        // paddingTop: '12rem',
-        // [breakpoints.up('tabletSm')]: {
-        //   paddingTop: '10rem',
-        // },
+        paddingTop: '12rem',
+        [breakpoints.up('tabletSm')]: {
+          paddingTop: '10rem',
+        },
       },
 
       menuItem: {
@@ -67,13 +67,13 @@ export const useTagSearchStyles = makeStyles(
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        //marginTop: '14rem',
-        // marginBottom: '.5rem',
+        marginTop: '14rem',
+        marginBottom: '.5rem',
         marginLeft: '20px',
         fontSize: '1.2rem',
         fontWeight: 'bold',
         [breakpoints.up(600)]: {
-          //marginTop: '10rem',
+          marginTop: '10rem',
         },
       },
 
