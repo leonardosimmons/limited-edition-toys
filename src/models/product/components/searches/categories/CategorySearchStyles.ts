@@ -40,6 +40,9 @@ export const useCategorySearchStyles = makeStyles(
         '& div > div.MuiTabs-flexContainer': {
           justifyContent: 'center',
           alignItems: 'center',
+          '& > a.MuiTab-root': {
+            minWidth: 0,
+          },
         },
       },
 

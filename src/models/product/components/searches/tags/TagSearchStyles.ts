@@ -40,10 +40,10 @@ export const useTagSearchStyles = makeStyles(
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: zIndex.modal + 2,
-        paddingTop: '12rem',
-        [breakpoints.up('tabletSm')]: {
-          paddingTop: '10rem',
-        },
+        // paddingTop: '12rem',
+        // [breakpoints.up('tabletSm')]: {
+        //   paddingTop: '10rem',
+        // },
       },
 
       menuItem: {
