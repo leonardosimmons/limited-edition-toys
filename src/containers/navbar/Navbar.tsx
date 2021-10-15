@@ -39,7 +39,10 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
           position="fixed"
           aria-label="Main header"
           className={styles.navbar}
-          classes={{ colorPrimary: styles.navbarColors }}>
+          classes={{
+            root: styles.navbarColors,
+            colorPrimary: styles.navbarColors,
+          }}>
           <Toolbar disableGutters className={styles.toolbar}>
             <Box className={styles.promoBox} aria-label="promotional box">
               <Image
@@ -54,7 +57,8 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
               <Button
                 disableRipple
                 onClick={handleLogoClick}
-                className={styles.titleButton}>
+                className={styles.titleButton}
+                classes={{ text: styles.titleButton }}>
                 <Typography
                   variant="h1"
                   className={styles.title}

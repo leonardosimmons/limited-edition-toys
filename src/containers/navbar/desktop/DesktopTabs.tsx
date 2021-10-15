@@ -19,7 +19,11 @@ const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
       <Button startIcon={<AssignmentTwoToneIcon />} className={styles.button}>
         Wishlist
       </Button>
-      <Divider orientation="vertical" flexItem className={styles.divider} />
+      <Divider
+        orientation="vertical"
+        flexItem
+        classes={{ root: styles.divider }}
+      />
       <Button startIcon={<FaceTwoTone />} className={styles.button}>
         My Account
       </Button>

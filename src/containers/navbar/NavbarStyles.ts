@@ -34,8 +34,8 @@ export const useNavbarStyles = makeStyles(
       },
 
       navbarColors: {
-        color: '#fff',
-        backgroundColor: '#bbdcff',
+        color: '#fff !important',
+        backgroundColor: '#bbdcff !important',
       },
 
       navbarOffset: {
