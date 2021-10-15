@@ -11,6 +11,17 @@ export const useNavbarStyles = makeStyles(
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
+        '& > hr.MuiDivider-root': {
+          height: '60%',
+          backgroundColor: palette.grey[500],
+          margin: 'auto 10px',
+          [breakpoints.up('desktopSm')]: {
+            margin: 'auto 10px',
+          },
+          [breakpoints.up('desktopLg')]: {
+            margin: 'auto 20px',
+          },
+        },
         [breakpoints.up('desktopSm')]: {
           flex: '0 1 30%',
         },
