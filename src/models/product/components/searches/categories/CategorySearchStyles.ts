@@ -42,6 +42,7 @@ export const useCategorySearchStyles = makeStyles(
           alignItems: 'center',
           '& > a.MuiTab-root': {
             minWidth: 0,
+            padding: 0,
           },
         },
       },

@@ -56,7 +56,7 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
       classes={{ paper: styles.menu }}
       PaperProps={{
         style: {
-          maxHeight: 48 * 4.5,
+          maxHeight: 48 * 5.5,
           width: '15ch',
         },
       }}

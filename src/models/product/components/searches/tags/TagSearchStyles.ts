@@ -68,7 +68,7 @@ export const useTagSearchStyles = makeStyles(
         justifyContent: 'flex-start',
         alignItems: 'center',
         //marginTop: '14rem',
-        marginBottom: '.5rem',
+        // marginBottom: '.5rem',
         marginLeft: '20px',
         fontSize: '1.2rem',
         fontWeight: 'bold',
