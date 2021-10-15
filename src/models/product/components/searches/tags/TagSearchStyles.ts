@@ -54,9 +54,11 @@ export const useTagSearchStyles = makeStyles(
         marginLeft: '20px',
         padding: 0,
         opacity: 0.7,
-        fontSize: '1rem',
         '&:hover': {
           opacity: 1,
+        },
+        '& li.MuiMenuItem-root': {
+          fontSize: '1rem',
         },
         [breakpoints.up(600)]: {
           padding: '.5rem',
