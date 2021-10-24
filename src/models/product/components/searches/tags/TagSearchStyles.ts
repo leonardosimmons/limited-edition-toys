@@ -57,6 +57,7 @@ export const useTagSearchStyles = makeStyles(
         '&:hover': {
           opacity: 1,
         },
+        fontSize: '1rem',
         '& li.MuiMenuItem-root': {
           fontSize: '1rem',
         },

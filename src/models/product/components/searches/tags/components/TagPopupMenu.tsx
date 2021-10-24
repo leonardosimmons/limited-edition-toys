@@ -37,7 +37,7 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
       anchorEl={anchorEl}
       getContentAnchorEl={undefined}
       open={ui.navbar.searchMenuOpen}
-      elevation={2}
+      elevation={1}
       onClose={menuClose}
       anchorOrigin={
         (ui.status.viewport === 'desktop' && {
