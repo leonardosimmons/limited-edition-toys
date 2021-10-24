@@ -3,7 +3,7 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { Queries } from 'utils/keys';
 
-import { getProductTags } from 'src/models/product/queries';
+import { getProductTags } from 'models/product/queries';
 
 import Layout from 'src/containers/Layout';
 

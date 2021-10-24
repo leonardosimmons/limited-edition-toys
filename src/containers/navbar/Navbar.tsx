@@ -4,7 +4,7 @@ import { Images, Links } from 'utils/keys';
 
 import { useAppSelector } from 'src/redux';
 import { uiSelector } from 'src/redux/models/ui';
-import { useViewport } from 'src/helpers/useViewport';
+import { useViewport } from 'lib/hooks/useViewport';
 
 import { useNavbarStyles } from './NavbarStyles';
 
@@ -18,8 +18,8 @@ import Button from '@material-ui/core/Button';
 import ElevationScroll from 'lib/components/ElevationScroll';
 import DesktopTabs from './desktop/DesktopTabs';
 import MobileMenu from './mobile/MobileMenu';
-import TagSearchBar from 'src/models/product/components/searches/tags';
-import CategorySearchBar from 'src/models/product/components/searches/categories/CategorySearchBar';
+import TagSearchBar from '../../../lib/components/searches/tags/TagSearchBar';
+import CategorySearchBar from '../../../lib/components/searches/categories/CategorySearchBar';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   useViewport();

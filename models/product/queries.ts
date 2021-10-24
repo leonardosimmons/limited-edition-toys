@@ -5,6 +5,8 @@ import { ProductTagInfo } from './types';
 
 const { NEXT_PUBLIC_PRODUCT_TAGS_API } = process.env;
 
+// [TAGS] Get All -------------------------------------------------
+
 export async function getProductTags(): Promise<ProductTagInfo[]> {
   return await axios
     .get(NEXT_PUBLIC_PRODUCT_TAGS_API as string)
