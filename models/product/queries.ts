@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { Queries } from 'utils/keys';
-import { ProductTagInfo } from './types';
+import { ProductPropertyOptions } from './types';
 
 const { NEXT_PUBLIC_PRODUCT_TAGS_API } = process.env;
 
 // [TAGS] Get All -------------------------------------------------
 
-export async function getProductTags(): Promise<ProductTagInfo[]> {
+export async function getProductTags(): Promise<ProductPropertyOptions[]> {
   return await axios
     .get(NEXT_PUBLIC_PRODUCT_TAGS_API as string)
     .then((res: any) => res.data);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppSelector } from 'src/redux';
 import { uiSelector } from 'src/redux/models/ui';
-import { ProductTagInfo } from 'models/product/types';
+import { ProductPropertyOptions } from 'models/product/types';
 import { Id } from 'utils/keys';
 
 import { useProductTags } from 'models/product/queries';
@@ -66,7 +66,7 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
         {'Search'}
       </Typography>
       {tags &&
-        tags.map((t: ProductTagInfo, index: number) => (
+        tags.map((t: ProductPropertyOptions, index: number) => (
           <Box key={index}>
             <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
               {status === 'loading' ? '...' : t.name}

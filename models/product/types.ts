@@ -1,22 +1,58 @@
-import { Combinable } from 'utils/types';
-
-export type ProductTagInfo = {
-  id: string;
+export type ProductType = {
+  id?: string;
   name: string;
-  deleted_at: Combinable;
-  version: number;
+  deleted_at?: string;
+  version?: number;
 };
+
+export type ProductPropertyOptions = Partial<ProductType>;
 
 export type Product = {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   handle: string;
   sku: string;
-  source: string;
-  source_id: string;
-  source_variant_id: string;
-  active: boolean;
-  has_inventory: boolean;
-  is_composite: boolean;
+  source?: string;
+  sourceId?: string;
+  sourceVariantId?: string;
+  active?: boolean;
+  hasInventory?: boolean;
+  isComposite?: boolean;
+  hasVariants?: boolean;
+  variantParentId?: string;
+  variantName?: string;
+  variantOptions?: {
+    name?: string;
+    value?: string;
+  };
+  variantCount?: number;
+  priceIncluding_tax?: number;
+  price_excluding_tax?: number;
+  supplyPrice?: number;
+  supplierID?: string;
+  supplierCode?: string;
+  supplier?: ProductPropertyOptions;
+  productTypeId?: string;
+  type?: ProductPropertyOptions;
+  brandId?: string;
+  brand?: ProductPropertyOptions;
+  tagIds?: string[];
+  categories?: ProductPropertyOptions[];
+  attributes?: {
+    key?: string;
+    value?: string;
+  }[];
+  imageUrl?: string;
+  imageThumbnailUrl?: string;
+  images?: {
+    id?: string;
+    url?: string;
+    version?: number;
+  }[];
+  loyaltyAmount?: number;
+  created_at?: string;
+  updated_at?: string;
+  deleted_at?: string;
+  version?: number;
 };
