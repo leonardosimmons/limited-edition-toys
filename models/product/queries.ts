@@ -4,16 +4,18 @@ import { useQuery } from 'react-query';
 import { Queries } from 'utils/keys';
 import { Product, ProductPropertyOptions } from './types';
 
+// Base Options
 const axios = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_API as string,
 });
 
 //* -------------------------------------------------
 // Get All Products
+
 export async function getAllProducts(
   version?: number,
   pageSize?: number,
-): Promise<VendResponse<Product>> {
+): Promise<VendResponse<Product[]>> {
   if (!version && !pageSize) {
     return await axios.get(`/products`).then((res: any) => res.data);
   }
@@ -37,10 +39,21 @@ export function useGetAllProducts(version?: number, pageSize?: number) {
 }
 
 //* -------------------------------------------------
-// Get Single Product
+// Get SINGLE Product by ID
+
+export async function getProductById(
+  id: string,
+): Promise<VendResponse<Product>> {
+  return await axios.get(`/products/${id}`).then((res: any) => res.data);
+}
+
+export function useGetProductById(id: string) {
+  return useQuery([Queries.PRODUCT_BY_ID, id], () => getProductById(id));
+}
 
 //* -------------------------------------------------
 // Get All Product Tags
+
 export async function getProductTags(): Promise<ProductPropertyOptions[]> {
   return await axios
     .get(process.env.NEXT_PUBLIC_PRODUCT_TAGS_API as string)
