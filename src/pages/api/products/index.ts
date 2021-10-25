@@ -16,13 +16,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.json(
       await Vend.get(`/products?after=${version}&page_size=${pageSize}`)
         .then((res) => res.data)
-        .then((vend: VendResponse<Product>) => vend),
+        .then((vend: VendResponse<Product[]>) => vend),
     );
   } else {
     res.json(
       await Vend.get(`/products`)
         .then((res) => res.data)
-        .then((vend: VendResponse<Product>) => vend),
+        .then((vend: VendResponse<Product[]>) => vend),
     );
   }
 };

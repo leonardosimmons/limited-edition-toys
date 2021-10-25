@@ -19,5 +19,6 @@ export enum Links {
 }
 
 export enum Queries {
+  ALL_PRODUCTS = 'products',
   PRODUCT_TAGS = 'product-tags',
 }
