@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export type VendResponse = {
-  data: any;
+export type VendResponse<T> = {
+  data: T;
   version: {
     min: number;
     max: number;
