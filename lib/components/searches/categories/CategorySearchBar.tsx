@@ -1,9 +1,9 @@
 import React from 'react';
-import { menuTabs, MenuTabs } from 'data/navbar-categories';
+import { MenuTab } from 'utils/types';
+import { productCategories } from 'data/navbar-categories';
 
 import { useCategorySearchStyles } from './CategorySearchStyles';
 
-import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -48,7 +48,7 @@ const CategorySearchBar: React.FunctionComponent = (): JSX.Element => {
           value={activeIndex || false}
           className={styles.tabs}
           onChange={handleTabChange}>
-          {menuTabs.map((tab: MenuTabs, index: number) => (
+          {productCategories.map((tab: MenuTab, index: number) => (
             <Tab
               key={index}
               to={tab.link}

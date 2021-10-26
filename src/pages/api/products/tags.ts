@@ -1,4 +1,5 @@
 import { Vend, VendResponse } from 'lib';
+import { ProductType } from 'models/product/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -11,6 +12,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   res.json(
     await Vend.get('/tags?page_size=12')
       .then((res) => res.data)
-      .then((vend: VendResponse) => vend.data),
+      .then((vend: VendResponse<ProductType>) => vend.data),
   );
 };

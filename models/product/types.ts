@@ -1,3 +1,5 @@
+import { Combinable } from 'utils/types';
+
 export type ProductType = {
   id?: string;
   name: string;
@@ -6,6 +8,19 @@ export type ProductType = {
 };
 
 export type ProductPropertyOptions = Partial<ProductType>;
+
+export type ProductCategory = {
+  id: string;
+  name: string;
+  slug: string;
+  parent: string;
+  description: string;
+  display: string;
+  image: string[];
+  menuOrder: string;
+  count: string;
+  _links: any;
+};
 
 export type Product = {
   id: string;

@@ -1,67 +1,90 @@
-export type MenuTabs = {
-  name: string;
-  link: string;
-  index: number;
-  mouseOver: boolean;
-  ariaPopup: boolean;
-};
+import { MenuTab } from 'utils/types';
 
-export const menuTabs = [
-  { name: 'Anime', link: '', index: 0, mouseOver: true, ariaPopup: true },
-  { name: 'Books', link: '', index: 1, mouseOver: true, ariaPopup: true },
+export const productCategories: MenuTab[] = [
+  {
+    name: 'Anime',
+    slug: 'anime',
+    link: `/categories/anime`,
+    index: 0,
+    mouseOver: true,
+    ariaPopup: true,
+  },
+  {
+    name: 'Books',
+    slug: 'books',
+    link: '/categories/books',
+    index: 1,
+    mouseOver: true,
+    ariaPopup: true,
+  },
   {
     name: 'Video Games',
-    link: '',
+    slug: 'video-games',
+    link: 'categories/video-games',
     index: 2,
     mouseOver: true,
     ariaPopup: true,
   },
   {
-    name: 'Trading Card Games',
-    link: '',
+    name: 'Trading Cards',
+    slug: 'trading-cards',
+    link: '/categories/trading-cards',
     index: 3,
     mouseOver: true,
     ariaPopup: true,
   },
   {
     name: 'Table-Top Games',
-    link: '',
+    slug: 'table-top-games',
+    link: '/categories/table-top-games',
     index: 4,
     mouseOver: true,
     ariaPopup: true,
   },
   {
     name: 'Kids Toys',
-    link: '',
+    slug: 'kids-toys',
+    link: '/categories/kids-toys',
     index: 5,
     mouseOver: true,
     ariaPopup: true,
   },
   {
     name: 'Clothing/Accessories',
-    link: '',
+    slug: 'clothing-accessories',
+    link: '/categories/clothing-accesories',
     index: 6,
     mouseOver: true,
     ariaPopup: true,
   },
-  { name: 'Kpop', link: '', index: 7, mouseOver: true, ariaPopup: true },
+  {
+    name: 'Kpop',
+    slug: 'kpop',
+    link: '/categories/kpop',
+    index: 7,
+    mouseOver: true,
+    ariaPopup: true,
+  },
   {
     name: 'Funko Pops',
-    link: '',
+    slug: 'funko-pops',
+    link: '/categories/funko-pops',
     index: 8,
     mouseOver: true,
     ariaPopup: true,
   },
   {
-    name: 'Brands',
-    link: '',
+    name: 'Fandoms',
+    slug: 'fandoms',
+    link: '/categories/fandoms',
     index: 9,
     mouseOver: true,
     ariaPopup: false,
   },
   {
     name: 'Sales',
-    link: '',
+    slug: 'sales',
+    link: '/categories/sales',
     index: 10,
     mouseOver: true,
     ariaPopup: false,
