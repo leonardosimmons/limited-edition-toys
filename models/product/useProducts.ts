@@ -1,11 +1,18 @@
 import React from 'react';
-import { Default } from 'utils/keys';
+import { useAppDispatch, useAppSelector } from 'src/redux';
+import {
+  setCurrentPaginationVersion,
+  setCurrentProductList,
+  setPreviousPaginationVersion,
+} from 'src/redux/models/page/actions';
+import { pageSelector } from 'src/redux/models/page/selectors';
 import { useGetAllProducts } from './queries';
 import { Product, ProductType } from './types';
 
 export function useProducts(filter?: string | string[]) {
-  const [version, setVersion] = React.useState<number>(0);
-  const { status, data: vend, error } = useGetAllProducts(version);
+  const dispatch = useAppDispatch();
+  const page = useAppSelector(pageSelector);
+  const { status, data: vend, error } = useGetAllProducts(page.version.current);
 
   //* -------------------------------------------------
   // filters products based on provided params (if applicable)
@@ -38,10 +45,9 @@ export function useProducts(filter?: string | string[]) {
   //* -------------------------------------------------
   // places items from buffer into products array
 
-  const [products, setProducts] = React.useState<Product[]>([]);
   React.useEffect(() => {
     if (buffer && buffer !== []) {
-      setProducts((state) => state.concat(buffer));
+      dispatch(setCurrentProductList(page.products.concat(buffer)));
     }
   }, [buffer]);
 
@@ -52,14 +58,15 @@ export function useProducts(filter?: string | string[]) {
     if (buffer !== []) {
       const ver: number | undefined = vend?.version.max;
       if (ver) {
-        setVersion(ver);
+        dispatch(setPreviousPaginationVersion(page.version.current));
+        dispatch(setCurrentPaginationVersion(ver));
       }
     }
-  }, [products]);
+  }, [page.products]);
 
   return {
     error,
-    products,
+    products: page.products,
     status,
   };
 }

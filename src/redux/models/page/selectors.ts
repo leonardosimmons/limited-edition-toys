@@ -12,16 +12,20 @@ const getElementsPerPageAmount = (state: AppState) =>
 const getPreviousPaginationVersion = (state: AppState) =>
   state.page.pagination.version.previous;
 
+const getProductList = (state: AppState) => state.page.products;
+
 export const pageSelector = createSelector(
   [
     getCurrentPage,
     getCurrentPaginationVersion,
     getElementsPerPageAmount,
     getPreviousPaginationVersion,
+    getProductList,
   ],
-  (currentPage, currentVersion, perPage, prevVersion) => ({
+  (currentPage, currentVersion, perPage, prevVersion, products) => ({
     current: currentPage,
     perPage,
+    products,
     version: {
       current: currentVersion,
       previous: prevVersion,

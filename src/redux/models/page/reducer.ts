@@ -1,8 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { Product } from 'models/product/types';
 import { Default } from 'utils/keys';
 import {
   setCurrentPageNumber,
   setCurrentPaginationVersion,
+  setCurrentProductList,
   setElementsPerPage,
   setPreviousPaginationVersion,
 } from './actions';
@@ -16,6 +18,7 @@ type PageState = {
       previous: number;
     };
   };
+  products: Product[];
 };
 
 const initialState: PageState = {
@@ -27,6 +30,7 @@ const initialState: PageState = {
       previous: 0,
     },
   },
+  products: [],
 };
 
 export const pageReducer = createReducer(initialState, (builder) =>
@@ -36,6 +40,9 @@ export const pageReducer = createReducer(initialState, (builder) =>
     })
     .addCase(setCurrentPaginationVersion, (state, action) => {
       state.pagination.version.current = action.payload;
+    })
+    .addCase(setCurrentProductList, (state, action) => {
+      state.products = action.payload;
     })
     .addCase(setElementsPerPage, (state, action) => {
       state.pagination.perPage = action.payload;
