@@ -5,6 +5,10 @@ export enum Color {
   NAVBAR_BACKGROUND = '#bbdcff',
 }
 
+export enum Default {
+  MAX_PRODUCTS_PER_QUERY = 1000,
+}
+
 export enum Id {
   NAVBAR_SEARCH_MENU = 'navbar-search-menu',
   CATEGORY_SEARCH_BAR = 'category-search-bar',

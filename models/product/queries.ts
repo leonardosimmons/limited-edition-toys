@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import { VendResponse } from 'lib';
 import { useQuery } from 'react-query';
-import { Queries } from 'utils/keys';
+import { Default, Queries } from 'utils/keys';
 import { Product, ProductPropertyOptions } from './types';
 
 // Base Options
@@ -22,7 +22,7 @@ export async function getAllProducts(
   return await axios
     .get(
       `/products?version=${version || 0}&page_size=${
-        pageSize || process.env.NEXT_PUBLIC_DEFAULT_PRODUCTS_PER_PAGE
+        pageSize || Default.MAX_PRODUCTS_PER_QUERY
       }`,
     )
     .then((res: any) => res.data);
