@@ -5,6 +5,7 @@ import useLayoutStyles from './LayoutStyles';
 
 import Box from '@material-ui/core/Box';
 import Navbar from 'src/containers/navbar';
+import Footer from '../footer';
 
 type Props = {
   title: string;
@@ -45,7 +46,7 @@ const Layout: React.FunctionComponent<Props> = ({
           }>
           {children}
         </main>
-        {/* FOOTER */}
+        <Footer />
         <div id="top-of-site-pixel-anchor" />
       </Box>
     </React.Fragment>
