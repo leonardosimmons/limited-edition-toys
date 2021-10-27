@@ -1,17 +1,16 @@
 import { createSelector } from 'reselect';
 import { AppState } from 'src/redux';
 
-const getCurrentPage = (state: AppState) =>
-  state.ui.page.pagination.currentPage;
+const getCurrentPage = (state: AppState) => state.page.pagination.currentPage;
 
 const getCurrentPaginationVersion = (state: AppState) =>
-  state.ui.page.pagination.version.current;
+  state.page.pagination.version.current;
 
 const getElementsPerPageAmount = (state: AppState) =>
-  state.ui.page.pagination.perPage;
+  state.page.pagination.perPage;
 
 const getPreviousPaginationVersion = (state: AppState) =>
-  state.ui.page.pagination.version.previous;
+  state.page.pagination.version.previous;
 
 export const pageSelector = createSelector(
   [
