@@ -1,6 +1,7 @@
 import { Vend, VendResponse } from 'lib';
 import { Product } from 'models/product/types';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { Default } from 'utils/keys';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {
@@ -20,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     );
   } else {
     res.json(
-      await Vend.get(`/products`)
+      await Vend.get(`/products?page_size=${Default.MAX_PRODUCTS_PER_QUERY}`)
         .then((res) => res.data)
         .then((vend: VendResponse<Product[]>) => vend),
     );
