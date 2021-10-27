@@ -53,7 +53,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
                 role="img"
               />
             </Box>
-            <Box className={styles.titleBox}>
+            <Box className={styles.titleBox} onClick={handleLogoClick}>
               <Button
                 disableRipple
                 onClick={handleLogoClick}

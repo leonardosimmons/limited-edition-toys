@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { Default } from 'utils/keys';
 import {
   setCurrentPageNumber,
   setCurrentPaginationVersion,
@@ -20,9 +21,7 @@ type PageState = {
 const initialState: PageState = {
   pagination: {
     currentPage: 1,
-    perPage: parseInt(
-      process.env.NEXT_PUBLIC_DEFAULT_PRODUCTS_PER_PAGE as string,
-    ),
+    perPage: Default.PRODUCTS_PER_PAGE,
     version: {
       current: 0,
       previous: 0,
