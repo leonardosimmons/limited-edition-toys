@@ -7,6 +7,7 @@ export enum Color {
 
 export enum Default {
   MAX_PRODUCTS_PER_QUERY = 1000,
+  PRODUCTS_PER_PAGE = 30,
 }
 
 export enum Id {
@@ -16,6 +17,8 @@ export enum Id {
 
 export enum Images {
   NAVBAR_PROMO = '/images/now-open.png',
+  BOTTOM_CLOUDS_LIGHT = '/images/bottom-light.png',
+  TOP_CLOUDS_LIGHT = '/svg/top-light.svg',
 }
 
 export enum Links {
