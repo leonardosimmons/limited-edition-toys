@@ -123,7 +123,7 @@ export const useNavbarStyles = makeStyles(
             fontSize: '2.25rem',
           },
           [breakpoints.up('desktopMd')]: {
-            fontSize: '3.25rem',
+            fontSize: '3rem',
           },
         },
         '& span:nth-child(2)': {
