@@ -34,8 +34,9 @@ const Layout: React.FunctionComponent<Props> = ({
       <Box
         className={
           classes
-            ? classes.root && `${styles.root} ${classes.root}`
-            : styles.root
+            ? classes.root &&
+              `${styles.root} ${classes.root} ${styles.noselect}`
+            : `${styles.root} ${styles.noselect}`
         }>
         <Navbar />
         <main
