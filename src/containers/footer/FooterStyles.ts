@@ -10,9 +10,9 @@ export const useFooterStyles = makeStyles(({ breakpoints }: Theme) =>
       width: '100%',
       height: '175px',
       backgroundImage: `url(${Images.BOTTOM_CLOUDS_LIGHT})`,
-      backgroundSize: 'contain',
+      backgroundSize: 'cover',
       [breakpoints.up('desktopSm')]: {
-        height: '400px',
+        height: '600px',
       },
     },
 

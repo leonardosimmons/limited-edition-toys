@@ -83,7 +83,7 @@ export const useNavbarStyles = makeStyles(
 
       title: {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 'auto',
@@ -91,7 +91,6 @@ export const useNavbarStyles = makeStyles(
         paintOrder: 'stroke fill',
         textShadow: `2px 2px 0 ${palette.secondary.dark}, -1px -1px 0 ${palette.secondary.dark}, 1px -1px 0 ${palette.secondary.dark}, -1px 1px 0 ${palette.secondary.dark}, 1px 1px 0 ${palette.secondary.dark}`,
         [breakpoints.up('mobileMd')]: {
-          flexDirection: 'row',
           marginRight: 0,
         },
         [breakpoints.up('tabletSm')]: {
@@ -103,7 +102,7 @@ export const useNavbarStyles = makeStyles(
         '& span:nth-child(1)': {
           marginRight: '5px',
           fontFamily: 'Jost, sans-serif',
-          fontSize: '1.25rem',
+          fontSize: '1.1rem',
           fontWeight: 700,
           [breakpoints.up('mobileMd')]: {
             fontSize: '1.5rem',
@@ -129,7 +128,7 @@ export const useNavbarStyles = makeStyles(
         '& span:nth-child(2)': {
           marginLeft: '5px',
           fontFamily: 'Pacifico, cursive',
-          fontSize: '1.5rem',
+          fontSize: '1.25rem',
           [breakpoints.up('tabletSm')]: {
             marginLeft: '7px',
             fontSize: '2.5rem',
