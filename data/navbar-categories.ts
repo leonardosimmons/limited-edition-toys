@@ -67,7 +67,7 @@ export const productCategories: MenuTab[] = [
   },
   {
     name: 'Funko Pops',
-    slug: 'funko-pops',
+    slug: 'funko-pop',
     link: '/categories/funko-pops',
     index: 8,
     mouseOver: true,

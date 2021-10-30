@@ -14,10 +14,12 @@ import {
   closeCategorySearchMenu,
   openCategorySearchMenu,
 } from 'src/redux/models/ui';
+import { useRouter } from 'next/router';
 
 const CategorySearchBar: React.FunctionComponent = (): JSX.Element => {
-  const styles = useCategorySearchStyles();
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const styles = useCategorySearchStyles();
 
   const [activeIndex, setActiveIndex] = React.useState<null | number>(null);
 
@@ -41,6 +43,10 @@ const CategorySearchBar: React.FunctionComponent = (): JSX.Element => {
     dispatch(openCategorySearchMenu());
   }
 
+  function handleTabClick(link: string) {
+    router.push(link);
+  }
+
   return (
     <React.Fragment>
       <Paper className={styles.mainContainer}>
@@ -58,6 +64,7 @@ const CategorySearchBar: React.FunctionComponent = (): JSX.Element => {
               className={styles.tab}
               aria-haspopup={tab.ariaPopup}
               onMouseOver={handleMenuOpen}
+              onClick={() => handleTabClick(tab.link)}
               classes={{ wrapper: styles.tabWrapper }}
             />
           ))}
