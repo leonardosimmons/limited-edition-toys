@@ -6,6 +6,7 @@ import {
   InferGetStaticPropsType,
 } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
+import { StaticPath } from 'utils/types';
 import { Queries } from 'utils/keys';
 
 import { makeStyles, Theme } from '@material-ui/core';
@@ -13,6 +14,7 @@ import createStyles from '@material-ui/styles/createStyles';
 
 import { getAllProducts } from 'models/product/queries';
 import { useProducts } from 'models/product/useProducts';
+import { productCategories } from 'data/navbar-categories';
 import { capitalizeFirstLetters, shuffleArray } from 'lib';
 
 import Box from '@material-ui/core/Box';
@@ -65,7 +67,7 @@ const useStyles = makeStyles(({ breakpoints }: Theme) =>
 
 function ProductCategoryDisplayPage({
   category,
-}: InferGetStaticPropsType<typeof getServerSideProps>): JSX.Element {
+}: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
   const styles = useStyles();
   const { status, products, error } = useProducts(category);
   const filteredList: Product[] | undefined = React.useMemo(() => {
@@ -104,7 +106,20 @@ function ProductCategoryDisplayPage({
 
 export default ProductCategoryDisplayPage;
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths: StaticPath[] = productCategories.map((category) => ({
+    params: {
+      slug: category.slug as string,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const queryClient = new QueryClient();
   queryClient.prefetchQuery(Queries.ALL_PRODUCTS, () => getAllProducts());
 
@@ -118,5 +133,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       category: capitalizeFirstLetters(category),
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 60 * 10,
   };
 };
