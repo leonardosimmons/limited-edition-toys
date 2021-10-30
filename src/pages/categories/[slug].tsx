@@ -76,6 +76,14 @@ function ProductCategoryDisplayPage({
     }
   }, [products]);
 
+  if (status === 'error') {
+    return (
+      <div>
+        <pre>{(error as Error).message}</pre>
+      </div>
+    );
+  }
+
   return (
     <Layout title={`Limited Edition Toys | ${category}`}>
       <ProductHeader title={category} />
