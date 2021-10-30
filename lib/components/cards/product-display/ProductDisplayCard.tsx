@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product } from 'models/product/types';
+import { Product, ProductInventory } from 'models/product/types';
 
 import { useProductDisplayCardStyles } from './ProductDisplayCardStyles';
 
@@ -11,6 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
+import { useGetInventoryById } from 'models/product/queries';
 
 type Props = {
   product: Product;
@@ -20,7 +21,14 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   product,
 }): JSX.Element => {
   const styles = useProductDisplayCardStyles();
+  const { status, data: inventory, error } = useGetInventoryById(product.id);
   const [inStock, setInStock] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (inventory && inventory[0].inventory_level > 0) {
+      setInStock(true);
+    }
+  }, [inventory]);
 
   return (
     <Paper className={styles.mainContainer}>
@@ -37,8 +45,15 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
               />
             </Box>
           </Grid>
-          <ProductDisplayInfo name={product.name} rating={4} inStock={true} />
-          <ProductDisplayAction price={product.price_excluding_tax as number} />
+          <ProductDisplayInfo
+            name={product.name}
+            rating={0}
+            inStock={inStock}
+          />
+          <ProductDisplayAction
+            price={product.price_excluding_tax as number}
+            inStock={inStock}
+          />
         </Grid>
       ) : (
         <React.Fragment>

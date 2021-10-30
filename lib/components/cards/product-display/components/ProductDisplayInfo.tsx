@@ -9,9 +9,9 @@ import StarsGenerator from 'lib/components/generators/StarsGenerator';
 import { Default } from 'utils/keys';
 
 type Props = {
-  inStock: boolean;
   name: string;
   rating: number;
+  inStock: boolean | undefined;
 };
 
 const ProductDisplayInfo: React.FunctionComponent<Props> = ({
