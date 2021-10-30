@@ -52,7 +52,7 @@ const StarsGenerator: React.FunctionComponent<Props> = ({
       case 5:
         return ['full', 'full', 'full', 'full', 'full'];
       default:
-        return [];
+        return ['empty', 'empty', 'empty', 'empty', 'empty'];
     }
   }
 
