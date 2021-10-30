@@ -6,11 +6,22 @@ import { Queries } from 'utils/keys';
 import { getProductTags } from 'models/product/queries';
 
 import Layout from 'src/containers/Layout';
+import Button from '@material-ui/core/Button';
+import { useRouter } from 'next/router';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
 >): JSX.Element {
-  return <Layout title={'Limited Edition Toys - Store front'}></Layout>;
+  const router = useRouter();
+  return (
+    <Layout title={'Limited Edition Toys - Store front'}>
+      <Button
+        variant="contained"
+        onClick={() => router.push('/categories/anime')}>
+        Press Me
+      </Button>
+    </Layout>
+  );
 }
 
 export default Index;
