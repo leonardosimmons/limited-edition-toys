@@ -2,7 +2,7 @@ import Axios from 'axios';
 import { VendResponse } from 'lib';
 import { useQuery } from 'react-query';
 import { Default, Queries } from 'utils/keys';
-import { Product, ProductPropertyOptions } from './types';
+import { Product, ProductInventory, ProductPropertyOptions } from './types';
 
 // Base Options
 const axios = Axios.create({
@@ -39,6 +39,19 @@ export function useGetAllProducts(version?: number, pageSize?: number) {
 }
 
 //* -------------------------------------------------
+// Get All Product Tags
+
+export async function getProductTags(): Promise<ProductPropertyOptions[]> {
+  return await axios
+    .get(process.env.NEXT_PUBLIC_PRODUCT_TAGS_API as string)
+    .then((res: any) => res.data);
+}
+
+export function useProductTags() {
+  return useQuery(Queries.PRODUCT_TAGS, getProductTags);
+}
+
+//* -------------------------------------------------
 // Get SINGLE Product by ID
 
 export async function getProductById(
@@ -52,14 +65,16 @@ export function useGetProductById(id: string) {
 }
 
 //* -------------------------------------------------
-// Get All Product Tags
+// Get SINGLE Inventory by ID
 
-export async function getProductTags(): Promise<ProductPropertyOptions[]> {
+export async function getInventoryById(
+  id: string,
+): Promise<ProductInventory[]> {
   return await axios
-    .get(process.env.NEXT_PUBLIC_PRODUCT_TAGS_API as string)
+    .get(`/products/inventory?id=${id}`)
     .then((res: any) => res.data);
 }
 
-export function useProductTags() {
-  return useQuery(Queries.PRODUCT_TAGS, getProductTags);
+export function useGetInventoryById(id: string) {
+  return useQuery([Queries.INVENTORY_BY_ID, id], () => getInventoryById(id));
 }
