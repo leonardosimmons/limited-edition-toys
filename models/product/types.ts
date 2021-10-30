@@ -22,6 +22,15 @@ export type ProductCategory = {
   _links: any;
 };
 
+export type ProductInventory = {
+  id: string;
+  product_id: string;
+  outlet_id: string;
+  inventory_level: number;
+  reorder_point: number;
+  reorder_amount: number;
+};
+
 export type Product = {
   id: string;
   name: string;

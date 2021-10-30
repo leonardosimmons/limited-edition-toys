@@ -1,11 +1,13 @@
 import axios from 'axios';
 
+export type VendVersion = {
+  min: number;
+  max: number;
+};
+
 export type VendResponse<T> = {
   data: T;
-  version: {
-    min: number;
-    max: number;
-  };
+  version: VendVersion;
 };
 
 export const Vend = axios.create({
