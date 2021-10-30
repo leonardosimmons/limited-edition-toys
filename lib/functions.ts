@@ -23,3 +23,16 @@ export function preg_match(regex: string, c: Combinable): boolean | undefined {
   if (typeof c === 'string') return new RegExp(regex).test(c);
   if (typeof c === 'number') return new RegExp(regex).test(c.toString());
 }
+
+/**
+ * Returns a new randomly shuffled based on the given array
+ * @param array
+ */
+export function shuffleArray<T>(array: T[]) {
+  let arr = array;
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}

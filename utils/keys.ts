@@ -6,6 +6,7 @@ export enum Color {
 }
 
 export enum Default {
+  MAX_PRODUCT_NAME_LENGTH = 25,
   MAX_PRODUCTS_PER_QUERY = 1000,
   PRODUCTS_PER_PAGE = 30,
 }
@@ -27,6 +28,7 @@ export enum Links {
 
 export enum Queries {
   ALL_PRODUCTS = 'products',
+  INVENTORY_BY_ID = 'inventory-by-id',
   PRODUCT_CATEGORIES = 'product-categories',
   PRODUCT_TAGS = 'product-tags',
   PRODUCT_BY_ID = 'product-by-id',
