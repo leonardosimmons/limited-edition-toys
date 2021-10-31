@@ -49,9 +49,10 @@ export const useProductHeaderStyles = makeStyles(
         fontFamily: 'Monofett, sans-serif',
         fontSize: '2.25rem',
         fontWeight: 600,
-        letterSpacing: 6,
+        letterSpacing: 8,
         textAlign: 'center',
-        color: palette.secondary.dark,
+        marginBottom: '20px',
+        color: palette.secondary.main,
         [breakpoints.up('mobileMd')]: {
           fontSize: '3rem',
           marginBottom: '50px',

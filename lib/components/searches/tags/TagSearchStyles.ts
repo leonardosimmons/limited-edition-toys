@@ -35,14 +35,24 @@ export const useTagSearchStyles = makeStyles(
       },
 
       menu: {
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: zIndex.modal + 2,
-        paddingTop: '12rem',
-        [breakpoints.up('tabletSm')]: {
-          paddingTop: '10rem',
+        '& > ul.MuiList-root': {
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+        },
+        '& > ul h3.MuiTypography-h3': {
+          fontSize: '1.2rem',
+        },
+        '& > ul div li.MuiMenuItem-root': {
+          fontSize: '1rem',
         },
       },
 
@@ -57,12 +67,8 @@ export const useTagSearchStyles = makeStyles(
         '&:hover': {
           opacity: 1,
         },
-        fontSize: '1rem',
-        '& li.MuiMenuItem-root': {
-          fontSize: '1rem',
-        },
         [breakpoints.up(600)]: {
-          padding: '.5rem',
+          padding: '.5rem 0',
         },
       },
 
@@ -70,14 +76,9 @@ export const useTagSearchStyles = makeStyles(
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        marginTop: '14rem',
-        marginBottom: '.5rem',
+        margin: '.5rem 0',
         marginLeft: '20px',
-        fontSize: '1.2rem',
         fontWeight: 'bold',
-        [breakpoints.up(600)]: {
-          marginTop: '10rem',
-        },
       },
 
       searchBar: {
