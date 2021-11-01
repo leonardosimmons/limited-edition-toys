@@ -83,10 +83,9 @@ function ProductCategoryDisplayPage({
             container
             className={styles.displayGrid}
             direction="row"
-            spacing={2}
-            zeroMinWidth>
+            spacing={2}>
             {filteredList?.map((product: Product, index: number) => (
-              <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
                 <ProductDisplayCard product={product} />
               </Grid>
             ))}
