@@ -27,6 +27,15 @@ declare module '@material-ui/core/styles/createTheme' {
       boxShadow: {
         card: React.CSSProperties['boxShadow'];
       };
+      loading: {
+        height: React.CSSProperties['height'];
+        display: React.CSSProperties['display'];
+        flexDirection: React.CSSProperties['flexDirection'];
+        justifyContent: React.CSSProperties['justifyContent'];
+        alignItems: React.CSSProperties['alignItems'];
+        margin: React.CSSProperties['margin'];
+        padding: React.CSSProperties['padding'];
+      };
     };
   }
 
@@ -34,6 +43,15 @@ declare module '@material-ui/core/styles/createTheme' {
     custom?: {
       boxShadow?: {
         card?: React.CSSProperties['boxShadow'];
+      };
+      loading?: {
+        height?: React.CSSProperties['height'];
+        display?: React.CSSProperties['display'];
+        flexDirection?: React.CSSProperties['flexDirection'];
+        justifyContent?: React.CSSProperties['justifyContent'];
+        alignItems?: React.CSSProperties['alignItems'];
+        margin?: React.CSSProperties['margin'];
+        padding?: React.CSSProperties['padding'];
       };
     };
   }
@@ -62,6 +80,15 @@ export const main = createTheme({
   custom: {
     boxShadow: {
       card: 'rgba(189, 189, 189, 0.4) 0px 2px 4px, rgba(189, 189, 189, 0.3) 0px 7px 13px -3px, rgba(189, 189, 189, 0.2) 0px -3px 0px inset',
+    },
+    loading: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: 'auto',
+      padding: '1rem',
     },
   },
 
