@@ -8,18 +8,16 @@ import { makeStyles, Theme } from '@material-ui/core';
 import createStyles from '@material-ui/styles/createStyles';
 
 import { useProducts } from 'models/product/useProducts';
-import { capitalizeFirstLetters, shuffleArray } from 'lib';
+import { capitalizeFirstLetters } from 'lib';
 
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Layout from 'src/containers/Layout/Layout';
 import ProductHeader from 'src/containers/headers/products/ProductHeader';
 import ProductDisplayCard from 'lib/components/cards/product-display/ProductDisplayCard';
-import { ProductModel } from 'models/product/product.model';
 import { getAllProducts } from 'models/product/queries';
+import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 
 const useStyles = makeStyles(({ breakpoints, custom }: Theme) =>
   createStyles({
@@ -64,28 +62,31 @@ function ProductCategoryDisplayPage({
     }
   }, [products]);
 
+  if (status === 'loading') {
+    return (
+      <Layout title={category}>
+        <Container className={styles.mainContainer}>
+          <CircleLoadSpinner />
+        </Container>
+      </Layout>
+    );
+  }
+
   return (
     <Layout title={`Limited Edition Toys | ${category}`}>
       <ProductHeader title={category} />
       <Container className={styles.mainContainer}>
-        {status === 'loading' ? (
-          <Box className={styles.loading}>
-            <CircularProgress color="secondary" />
-            <div>Loading...</div>
-          </Box>
-        ) : (
-          <Grid
-            container
-            className={styles.displayGrid}
-            direction="row"
-            spacing={2}>
-            {filteredList?.map((product: Product, index: number) => (
-              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-                <ProductDisplayCard product={product} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
+        <Grid
+          container
+          className={styles.displayGrid}
+          direction="row"
+          spacing={2}>
+          {filteredList?.map((product: Product, index: number) => (
+            <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+              <ProductDisplayCard product={product} />
+            </Grid>
+          ))}
+        </Grid>
       </Container>
     </Layout>
   );

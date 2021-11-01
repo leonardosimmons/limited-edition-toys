@@ -15,6 +15,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useProducts } from 'models/product/useProducts';
+import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 
 const useStyles = makeStyles(({ custom }: Theme) =>
   createStyles({
@@ -39,9 +40,8 @@ function ProductPage({
   const styles = useStyles();
   const { status, products } = useProducts();
   const product = React.useMemo(() => {
-    const list = products.list?.slice(0);
-    if (list) {
-      return list?.find(
+    if (products.list && products.list.length > 0) {
+      return products.list.find(
         (product) =>
           product.name
             .toLowerCase()
@@ -51,6 +51,16 @@ function ProductPage({
       );
     }
   }, [products]);
+
+  if (status === 'loading') {
+    return (
+      <Layout title={title}>
+        <Container className={styles.mainContainer}>
+          <CircleLoadSpinner />
+        </Container>
+      </Layout>
+    );
+  }
 
   return (
     <Layout title={`Limited Edition Toys | ${title}`}>
