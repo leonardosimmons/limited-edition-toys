@@ -56,6 +56,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             <Box className={styles.titleBox} onClick={handleLogoClick}>
               <Button
                 disableRipple
+                disableTouchRipple
                 onClick={handleLogoClick}
                 className={styles.titleButton}
                 classes={{ text: styles.titleButton }}>
