@@ -1,15 +1,11 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { dehydrate, QueryClient } from 'react-query';
 import { makeStyles, Theme } from '@material-ui/core';
 import createStyles from '@material-ui/styles/createStyles';
-import { Product } from 'models/product/types';
 import { StaticPath } from 'utils/types';
-import { Queries } from 'utils/keys';
 
 import { capitalizeFirstLetters, fixSlug, VendResponse } from 'lib';
 import { ProductModel } from 'models/product/product.model';
-import { getProductById, useGetProductById } from 'models/product/queries';
 
 import Image from 'next/image';
 import Layout from 'src/containers/Layout/Layout';
@@ -18,6 +14,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useProducts } from 'models/product/useProducts';
 
 const useStyles = makeStyles(({ custom }: Theme) =>
   createStyles({
@@ -36,16 +33,30 @@ const useStyles = makeStyles(({ custom }: Theme) =>
 );
 
 function ProductPage({
-  product,
+  slug,
   title,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
   const styles = useStyles();
+  const { status, products } = useProducts();
+  const product = React.useMemo(() => {
+    const list = products.list?.slice(0);
+    if (list) {
+      return list?.find(
+        (product) =>
+          product.name
+            .toLowerCase()
+            .replace(/[' '/]/g, '-')
+            .replace(/[!:.;()""\[\]]/g, '')
+            .replace(/(--|---|-+-)/g, '-') === slug,
+      );
+    }
+  }, [products]);
 
   return (
     <Layout title={`Limited Edition Toys | ${title}`}>
       <Box className={styles.mainContainer}>
         <Grid container>
-          <Grid item>{product.name}</Grid>
+          <Grid item>{product?.name}</Grid>
         </Grid>
       </Box>
     </Layout>
@@ -76,15 +87,9 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     (ctx.params!.slug as string).replace(/[-]/g, ' '),
   );
 
-  const productController = new ProductModel();
-  const products = await productController.getAll();
-  const product: Product | undefined = products.find(
-    (product) => fixSlug(product.name) === ctx.params!.slug,
-  );
-
   return {
     props: {
-      product,
+      slug: ctx.params!.slug,
       title,
     },
     revalidate: 60 * 60 * 24 * 7,
