@@ -1,22 +1,24 @@
 import React from 'react';
+import { Default } from 'utils/keys';
 
 import { useProductDisplayCardStyles } from '../ProductDisplayCardStyles';
 
-import Container from '@material-ui/core/Container';
+import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import StarsGenerator from 'lib/components/generators/StarsGenerator';
-import { Default } from 'utils/keys';
 
 type Props = {
   name: string;
   rating: number;
+  slug: string;
   inStock: boolean | undefined;
 };
 
 const ProductDisplayInfo: React.FunctionComponent<Props> = ({
   inStock,
   name,
+  slug,
   rating,
 }): JSX.Element => {
   const styles = useProductDisplayCardStyles();
@@ -24,11 +26,13 @@ const ProductDisplayInfo: React.FunctionComponent<Props> = ({
   return (
     <Grid item container direction="column" className={styles.displayInfo}>
       <Grid item>
-        <Typography variant="h6">
-          {name.length > Default.MAX_PRODUCT_NAME_LENGTH
-            ? `${name.slice(0, Default.MAX_PRODUCT_NAME_LENGTH)}...`
-            : name}
-        </Typography>
+        <Link href={`/product/${slug}`}>
+          <Typography variant="h6">
+            {name.length > Default.MAX_PRODUCT_NAME_LENGTH
+              ? `${name.slice(0, Default.MAX_PRODUCT_NAME_LENGTH)}...`
+              : name}
+          </Typography>
+        </Link>
       </Grid>
       <Grid item>
         <Typography
