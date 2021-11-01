@@ -13,6 +13,7 @@ import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
 import { useGetInventoryById } from 'models/product/queries';
 import { useRouter } from 'next/router';
+import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 
 type Props = {
   product: Product;
@@ -53,41 +54,42 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   }
 
   //* -------------------------------------------------
-  // Handlers
+  // Render
+
+  if (status === 'loading') {
+    return (
+      <Paper className={styles.mainContainer}>
+        <CircleLoadSpinner />
+      </Paper>
+    );
+  }
 
   return (
     <Paper className={styles.mainContainer}>
-      {product ? (
-        <Grid container direction="column" spacing={1}>
-          <Grid item className={styles.gridItem}>
-            <Box className={styles.imageBox}>
-              <Image
-                src={product.image_url as string}
-                alt="product image"
-                layout="fill"
-                objectFit="contain"
-                className={styles.image}
-                onClick={handleImageClicked}
-              />
-            </Box>
-          </Grid>
-          <ProductDisplayInfo
-            name={product.name}
-            rating={0}
-            slug={slug as string}
-            inStock={inStock}
-          />
-          <ProductDisplayAction
-            price={product.price_excluding_tax as number}
-            inStock={inStock}
-          />
+      <Grid container direction="column" spacing={1}>
+        <Grid item className={styles.gridItem}>
+          <Box className={styles.imageBox}>
+            <Image
+              src={product.image_url as string}
+              alt="product image"
+              layout="fill"
+              objectFit="contain"
+              className={styles.image}
+              onClick={handleImageClicked}
+            />
+          </Box>
         </Grid>
-      ) : (
-        <React.Fragment>
-          <CircularProgress color="secondary" />
-          <div>Loading...</div>
-        </React.Fragment>
-      )}
+        <ProductDisplayInfo
+          name={product.name}
+          rating={0}
+          slug={slug as string}
+          inStock={inStock}
+        />
+        <ProductDisplayAction
+          price={product.price_excluding_tax as number}
+          inStock={inStock}
+        />
+      </Grid>
     </Paper>
   );
 };
