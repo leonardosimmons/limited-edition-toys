@@ -12,6 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
 import { useGetInventoryById } from 'models/product/queries';
+import { useRouter } from 'next/router';
 
 type Props = {
   product: Product;
@@ -20,6 +21,7 @@ type Props = {
 const ProductDisplayCard: React.FunctionComponent<Props> = ({
   product,
 }): JSX.Element => {
+  const router = useRouter();
   const styles = useProductDisplayCardStyles();
   const [slug, setSlug] = React.useState<string | undefined>();
   const { status, data: inventory, error } = useGetInventoryById(product.id);
@@ -45,6 +47,11 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
     }
   }, [product]);
 
+  // redirects to product page
+  function handleImageClicked() {
+    router.push(`/product/${slug}`);
+  }
+
   //* -------------------------------------------------
   // Handlers
 
@@ -54,15 +61,14 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
         <Grid container direction="column" spacing={1}>
           <Grid item className={styles.gridItem}>
             <Box className={styles.imageBox}>
-              <Link href={`/product/${slug}`}>
-                <Image
-                  src={product.image_url as string}
-                  alt="product image"
-                  layout="fill"
-                  objectFit="contain"
-                  className={styles.image}
-                />
-              </Link>
+              <Image
+                src={product.image_url as string}
+                alt="product image"
+                layout="fill"
+                objectFit="contain"
+                className={styles.image}
+                onClick={handleImageClicked}
+              />
             </Box>
           </Grid>
           <ProductDisplayInfo
