@@ -13,6 +13,16 @@ export function capitalizeFirstLetters(phrase: string): string {
   return arr.join(' ');
 }
 
+export function fixSlug(slug: string): string {
+  const fixed: string = slug
+    .toLowerCase()
+    .replace(/[' '/]/g, '-')
+    .replace(/[!:.;()""\[\]]/g, '')
+    .replace(/(--|---|-+-)/g, '-');
+
+  return fixed;
+}
+
 /**
  * Checks given string or number against given regex
  * @param regex - regular expression
