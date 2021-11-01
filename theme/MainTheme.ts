@@ -27,6 +27,17 @@ declare module '@material-ui/core/styles/createTheme' {
       boxShadow: {
         card: React.CSSProperties['boxShadow'];
       };
+      center: {
+        display: React.CSSProperties['display'];
+        justifyCenter: React.CSSProperties['justifyContent'];
+        alignItems: React.CSSProperties['alignItems'];
+      };
+      centerColumn: {
+        display: React.CSSProperties['display'];
+        flexDirection: React.CSSProperties['flexDirection'];
+        justifyCenter: React.CSSProperties['justifyContent'];
+        alignItems: React.CSSProperties['alignItems'];
+      };
       loading: {
         height: React.CSSProperties['height'];
         display: React.CSSProperties['display'];
@@ -43,6 +54,17 @@ declare module '@material-ui/core/styles/createTheme' {
     custom?: {
       boxShadow?: {
         card?: React.CSSProperties['boxShadow'];
+      };
+      center?: {
+        display?: React.CSSProperties['display'];
+        justifyCenter?: React.CSSProperties['justifyContent'];
+        alignItems?: React.CSSProperties['alignItems'];
+      };
+      centerColumn?: {
+        display?: React.CSSProperties['display'];
+        flexDirection?: React.CSSProperties['flexDirection'];
+        justifyCenter?: React.CSSProperties['justifyContent'];
+        alignItems?: React.CSSProperties['alignItems'];
       };
       loading?: {
         height?: React.CSSProperties['height'];
@@ -80,6 +102,17 @@ export const main = createTheme({
   custom: {
     boxShadow: {
       card: 'rgba(189, 189, 189, 0.4) 0px 2px 4px, rgba(189, 189, 189, 0.3) 0px 7px 13px -3px, rgba(189, 189, 189, 0.2) 0px -3px 0px inset',
+    },
+    center: {
+      display: 'flex',
+      justifyCenter: 'center',
+      alignItems: 'center',
+    },
+    centerColumn: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyCenter: 'center',
+      alignItems: 'center',
     },
     loading: {
       height: '100%',
