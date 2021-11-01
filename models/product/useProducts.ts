@@ -1,10 +1,6 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from 'src/redux';
-import {
-  setCurrentPaginationVersion,
-  setCurrentProductList,
-  setPreviousPaginationVersion,
-} from 'src/redux/models/page/actions';
+import { setFilteredProductList } from 'src/redux/models/page/actions';
 import { pageSelector } from 'src/redux/models/page/selectors';
 import { useGetAllProducts } from './queries';
 import { Product, ProductType } from './types';
@@ -12,15 +8,15 @@ import { Product, ProductType } from './types';
 export function useProducts(filter?: string | string[]) {
   const dispatch = useAppDispatch();
   const page = useAppSelector(pageSelector);
-  const { status, data: vend, error } = useGetAllProducts(page.version.current);
+  const { status, data: vend, error } = useGetAllProducts();
 
   //* -------------------------------------------------
   // filters products based on provided params (if applicable)
 
-  const buffer: Product[] | undefined = React.useMemo(() => {
+  const filteredProducts: Product[] | undefined = React.useMemo(() => {
     if (filter) {
       const b: Product[] = [];
-      vend?.data.forEach((p: Product) => {
+      vend?.forEach((p: Product) => {
         p.categories?.forEach((c: Partial<ProductType>) => {
           if (Array.isArray(filter)) {
             filter.forEach((name) => {
@@ -38,35 +34,25 @@ export function useProducts(filter?: string | string[]) {
       return b;
     }
 
-    // return raw data if no filter was provided
-    return vend?.data;
-  }, [vend?.data]);
-
-  //* -------------------------------------------------
-  // places items from buffer into products array
+    return [];
+  }, [filter, vend]);
 
   React.useEffect(() => {
-    if (buffer && buffer !== []) {
-      dispatch(setCurrentProductList(page.products.concat(buffer)));
+    if (filteredProducts && filteredProducts !== []) {
+      dispatch(
+        setFilteredProductList(
+          page.products.filtered.concat(filteredProducts.slice(0)),
+        ),
+      );
     }
-  }, [buffer]);
-
-  //* -------------------------------------------------
-  // updates version once products are set
-
-  React.useEffect(() => {
-    if (buffer !== []) {
-      const ver: number | undefined = vend?.version.max;
-      if (ver) {
-        dispatch(setPreviousPaginationVersion(page.version.current));
-        dispatch(setCurrentPaginationVersion(ver));
-      }
-    }
-  }, [page.products]);
+  }, [filteredProducts]);
 
   return {
     error,
-    products: page.products,
+    products: {
+      ...page.products,
+      list: vend,
+    },
     status,
   };
 }

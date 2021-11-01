@@ -7,7 +7,6 @@ import { Queries } from 'utils/keys';
 import { makeStyles, Theme } from '@material-ui/core';
 import createStyles from '@material-ui/styles/createStyles';
 
-import { getAllProducts } from 'models/product/queries';
 import { useProducts } from 'models/product/useProducts';
 import { capitalizeFirstLetters, shuffleArray } from 'lib';
 
@@ -19,8 +18,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Layout from 'src/containers/Layout/Layout';
 import ProductHeader from 'src/containers/headers/products/ProductHeader';
 import ProductDisplayCard from 'lib/components/cards/product-display/ProductDisplayCard';
+import { ProductModel } from 'models/product/product.model';
 
-const useStyles = makeStyles(({ breakpoints }: Theme) =>
+const useStyles = makeStyles(({ breakpoints, custom }: Theme) =>
   createStyles({
     displayGrid: {
       [breakpoints.up('mobileMd')]: {
@@ -44,13 +44,7 @@ const useStyles = makeStyles(({ breakpoints }: Theme) =>
     },
 
     loading: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      margin: 'auto',
-      padding: '1rem',
+      ...custom.loading,
       '& > div.MuiCircularProgress-root': {
         marginBottom: '20px',
       },
@@ -65,7 +59,7 @@ function ProductCategoryDisplayPage({
   const { status, products, error } = useProducts(category);
   const filteredList: Product[] | undefined = React.useMemo(() => {
     if (products) {
-      return products.filter((product: Product) => product.active);
+      return products.filtered.filter((product: Product) => product.active);
     }
   }, [products]);
 
@@ -100,7 +94,8 @@ export default ProductCategoryDisplayPage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const queryClient = new QueryClient();
-  queryClient.prefetchQuery(Queries.ALL_PRODUCTS, () => getAllProducts());
+  const productController = new ProductModel();
+  queryClient.prefetchQuery(Queries.ALL_PRODUCTS, productController.getAll);
 
   let category: string = ctx.params!.slug as string;
   if (category.includes('-')) {

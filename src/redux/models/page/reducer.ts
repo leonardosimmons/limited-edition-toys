@@ -4,7 +4,7 @@ import { Default } from 'utils/keys';
 import {
   setCurrentPageNumber,
   setCurrentPaginationVersion,
-  setCurrentProductList,
+  setFilteredProductList,
   setElementsPerPage,
   setPreviousPaginationVersion,
 } from './actions';
@@ -18,7 +18,9 @@ type PageState = {
       previous: number;
     };
   };
-  products: Product[];
+  products: {
+    filtered: Product[];
+  };
 };
 
 const initialState: PageState = {
@@ -30,7 +32,9 @@ const initialState: PageState = {
       previous: 0,
     },
   },
-  products: [],
+  products: {
+    filtered: [],
+  },
 };
 
 export const pageReducer = createReducer(initialState, (builder) =>
@@ -41,8 +45,8 @@ export const pageReducer = createReducer(initialState, (builder) =>
     .addCase(setCurrentPaginationVersion, (state, action) => {
       state.pagination.version.current = action.payload;
     })
-    .addCase(setCurrentProductList, (state, action) => {
-      state.products = action.payload;
+    .addCase(setFilteredProductList, (state, action) => {
+      state.products.filtered = action.payload;
     })
     .addCase(setElementsPerPage, (state, action) => {
       state.pagination.perPage = action.payload;

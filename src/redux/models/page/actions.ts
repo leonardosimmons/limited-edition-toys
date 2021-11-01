@@ -10,7 +10,7 @@ export const setCurrentPaginationVersion = createAction<number>(
   'page/setPaginationVersion',
 );
 
-export const setCurrentProductList = createAction<Product[]>(
+export const setFilteredProductList = createAction<Product[]>(
   'page/setCurrentProductList',
 );
 
