@@ -59,6 +59,14 @@ export const useProductDisplayCardStyles = makeStyles(
         '& div h6.MuiTypography-h6': {
           fontSize: '1.2rem',
           margin: '0 2px',
+          transition: 'all .5s',
+          '&:hover': {
+            cursor: 'pointer',
+            transform: 'translateY(-2px)',
+          },
+          '&:active': {
+            transform: 'translateY(2px)',
+          },
         },
         '& div span.MuiTypography-caption': {
           fontSize: '1rem',
@@ -97,6 +105,16 @@ export const useProductDisplayCardStyles = makeStyles(
         position: 'absolute',
         margin: '0 auto',
         borderRadius: '10px',
+        transition: 'all .5s',
+        '&:hover': {
+          cursor: 'pointer',
+          transform: 'translateY(-2px)',
+        },
+        '&:active': {
+          transform: 'translateY(2px)',
+          boxShadow:
+            'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset',
+        },
       },
 
       mainContainer: {
@@ -106,9 +124,14 @@ export const useProductDisplayCardStyles = makeStyles(
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: '100px',
         boxShadow: `rgba(189, 189, 189, 0.7) 0px 2px 4px, rgba(189, 189, 189, 0.6) 0px 7px 13px -3px, rgba(189, 189, 189, 0.5) 0px -3px 0px inset`,
         '& > div.MuiCircularProgress-root': {
           marginBottom: '20px',
+        },
+        '&:hover': {
+          boxShadow:
+            'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset',
         },
         [breakpoints.up('tabletSm')]: {
           width: '355px',
