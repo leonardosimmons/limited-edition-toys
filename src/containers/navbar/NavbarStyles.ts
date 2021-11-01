@@ -164,6 +164,9 @@ export const useNavbarStyles = makeStyles(
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        '& > button.MuiButton-root:hover': {
+          backgroundColor: 'transparent',
+        },
       },
 
       toolbar: {
