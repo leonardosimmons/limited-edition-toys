@@ -82,16 +82,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     (product) => fixSlug(product.name) === ctx.params!.slug,
   );
 
-  const queryClient = new QueryClient();
-  if (product) {
-    await queryClient.prefetchQuery(product.id, () =>
-      getProductById(product.id),
-    );
-  }
-
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
       product,
       title,
     },

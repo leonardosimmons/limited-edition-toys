@@ -3,7 +3,7 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { Queries } from 'utils/keys';
 
-import { getProductTags } from 'models/product/queries';
+import { getAllProducts, getProductTags } from 'models/product/queries';
 
 import Layout from 'src/containers/Layout';
 import Button from '@material-ui/core/Button';
@@ -29,11 +29,7 @@ export default Index;
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
-  const productController = new ProductModel();
-  await queryClient.prefetchQuery(
-    Queries.ALL_PRODUCTS,
-    productController.getAll,
-  );
+  await queryClient.prefetchQuery(Queries.ALL_PRODUCTS, getAllProducts);
   await queryClient.prefetchQuery(Queries.PRODUCT_TAGS, getProductTags);
 
   return {

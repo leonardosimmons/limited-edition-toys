@@ -19,6 +19,7 @@ import Layout from 'src/containers/Layout/Layout';
 import ProductHeader from 'src/containers/headers/products/ProductHeader';
 import ProductDisplayCard from 'lib/components/cards/product-display/ProductDisplayCard';
 import { ProductModel } from 'models/product/product.model';
+import { getAllProducts } from 'models/product/queries';
 
 const useStyles = makeStyles(({ breakpoints, custom }: Theme) =>
   createStyles({
@@ -94,8 +95,7 @@ export default ProductCategoryDisplayPage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const queryClient = new QueryClient();
-  const productController = new ProductModel();
-  queryClient.prefetchQuery(Queries.ALL_PRODUCTS, productController.getAll);
+  queryClient.prefetchQuery(Queries.ALL_PRODUCTS, getAllProducts);
 
   let category: string = ctx.params!.slug as string;
   if (category.includes('-')) {
