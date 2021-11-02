@@ -7,6 +7,15 @@ export type ProductType = {
   version?: number;
 };
 
+export type ProductQueryOptions = {
+  filter?: {
+    value?: string | string[];
+    type?: ProductFilterOptions;
+  };
+  pageSize?: number;
+  version?: number;
+};
+
 export type ProductPropertyOptions = Partial<ProductType>;
 
 export type ProductCategory = {

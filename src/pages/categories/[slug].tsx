@@ -55,9 +55,14 @@ function ProductCategoryDisplayPage({
   category,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const styles = useStyles();
-  const { status, products, error } = useProducts(category, 'category');
+  const { products } = useProducts({
+    filter: {
+      value: category,
+      type: 'category',
+    },
+  });
 
-  if (status === 'loading') {
+  if (products.status === 'loading') {
     return (
       <Layout title={category}>
         <Container className={styles.mainContainer}>

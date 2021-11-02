@@ -4,12 +4,9 @@ import { setFilteredProductList } from 'src/redux/models/page/actions';
 import { pageSelector } from 'src/redux/models/page/selectors';
 import { ProductModel } from './product.model';
 import { useGetAllProducts, useProductTags } from './queries';
-import { Product, ProductFilterOptions } from './types';
+import { Product, ProductQueryOptions } from './types';
 
-export function useProducts(
-  filter?: string | string[],
-  options?: ProductFilterOptions,
-) {
+export function useProducts(options?: ProductQueryOptions) {
   const model = new ProductModel();
   const dispatch = useAppDispatch();
   const page = useAppSelector(pageSelector);
@@ -20,12 +17,12 @@ export function useProducts(
   // filters products based on provided params (if applicable)
 
   const filteredProducts: Product[] | undefined = React.useMemo(() => {
-    if (filter && options && vend) {
-      return model.filter(filter, options, vend);
+    if (options?.filter?.value && options?.filter.type && vend) {
+      return model.filter(options?.filter?.value, options?.filter.type, vend);
     }
 
     return [];
-  }, [filter, options, vend]);
+  }, [options?.filter?.value, options?.filter?.type, vend]);
 
   React.useEffect(() => {
     if (filteredProducts && filteredProducts !== []) {
