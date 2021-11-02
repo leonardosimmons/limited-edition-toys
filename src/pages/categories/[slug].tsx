@@ -8,6 +8,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import createStyles from '@material-ui/styles/createStyles';
 
 import { useProducts } from 'models/product/useProducts';
+import { getAllProducts } from 'models/product/queries';
 import { capitalizeFirstLetters } from 'lib';
 
 import Grid from '@material-ui/core/Grid';
@@ -15,8 +16,7 @@ import Container from '@material-ui/core/Container';
 
 import Layout from 'src/containers/Layout/Layout';
 import ProductHeader from 'src/containers/headers/products/ProductHeader';
-import ProductDisplayCard from 'lib/components/cards/product-display/ProductDisplayCard';
-import { getAllProducts } from 'models/product/queries';
+import ProductDisplayCard from 'models/product/components/display-card/ProductDisplayCard';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 
 const useStyles = makeStyles(({ breakpoints, custom }: Theme) =>
