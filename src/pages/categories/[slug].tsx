@@ -55,12 +55,7 @@ function ProductCategoryDisplayPage({
   category,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const styles = useStyles();
-  const { status, products, error } = useProducts(category);
-  const filteredList: Product[] | undefined = React.useMemo(() => {
-    if (products) {
-      return products.filtered.filter((product: Product) => product.active);
-    }
-  }, [products]);
+  const { status, products, error } = useProducts(category, 'category');
 
   if (status === 'loading') {
     return (
@@ -72,6 +67,9 @@ function ProductCategoryDisplayPage({
     );
   }
 
+  //* -------------------------------------------------
+  // Render
+
   return (
     <Layout title={`Limited Edition Toys | ${category}`}>
       <ProductHeader title={category} />
@@ -81,7 +79,7 @@ function ProductCategoryDisplayPage({
           className={styles.displayGrid}
           direction="row"
           spacing={2}>
-          {filteredList?.map((product: Product, index: number) => (
+          {products.filtered.map((product: Product, index: number) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
               <ProductDisplayCard product={product} />
             </Grid>
