@@ -13,7 +13,7 @@ import Box from '@material-ui/core/Box';
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
-import DisplayCard from '../DisplayCard';
+import DisplayCard from '../../../../lib/components/cards/DisplayCard';
 
 type Props = {
   product: Product;
