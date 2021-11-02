@@ -1,8 +1,13 @@
 import { VendResponse } from 'lib';
 import { getPaginatedProducts } from './queries';
-import { Product } from './types';
+import { Product, ProductFilterOptions, ProductType } from './types';
 
 interface ProductModelInterface {
+  filter(
+    filter: string | string[],
+    options: ProductFilterOptions,
+    products: Product[],
+  ): Product[];
   getAll(): Promise<Product[]>;
 }
 
@@ -10,6 +15,32 @@ class ProductModel implements ProductModelInterface {
   private productQueryChunkSize: number = parseInt(
     process.env.NEXT_PUBLIC_PRODUCT_CHUNK_QUERY_AMOUNT as string,
   );
+
+  public filter(
+    filter: string | string[],
+    options: ProductFilterOptions,
+    products: Product[],
+  ): Product[] {
+    const buffer: Product[] = [];
+    products.forEach((p: Product) => {
+      if (options === 'category') {
+        p.categories?.forEach((c: Partial<ProductType>) => {
+          if (Array.isArray(filter)) {
+            filter.forEach((name) => {
+              if (c.name === name && !buffer.includes(p) && p.active) {
+                buffer.push(p);
+              }
+            });
+          } else {
+            if (c.name === filter && !buffer.includes(p) && p.active) {
+              buffer.push(p);
+            }
+          }
+        });
+      }
+    });
+    return buffer;
+  }
 
   public async getAll(): Promise<Product[]> {
     try {
