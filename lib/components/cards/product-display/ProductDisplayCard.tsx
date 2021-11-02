@@ -1,19 +1,19 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { Product } from 'models/product/types';
 
 import { useProductDisplayCardStyles } from './ProductDisplayCardStyles';
 
+import { useGetInventoryById } from 'models/product/queries';
+
 import Image from 'next/image';
-import Link from 'next/link';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
+
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
-import { useGetInventoryById } from 'models/product/queries';
-import { useRouter } from 'next/router';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
+import DisplayCard from '../DisplayCard';
 
 type Props = {
   product: Product;
@@ -58,14 +58,14 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
 
   if (status === 'loading') {
     return (
-      <Paper className={styles.mainContainer}>
+      <DisplayCard>
         <CircleLoadSpinner />
-      </Paper>
+      </DisplayCard>
     );
   }
 
   return (
-    <Paper className={styles.mainContainer}>
+    <DisplayCard classes={styles.displayCard}>
       <Grid container direction="column" spacing={1}>
         <Grid item className={styles.gridItem}>
           <Box className={styles.imageBox}>
@@ -90,7 +90,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
           inStock={inStock}
         />
       </Grid>
-    </Paper>
+    </DisplayCard>
   );
 };
 

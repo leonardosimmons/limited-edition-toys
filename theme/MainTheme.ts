@@ -24,8 +24,11 @@ declare module '@material-ui/core/styles/createBreakpoints' {
 declare module '@material-ui/core/styles/createTheme' {
   interface Theme {
     custom: {
-      boxShadow: {
-        card: React.CSSProperties['boxShadow'];
+      actions: {
+        clicked: {
+          transform: React.CSSProperties['transform'];
+          boxShadow: React.CSSProperties['boxShadow'];
+        };
       };
       center: {
         display: React.CSSProperties['display'];
@@ -47,23 +50,36 @@ declare module '@material-ui/core/styles/createTheme' {
         margin: React.CSSProperties['margin'];
         padding: React.CSSProperties['padding'];
       };
+      shadow: {
+        card: {
+          display: {
+            boxShadow: React.CSSProperties['boxShadow'];
+          };
+          highlight: {
+            boxShadow: React.CSSProperties['boxShadow'];
+          };
+        };
+      };
     };
   }
 
   interface ThemeOptions {
     custom?: {
-      boxShadow?: {
-        card?: React.CSSProperties['boxShadow'];
+      actions?: {
+        clicked?: {
+          transform?: React.CSSProperties['transform'];
+          boxShadow?: React.CSSProperties['boxShadow'];
+        };
       };
       center?: {
         display?: React.CSSProperties['display'];
-        justifyCenter?: React.CSSProperties['justifyContent'];
+        justifyContent?: React.CSSProperties['justifyContent'];
         alignItems?: React.CSSProperties['alignItems'];
       };
       centerColumn?: {
         display?: React.CSSProperties['display'];
         flexDirection?: React.CSSProperties['flexDirection'];
-        justifyCenter?: React.CSSProperties['justifyContent'];
+        justifyContent?: React.CSSProperties['justifyContent'];
         alignItems?: React.CSSProperties['alignItems'];
       };
       loading?: {
@@ -74,6 +90,16 @@ declare module '@material-ui/core/styles/createTheme' {
         alignItems?: React.CSSProperties['alignItems'];
         margin?: React.CSSProperties['margin'];
         padding?: React.CSSProperties['padding'];
+      };
+      shadow: {
+        card?: {
+          display?: {
+            boxShadow?: React.CSSProperties['boxShadow'];
+          };
+          highlight?: {
+            boxShadow?: React.CSSProperties['boxShadow'];
+          };
+        };
       };
     };
   }
@@ -100,18 +126,22 @@ export const main = createTheme({
   },
 
   custom: {
-    boxShadow: {
-      card: 'rgba(189, 189, 189, 0.4) 0px 2px 4px, rgba(189, 189, 189, 0.3) 0px 7px 13px -3px, rgba(189, 189, 189, 0.2) 0px -3px 0px inset',
+    actions: {
+      clicked: {
+        transform: 'translateY(2px)',
+        boxShadow:
+          'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset',
+      },
     },
     center: {
       display: 'flex',
-      justifyCenter: 'center',
+      justifyContent: 'center',
       alignItems: 'center',
     },
     centerColumn: {
       display: 'flex',
       flexDirection: 'column',
-      justifyCenter: 'center',
+      justifyContent: 'center',
       alignItems: 'center',
     },
     loading: {
@@ -122,6 +152,17 @@ export const main = createTheme({
       alignItems: 'center',
       margin: 'auto',
       padding: '1rem',
+    },
+    shadow: {
+      card: {
+        display: {
+          boxShadow: `rgba(189, 189, 189, 0.7) 0px 2px 4px, rgba(189, 189, 189, 0.6) 0px 7px 13px -3px, rgba(189, 189, 189, 0.5) 0px -3px 0px inset`,
+        },
+        highlight: {
+          boxShadow:
+            'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset',
+        },
+      },
     },
   },
 
