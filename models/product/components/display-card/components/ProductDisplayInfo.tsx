@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import StarsGenerator from 'lib/components/generators/StarsGenerator';
+import ProductStarRating from '../../star-rating/ProductStarRating';
 
 type Props = {
   name: string;
@@ -42,7 +43,7 @@ const ProductDisplayInfo: React.FunctionComponent<Props> = ({
         </Typography>
       </Grid>
       <Grid item container>
-        <StarsGenerator rating={rating} />
+        <ProductStarRating rating={0} reviews={0} />
       </Grid>
     </Grid>
   );

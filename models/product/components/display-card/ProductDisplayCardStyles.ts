@@ -75,8 +75,24 @@ export const useProductDisplayCardStyles = makeStyles(
           fontSize: '1rem',
           margin: '2px 2px',
         },
-        '& div svg.MuiSvgIcon-root': {
-          fontSize: '1.5rem',
+        '& > div.MuiGrid-root:nth-child(3)': {
+          ...custom.center,
+          '& div.MuiContainer-root': {
+            flex: '0 1 45%',
+            display: 'flex',
+            alignItems: 'center',
+            padding: 0,
+            [breakpoints.up('tabletSm')]: {
+              flex: '0 1 40%',
+            },
+            '& svg.MuiSvgIcon-root': {
+              fontSize: '1.5rem',
+            },
+          },
+          '& span.MuiTypography-caption': {
+            flex: 1,
+            fontSize: '.8rem',
+          },
         },
       },
 
