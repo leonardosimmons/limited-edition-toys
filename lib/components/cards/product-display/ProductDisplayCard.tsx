@@ -58,7 +58,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
 
   if (status === 'loading') {
     return (
-      <DisplayCard>
+      <DisplayCard classes={styles.displayCard}>
         <CircleLoadSpinner />
       </DisplayCard>
     );
