@@ -12,13 +12,19 @@ import Layout from 'src/containers/Layout/Layout';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { useProducts } from 'models/product/useProducts';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
+import { Product } from 'models/product/types';
 
 const useStyles = makeStyles(({ custom }: Theme) =>
   createStyles({
+    imageBox: {
+      position: 'relative',
+      width: '250px',
+      height: '155px',
+      ...custom.centerColumn,
+    },
+
     mainContainer: {
       height: '100%',
       width: '100%',
@@ -38,8 +44,8 @@ function ProductPage({
   title,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
   const styles = useStyles();
-  const { status, products } = useProducts();
-  const product = React.useMemo(() => {
+  const { products } = useProducts();
+  const product: Product | undefined = React.useMemo(() => {
     if (products.list && products.list.length > 0) {
       return products.list.find(
         (product) =>
@@ -52,7 +58,10 @@ function ProductPage({
     }
   }, [products]);
 
-  if (status === 'loading') {
+  //* -------------------------------------------------
+  // Render
+
+  if (products.status === 'loading') {
     return (
       <Layout title={title}>
         <Container className={styles.mainContainer}>
@@ -64,11 +73,20 @@ function ProductPage({
 
   return (
     <Layout title={`Limited Edition Toys | ${title}`}>
-      <Box className={styles.mainContainer}>
+      <Container className={styles.mainContainer}>
         <Grid container>
-          <Grid item>{product?.name}</Grid>
+          <Grid item>
+            <Box className={styles.imageBox}>
+              <Image
+                src={product?.image_url as string}
+                alt="Product Image"
+                layout={'fill'}
+                objectFit={'contain'}
+              />
+            </Box>
+          </Grid>
         </Grid>
-      </Box>
+      </Container>
     </Layout>
   );
 }
