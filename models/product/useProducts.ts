@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from 'src/redux';
 import { setFilteredProductList } from 'src/redux/models/page/actions';
 import { pageSelector } from 'src/redux/models/page/selectors';
 import { ProductModel } from './product.model';
-import { useGetAllProducts } from './queries';
+import { useGetAllProducts, useProductTags } from './queries';
 import { Product, ProductFilterOptions } from './types';
 
 export function useProducts(
@@ -14,6 +14,7 @@ export function useProducts(
   const dispatch = useAppDispatch();
   const page = useAppSelector(pageSelector);
   const { status, data: vend, error } = useGetAllProducts();
+  const { status: tagStatus, data: tags, error: tagError } = useProductTags();
 
   //* -------------------------------------------------
   // filters products based on provided params (if applicable)
@@ -38,11 +39,16 @@ export function useProducts(
   // Return
 
   return {
-    error,
     products: {
+      error,
       ...page.products,
-      list: vend,
+      list: vend as Product[],
+      status,
     },
-    status,
+    tags: {
+      error: tagError,
+      list: tags,
+      status: tagStatus,
+    },
   };
 }

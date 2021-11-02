@@ -13,6 +13,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import { useProducts } from 'models/product/useProducts';
 
 type Props = {
   anchorEl: null | HTMLElement;
@@ -25,7 +26,7 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
 }): JSX.Element => {
   const styles = useTagSearchStyles();
   const ui = useAppSelector(uiSelector);
-  const { status, data: tags, error } = useProductTags();
+  const { tags } = useProducts();
 
   const handleMenuItemClick = (e: React.MouseEvent<HTMLLIElement>): void => {
     // go to selected category page
@@ -66,10 +67,10 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
         {'Search'}
       </Typography>
       {tags &&
-        tags.map((t: ProductPropertyOptions, index: number) => (
+        tags.list?.map((t: ProductPropertyOptions, index: number) => (
           <Box key={index}>
             <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
-              {status === 'loading' ? '...' : t.name}
+              {tags.status === 'loading' ? '...' : t.name}
             </MenuItem>
             <Divider className={styles.tabDivider} />
           </Box>
