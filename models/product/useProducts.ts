@@ -20,15 +20,12 @@ export function useProducts(options?: ProductQueryOptions) {
     if (options?.filter?.value && options?.filter.type && vend) {
       return model.filter(options?.filter?.value, options?.filter.type, vend);
     }
-
     return [];
   }, [options?.filter?.value, options?.filter?.type, vend]);
 
   React.useEffect(() => {
     if (filteredProducts && filteredProducts !== []) {
-      dispatch(
-        setFilteredProductList(page.products.filtered.concat(filteredProducts)),
-      );
+      dispatch(setFilteredProductList(filteredProducts));
     }
   }, [filteredProducts]);
 
