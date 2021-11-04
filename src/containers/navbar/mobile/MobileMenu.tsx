@@ -1,14 +1,4 @@
 import React from 'react';
-
-import { useMobileMenuStyles } from './MobileMenuStyles';
-
-import Image from 'next/image';
-import Box from '@material-ui/core/Box';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Typography from '@material-ui/core/Typography';
-
-import MobileMenuList from './components/MobileMenuList';
-import MobileMenuTabs from './components/MobileMenuTabs';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import {
   closeNavbarMobileMenu,
@@ -16,11 +6,17 @@ import {
   openNavbarMobileMenu,
 } from 'src/redux/models/ui';
 
-type Props = {};
+import MobileDrawer from './styles/MobileDrawer';
+import MobilePromotionalBox from './styles/MobilePromotionalDrawer';
+import MobileCopyright from './styles/MobileCopyright';
 
-const MobileMenu: React.FunctionComponent<Props> = (): JSX.Element => {
+import Image from 'next/image';
+
+import MobileMenuList from './components/MobileMenuList';
+import MobileMenuTabs from './components/MobileMenuTabs';
+
+const MobileMenu: React.FunctionComponent = (): JSX.Element => {
   const ui = useAppSelector(uiSelector);
-  const styles = useMobileMenuStyles();
   const dispatch = useAppDispatch();
 
   // Drawer --------------------
@@ -44,25 +40,24 @@ const MobileMenu: React.FunctionComponent<Props> = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <SwipeableDrawer
+      <MobileDrawer
         anchor="right"
         open={ui.navbar.mobileMenuOpen}
         onOpen={handleDrawerToggle(true)}
-        onClose={handleDrawerToggle(false)}
-        classes={{ paper: styles.menuDrawer }}>
-        <Box className={styles.promoBox}>
+        onClose={handleDrawerToggle(false)}>
+        <MobilePromotionalBox>
           <Image
             src={'/images/logo-1.png'}
             alt="Logo"
             width={135}
             height={135}
           />
-        </Box>
+        </MobilePromotionalBox>
         <MobileMenuList />
-        <Typography variant="caption" className={styles.copyright}>
+        <MobileCopyright variant="caption">
           {'© Limited Edition Toys - 2021'}
-        </Typography>
-      </SwipeableDrawer>
+        </MobileCopyright>
+      </MobileDrawer>
       <MobileMenuTabs drawerToggle={handleDrawerToggle} />
     </React.Fragment>
   );

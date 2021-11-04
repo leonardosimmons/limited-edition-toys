@@ -1,14 +1,15 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import { useAppSelector } from 'src/redux';
 import { Product } from 'models/product/types';
-
-import { useProductDisplayCardStyles } from './ProductDisplayCardStyles';
+import { uiSelector } from 'src/redux/models/ui';
 
 import { useGetInventoryById } from 'models/product/queries';
 
+import { ProductDisplayCardImageBox } from './styles/ProductDisplayImageBox';
+
 import Image from 'next/image';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import Grid from '@mui/material/Grid';
 
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
@@ -17,13 +18,15 @@ import DisplayCard from '../../../../lib/components/cards/DisplayCard';
 
 type Props = {
   product: Product;
+  index?: number;
 };
 
 const ProductDisplayCard: React.FunctionComponent<Props> = ({
   product,
+  index,
 }): JSX.Element => {
   const router = useRouter();
-  const styles = useProductDisplayCardStyles();
+  const ui = useAppSelector(uiSelector);
   const [slug, setSlug] = React.useState<string | undefined>();
   const { status, data: inventory, error } = useGetInventoryById(product.id);
   const [inStock, setInStock] = React.useState<boolean>(false);
@@ -58,26 +61,30 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
 
   if (status === 'loading') {
     return (
-      <DisplayCard classes={styles.displayCard}>
+      <DisplayCard>
         <CircleLoadSpinner />
       </DisplayCard>
     );
   }
 
   return (
-    <DisplayCard classes={styles.displayCard}>
+    <DisplayCard>
       <Grid container direction="column" spacing={1}>
-        <Grid item className={styles.gridItem}>
-          <Box className={styles.imageBox}>
+        <Grid item sx={{ padding: 0 }}>
+          <ProductDisplayCardImageBox>
             <Image
+              priority={
+                ui.status.viewport === 'desktop' && index && index < 8
+                  ? true
+                  : false || false
+              }
               src={product.image_url as string}
               alt="product image"
               layout="fill"
               objectFit="contain"
-              className={styles.image}
               onClick={handleImageClicked}
             />
-          </Box>
+          </ProductDisplayCardImageBox>
         </Grid>
         <ProductDisplayInfo
           name={product.name}

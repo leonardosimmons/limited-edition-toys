@@ -5,9 +5,9 @@ import { Provider as StoreProvider } from 'react-redux';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import * as theme from 'theme';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import StylesProvider from '@material-ui/styles/StylesProvider';
-import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import CssBaseline from '@mui/material/CssBaseline';
+import { StyledEngineProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState<QueryClient>(() => new QueryClient());
@@ -24,10 +24,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <StoreProvider store={store}>
           <ThemeProvider theme={theme.main}>
-            <StylesProvider injectFirst>
+            <StyledEngineProvider injectFirst>
               <CssBaseline />
               <Component {...pageProps} />
-            </StylesProvider>
+            </StyledEngineProvider>
           </ThemeProvider>
         </StoreProvider>
       </Hydrate>

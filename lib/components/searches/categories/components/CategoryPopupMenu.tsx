@@ -4,14 +4,12 @@ import { uiSelector } from 'src/redux/models/ui';
 import { NextLinkComposed } from 'lib/components/NextLinkComposed';
 import { Id } from 'utils/keys';
 
-import { useCategorySearchStyles } from '../CategorySearchStyles';
-
-import Box from '@material-ui/core/Box';
-import Menu from '@material-ui/core/Menu';
-import List from '@material-ui/core/List';
-import Container from '@material-ui/core/Container';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import Box from '@mui/material/Box';
+import Menu from '@mui/material/Menu';
+import List from '@mui/material/List';
+import Container from '@mui/material/Container';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import CategoryListMenu from './CategoryListMenu';
 import CategoryProductPreview from './CategoryProductPreview';
 
@@ -24,7 +22,6 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
   anchorEl,
   menuClose,
 }): JSX.Element => {
-  const styles = useCategorySearchStyles();
   const ui = useAppSelector(uiSelector);
 
   const [activeIndex, setActiveIndex] = React.useState<null | number>(null);
@@ -33,7 +30,6 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
     <Menu
       id={Id.CATEGORY_SEARCH_BAR}
       anchorEl={anchorEl}
-      getContentAnchorEl={undefined}
       open={ui.navbar.categoryMenuOpen}
       elevation={2}
       onClose={menuClose}
@@ -52,13 +48,16 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
         undefined
       }
       transitionDuration={300}
-      classes={{ paper: styles.menu }}
+      // classes={{ paper: styles.menu }}
       MenuListProps={{ onMouseLeave: menuClose }}>
-      <Box className={styles.menuContainer}>
+      <Box
+      // className={styles.menuContainer}
+      >
         <CategoryListMenu activeIndex={activeIndex} />
         <Container
-          className={styles.productContainer}
-          classes={{ root: styles.productContainerRoot }}>
+        // className={styles.productContainer}
+        // classes={{ root: styles.productContainerRoot }}
+        >
           <CategoryProductPreview />
           <CategoryProductPreview />
           <CategoryProductPreview />

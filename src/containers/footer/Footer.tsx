@@ -1,20 +1,27 @@
 import React from 'react';
-import { NextLinkComposed } from 'lib/components/NextLinkComposed';
-import { Links } from 'utils/keys';
+import { Images, Links } from 'utils/keys';
 
-import { useFooterStyles } from './FooterStyles';
+import { styled } from '@mui/material/styles';
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
 type Props = {};
 
-const Footer: React.FunctionComponent<Props> = (): JSX.Element => {
-  const styles = useFooterStyles();
+const Footer = styled('footer')(({ theme }) => ({
+  width: '100%',
+  height: '175px',
+  backgroundImage: `url(${Images.BOTTOM_CLOUDS_LIGHT})`,
+  backgroundSize: 'cover',
+  [theme.breakpoints.up('desktopSm')]: {
+    height: '600px',
+  },
+}));
 
+const AppFooter: React.FunctionComponent<Props> = (): JSX.Element => {
   return (
-    <footer className={styles.footer}>
-      <Grid
+    <Footer>
+      {/* <Grid
         container
         justifyContent="center"
         classes={{ container: styles.mainContainer }}>
@@ -24,12 +31,12 @@ const Footer: React.FunctionComponent<Props> = (): JSX.Element => {
               item
               className={styles.logo}
               component={NextLinkComposed}
-              to={Links.HOME}>
-              {/* add logo */}
-            </Grid>
-            <Grid item className={styles.description}>
-              {/* add store description */}
-            </Grid>
+              to={Links.HOME}> */}
+      {/* add logo */}
+      {/* </Grid>
+            <Grid item className={styles.description}> */}
+      {/* add store description */}
+      {/* </Grid>
           </Grid>
         </Grid>
         <Grid item className={styles.gridItem}>
@@ -39,14 +46,14 @@ const Footer: React.FunctionComponent<Props> = (): JSX.Element => {
                 variant="h6"
                 className={styles.informationText}></Typography>
             </Grid>
-            <Grid item className={styles.information}>
-              {/* Information List */}
-            </Grid>
+            <Grid item className={styles.information}> */}
+      {/* Information List */}
+      {/* </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </footer>
+      </Grid> */}
+    </Footer>
   );
 };
 
-export default Footer;
+export default AppFooter;

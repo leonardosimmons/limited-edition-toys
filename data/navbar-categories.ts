@@ -20,7 +20,7 @@ export const productCategories: MenuTab[] = [
   {
     name: 'Video Games',
     slug: 'video-games',
-    link: 'categories/video-games',
+    link: '/categories/video-games',
     index: 2,
     mouseOver: true,
     ariaPopup: true,

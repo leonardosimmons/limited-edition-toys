@@ -1,9 +1,6 @@
 import React from 'react';
-
-import { useProductHeaderStyles } from './ProductHeaderStyles';
-
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
+import { ProductHeaderMainContainer } from './styles/ProductHeaderMainContainer';
+import { ProductHeaderTitle } from './styles/ProductHeaderTitle';
 
 type Props = {
   title: string;
@@ -12,14 +9,10 @@ type Props = {
 const ProductHeader: React.FunctionComponent<Props> = ({
   title,
 }): JSX.Element => {
-  const styles = useProductHeaderStyles();
-
   return (
-    <Container className={styles.mainContainer} maxWidth={false}>
-      <Typography variant="h2" className={styles.title}>
-        {title}
-      </Typography>
-    </Container>
+    <ProductHeaderMainContainer maxWidth={false}>
+      <ProductHeaderTitle variant="h2">{title}</ProductHeaderTitle>
+    </ProductHeaderMainContainer>
   );
 };
 

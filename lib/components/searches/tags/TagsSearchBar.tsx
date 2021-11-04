@@ -1,52 +1,40 @@
 import React from 'react';
+import { useAppDispatch, useAppSelector } from 'src/redux';
+import {
+  closeNavbarSearchMenu,
+  openNavbarSearchMenu,
+  uiSelector,
+} from 'src/redux/models/ui';
 import { Id } from 'utils/keys';
-import { Dispatch } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
-import type { ActionCreatorWithoutPayload } from '@reduxjs/toolkit';
 
-import { useSearchBarStyles } from './SearchBarStyles';
+import TagSearchBar from './styles/TagSearchBar';
 
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import Divider from '@material-ui/core/Divider';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
 
-import PopupMenu from './components/PopupMenu';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 
-type Props = {
-  isMenuOpen: boolean;
-  open: ActionCreatorWithoutPayload<any>;
-  close: ActionCreatorWithoutPayload<any>;
-  dispatch: ThunkDispatch<any, any, any> &
-    ThunkDispatch<any, any, any> &
-    Dispatch<any>;
-  placeholder?: string;
-};
+import TagPopupMenu from './components/TagPopupMenu';
 
-const SearchBar: React.FunctionComponent<Props> = ({
-  open,
-  close,
-  isMenuOpen,
-  dispatch,
-  placeholder,
-}): JSX.Element => {
-  const styles = useSearchBarStyles();
+const TagsSearchBar: React.FunctionComponent = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const ui = useAppSelector(uiSelector);
 
   // Menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   function handleMenuClose(): void {
     setAnchorEl(null);
-    dispatch(close());
+    dispatch(closeNavbarSearchMenu());
   }
 
   function handleMenuOpen(
     e: React.MouseEvent<HTMLElement> | React.FocusEvent<HTMLElement>,
   ): void {
     setAnchorEl(e.currentTarget);
-    dispatch(open());
+    dispatch(openNavbarSearchMenu());
   }
 
   // Search --------------------
@@ -67,38 +55,40 @@ const SearchBar: React.FunctionComponent<Props> = ({
 
   return (
     <React.Fragment>
-      <Paper component="form" className={styles.searchBar}>
+      <TagSearchBar>
         <IconButton
           id={Id.NAVBAR_SEARCH_MENU}
-          className={styles.icon}
-          classes={{ root: styles.menuIcon }}
+          aria-label="product category menu"
           onBlur={handleMenuClose}
           onFocus={handleMenuOpen}
           onMouseOver={handleMenuOpen}
           aria-owns={Id.NAVBAR_SEARCH_MENU}
           aria-controls={Id.NAVBAR_SEARCH_MENU}
-          aria-expanded={isMenuOpen ? 'true' : undefined}>
+          aria-expanded={ui.navbar.searchMenuOpen ? 'true' : undefined}>
           <MenuIcon />
         </IconButton>
-        <Divider className={styles.divider} orientation="vertical" />
+        <Divider orientation="vertical" />
         <InputBase
-          placeholder={placeholder ?? undefined}
+          placeholder="Search Products"
           value={searchString}
-          className={styles.searchInput}
+          sx={{ flex: 1 }}
+          inputProps={{
+            'aria-label': 'search product categories',
+          }}
           onChange={handleUserInput}
         />
         <IconButton
           type="submit"
           aria-label="search"
           disableRipple
-          className={`${styles.icon} ${styles.searchIcon} .Mui-focusVisible`}
+          className={'.Mui-focusVisible'}
           onClick={handleEnteredSearch}>
           <SearchIcon />
         </IconButton>
-      </Paper>
-      <PopupMenu anchorEl={anchorEl} menuClose={handleMenuClose} />
+      </TagSearchBar>
+      <TagPopupMenu anchorEl={anchorEl} menuClose={handleMenuClose} />
     </React.Fragment>
   );
 };
 
-export default SearchBar;
+export default TagsSearchBar;

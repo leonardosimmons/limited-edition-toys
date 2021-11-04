@@ -4,57 +4,46 @@ import { dehydrate, QueryClient } from 'react-query';
 import { Product } from 'models/product/types';
 import { Queries } from 'utils/keys';
 
-import { makeStyles, Theme } from '@material-ui/core';
-import createStyles from '@material-ui/styles/createStyles';
-
 import { useProducts } from 'models/product/useProducts';
 import { getAllProducts } from 'models/product/queries';
 import { capitalizeFirstLetters } from 'lib';
 
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import { styled } from '@mui/material/styles';
+
+import Grid, { GridProps } from '@mui/material/Grid';
+import Container, { ContainerProps } from '@mui/material/Container';
 
 import Layout from 'src/containers/Layout/Layout';
 import ProductHeader from 'src/containers/headers/products/ProductHeader';
 import ProductDisplayCard from 'models/product/components/display-card/ProductDisplayCard';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 
-const useStyles = makeStyles(({ breakpoints, custom }: Theme) =>
-  createStyles({
-    displayGrid: {
-      [breakpoints.up('mobileMd')]: {
-        marginTop: '2rem',
-      },
-      '& > div.MuiGrid-root': {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-    },
+const DisplayGrid = styled(Grid)<GridProps>(({ theme }) => ({
+  [theme.breakpoints.up('mobileMd')]: {
+    marginTop: '2rem',
+  },
+  '& > div.MuiGrid-root': {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20px',
+  },
+}));
 
-    mainContainer: {
-      flex: 1,
-      width: '100%',
-      maxWidth: '1850px',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '1rem',
-    },
-
-    loading: {
-      ...custom.loading,
-      '& > div.MuiCircularProgress-root': {
-        marginBottom: '20px',
-      },
-    },
-  }),
-);
+const MainContainer = styled(Container)<ContainerProps>(({ theme }) => ({
+  flex: 1,
+  width: '100%',
+  maxWidth: '1850px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '1rem',
+  marginBottom: '100px',
+}));
 
 function ProductCategoryDisplayPage({
   category,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const styles = useStyles();
   const { products } = useProducts({
     filter: {
       value: category,
@@ -65,9 +54,9 @@ function ProductCategoryDisplayPage({
   if (products.status === 'loading') {
     return (
       <Layout title={category}>
-        <Container className={styles.mainContainer}>
+        <MainContainer maxWidth={false}>
           <CircleLoadSpinner />
-        </Container>
+        </MainContainer>
       </Layout>
     );
   }
@@ -78,19 +67,15 @@ function ProductCategoryDisplayPage({
   return (
     <Layout title={`Limited Edition Toys | ${category}`}>
       <ProductHeader title={category} />
-      <Container className={styles.mainContainer}>
-        <Grid
-          container
-          className={styles.displayGrid}
-          direction="row"
-          spacing={2}>
+      <MainContainer maxWidth={false}>
+        <DisplayGrid container direction="row" spacing={2}>
           {products.filtered.map((product: Product, index: number) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
               <ProductDisplayCard product={product} />
             </Grid>
           ))}
-        </Grid>
-      </Container>
+        </DisplayGrid>
+      </MainContainer>
     </Layout>
   );
 }

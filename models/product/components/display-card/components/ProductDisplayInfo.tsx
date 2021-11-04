@@ -1,12 +1,12 @@
 import React from 'react';
+import Link from 'next/link';
 import { Default } from 'utils/keys';
 
-import { useProductDisplayCardStyles } from '../ProductDisplayCardStyles';
+import { ProductDisplayInfoGrid } from '../styles/ProductDisplayInfoGrid';
 
-import Link from 'next/link';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import StarsGenerator from 'lib/components/generators/StarsGenerator';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+
 import ProductStarRating from '../../star-rating/ProductStarRating';
 
 type Props = {
@@ -22,10 +22,8 @@ const ProductDisplayInfo: React.FunctionComponent<Props> = ({
   slug,
   rating,
 }): JSX.Element => {
-  const styles = useProductDisplayCardStyles();
-
   return (
-    <Grid item container direction="column" className={styles.displayInfo}>
+    <ProductDisplayInfoGrid item container direction="column">
       <Grid item>
         <Link href={`/product/${slug}`}>
           <Typography variant="h6">
@@ -43,9 +41,9 @@ const ProductDisplayInfo: React.FunctionComponent<Props> = ({
         </Typography>
       </Grid>
       <Grid item container>
-        <ProductStarRating rating={0} reviews={0} />
+        <ProductStarRating name={slug} rating={0} reviews={0} />
       </Grid>
-    </Grid>
+    </ProductDisplayInfoGrid>
   );
 };
 

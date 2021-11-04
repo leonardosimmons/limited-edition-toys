@@ -3,29 +3,31 @@ import { useRouter } from 'next/router';
 import { Images, Links } from 'utils/keys';
 
 import { useAppSelector } from 'src/redux';
-import { uiSelector } from 'src/redux/models/ui';
 import { useViewport } from 'lib/hooks/useViewport';
+import { uiSelector } from 'src/redux/models/ui';
 
-import { useNavbarStyles } from './NavbarStyles';
+import {
+  NavbarButton,
+  NavbarOffset,
+  NavigationBar,
+} from './styles/NavigationBar';
+import { NavbarPromoBox } from './styles/NavbarPromoBox';
+import { NavBarTitle, NavbarTitleBox } from './styles/NavbarTitle';
+import { NavbarMenuBox } from './styles/NavbarMenuBox';
 
 import Image from 'next/image';
-import Box from '@material-ui/core/Box';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import Toolbar from '@mui/material/Toolbar';
 
 import ElevationScroll from 'lib/components/ElevationScroll';
 import DesktopTabs from './desktop/DesktopTabs';
 import MobileMenu from './mobile/MobileMenu';
-import TagSearchBar from '../../../lib/components/searches/tags/TagSearchBar';
+import TagSearchBar from '../../../lib/components/searches/tags/TagsSearchBar';
 import CategorySearchBar from '../../../lib/components/searches/categories/CategorySearchBar';
 
-const Navbar: React.FunctionComponent = (): JSX.Element => {
+const AppNavigationBar: React.FunctionComponent = (): JSX.Element => {
   useViewport();
   const router = useRouter();
   const ui = useAppSelector(uiSelector);
-  const styles = useNavbarStyles();
 
   // -------------------------------------------
   function handleLogoClick(): void {
@@ -35,16 +37,15 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
   return (
     <ElevationScroll>
       <React.Fragment>
-        <AppBar
+        <NavigationBar
           position="fixed"
           aria-label="Main header"
-          className={styles.navbar}
           classes={{
-            root: styles.navbarColors,
-            colorPrimary: styles.navbarColors,
+            root: '#fff !important',
+            colorPrimary: '#bbdcff !important',
           }}>
-          <Toolbar disableGutters className={styles.toolbar}>
-            <Box className={styles.promoBox} aria-label="promotional box">
+          <Toolbar disableGutters sx={{ height: '100%' }}>
+            <NavbarPromoBox aria-label="promotional box">
               <Image
                 src={Images.NAVBAR_PROMO}
                 alt={'promo image'}
@@ -52,39 +53,34 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
                 width={200}
                 role="img"
               />
-            </Box>
-            <Box className={styles.titleBox} onClick={handleLogoClick}>
-              <Button
+            </NavbarPromoBox>
+            <NavbarTitleBox onClick={handleLogoClick}>
+              <NavbarButton
                 disableRipple
                 disableTouchRipple
-                onClick={handleLogoClick}
-                className={styles.titleButton}
-                classes={{ text: styles.titleButton }}>
-                <Typography
-                  variant="h1"
-                  className={styles.title}
-                  aria-label="Main Heading">
+                onClick={handleLogoClick}>
+                <NavBarTitle variant="h1" aria-label="Main Heading">
                   <span>{'LIMITED EDITION'}</span>
                   <span>{'Toys'}</span>
-                </Typography>
-              </Button>
+                </NavBarTitle>
+              </NavbarButton>
               <TagSearchBar />
-            </Box>
-            <Box className={styles.menuBox}>
+            </NavbarTitleBox>
+            <NavbarMenuBox>
               {ui.status.viewport === 'mobile' ? (
                 <MobileMenu />
               ) : (
                 <DesktopTabs />
               )}
-            </Box>
+            </NavbarMenuBox>
           </Toolbar>
-        </AppBar>
-        <div className={styles.navbarOffset} />
-        <div className={styles.navbarOffset} />
+        </NavigationBar>
+        <NavbarOffset />
+        <NavbarOffset />
         {ui.status.viewport === 'desktop' && <CategorySearchBar />}
       </React.Fragment>
     </ElevationScroll>
   );
 };
 
-export default Navbar;
+export default AppNavigationBar;

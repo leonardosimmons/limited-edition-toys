@@ -1,0 +1,47 @@
+import { Images } from 'utils/keys';
+
+import { styled } from '@mui/material/styles';
+
+import Container, { ContainerProps } from '@mui/material/Container';
+
+export const ProductHeaderMainContainer = styled(Container)<ContainerProps>(
+  ({ theme }) => ({
+    width: '100%',
+    height: '150px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundImage: `url(${Images.TOP_CLOUDS_LIGHT})`,
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: '0 85%',
+    [theme.breakpoints.up('mobileMd')]: {
+      height: '165px',
+      backgroundPosition: '0 100%',
+    },
+    [theme.breakpoints.up('mobileLg')]: {
+      height: '195px',
+    },
+    [theme.breakpoints.up('mobileLg')]: {
+      height: '225px',
+    },
+    [theme.breakpoints.up('tabletMd')]: {
+      height: '275px',
+      backgroundPosition: '0 120%',
+      backgroundRepeat: 'repeat-x',
+    },
+    [theme.breakpoints.up('desktopSm')]: {
+      height: '275px',
+      backgroundSize: '70%',
+      backgroundPosition: '20% 80%',
+    },
+    [theme.breakpoints.up('desktopMd')]: {
+      height: '350px',
+      backgroundSize: '55%',
+    },
+    [theme.breakpoints.up('desktopLg')]: {
+      height: '350px',
+      backgroundSize: '35%',
+    },
+  }),
+);

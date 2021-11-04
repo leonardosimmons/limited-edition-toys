@@ -1,9 +1,10 @@
 import React from 'react';
 import { useAppDispatch } from 'src/redux';
-import { useMediaQuery } from '@material-ui/core';
 import { setViewportType } from 'src/redux/models/ui';
-import useTheme from '@material-ui/core/styles/useTheme';
-import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
+
+import { useTheme } from '@mui/material/styles';
+import { Breakpoint } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 /**
  * [Material-ui]

@@ -1,24 +1,29 @@
 import React from 'react';
-import { makeStyles, Theme } from '@material-ui/core';
-import createStyles from '@material-ui/styles/createStyles';
 
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import StarsGenerator from 'lib/components/generators/StarsGenerator';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Rating from '@mui/material/Rating';
 
 type Props = {
   rating: number;
   reviews: number;
+  name: string;
 };
 
 const ProductStarRating: React.FunctionComponent<Props> = ({
   rating,
   reviews,
+  name,
 }): JSX.Element => {
   return (
     <React.Fragment>
       <Container>
-        <StarsGenerator rating={rating} />
+        <Rating
+          name={`${name}-rating`}
+          value={rating}
+          precision={0.1}
+          readOnly
+        />
       </Container>
       <Typography variant="caption">{`(${reviews} customer reviews)`}</Typography>
     </React.Fragment>

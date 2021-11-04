@@ -1,5 +1,5 @@
-import React from "react";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import React from 'react';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 interface ElevationScroll {
   trigger: boolean;
@@ -12,7 +12,7 @@ type Props = {
 function ElevationScroll({ children }: Props) {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 100,
+    threshold: 0,
   });
 
   return React.cloneElement(children, {

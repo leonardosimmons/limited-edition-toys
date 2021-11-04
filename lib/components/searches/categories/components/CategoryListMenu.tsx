@@ -1,14 +1,12 @@
 import React from 'react';
 import { NextLinkComposed } from 'lib/components/NextLinkComposed';
 
-import { useCategorySearchStyles } from '../CategorySearchStyles';
-
-import Box from '@material-ui/core/Box';
-import List from '@material-ui/core/List';
-import Container from '@material-ui/core/Container';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import Container from '@mui/material/Container';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
 
 type Props = {
   activeIndex: null | number;
@@ -17,22 +15,25 @@ type Props = {
 const CategoryListMenu: React.FunctionComponent<Props> = ({
   activeIndex,
 }): JSX.Element => {
-  const styles = useCategorySearchStyles();
-
   return (
     <Box>
       <Typography variant="subtitle1">Categories:</Typography>
       <List
         disablePadding
         aria-label="category menu"
-        className={styles.listContainer}>
+        // className={styles.listContainer}
+      >
         <ListItem
           button
           to={'/'}
           component={NextLinkComposed}
           selected={(activeIndex as number) > 0}
-          className={styles.listItem}>
-          <ListItemText disableTypography className={styles.listItemText}>
+          // className={styles.listItem}
+        >
+          <ListItemText
+            disableTypography
+            // className={styles.listItemText}
+          >
             Placeholder Content
           </ListItemText>
         </ListItem>
@@ -41,8 +42,12 @@ const CategoryListMenu: React.FunctionComponent<Props> = ({
           to={'/'}
           component={NextLinkComposed}
           selected={(activeIndex as number) > 0}
-          className={styles.listItem}>
-          <ListItemText disableTypography className={styles.listItemText}>
+          // className={styles.listItem}
+        >
+          <ListItemText
+            disableTypography
+            // className={styles.listItemText}
+          >
             Placeholder Content
           </ListItemText>
         </ListItem>
@@ -51,8 +56,12 @@ const CategoryListMenu: React.FunctionComponent<Props> = ({
           to={'/'}
           component={NextLinkComposed}
           selected={(activeIndex as number) > 0}
-          className={styles.listItem}>
-          <ListItemText disableTypography className={styles.listItemText}>
+          // className={styles.listItem}
+        >
+          <ListItemText
+            disableTypography
+            // className={styles.listItemText}
+          >
             Placeholder Content
           </ListItemText>
         </ListItem>
@@ -61,8 +70,12 @@ const CategoryListMenu: React.FunctionComponent<Props> = ({
           to={'/'}
           component={NextLinkComposed}
           selected={(activeIndex as number) > 0}
-          className={styles.listItem}>
-          <ListItemText disableTypography className={styles.listItemText}>
+          // className={styles.listItem}
+        >
+          <ListItemText
+            disableTypography
+            // className={styles.listItemText}
+          >
             Placeholder Content
           </ListItemText>
         </ListItem>

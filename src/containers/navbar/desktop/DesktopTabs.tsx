@@ -1,38 +1,28 @@
 import React from 'react';
 
-import useDesktopTabStyles from './DesktopTabStyles';
+import { DesktopNavbarTabButton } from './styles/DesktopNavbarTabButton';
+import { DesktopNavbarDivider } from './styles/DesktopNavbarDivider';
+import { DesktopNavbarCartIcon } from './styles/DesktopNavbarCartIcon';
 
-import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import FaceTwoTone from '@material-ui/icons/FaceTwoTone';
-import AssignmentTwoToneIcon from '@material-ui/icons/AssignmentTwoTone';
-import ShoppingCartTwoToneIcon from '@material-ui/icons/ShoppingCartTwoTone';
+import FaceTwoTone from '@mui/icons-material/FaceTwoTone';
+import AssignmentTwoToneIcon from '@mui/icons-material/AssignmentTwoTone';
+import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 
 type Props = {};
 
 const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
-  const styles = useDesktopTabStyles();
-
   return (
     <React.Fragment>
-      <Button startIcon={<AssignmentTwoToneIcon />} className={styles.button}>
+      <DesktopNavbarTabButton startIcon={<AssignmentTwoToneIcon />}>
         Wishlist
-      </Button>
-      <Divider
-        orientation="vertical"
-        flexItem
-        classes={{ root: styles.divider }}
-      />
-      <Button startIcon={<FaceTwoTone />} className={styles.button}>
+      </DesktopNavbarTabButton>
+      <DesktopNavbarDivider orientation="vertical" flexItem />
+      <DesktopNavbarTabButton startIcon={<FaceTwoTone />}>
         My Account
-      </Button>
-      <IconButton
-        aria-label="shopping cart"
-        size="small"
-        className={styles.cartIcon}>
+      </DesktopNavbarTabButton>
+      <DesktopNavbarCartIcon aria-label="shopping cart" size="small">
         <ShoppingCartTwoToneIcon fontSize="inherit" />
-      </IconButton>
+      </DesktopNavbarCartIcon>
     </React.Fragment>
   );
 };

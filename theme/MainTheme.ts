@@ -1,8 +1,8 @@
 import React from 'react';
-import { createTheme } from '@material-ui/core';
+import { createTheme } from '@mui/material/styles';
 import { Color } from 'utils/keys';
 
-declare module '@material-ui/core/styles/createBreakpoints' {
+declare module '@mui/material/styles' {
   interface BreakpointOverrides {
     xs: true;
     sm: true;
@@ -19,9 +19,6 @@ declare module '@material-ui/core/styles/createBreakpoints' {
     desktopMd: true;
     desktopLg: true;
   }
-}
-
-declare module '@material-ui/core/styles/createTheme' {
   interface Theme {
     custom: {
       actions: {
@@ -171,7 +168,7 @@ export const main = createTheme({
       main: Color.PRIMARY,
     },
     secondary: {
-      main: Color.SECONDARY,
+      main: '#f7da67',
     },
   },
 

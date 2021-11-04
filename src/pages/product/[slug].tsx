@@ -1,49 +1,81 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { makeStyles, Theme } from '@material-ui/core';
-import createStyles from '@material-ui/styles/createStyles';
+import { Product } from 'models/product/types';
 import { StaticPath } from 'utils/types';
 
 import { capitalizeFirstLetters, fixSlug, VendResponse } from 'lib';
 import { ProductModel } from 'models/product/product.model';
+import { useProducts } from 'models/product/useProducts';
+
+import { styled } from '@mui/material/styles';
 
 import Image from 'next/image';
+import Container, { ContainerProps } from '@mui/material/Container';
+import Box, { BoxProps } from '@mui/material/Box';
+import Grid, { GridProps } from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+
 import Layout from 'src/containers/Layout/Layout';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import { useProducts } from 'models/product/useProducts';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
-import { Product } from 'models/product/types';
+import ProductStarRating from 'models/product/components/star-rating/ProductStarRating';
 
-const useStyles = makeStyles(({ custom }: Theme) =>
-  createStyles({
-    imageBox: {
-      position: 'relative',
-      width: '250px',
-      height: '155px',
-      ...custom.centerColumn,
+const ImageBox = styled(Box)<BoxProps>(({ theme }) => ({
+  position: 'relative',
+  width: '280px',
+  height: '200px',
+  marginTop: '10px',
+  ...theme.custom?.centerColumn,
+}));
+
+const MainContainer = styled(Container)<ContainerProps>(({ theme }) => ({
+  height: '100%',
+  width: '100%',
+  ...theme.custom?.centerColumn,
+}));
+
+const MainGrid = styled(Grid)<GridProps>(({ theme }) => ({
+  ...theme.custom?.center,
+}));
+
+const ProductInfo = styled(Grid)<GridProps>(({ theme }) => ({
+  '& > div': {
+    ...theme.custom?.center,
+  },
+  '& > div:nth-of-type(1)': {
+    '& > h2.MuiTypography-h2': {
+      fontSize: '1.4rem',
+      fontWeight: 'bold',
+      textAlign: 'center',
     },
-
-    mainContainer: {
-      height: '100%',
-      width: '100%',
-    },
-
-    loading: {
-      ...custom.loading,
-      '& > div.MuiCircularProgress-root': {
-        marginBottom: '20px',
+  },
+  '& > div:nth-of-type(2)': {
+    marginTop: '10px',
+    ...theme.custom?.centerColumn,
+    '& div.MuiContainer-root': {
+      ...theme.custom?.center,
+      '& > svg': {
+        height: '.75em',
+        width: '.75em',
       },
     },
-  }),
-);
+    '& span.MuiTypography-caption': {
+      margin: '5px 0',
+      fontSize: '1rem',
+    },
+  },
+  '& > div:nth-of-type(3)': {
+    '& span.MuiTypography-body1': {
+      fontSize: '1.6rem',
+      fontWeight: 'bold',
+      margin: '1.5rem 0',
+    },
+  },
+}));
 
 function ProductPage({
   slug,
   title,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
-  const styles = useStyles();
   const { products } = useProducts();
   const product: Product | undefined = React.useMemo(() => {
     if (products.list && products.list.length > 0) {
@@ -64,29 +96,43 @@ function ProductPage({
   if (products.status === 'loading') {
     return (
       <Layout title={title}>
-        <Container className={styles.mainContainer}>
+        <MainContainer>
           <CircleLoadSpinner />
-        </Container>
+        </MainContainer>
       </Layout>
     );
   }
 
   return (
     <Layout title={`Limited Edition Toys | ${title}`}>
-      <Container className={styles.mainContainer}>
-        <Grid container>
-          <Grid item>
-            <Box className={styles.imageBox}>
+      <MainContainer>
+        <MainGrid container>
+          <Grid item sx={{ padding: '16px' }}>
+            <ImageBox>
               <Image
+                priority
                 src={product?.image_url as string}
                 alt="Product Image"
                 layout={'fill'}
                 objectFit={'contain'}
               />
-            </Box>
+            </ImageBox>
           </Grid>
-        </Grid>
-      </Container>
+          <ProductInfo item container direction="column">
+            <Grid item>
+              <Typography variant="h2">{product?.name}</Typography>
+            </Grid>
+            <Grid item>
+              <ProductStarRating name={slug} rating={0} reviews={0} />
+            </Grid>
+            <Grid item>
+              <Typography component="span">
+                {`$${product?.price_excluding_tax}.00`}
+              </Typography>
+            </Grid>
+          </ProductInfo>
+        </MainGrid>
+      </MainContainer>
     </Layout>
   );
 }

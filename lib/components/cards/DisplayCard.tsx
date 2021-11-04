@@ -1,40 +1,24 @@
-import React from 'react';
-import { makeStyles, Theme } from '@material-ui/core';
-import createStyles from '@material-ui/styles/createStyles';
+import { styled } from '@mui/material/styles';
 
-import Paper from '@material-ui/core/Paper';
-import { ClassNameMap } from '@material-ui/styles';
+import Paper, { PaperProps } from '@mui/material/Paper';
 
-const useStyles = makeStyles(({ breakpoints, custom }: Theme) =>
-  createStyles({
-    base: {
-      width: '335px',
-      height: '375px',
-      ...custom.centerColumn,
-      ...custom.shadow.card.display,
-      '&:hover': {
-        ...custom.shadow.card.highlight,
-      },
-      [breakpoints.up('tabletSm')]: {
-        width: '355px',
-        height: '475px',
-      },
+const DisplayCard = styled(Paper)<PaperProps>(({ theme }) => ({
+  width: '335px',
+  height: '390px',
+  ...theme.custom?.centerColumn,
+  '&.MuiPaper-root': {
+    ...theme.custom?.shadow.card.display,
+    '&:hover': {
+      ...theme.custom?.shadow.card.highlight,
     },
-  }),
-);
-
-type Props = {
-  classes?: string;
-};
-
-const DisplayCard: React.FunctionComponent<Props> = ({
-  children,
-  classes,
-}): JSX.Element => {
-  const styles = useStyles();
-  return (
-    <Paper className={`${styles.base} ${classes || ''}`}>{children}</Paper>
-  );
-};
+  },
+  [theme.breakpoints.up('tabletSm')]: {
+    width: '375px',
+    height: '490px',
+  },
+  [theme.breakpoints.up('desktopSm')]: {
+    padding: '5px',
+  },
+}));
 
 export default DisplayCard;

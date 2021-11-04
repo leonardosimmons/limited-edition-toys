@@ -1,41 +1,45 @@
 import React from 'react';
-
-import { useMobileMenuStyles } from '../MobileMenuStyles';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-
-import FaceIcon from '@material-ui/icons/Face';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 import { NextLinkComposed } from 'lib/components/NextLinkComposed';
 
-const MobileMenuList: React.FunctionComponent = (): JSX.Element => {
-  const styles = useMobileMenuStyles();
+import { styled } from '@mui/material/styles';
 
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText, { ListItemTextProps } from '@mui/material/ListItemText';
+
+import FaceIcon from '@mui/icons-material/Face';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+
+const ListText = styled(ListItemText)<ListItemTextProps>(({ theme }) => ({
+  fontSize: '1rem',
+  fontFamily: 'Jost, sans-serif',
+  fontWeight: 700,
+  letterSpacing: 1.6,
+  color: theme.palette.grey[700],
+}));
+
+const MobileMenuList: React.FunctionComponent = (): JSX.Element => {
   return (
-    <List disablePadding className={styles.list}>
+    <List disablePadding sx={{ flex: 1, marginTop: '2rem' }}>
       <ListItem button component={NextLinkComposed} to={'/'}>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText
+        <ListText
           disableTypography
           primary="Wishlist"
           primaryTypographyProps={{ variant: 'h4' }}
-          className={styles.listText}
         />
       </ListItem>
       <ListItem button component={NextLinkComposed} to={'/'}>
         <ListItemIcon>
           <FaceIcon />
         </ListItemIcon>
-        <ListItemText
+        <ListText
           disableTypography
           primary="My Account"
           primaryTypographyProps={{ variant: 'h4' }}
-          className={styles.listText}
         />
       </ListItem>
     </List>

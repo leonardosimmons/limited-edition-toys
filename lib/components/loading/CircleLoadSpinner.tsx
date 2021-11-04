@@ -1,20 +1,16 @@
 import React from 'react';
-import { makeStyles, Theme } from '@material-ui/core';
-import createStyles from '@material-ui/styles/createStyles';
 
-import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles(({ custom }: Theme) =>
-  createStyles({
-    loading: {
-      ...custom.loading,
-      '& > div.MuiCircularProgress-root': {
-        marginBottom: '20px',
-      },
-    },
-  }),
-);
+import Box, { BoxProps } from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+
+const LoadSpinner = styled(Box)<BoxProps>(({ theme }) => ({
+  ...theme.custom?.loading,
+  '& > span.MuiCircularProgress-root': {
+    marginBottom: '20px',
+  },
+}));
 
 type Props = {
   customColor?: boolean;
@@ -23,13 +19,11 @@ type Props = {
 const CircleLoadSpinner: React.FunctionComponent<Props> = ({
   customColor,
 }): JSX.Element => {
-  const styles = useStyles();
-
   return (
-    <Box className={styles.loading}>
+    <LoadSpinner>
       <CircularProgress color={(customColor && 'inherit') || 'secondary'} />
       <div>Loading...</div>
-    </Box>
+    </LoadSpinner>
   );
 };
 

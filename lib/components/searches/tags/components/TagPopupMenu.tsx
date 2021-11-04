@@ -4,16 +4,14 @@ import { uiSelector } from 'src/redux/models/ui';
 import { ProductPropertyOptions } from 'models/product/types';
 import { Id } from 'utils/keys';
 
-import { useProductTags } from 'models/product/queries';
-
-import { useTagSearchStyles } from '../TagSearchStyles';
-
-import Box from '@material-ui/core/Box';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
 import { useProducts } from 'models/product/useProducts';
+
+import TagMenu from '../styles/TagMenu';
+
+import Box from '@mui/material/Box';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
 type Props = {
   anchorEl: null | HTMLElement;
@@ -24,7 +22,6 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
   anchorEl,
   menuClose,
 }): JSX.Element => {
-  const styles = useTagSearchStyles();
   const ui = useAppSelector(uiSelector);
   const { tags } = useProducts();
 
@@ -33,10 +30,9 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
   };
 
   return (
-    <Menu
+    <TagMenu
       id={Id.NAVBAR_SEARCH_MENU}
       anchorEl={anchorEl}
-      getContentAnchorEl={undefined}
       open={ui.navbar.searchMenuOpen}
       elevation={1}
       onClose={menuClose}
@@ -54,7 +50,6 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
         }) ||
         undefined
       }
-      classes={{ paper: styles.menu }}
       PaperProps={{
         style: {
           maxHeight: '275px',
@@ -63,19 +58,30 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
       }}
       transitionDuration={300}
       MenuListProps={{ onMouseLeave: menuClose }}>
-      <Typography variant="h3" className={styles.menuTitle}>
+      <Typography
+        variant="h3"
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          margin: '.5rem 16px',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}>
         {'Search'}
       </Typography>
       {tags &&
         tags.list?.map((t: ProductPropertyOptions, index: number) => (
           <Box key={index}>
-            <MenuItem className={styles.menuItem} onClick={handleMenuItemClick}>
+            <MenuItem onClick={handleMenuItemClick} sx={{ fontSize: '1rem' }}>
               {tags.status === 'loading' ? '...' : t.name}
             </MenuItem>
-            <Divider className={styles.tabDivider} />
+            <Divider
+              sx={{ width: '80%', marginRight: 'auto', marginLeft: '10px' }}
+            />
           </Box>
         ))}
-    </Menu>
+    </TagMenu>
   );
 };
 

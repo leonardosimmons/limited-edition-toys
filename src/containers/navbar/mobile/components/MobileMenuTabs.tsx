@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { useMobileMenuStyles } from '../MobileMenuStyles';
+import Toolbar from '@mui/material/Toolbar';
+import Zoom from '@mui/material/Zoom';
 
-import Toolbar from '@material-ui/core/Toolbar';
-import Zoom from '@material-ui/core/Zoom';
-import IconButton from '@material-ui/core/IconButton';
-
-import MenuIcon from '@material-ui/icons/Menu';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import MobileMenuTab from '../styles/MobileMenuTab';
 
 type Props = {
   drawerToggle: (
@@ -18,21 +16,17 @@ type Props = {
 const MobileMenuTabs: React.FunctionComponent<Props> = ({
   drawerToggle,
 }): JSX.Element => {
-  const styles = useMobileMenuStyles();
-
   return (
     <Toolbar disableGutters>
       <Zoom in appear unmountOnExit>
-        <IconButton className={styles.menuButtonContainer}>
-          <ShoppingCartIcon className={styles.menuButton} />
-        </IconButton>
+        <MobileMenuTab>
+          <ShoppingCartIcon />
+        </MobileMenuTab>
       </Zoom>
       <Zoom in appear unmountOnExit>
-        <IconButton
-          className={styles.menuButtonContainer}
-          onClick={drawerToggle(true)}>
-          <MenuIcon className={styles.menuButton} />
-        </IconButton>
+        <MobileMenuTab onClick={drawerToggle(true)}>
+          <MenuIcon />
+        </MobileMenuTab>
       </Zoom>
     </Toolbar>
   );

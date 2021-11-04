@@ -1,27 +1,43 @@
 import React from 'react';
-import { MenuTab } from 'utils/types';
-import { productCategories } from 'data/navbar-categories';
-
-import { useCategorySearchStyles } from './CategorySearchStyles';
-
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import { NextLinkComposed } from 'lib/components/NextLinkComposed';
-import CategoryPopupMenu from 'lib/components/searches/categories/components/CategoryPopupMenu';
+import { useRouter } from 'next/router';
 import { useAppDispatch } from 'src/redux';
+import { productCategories } from 'data/navbar-categories';
+import { NextLinkComposed } from 'lib/components/NextLinkComposed';
+import { MenuTab } from 'utils/types';
 import {
   closeCategorySearchMenu,
   openCategorySearchMenu,
 } from 'src/redux/models/ui';
-import { useRouter } from 'next/router';
+
+import CategoryBar from './styles/CategoryBar';
+
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
+import CategoryPopupMenu from 'lib/components/searches/categories/components/CategoryPopupMenu';
 
 const CategorySearchBar: React.FunctionComponent = (): JSX.Element => {
-  const dispatch = useAppDispatch();
   const router = useRouter();
-  const styles = useCategorySearchStyles();
+  const dispatch = useAppDispatch();
 
   const [activeIndex, setActiveIndex] = React.useState<null | number>(null);
+
+  React.useEffect(() => {
+    const slug = window.location.pathname;
+    productCategories.forEach((category: MenuTab) => {
+      switch (slug) {
+        case `${category.link}`:
+          if (activeIndex !== category.index) {
+            setActiveIndex(category.index as number);
+          }
+        default:
+          break;
+      }
+    });
+    return () => {
+      setActiveIndex(null);
+    };
+  }, []);
 
   function handleTabChange(e: React.ChangeEvent<any>, newValue: number): void {
     setActiveIndex(newValue);
@@ -49,10 +65,14 @@ const CategorySearchBar: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <Paper className={styles.mainContainer}>
+      <CategoryBar>
         <Tabs
-          value={activeIndex || false}
-          className={styles.tabs}
+          selectionFollowsFocus
+          value={
+            activeIndex !== null && activeIndex >= 0
+              ? activeIndex
+              : false || false
+          }
           onChange={handleTabChange}>
           {productCategories.map((tab: MenuTab, index: number) => (
             <Tab
@@ -61,16 +81,15 @@ const CategorySearchBar: React.FunctionComponent = (): JSX.Element => {
               component={NextLinkComposed}
               value={tab.index}
               label={tab.name}
-              className={styles.tab}
-              aria-haspopup={tab.ariaPopup}
+              sx={{ minWidth: 0, padding: 0, margin: '0 .5rem' }}
+              //aria-haspopup={tab.ariaPopup}
               onMouseOver={handleMenuOpen}
               onClick={() => handleTabClick(tab.link)}
-              classes={{ wrapper: styles.tabWrapper }}
             />
           ))}
         </Tabs>
-      </Paper>
-      <CategoryPopupMenu anchorEl={anchorEl} menuClose={handleMenuClose} />
+      </CategoryBar>
+      {/* <CategoryPopupMenu anchorEl={anchorEl} menuClose={handleMenuClose} /> */}
     </React.Fragment>
   );
 };

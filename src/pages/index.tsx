@@ -1,14 +1,26 @@
 import React from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
+import { useRouter } from 'next/router';
 import { Queries } from 'utils/keys';
 
 import { getAllProducts, getProductTags } from 'models/product/queries';
 
+import { styled } from '@mui/material/styles';
+
+import Button from '@mui/material/Button';
+import Container, { ContainerProps } from '@mui/material/Container';
+
 import Layout from 'src/containers/Layout';
-import Button from '@material-ui/core/Button';
-import { useRouter } from 'next/router';
-import { ProductModel } from 'models/product/product.model';
+
+const MainContainer = styled(Container)<ContainerProps>(() => ({
+  minHeight: '50vh',
+  height: '100%',
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}));
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
@@ -16,11 +28,13 @@ function Index({}: InferGetStaticPropsType<
   const router = useRouter();
   return (
     <Layout title={'Limited Edition Toys - Store front'}>
-      <Button
-        variant="contained"
-        onClick={() => router.push('/categories/anime')}>
-        Press Me
-      </Button>
+      <MainContainer>
+        <Button
+          variant="contained"
+          onClick={() => router.push('/categories/anime')}>
+          Press Me
+        </Button>
+      </MainContainer>
     </Layout>
   );
 }
