@@ -8,38 +8,17 @@ import { useProducts } from 'models/product/useProducts';
 import { getAllProducts } from 'models/product/queries';
 import { capitalizeFirstLetters } from 'lib';
 
-import { styled } from '@mui/material/styles';
+import {
+  CategoryDisplayGrid,
+  CategoryMainContainer,
+} from 'models/pages/styles/CategoryPage';
 
-import Grid, { GridProps } from '@mui/material/Grid';
-import Container, { ContainerProps } from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 
 import Layout from 'src/containers/Layout/Layout';
 import ProductHeader from 'src/containers/headers/products/ProductHeader';
 import ProductDisplayCard from 'models/product/components/display-card/ProductDisplayCard';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
-
-const DisplayGrid = styled(Grid)<GridProps>(({ theme }) => ({
-  [theme.breakpoints.up('mobileMd')]: {
-    marginTop: '2rem',
-  },
-  '& > div.MuiGrid-root': {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '20px',
-  },
-}));
-
-const MainContainer = styled(Container)<ContainerProps>(({ theme }) => ({
-  flex: 1,
-  width: '100%',
-  maxWidth: '1850px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '1rem',
-  marginBottom: '100px',
-}));
 
 function ProductCategoryDisplayPage({
   category,
@@ -51,31 +30,31 @@ function ProductCategoryDisplayPage({
     },
   });
 
+  //* -------------------------------------------------
+  // Render
+
   if (products.status === 'loading') {
     return (
       <Layout title={category}>
-        <MainContainer maxWidth={false}>
+        <CategoryMainContainer maxWidth={false}>
           <CircleLoadSpinner />
-        </MainContainer>
+        </CategoryMainContainer>
       </Layout>
     );
   }
 
-  //* -------------------------------------------------
-  // Render
-
   return (
     <Layout title={`Limited Edition Toys | ${category}`}>
       <ProductHeader title={category} />
-      <MainContainer maxWidth={false}>
-        <DisplayGrid container direction="row" spacing={2}>
+      <CategoryMainContainer maxWidth={false}>
+        <CategoryDisplayGrid container direction="row" spacing={2}>
           {products.filtered.map((product: Product, index: number) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
               <ProductDisplayCard product={product} />
             </Grid>
           ))}
-        </DisplayGrid>
-      </MainContainer>
+        </CategoryDisplayGrid>
+      </CategoryMainContainer>
     </Layout>
   );
 }
