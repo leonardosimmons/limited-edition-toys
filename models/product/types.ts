@@ -1,22 +1,9 @@
 import { Combinable } from 'utils/types';
 
-export type ProductType = {
-  id?: string;
-  name: string;
-  deleted_at?: string;
-  version?: number;
+export type ProductCartToken = {
+  product: Product;
+  quantity: number;
 };
-
-export type ProductQueryOptions = {
-  filter?: {
-    value?: string | string[];
-    type?: ProductFilterOptions;
-  };
-  pageSize?: number;
-  version?: number;
-};
-
-export type ProductPropertyOptions = Partial<ProductType>;
 
 export type ProductCategory = {
   id: string;
@@ -40,6 +27,30 @@ export type ProductInventory = {
   inventory_level: number;
   reorder_point: number;
   reorder_amount: number;
+};
+
+type ProductOrderToken = {
+  u_Id: string | 'guest';
+  p_Id: string;
+  quantity: number;
+};
+
+export type ProductPropertyOptions = Partial<ProductType>;
+
+export type ProductQueryOptions = {
+  filter?: {
+    value?: string | string[];
+    type?: ProductFilterOptions;
+  };
+  pageSize?: number;
+  version?: number;
+};
+
+export type ProductType = {
+  id?: string;
+  name: string;
+  deleted_at?: string;
+  version?: number;
 };
 
 export type Product = {

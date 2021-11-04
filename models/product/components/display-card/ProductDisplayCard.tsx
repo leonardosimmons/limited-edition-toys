@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useAppSelector } from 'src/redux';
+import { useAppDispatch, useAppSelector } from 'src/redux';
 import { Product } from 'models/product/types';
 import { uiSelector } from 'src/redux/models/ui';
 
@@ -15,6 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
 import DisplayCard from '../../../../lib/components/cards/DisplayCard';
+import { setCurrentProductSelection } from 'models/product/actions';
 
 type Props = {
   product: Product;
@@ -26,17 +27,10 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   index,
 }): JSX.Element => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const ui = useAppSelector(uiSelector);
   const [slug, setSlug] = React.useState<string | undefined>();
   const { status, data: inventory, error } = useGetInventoryById(product.id);
-  const [inStock, setInStock] = React.useState<boolean>(false);
-
-  // checks if product is 'in stock'
-  React.useEffect(() => {
-    if (inventory && inventory[0].inventory_level > 0) {
-      setInStock(true);
-    }
-  }, [inventory]);
 
   // once populated set the url slug for the product
   React.useEffect(() => {
@@ -51,8 +45,29 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
     }
   }, [product]);
 
+  //* -------------------------------------------------
+  // Stock
+
+  const [inStock, setInStock] = React.useState<boolean>(false);
+
+  // checks if product is 'in stock'
+  React.useEffect(() => {
+    if (inventory && inventory[0].inventory_level > 0) {
+      setInStock(true);
+    }
+  }, [inventory]);
+
+  //* -------------------------------------------------
+  // Handlers
+
+  function handleAddToCart(): void {
+    // create ProductCartToken & add to cart
+    console.log('Product added to cart', product);
+  }
+
   // redirects to product page
-  function handleImageClicked() {
+  function handleImageClicked(): void {
+    dispatch(setCurrentProductSelection(product));
     router.push(`/product/${slug}`);
   }
 
@@ -93,8 +108,9 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
           inStock={inStock}
         />
         <ProductDisplayAction
-          price={product.price_excluding_tax as number}
           inStock={inStock}
+          price={product.price_excluding_tax as number}
+          addToCart={handleAddToCart}
         />
       </Grid>
     </DisplayCard>
