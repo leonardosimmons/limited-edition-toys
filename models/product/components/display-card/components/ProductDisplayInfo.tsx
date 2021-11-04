@@ -7,7 +7,7 @@ import { ProductDisplayInfoGrid } from '../styles/ProductDisplayInfoGrid';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-import ProductStarRating from '../../star-rating/ProductStarRating';
+import ProductStarRating from '../../ProductStarRating';
 
 type Props = {
   name: string;

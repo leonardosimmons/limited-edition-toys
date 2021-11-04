@@ -10,10 +10,10 @@ import { ProductDisplayCardImageBox } from './styles/ProductDisplayImageBox';
 
 import Image from 'next/image';
 import Grid from '@mui/material/Grid';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
-import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 import DisplayCard from '../../../../lib/components/cards/DisplayCard';
 
 type Props = {
@@ -62,7 +62,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   if (status === 'loading') {
     return (
       <DisplayCard>
-        <CircleLoadSpinner />
+        <CircularProgress color={'secondary'} />
       </DisplayCard>
     );
   }
