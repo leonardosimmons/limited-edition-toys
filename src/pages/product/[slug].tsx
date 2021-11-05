@@ -2,80 +2,36 @@ import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { Product } from 'models/product/types';
 import { StaticPath } from 'utils/types';
+import { useAppDispatch } from 'src/redux';
 
-import { capitalizeFirstLetters, fixSlug, VendResponse } from 'lib';
+import {
+  resetProduct,
+  setCurrentProductSelection,
+  setProductInventoryLevel,
+} from 'models/product/actions';
+import { capitalizeFirstLetters, fixSlug } from 'lib';
+import { useGetInventoryById } from 'models/product/queries';
 import { ProductModel } from 'models/product/product.model';
 import { useProducts } from 'models/product/useProducts';
 
-import { styled } from '@mui/material/styles';
+import {
+  ProductImageBox,
+  ProductMainContainer,
+  ProductMainGrid,
+} from 'models/pages/styles/ProductPage';
 
 import Image from 'next/image';
-import Container, { ContainerProps } from '@mui/material/Container';
-import Box, { BoxProps } from '@mui/material/Box';
-import Grid, { GridProps } from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 import Layout from 'src/containers/Layout/Layout';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
-import ProductStarRating from 'models/product/components/star-rating/ProductStarRating';
-
-const ImageBox = styled(Box)<BoxProps>(({ theme }) => ({
-  position: 'relative',
-  width: '280px',
-  height: '200px',
-  marginTop: '10px',
-  ...theme.custom?.centerColumn,
-}));
-
-const MainContainer = styled(Container)<ContainerProps>(({ theme }) => ({
-  height: '100%',
-  width: '100%',
-  ...theme.custom?.centerColumn,
-}));
-
-const MainGrid = styled(Grid)<GridProps>(({ theme }) => ({
-  ...theme.custom?.center,
-}));
-
-const ProductInfo = styled(Grid)<GridProps>(({ theme }) => ({
-  '& > div': {
-    ...theme.custom?.center,
-  },
-  '& > div:nth-of-type(1)': {
-    '& > h2.MuiTypography-h2': {
-      fontSize: '1.4rem',
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-  },
-  '& > div:nth-of-type(2)': {
-    marginTop: '10px',
-    ...theme.custom?.centerColumn,
-    '& div.MuiContainer-root': {
-      ...theme.custom?.center,
-      '& > svg': {
-        height: '.75em',
-        width: '.75em',
-      },
-    },
-    '& span.MuiTypography-caption': {
-      margin: '5px 0',
-      fontSize: '1rem',
-    },
-  },
-  '& > div:nth-of-type(3)': {
-    '& span.MuiTypography-body1': {
-      fontSize: '1.6rem',
-      fontWeight: 'bold',
-      margin: '1.5rem 0',
-    },
-  },
-}));
+import ProductInformation from 'models/product/components/information/ProductInformation';
 
 function ProductPage({
   slug,
   title,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
+  const dispatch = useAppDispatch();
   const { products } = useProducts();
   const product: Product | undefined = React.useMemo(() => {
     if (products.list && products.list.length > 0) {
@@ -90,25 +46,56 @@ function ProductPage({
     }
   }, [products]);
 
+  React.useEffect(() => {
+    if (product) {
+      dispatch(setCurrentProductSelection(product));
+    }
+
+    return () => {
+      dispatch(resetProduct());
+    };
+  }, [product]);
+
+  //* -------------------------------------------------
+  // Inventory
+
+  const { status: inventoryStatus, data: inventory } = useGetInventoryById(
+    product?.id || '',
+  );
+
+  React.useEffect(() => {
+    if (inventory) {
+      let count: number = 0;
+      for (let i = 0; i < inventory.length; i++) {
+        if (inventory[i].inventory_level > 0) {
+          count = count + inventory[i].inventory_level;
+        }
+      }
+      dispatch(setProductInventoryLevel(count));
+    }
+  }, [inventory]);
+
   //* -------------------------------------------------
   // Render
 
-  if (products.status === 'loading') {
+  if (products.status === 'loading' || inventoryStatus === 'loading') {
     return (
       <Layout title={title}>
-        <MainContainer>
-          <CircleLoadSpinner />
-        </MainContainer>
+        <ProductMainContainer>
+          <ProductMainGrid>
+            <CircleLoadSpinner />
+          </ProductMainGrid>
+        </ProductMainContainer>
       </Layout>
     );
   }
 
   return (
     <Layout title={`Limited Edition Toys | ${title}`}>
-      <MainContainer>
-        <MainGrid container>
-          <Grid item sx={{ padding: '16px' }}>
-            <ImageBox>
+      <ProductMainContainer>
+        <ProductMainGrid container>
+          <Grid item>
+            <ProductImageBox>
               <Image
                 priority
                 src={product?.image_url as string}
@@ -116,23 +103,11 @@ function ProductPage({
                 layout={'fill'}
                 objectFit={'contain'}
               />
-            </ImageBox>
+            </ProductImageBox>
           </Grid>
-          <ProductInfo item container direction="column">
-            <Grid item>
-              <Typography variant="h2">{product?.name}</Typography>
-            </Grid>
-            <Grid item>
-              <ProductStarRating name={slug} rating={0} reviews={0} />
-            </Grid>
-            <Grid item>
-              <Typography component="span">
-                {`$${product?.price_excluding_tax}.00`}
-              </Typography>
-            </Grid>
-          </ProductInfo>
-        </MainGrid>
-      </MainContainer>
+          <ProductInformation item slug={slug} />
+        </ProductMainGrid>
+      </ProductMainContainer>
     </Layout>
   );
 }
@@ -141,9 +116,7 @@ export default ProductPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const productContorller = new ProductModel();
-
   const products = await productContorller.getAll();
-
   const paths: StaticPath[] = products.map((product) => ({
     params: {
       slug: fixSlug(product.name),

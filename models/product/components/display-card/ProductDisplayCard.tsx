@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from 'src/redux';
-import { Product } from 'models/product/types';
+import { Product, ProductInventory } from 'models/product/types';
 import { uiSelector } from 'src/redux/models/ui';
 
 import { useGetInventoryById } from 'models/product/queries';
@@ -52,8 +52,13 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
 
   // checks if product is 'in stock'
   React.useEffect(() => {
-    if (inventory && inventory[0].inventory_level > 0) {
-      setInStock(true);
+    if (inventory) {
+      inventory.forEach((item: ProductInventory) => {
+        if (item.inventory_level > 0) {
+          setInStock(true);
+          return;
+        }
+      });
     }
   }, [inventory]);
 

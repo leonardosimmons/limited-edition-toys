@@ -97,5 +97,7 @@ export async function getInventoryById(
 }
 
 export function useGetInventoryById(id: string) {
-  return useQuery([Queries.INVENTORY_BY_ID, id], () => getInventoryById(id));
+  return useQuery([`${Queries.INVENTORY_BY_ID}-${id}`, id], () =>
+    getInventoryById(id),
+  );
 }
