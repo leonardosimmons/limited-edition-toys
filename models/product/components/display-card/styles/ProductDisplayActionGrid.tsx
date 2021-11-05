@@ -39,7 +39,7 @@ export const ProductDisplayActionGrid = styled(Grid)<GridProps>(
         textAlign: 'center',
         padding: '5px 5px',
         borderRadius: '10px',
-        //color: 'black',
+        letterSpacing: 1.2,
         [theme.breakpoints.up('tabletSm')]: {
           fontSize: '1rem',
         },

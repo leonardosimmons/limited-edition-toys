@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles';
 import Paper, { PaperProps } from '@mui/material/Paper';
 
 const DisplayCard = styled(Paper)<PaperProps>(({ theme }) => ({
-  width: '335px',
-  height: '390px',
+  width: '345px',
+  height: '400px',
   ...theme.custom?.centerColumn,
   '&.MuiPaper-root': {
     ...theme.custom?.shadow.card.display,

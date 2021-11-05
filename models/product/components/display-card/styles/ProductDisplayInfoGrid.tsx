@@ -13,6 +13,7 @@ export const ProductDisplayInfoGrid = styled(Grid)<GridProps>(({ theme }) => ({
     fontSize: '1.2rem',
     margin: '0 2px',
     transition: 'all .5s',
+    lineSpacing: 1.2,
     '&:hover': {
       cursor: 'pointer',
       transform: 'translateY(-2px)',
