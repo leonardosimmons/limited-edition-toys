@@ -4,6 +4,7 @@ import { ProductInformationSection } from './styles/InformationSection';
 import { productCategories } from 'data/navbar-categories';
 
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import Link from 'next/link';
@@ -41,13 +42,15 @@ const ProductInformation: React.FunctionComponent<Props> = ({
       </Grid>
       <Grid item>
         <Typography variant="h3">Other Categories You May Like: </Typography>
-        {productCategories.map((category) => (
-          <Link href={category.link}>
-            <a>{category.name + ','}</a>
-          </Link>
-        ))}
+        <Box>
+          {productCategories.map((category, index) => (
+            <Link key={index} href={category.link}>
+              <a>{category.name + ','}</a>
+            </Link>
+          ))}
+        </Box>
       </Grid>
-      <Grid item container>
+      <Grid item>
         <Typography variant="h3">Love This? Share With: </Typography>
         <FacebookIcon sx={{ fill: '#4267B2' }} />
         <InstagramIcon sx={{ fill: '#E1306C' }} />

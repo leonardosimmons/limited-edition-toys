@@ -45,7 +45,7 @@ export const NavBarTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
       fontSize: '2.35rem',
     },
     [theme.breakpoints.up('tabletMd')]: {
-      fontSize: '2.5rem',
+      fontSize: '2.15rem',
     },
     [theme.breakpoints.up('tabletLg')]: {
       fontSize: '2.5rem',
