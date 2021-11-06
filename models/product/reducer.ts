@@ -39,7 +39,9 @@ export const productReducer = createReducer(initialState, (builder) =>
       state.quantity = initialState.quantity;
     })
     .addCase(resetProduct, (state) => {
-      state = initialState;
+      state.current = initialState.current;
+      state.quantity = initialState.quantity;
+      state.stock = initialState.stock;
     })
     .addCase(resetCurrentProductSelection, (state) => {
       state.current = initialState.current;

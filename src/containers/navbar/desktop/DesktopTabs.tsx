@@ -13,13 +13,14 @@ type Props = {};
 const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
   return (
     <React.Fragment>
+      {/* WISHLIST comming soon 
       <DesktopNavbarTabButton startIcon={<AssignmentTwoToneIcon />}>
         Wishlist
-      </DesktopNavbarTabButton>
-      <DesktopNavbarDivider orientation="vertical" flexItem />
+      </DesktopNavbarTabButton> */}
       <DesktopNavbarTabButton startIcon={<FaceTwoTone />}>
         My Account
       </DesktopNavbarTabButton>
+      <DesktopNavbarDivider orientation="vertical" flexItem />
       <DesktopNavbarCartIcon aria-label="shopping cart" size="small">
         <ShoppingCartTwoToneIcon fontSize="inherit" />
       </DesktopNavbarCartIcon>

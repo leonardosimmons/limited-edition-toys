@@ -20,4 +20,4 @@ export type StaticPath = {
 
 export type UiStatus = 'completed' | 'error' | 'loading' | 'ready';
 
-export type Viewport = 'desktop' | 'mobile' | undefined;
+export type Viewport = 'desktop' | 'mobile' | 'tablet' | undefined;

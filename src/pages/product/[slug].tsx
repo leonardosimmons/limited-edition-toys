@@ -32,6 +32,18 @@ function ProductPage({
   title,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
   const dispatch = useAppDispatch();
+
+  //* -------------------------------------------------
+  // Resets
+
+  // clears state cache of any prior product (fail safe)
+  React.useEffect(() => {
+    dispatch(resetProduct());
+  }, []);
+
+  //* -------------------------------------------------
+  // Product
+
   const { products } = useProducts();
   const product: Product | undefined = React.useMemo(() => {
     if (products.list && products.list.length > 0) {
@@ -62,7 +74,6 @@ function ProductPage({
   const { status: inventoryStatus, data: inventory } = useGetInventoryById(
     product?.id || '',
   );
-
   React.useEffect(() => {
     if (inventory) {
       let count: number = 0;
@@ -92,7 +103,7 @@ function ProductPage({
 
   return (
     <Layout title={`Limited Edition Toys | ${title}`}>
-      <ProductMainContainer>
+      <ProductMainContainer maxWidth={false}>
         <ProductMainGrid container>
           <Grid item>
             <ProductImageBox>
