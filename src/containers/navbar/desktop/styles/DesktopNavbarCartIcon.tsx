@@ -9,10 +9,8 @@ export const DesktopNavbarCartIcon = styled(IconButton)<IconButtonProps>(
       marginLeft: '5px',
     },
     [theme.breakpoints.up('desktopMd')]: {
-      margin: '0 10px',
-    },
-    [theme.breakpoints.up('desktopMd')]: {
       margin: '0 20px',
+      marginLeft: '10px',
     },
   }),
 );

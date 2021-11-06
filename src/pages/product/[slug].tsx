@@ -104,6 +104,7 @@ function ProductPage({
   return (
     <Layout title={`Limited Edition Toys | ${title}`}>
       <ProductMainContainer maxWidth={false}>
+        <div className="toolbar-spacer" />
         <ProductMainGrid container>
           <Grid item>
             <ProductImageBox>

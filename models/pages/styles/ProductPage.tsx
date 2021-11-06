@@ -18,25 +18,59 @@ export const ProductImageBox = styled(Box)<BoxProps>(({ theme }) => ({
     width: '650px',
     height: '464px',
   },
+  [theme.breakpoints.up('tabletLg')]: {
+    width: '480px',
+    height: '343px',
+    marginBottom: '300px',
+  },
+  [theme.breakpoints.up('desktopSm')]: {
+    width: '600px',
+    height: '400px',
+    marginBottom: '100px',
+  },
+  [theme.breakpoints.up('desktopMd')]: {
+    marginBottom: '200px',
+  },
+  [theme.breakpoints.up('desktopLg')]: {
+    width: '900px',
+    height: '400px',
+  },
 }));
 
 export const ProductMainContainer = styled(Container)<ContainerProps>(
   ({ theme }) => ({
-    height: '100%',
     width: '100%',
+    height: '100%',
     ...theme.custom.centerColumn,
+    '& > div.toolbar-spacer': {
+      [theme.breakpoints.up('tabletLg')]: {
+        ...theme.mixins.toolbar,
+      },
+      [theme.breakpoints.up('desktopSm')]: {
+        minHeight: 0,
+        height: 0,
+      },
+    },
   }),
 );
 
 export const ProductMainGrid = styled(Grid)<GridProps>(({ theme }) => ({
+  maxWidth: '1750px',
   minHeight: '70vh',
   ...theme.custom.center,
   [theme.breakpoints.up('tabletMd')]: {
-    flexDirection: 'row',
+    maxHeight: '1300px',
+  },
+  [theme.breakpoints.up('desktopSm')]: {
+    alignItems: 'flex-start',
   },
   '& > div.MuiGrid-item:nth-of-type(1)': {
     [theme.breakpoints.up('tabletMd')]: {
       flex: '0 1 30%',
+    },
+    [theme.breakpoints.up('desktopSm')]: {
+      height: '100%',
+      alignSelf: 'center',
     },
   },
   '& > div.MuiGrid-item:nth-of-type(2)': {
