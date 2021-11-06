@@ -96,7 +96,11 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
               priority={
                 ui.status.viewport === 'desktop' && index && index < 8
                   ? true
-                  : false || false
+                  : ui.status.viewport === 'tablet' && index && index < 6
+                  ? true
+                  : ui.status.viewport === 'mobile' && index && index < 2
+                  ? true
+                  : false
               }
               src={product.image_url as string}
               alt="product image"
