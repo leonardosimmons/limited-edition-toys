@@ -3,7 +3,7 @@ import { getPaginatedProducts } from './queries';
 import { Product, ProductFilterOptions, ProductType } from './types';
 
 interface ProductModelInterface {
-  filter(
+  filterList(
     filter: string | string[],
     options: ProductFilterOptions,
     products: Product[],
@@ -16,27 +16,44 @@ class ProductModel implements ProductModelInterface {
     process.env.NEXT_PUBLIC_PRODUCT_CHUNK_QUERY_AMOUNT as string,
   );
 
-  public filter(
+  public filterList(
     filter: string | string[],
     options: ProductFilterOptions,
     products: Product[],
   ): Product[] {
     const buffer: Product[] = [];
     products.forEach((p: Product) => {
-      if (options === 'category') {
-        p.categories?.forEach((c: Partial<ProductType>) => {
-          if (Array.isArray(filter)) {
-            filter.forEach((name) => {
-              if (c.name === name && !buffer.includes(p) && p.active) {
+      switch (options) {
+        case 'category':
+          p.categories?.forEach((c: Partial<ProductType>) => {
+            if (Array.isArray(filter)) {
+              filter.forEach((name) => {
+                if (c.name === name && !buffer.includes(p) && p.active) {
+                  buffer.push(p);
+                }
+              });
+            } else {
+              if (c.name === filter && !buffer.includes(p) && p.active) {
                 buffer.push(p);
               }
-            });
-          } else {
-            if (c.name === filter && !buffer.includes(p) && p.active) {
-              buffer.push(p);
             }
-          }
-        });
+          });
+        case 'tag':
+          p.tag_ids?.forEach((t: string) => {
+            if (Array.isArray(filter)) {
+              filter.forEach((tag) => {
+                if (t == tag && !buffer.includes(p) && p.active) {
+                  buffer.push(p);
+                }
+              });
+            } else {
+              if (t === filter && !buffer.includes(p) && p.active) {
+                buffer.push(p);
+              }
+            }
+          });
+        default:
+          break;
       }
     });
     return buffer;

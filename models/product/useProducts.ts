@@ -18,7 +18,11 @@ export function useProducts(options?: ProductQueryOptions) {
 
   const filteredProducts: Product[] | undefined = React.useMemo(() => {
     if (options?.filter?.value && options?.filter.type && vend) {
-      return model.filter(options?.filter?.value, options?.filter.type, vend);
+      return model.filterList(
+        options?.filter?.value,
+        options?.filter.type,
+        vend,
+      );
     }
     return [];
   }, [options?.filter?.value, options?.filter?.type, vend]);

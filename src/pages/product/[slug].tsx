@@ -2,7 +2,8 @@ import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { Product } from 'models/product/types';
 import { StaticPath } from 'utils/types';
-import { useAppDispatch } from 'src/redux';
+import { useAppDispatch, useAppSelector } from 'src/redux';
+import { uiSelector } from 'src/redux/models/ui';
 
 import {
   resetProduct,
@@ -26,12 +27,14 @@ import Grid from '@mui/material/Grid';
 import Layout from 'src/containers/Layout/Layout';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 import ProductInformation from 'models/product/components/information/ProductInformation';
+import ProductDisplayGrid from 'models/product/components/display-grid/ProductDisplayGrid';
 
 function ProductPage({
   slug,
   title,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
   const dispatch = useAppDispatch();
+  const ui = useAppSelector(uiSelector);
 
   //* -------------------------------------------------
   // Resets
@@ -44,7 +47,13 @@ function ProductPage({
   //* -------------------------------------------------
   // Product
 
-  const { products } = useProducts();
+  const filter = React.useRef<string | string[]>([]);
+  const { products } = useProducts({
+    filter: {
+      type: 'tag',
+      value: filter.current[1],
+    },
+  });
   const product: Product | undefined = React.useMemo(() => {
     if (products.list && products.list.length > 0) {
       return products.list.find(
@@ -62,9 +71,17 @@ function ProductPage({
     if (product) {
       dispatch(setCurrentProductSelection(product));
     }
-
     return () => {
       dispatch(resetProduct());
+    };
+  }, [product]);
+
+  React.useEffect(() => {
+    if (product && product?.tag_ids) {
+      filter.current = product.tag_ids;
+    }
+    return () => {
+      filter.current = [];
     };
   }, [product]);
 
@@ -92,7 +109,7 @@ function ProductPage({
   if (products.status === 'loading' || inventoryStatus === 'loading') {
     return (
       <Layout title={title}>
-        <ProductMainContainer>
+        <ProductMainContainer sx={{ minHeight: '70vh' }}>
           <ProductMainGrid>
             <CircleLoadSpinner />
           </ProductMainGrid>
@@ -119,6 +136,14 @@ function ProductPage({
           </Grid>
           <ProductInformation item slug={slug} />
         </ProductMainGrid>
+        <ProductDisplayGrid
+          title={'You May Also Like'}
+          products={
+            ui.status.viewport === 'tablet'
+              ? products.filtered.slice(0, 6)
+              : products.filtered.slice(0, 8)
+          }
+        />
       </ProductMainContainer>
     </Layout>
   );
