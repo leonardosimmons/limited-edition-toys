@@ -15,7 +15,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
 import DisplayCard from '../../../../lib/components/cards/DisplayCard';
-import { setCurrentProductSelection } from 'models/product/actions';
+import {
+  resetProduct,
+  setCurrentProductSelection,
+} from 'models/product/actions';
 
 type Props = {
   product: Product;
@@ -34,7 +37,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
 
   // once populated set the url slug for the product
   React.useEffect(() => {
-    if (product && !slug) {
+    if (product) {
       setSlug(
         product.name
           .toLowerCase()
@@ -72,6 +75,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
 
   // redirects to product page
   function handleImageClicked(): void {
+    dispatch(resetProduct());
     dispatch(setCurrentProductSelection(product));
     router.push(`/product/${slug}`);
   }

@@ -71,18 +71,12 @@ function ProductPage({
     if (product) {
       dispatch(setCurrentProductSelection(product));
     }
-    return () => {
-      dispatch(resetProduct());
-    };
   }, [product]);
 
   React.useEffect(() => {
     if (product && product?.tag_ids) {
       filter.current = product.tag_ids;
     }
-    return () => {
-      filter.current = [];
-    };
   }, [product]);
 
   //* -------------------------------------------------
