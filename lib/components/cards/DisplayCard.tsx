@@ -7,6 +7,7 @@ const DisplayCard = styled(Paper)<PaperProps>(({ theme }) => ({
   height: '400px',
   ...theme.custom?.centerColumn,
   '&.MuiPaper-root': {
+    border: '1px solid rgba(189,189, 189, 0.4)',
     ...theme.custom?.shadow.card.display,
     '&:hover': {
       ...theme.custom?.shadow.card.highlight,
