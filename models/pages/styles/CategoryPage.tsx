@@ -8,20 +8,18 @@ export const CategoryDisplayGrid = styled(Grid)<GridProps>(({ theme }) => ({
     marginTop: '2rem',
   },
   '& > div.MuiGrid-root': {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...theme.custom.center,
     marginTop: '20px',
   },
 }));
 
-export const CategoryMainContainer = styled(Container)<ContainerProps>(() => ({
-  flex: 1,
-  width: '100%',
-  maxWidth: '1850px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '1rem',
-  marginBottom: '100px',
-}));
+export const CategoryMainContainer = styled(Container)<ContainerProps>(
+  ({ theme }) => ({
+    flex: 1,
+    width: '100%',
+    maxWidth: '1850px',
+    ...theme.custom.center,
+    padding: '1rem',
+    marginBottom: '100px',
+  }),
+);

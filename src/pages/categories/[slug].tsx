@@ -36,7 +36,7 @@ function ProductCategoryDisplayPage({
   if (products.status === 'loading') {
     return (
       <Layout title={category}>
-        <CategoryMainContainer maxWidth={false}>
+        <CategoryMainContainer maxWidth={false} sx={{ minHeight: '70vh' }}>
           <CircleLoadSpinner />
         </CategoryMainContainer>
       </Layout>
