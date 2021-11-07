@@ -21,7 +21,6 @@ export const ProductImageBox = styled(Box)<BoxProps>(({ theme }) => ({
   [theme.breakpoints.up('tabletLg')]: {
     width: '480px',
     height: '343px',
-    marginBottom: '300px',
   },
   [theme.breakpoints.up('desktopSm')]: {
     width: '600px',
@@ -29,7 +28,8 @@ export const ProductImageBox = styled(Box)<BoxProps>(({ theme }) => ({
     marginBottom: '100px',
   },
   [theme.breakpoints.up('desktopMd')]: {
-    marginBottom: '200px',
+    width: '800px',
+    marginBottom: 0,
   },
   [theme.breakpoints.up('desktopLg')]: {
     width: '900px',
@@ -56,7 +56,7 @@ export const ProductMainContainer = styled(Container)<ContainerProps>(
 
 export const ProductMainGrid = styled(Grid)<GridProps>(({ theme }) => ({
   maxWidth: '1750px',
-  minHeight: '70vh',
+  //minHeight: '70vh',
   ...theme.custom.center,
   [theme.breakpoints.up('tabletMd')]: {
     maxHeight: '1300px',
