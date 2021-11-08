@@ -135,10 +135,10 @@ function ProductPage({
           products={
             ui.status.viewport === 'tablet'
               ? products.filtered
-                  .slice(0, 7)
+                  .slice(0, 6)
                   .filter((p: Product) => p !== (product as Product))
               : products.filtered
-                  .slice(0, 9)
+                  .slice(0, 8)
                   .filter((p: Product) => p !== (product as Product))
           }
         />
