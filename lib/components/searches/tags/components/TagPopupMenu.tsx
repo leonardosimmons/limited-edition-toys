@@ -33,7 +33,7 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
     <TagMenu
       id={Id.NAVBAR_SEARCH_MENU}
       anchorEl={anchorEl}
-      open={ui.navbar.searchMenuOpen}
+      open={ui.navbar.tagMenuOpen && !ui.navbar.searchMenuOpen}
       elevation={1}
       onClose={menuClose}
       anchorOrigin={

@@ -10,6 +10,7 @@ export const uiSelector = createSelector(
     navbar: {
       categoryMenuOpen: popup.categorySearchMenuOpen,
       searchMenuOpen: popup.navbarSearchMenuOpen,
+      tagMenuOpen: popup.navbarTagMenuOpen,
       mobileMenuOpen: drawer.navbarMobileMenuOpen,
     },
     status,

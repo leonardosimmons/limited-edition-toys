@@ -2,7 +2,9 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import {
   closeNavbarSearchMenu,
+  closeNavbarTagMenu,
   openNavbarSearchMenu,
+  openNavbarTagMenu,
   uiSelector,
 } from 'src/redux/models/ui';
 import { Id } from 'utils/keys';
@@ -25,16 +27,16 @@ const TagsSearchBar: React.FunctionComponent = (): JSX.Element => {
   // Menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  function handleMenuClose(): void {
+  function handleTagMenuClose(): void {
     setAnchorEl(null);
-    dispatch(closeNavbarSearchMenu());
+    dispatch(closeNavbarTagMenu());
   }
 
-  function handleMenuOpen(
+  function handleTagMenuOpen(
     e: React.MouseEvent<HTMLElement> | React.FocusEvent<HTMLElement>,
   ): void {
     setAnchorEl(e.currentTarget);
-    dispatch(openNavbarSearchMenu());
+    dispatch(openNavbarTagMenu());
   }
 
   // Search --------------------
@@ -42,6 +44,7 @@ const TagsSearchBar: React.FunctionComponent = (): JSX.Element => {
 
   function handleUserInput(e: React.ChangeEvent<HTMLInputElement>): void {
     setSearchString(e.target.value);
+    console.log(searchString);
     // [UI/UX]: api calls to db to check matching product
     // include dropdown preview window displaying matching products
     // BONUS: use regex to parse input
@@ -59,12 +62,12 @@ const TagsSearchBar: React.FunctionComponent = (): JSX.Element => {
         <IconButton
           id={Id.NAVBAR_SEARCH_MENU}
           aria-label="product category menu"
-          onBlur={handleMenuClose}
-          onFocus={handleMenuOpen}
-          onMouseOver={handleMenuOpen}
+          onBlur={handleTagMenuClose}
+          onFocus={handleTagMenuOpen}
+          onMouseOver={handleTagMenuOpen}
           aria-owns={Id.NAVBAR_SEARCH_MENU}
           aria-controls={Id.NAVBAR_SEARCH_MENU}
-          aria-expanded={ui.navbar.searchMenuOpen ? 'true' : undefined}>
+          aria-expanded={ui.navbar.tagMenuOpen ? 'true' : undefined}>
           <MenuIcon />
         </IconButton>
         <Divider orientation="vertical" />
@@ -86,7 +89,7 @@ const TagsSearchBar: React.FunctionComponent = (): JSX.Element => {
           <SearchIcon />
         </IconButton>
       </TagSearchBar>
-      <TagPopupMenu anchorEl={anchorEl} menuClose={handleMenuClose} />
+      <TagPopupMenu anchorEl={anchorEl} menuClose={handleTagMenuClose} />
     </React.Fragment>
   );
 };
