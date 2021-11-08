@@ -134,8 +134,12 @@ function ProductPage({
           title={'You May Also Like'}
           products={
             ui.status.viewport === 'tablet'
-              ? products.filtered.slice(0, 6)
-              : products.filtered.slice(0, 8)
+              ? products.filtered
+                  .slice(0, 7)
+                  .filter((p: Product) => p !== (product as Product))
+              : products.filtered
+                  .slice(0, 9)
+                  .filter((p: Product) => p !== (product as Product))
           }
         />
       </ProductMainContainer>
