@@ -19,7 +19,7 @@ import {
   ProductImageBox,
   ProductMainContainer,
   ProductMainGrid,
-} from 'models/pages/styles/ProductPage';
+} from 'src/containers/pages/styles/ProductPage';
 
 import Image from 'next/image';
 import Grid from '@mui/material/Grid';

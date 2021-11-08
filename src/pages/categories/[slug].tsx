@@ -11,7 +11,7 @@ import { capitalizeFirstLetters } from 'lib';
 import {
   CategoryDisplayGrid,
   CategoryMainContainer,
-} from 'models/pages/styles/CategoryPage';
+} from 'src/containers/pages/styles/CategoryPage';
 
 import Grid from '@mui/material/Grid';
 
