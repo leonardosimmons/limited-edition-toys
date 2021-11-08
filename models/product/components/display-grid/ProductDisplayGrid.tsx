@@ -19,7 +19,9 @@ const ProductDisplayGrid: React.FunctionComponent<Props> = ({
 }): JSX.Element => {
   return (
     <ProductGridMainContainer maxWidth={false}>
-      {title && <Typography variant="h2">{title}</Typography>}
+      {title && products.length > 0 && (
+        <Typography variant="h2">{title}</Typography>
+      )}
       <ProductGrid container spacing={2}>
         {products.map((product: Product, index: number) => (
           <Grid
@@ -27,7 +29,8 @@ const ProductDisplayGrid: React.FunctionComponent<Props> = ({
             key={index}
             xs={12}
             sm={6}
-            md={products.length > 6 ? 3 : 4}>
+            md={products.length > 6 ? 3 : 4}
+            lg={3}>
             <ProductDisplayCard product={product} />
           </Grid>
         ))}
