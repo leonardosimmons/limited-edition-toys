@@ -9,9 +9,9 @@ import { getAllProducts } from 'models/product/queries';
 import { capitalizeFirstLetters } from 'lib';
 
 import {
-  CategoryDisplayGrid,
-  CategoryMainContainer,
-} from 'src/containers/pages/styles/CategoryPage';
+  DisplayPageMainGrid,
+  DisplayPageMainContainer,
+} from 'src/containers/pages/styles/DisplayPage';
 
 import Grid from '@mui/material/Grid';
 
@@ -36,9 +36,9 @@ function ProductCategoryDisplayPage({
   if (products.status === 'loading') {
     return (
       <Layout title={category}>
-        <CategoryMainContainer maxWidth={false} sx={{ minHeight: '70vh' }}>
+        <DisplayPageMainContainer maxWidth={false} sx={{ minHeight: '70vh' }}>
           <CircleLoadSpinner />
-        </CategoryMainContainer>
+        </DisplayPageMainContainer>
       </Layout>
     );
   }
@@ -46,15 +46,15 @@ function ProductCategoryDisplayPage({
   return (
     <Layout title={`Limited Edition Toys | ${category}`}>
       <ProductHeader title={category} />
-      <CategoryMainContainer maxWidth={false}>
-        <CategoryDisplayGrid container direction="row" spacing={2}>
+      <DisplayPageMainContainer maxWidth={false}>
+        <DisplayPageMainGrid container direction="row" spacing={2}>
           {products.filtered.map((product: Product, index: number) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
               <ProductDisplayCard product={product} />
             </Grid>
           ))}
-        </CategoryDisplayGrid>
-      </CategoryMainContainer>
+        </DisplayPageMainGrid>
+      </DisplayPageMainContainer>
     </Layout>
   );
 }
