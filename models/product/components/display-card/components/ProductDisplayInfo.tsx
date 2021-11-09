@@ -25,7 +25,7 @@ const ProductDisplayInfo: React.FunctionComponent<Props> = ({
   return (
     <ProductDisplayInfoGrid item container direction="column">
       <Grid item>
-        <Link href={`/product/${slug}`}>
+        <Link href={`/products/single/${slug}`}>
           <Typography variant="h6" sx={{ letterSpacing: 1.2 }}>
             {name.length > Default.MAX_PRODUCT_NAME_LENGTH
               ? `${name.slice(0, Default.MAX_PRODUCT_NAME_LENGTH)}...`

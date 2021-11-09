@@ -77,7 +77,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   function handleImageClicked(): void {
     dispatch(resetProduct());
     dispatch(setCurrentProductSelection(product));
-    router.push(`/product/${slug}`);
+    router.push(`/products/single/${slug}`);
   }
 
   //* -------------------------------------------------
