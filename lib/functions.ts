@@ -5,10 +5,19 @@ import { Combinable } from '../utils/types';
  * @param phrase
  * @returns fixed version of the phrase
  */
-export function capitalizeFirstLetters(phrase: string): string {
+export function capitalizeFirstLetters(
+  phrase: string,
+  options?: { tag: boolean },
+): string {
   const arr = phrase.split(' ');
   for (let i = 0; i < arr.length; i++) {
-    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    if (options && options.tag) {
+      if (arr[i] !== 'and' && arr[i] !== 'on') {
+        arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+      }
+    } else {
+      arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    }
   }
   return arr.join(' ');
 }

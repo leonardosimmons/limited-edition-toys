@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   return res.json(
-    await Vend.get('/tags?page_size=20')
+    await Vend.get('/tags')
       .then((res) => res.data)
       .then((vend: VendResponse<ProductType>) => vend.data),
   );
