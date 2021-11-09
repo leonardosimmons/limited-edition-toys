@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import {
   closeNavbarSearchMenu,
@@ -7,7 +8,16 @@ import {
   openNavbarTagMenu,
   uiSelector,
 } from 'src/redux/models/ui';
+import { Product } from 'models/product/types';
 import { Id } from 'utils/keys';
+
+import { useProducts } from 'models/product/useProducts';
+import { searchSelector } from 'src/redux/models/search/selectors';
+import {
+  setCurrentSearchInput,
+  setSearchRequest,
+  setSearchResult,
+} from 'src/redux/models/search/actions';
 
 import TagSearchBar from './styles/TagSearchBar';
 
@@ -21,40 +31,82 @@ import SearchIcon from '@mui/icons-material/Search';
 import TagPopupMenu from './components/TagPopupMenu';
 
 const TagsSearchBar: React.FunctionComponent = (): JSX.Element => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
+  const { products } = useProducts();
   const ui = useAppSelector(uiSelector);
+  const search = useAppSelector(searchSelector);
 
-  // Menu
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  //* -------------------------------------------------
+  // Tag Menu
+  const [tagAnchorEl, setTagAnchorEl] = React.useState<null | HTMLElement>(
+    null,
+  );
 
   function handleTagMenuClose(): void {
-    setAnchorEl(null);
+    setTagAnchorEl(null);
     dispatch(closeNavbarTagMenu());
   }
 
   function handleTagMenuOpen(
     e: React.MouseEvent<HTMLElement> | React.FocusEvent<HTMLElement>,
   ): void {
-    setAnchorEl(e.currentTarget);
+    setTagAnchorEl(e.currentTarget);
     dispatch(openNavbarTagMenu());
   }
 
-  // Search --------------------
-  const [searchString, setSearchString] = React.useState<string>('');
+  //* -------------------------------------------------
+  // Search Menu
+  const [searchBarAnchorEl, setSearchBarAnchorEl] =
+    React.useState<null | HTMLElement>(null);
+
+  // filter product according to entered user search
+  React.useEffect(() => {
+    if (search.input.length > 2) {
+      const buffer: Product[] = [];
+      products.list?.forEach((product) => {
+        if (
+          RegExp(search.input.toLowerCase()).test(product.name.toLowerCase())
+        ) {
+          buffer.push(product);
+        }
+      });
+      dispatch(setSearchResult(buffer));
+    }
+  }, [search.input]);
+
+  // opens search menu once user starts typing
+  React.useEffect(() => {
+    if (search.input) {
+      dispatch(openNavbarSearchMenu());
+    } else if (!search.input) {
+      dispatch(closeNavbarTagMenu());
+      dispatch(closeNavbarSearchMenu());
+    }
+  }, [search.input]);
+
+  // automatically redirects once search request has been set
+  React.useEffect(() => {
+    if (search.request) {
+      router.push(`/products/search/${search.request.replace(/[' ']/g, '-')}`);
+    }
+  }, [search.request]);
+
+  //* -------------------------------------------------
+  // Handlers
 
   function handleUserInput(e: React.ChangeEvent<HTMLInputElement>): void {
-    setSearchString(e.target.value);
-    console.log(searchString);
-    // [UI/UX]: api calls to db to check matching product
-    // include dropdown preview window displaying matching products
-    // BONUS: use regex to parse input
+    dispatch(setCurrentSearchInput(e.target.value));
   }
 
   function handleEnteredSearch(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
-    // load product category/tag page with matching search
+    dispatch(setSearchRequest(search.input));
     // display error if nothing matches
   }
+
+  //* -------------------------------------------------
+  // Render
 
   return (
     <React.Fragment>
@@ -73,7 +125,7 @@ const TagsSearchBar: React.FunctionComponent = (): JSX.Element => {
         <Divider orientation="vertical" />
         <InputBase
           placeholder="Search Products"
-          value={searchString}
+          value={search.input}
           sx={{ flex: 1 }}
           inputProps={{
             'aria-label': 'search product categories',
@@ -89,7 +141,7 @@ const TagsSearchBar: React.FunctionComponent = (): JSX.Element => {
           <SearchIcon />
         </IconButton>
       </TagSearchBar>
-      <TagPopupMenu anchorEl={anchorEl} menuClose={handleTagMenuClose} />
+      <TagPopupMenu anchorEl={tagAnchorEl} menuClose={handleTagMenuClose} />
     </React.Fragment>
   );
 };

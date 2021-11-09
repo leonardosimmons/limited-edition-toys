@@ -4,6 +4,7 @@ import { uiSelector } from 'src/redux/models/ui';
 import { ProductPropertyOptions } from 'models/product/types';
 import { Id } from 'utils/keys';
 
+import tagNames from 'data/tags.json';
 import { useProducts } from 'models/product/useProducts';
 
 import TagMenu from '../styles/TagMenu';
@@ -12,28 +13,33 @@ import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import { useRouter } from 'next/router';
 
 type Props = {
   anchorEl: null | HTMLElement;
   menuClose: () => void;
 };
 
-const CategoryPopupMenu: React.FunctionComponent<Props> = ({
+const TagPopupMenu: React.FunctionComponent<Props> = ({
   anchorEl,
   menuClose,
 }): JSX.Element => {
+  const router = useRouter();
   const ui = useAppSelector(uiSelector);
-  const { tags } = useProducts();
 
-  const handleMenuItemClick = (e: React.MouseEvent<HTMLLIElement>): void => {
-    // go to selected category page
-  };
+  //* -------------------------------------------------
+  // Handlers
+
+  function handleTagClick(tag: string): void {
+    menuClose();
+    router.push(`/products/${tag.replace(/[' ']/g, '-').toLowerCase()}`);
+  }
 
   return (
     <TagMenu
       id={Id.NAVBAR_SEARCH_MENU}
       anchorEl={anchorEl}
-      open={ui.navbar.tagMenuOpen && !ui.navbar.searchMenuOpen}
+      open={ui.navbar.tagMenuOpen}
       elevation={1}
       onClose={menuClose}
       anchorOrigin={
@@ -70,19 +76,20 @@ const CategoryPopupMenu: React.FunctionComponent<Props> = ({
         }}>
         {'Search'}
       </Typography>
-      {tags &&
-        tags.list?.map((t: ProductPropertyOptions, index: number) => (
-          <Box key={index}>
-            <MenuItem onClick={handleMenuItemClick} sx={{ fontSize: '1rem' }}>
-              {tags.status === 'loading' ? '...' : t.name}
-            </MenuItem>
-            <Divider
-              sx={{ width: '80%', marginRight: 'auto', marginLeft: '10px' }}
-            />
-          </Box>
-        ))}
+      {tagNames.sort().map((tag: string, index: number) => (
+        <Box key={index}>
+          <MenuItem
+            onClick={() => handleTagClick(tag)}
+            sx={{ fontSize: '1rem' }}>
+            {tag}
+          </MenuItem>
+          <Divider
+            sx={{ width: '80%', marginRight: 'auto', marginLeft: '10px' }}
+          />
+        </Box>
+      ))}
     </TagMenu>
   );
 };
 
-export default CategoryPopupMenu;
+export default TagPopupMenu;

@@ -1,12 +1,18 @@
 import { VendResponse } from 'lib';
 import { getPaginatedProducts } from './queries';
-import { Product, ProductFilterOptions, ProductType } from './types';
+import {
+  Product,
+  ProductFilterOptions,
+  ProductPropertyOptions,
+  ProductType,
+} from './types';
 
 interface ProductModelInterface {
   filterList(
     filter: string | string[],
     options: ProductFilterOptions,
     products: Product[],
+    tags?: Partial<ProductPropertyOptions>[],
   ): Product[];
   getAll(): Promise<Product[]>;
 }
@@ -20,6 +26,7 @@ class ProductModel implements ProductModelInterface {
     filter: string | string[],
     options: ProductFilterOptions,
     products: Product[],
+    tags?: Partial<ProductPropertyOptions>[],
   ): Product[] {
     const buffer: Product[] = [];
     products.forEach((p: Product) => {
@@ -47,6 +54,29 @@ class ProductModel implements ProductModelInterface {
           ) {
             buffer.push(p);
           }
+          break;
+        case 'search':
+          if (
+            RegExp(filter as string).test(p.name) &&
+            !buffer.includes(p) &&
+            p.active
+          ) {
+            buffer.push(p);
+          }
+          p.categories?.forEach((category) => {
+            if (category.name === (filter as string) && !buffer.includes(p)) {
+              buffer.push(p);
+            }
+          });
+          tags?.forEach((tag) => {
+            if (tag.name === filter) {
+              p.tag_ids?.forEach((id) => {
+                if (id === tag.id && !buffer.includes(p)) {
+                  buffer.push(p);
+                }
+              });
+            }
+          });
           break;
         case 'tag':
           p.tag_ids?.forEach((t: string) => {

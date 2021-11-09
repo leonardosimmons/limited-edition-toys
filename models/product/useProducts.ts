@@ -29,10 +29,11 @@ export function useProducts(options?: ProductQueryOptions) {
         options?.filter?.value,
         options?.filter.type,
         activeProducts,
+        tags,
       );
     }
     return [];
-  }, [options?.filter?.value, options?.filter?.type, activeProducts]);
+  }, [options?.filter?.value, options?.filter?.type, activeProducts, tags]);
 
   React.useEffect(() => {
     if (filteredProducts && filteredProducts !== []) {
