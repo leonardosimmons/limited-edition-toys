@@ -1,12 +1,14 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { productReducer } from 'models/product/reducer';
 import { pageReducer } from './models/page/reducer';
+import { searchReducer } from './models/search/reducer';
 import { uiReducer } from './models/ui/reducer';
 
 export const store = configureStore({
   reducer: {
     page: pageReducer,
     product: productReducer,
+    search: searchReducer,
     ui: uiReducer,
   },
   devTools: true,
