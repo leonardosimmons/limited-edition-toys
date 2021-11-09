@@ -31,7 +31,7 @@ function Index({}: InferGetStaticPropsType<
       <MainContainer>
         <Button
           variant="contained"
-          onClick={() => router.push('/categories/anime')}>
+          onClick={() => router.push('/search/pokemon')}>
           Press Me
         </Button>
       </MainContainer>

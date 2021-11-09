@@ -12,7 +12,7 @@ export function capitalizeFirstLetters(
   const arr = phrase.split(' ');
   for (let i = 0; i < arr.length; i++) {
     if (options && options.tag) {
-      if (arr[i] !== 'and' && arr[i] !== 'on') {
+      if (arr[i] !== 'and' && arr[i] !== 'on' && arr[i] !== 'the') {
         arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
       }
     } else {
