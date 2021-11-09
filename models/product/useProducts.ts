@@ -14,18 +14,25 @@ export function useProducts(options?: ProductQueryOptions) {
   const { status: tagStatus, data: tags, error: tagError } = useProductTags();
 
   //* -------------------------------------------------
-  // filters products based on provided params (if applicable)
+  // Active products
+
+  const activeProducts = React.useMemo(() => {
+    return vend?.filter((v) => v.active);
+  }, [vend]);
+
+  //* -------------------------------------------------
+  // Filtered products (if applicable)
 
   const filteredProducts: Product[] | undefined = React.useMemo(() => {
-    if (options?.filter?.value && options?.filter.type && vend) {
+    if (options?.filter?.value && options?.filter.type && activeProducts) {
       return model.filterList(
         options?.filter?.value,
         options?.filter.type,
-        vend,
+        activeProducts,
       );
     }
     return [];
-  }, [options?.filter?.value, options?.filter?.type, vend]);
+  }, [options?.filter?.value, options?.filter?.type, activeProducts]);
 
   React.useEffect(() => {
     if (filteredProducts && filteredProducts !== []) {
@@ -40,7 +47,7 @@ export function useProducts(options?: ProductQueryOptions) {
     products: {
       error,
       ...page.products,
-      list: vend as Product[],
+      list: activeProducts as Product[],
       status,
     },
     tags: {

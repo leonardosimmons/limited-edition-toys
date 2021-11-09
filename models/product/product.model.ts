@@ -28,30 +28,41 @@ class ProductModel implements ProductModelInterface {
           p.categories?.forEach((c: Partial<ProductType>) => {
             if (Array.isArray(filter)) {
               filter.forEach((name) => {
-                if (c.name === name && !buffer.includes(p) && p.active) {
+                if (c.name === name && !buffer.includes(p)) {
                   buffer.push(p);
                 }
               });
             } else {
-              if (c.name === filter && !buffer.includes(p) && p.active) {
+              if (c.name === filter && !buffer.includes(p)) {
                 buffer.push(p);
               }
             }
           });
+          break;
+        case 'name':
+          if (
+            RegExp(filter as string).test(p.name) &&
+            !buffer.includes(p) &&
+            p.active
+          ) {
+            buffer.push(p);
+          }
+          break;
         case 'tag':
           p.tag_ids?.forEach((t: string) => {
             if (Array.isArray(filter)) {
               filter.forEach((tag) => {
-                if (t == tag && !buffer.includes(p) && p.active) {
+                if (t == tag && !buffer.includes(p)) {
                   buffer.push(p);
                 }
               });
             } else {
-              if (t === filter && !buffer.includes(p) && p.active) {
+              if (t === filter && !buffer.includes(p)) {
                 buffer.push(p);
               }
             }
           });
+          break;
         default:
           break;
       }
