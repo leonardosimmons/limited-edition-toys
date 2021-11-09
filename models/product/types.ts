@@ -18,7 +18,12 @@ export type ProductCategory = {
   _links: any;
 };
 
-export type ProductFilterOptions = 'category' | 'type' | 'tag' | 'name';
+export type ProductFilterOptions =
+  | 'category'
+  | 'type'
+  | 'tag'
+  | 'name'
+  | 'search';
 
 export type ProductInventory = {
   id: string;

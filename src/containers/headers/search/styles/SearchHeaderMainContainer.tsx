@@ -7,17 +7,16 @@ import Container, { ContainerProps } from '@mui/material/Container';
 export const SearchHeaderMainContainer = styled(Container)<ContainerProps>(
   ({ theme }) => ({
     width: '100%',
-    height: '180px',
+    height: '150px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '20px',
     backgroundImage: `url(${Images.TOP_CLOUDS_LIGHT})`,
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: '0 85%',
     [theme.breakpoints.up('mobileMd')]: {
-      marginTop: '30px',
+      height: '165px',
       backgroundPosition: '0 100%',
     },
     [theme.breakpoints.up('mobileLg')]: {

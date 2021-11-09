@@ -67,7 +67,7 @@ const AppNavigationBar: React.FunctionComponent = (): JSX.Element => {
               <TagSearchBar />
             </NavbarTitleBox>
             <NavbarMenuBox>
-              {ui.status.viewport === 'mobile' ? (
+              {ui.status.viewport !== 'desktop' ? (
                 <MobileMenu />
               ) : (
                 <DesktopTabs />
