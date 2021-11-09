@@ -54,7 +54,7 @@ const AppNavigationBar: React.FunctionComponent = (): JSX.Element => {
                 role="img"
               />
             </NavbarPromoBox>
-            <NavbarTitleBox onClick={handleLogoClick}>
+            <NavbarTitleBox>
               <NavbarButton
                 disableRipple
                 disableTouchRipple
