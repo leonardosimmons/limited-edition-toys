@@ -17,8 +17,16 @@ export enum Id {
 }
 
 export enum Images {
-  NAVBAR_PROMO = '/images/now-open.png',
   BOTTOM_CLOUDS_LIGHT = '/images/bottom-light.png',
+  CLOUD_BACKGROUND = '/svg/cloud-background.svg',
+  MIDDLE_CLOUDS = '/images/middle.png',
+  NAVBAR_PROMO = '/images/now-open.png',
+  STOREFRONT = '/images/store/storefront.jpg',
+  STORE_INTERIOR_1 = '/images/store/interior-1.jpg',
+  STORE_INTERIOR_2 = '/images/store/interior-2.jpg',
+  STORE_INTERIOR_3 = '/images/store/interior-3.jpg',
+  STORE_INTERIOR_4 = '/images/store/interior-4.jpg',
+  STORE_INTERIOR_5 = '/images/store/interior-5.jpg',
   TEST_HEADER = '/svg/test-header.svg',
   TOP_CLOUDS_LIGHT = '/svg/top-light.svg',
 }
