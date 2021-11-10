@@ -2,7 +2,7 @@ import React from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { Product } from 'models/product/types';
-import { Queries } from 'utils/keys';
+import { Images, Queries } from 'utils/keys';
 
 import data from 'data/pages/home.json';
 import { useProducts } from 'models/product/useProducts';
@@ -24,6 +24,7 @@ import {
 } from 'src/containers/sections/styles/Section';
 import { useAppSelector } from 'src/redux';
 import { uiSelector } from 'src/redux/models/ui';
+import { DisplayImage } from 'src/containers/sections/DisplayImage';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
@@ -123,6 +124,14 @@ function Index({}: InferGetStaticPropsType<
               : (bestSellers as Product[])
           }
         />
+        <DisplayImage>
+          <Image
+            src={Images.MASCOT_ONE}
+            alt="Limited Edition Toys Mascot"
+            layout="fill"
+            objectFit="contain"
+          />
+        </DisplayImage>
       </HomePageMainContainer>
     </Layout>
   );
