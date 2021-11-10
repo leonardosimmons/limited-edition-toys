@@ -17,7 +17,7 @@ export const SectionWrapper = styled(Container, {
   shouldForwardProp: (prop) => prop !== 'background',
 })<StyledContainerProps>(({ background, theme }) => ({
   ...theme.custom.centerColumn,
-  marginTop: '80px',
+  marginTop: '40px',
   ...(background && {
     backgroundImage: `url(${Images.MIDDLE_CLOUDS})`,
     backgroundSize: 'contain',

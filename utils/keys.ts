@@ -2,6 +2,7 @@ export enum Color {
   PRIMARY = '#007aff',
   PRIMARY_RGB = '0, 122, 255',
   SECONDARY = '#f7da67',
+  SECONDARY_DARK = '#ac9848',
   NAVBAR_BACKGROUND = '#bbdcff',
 }
 
@@ -9,6 +10,13 @@ export enum Default {
   MAX_PRODUCT_NAME_LENGTH = 25,
   MAX_PRODUCTS_PER_QUERY = 1000,
   PRODUCTS_PER_PAGE = 30,
+}
+
+export enum Key {
+  RIGHT = 'right',
+  LEFT = 'left',
+  UP = 'up',
+  DOWN = 'down',
 }
 
 export enum Id {
