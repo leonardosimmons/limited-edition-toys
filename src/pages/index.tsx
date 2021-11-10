@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { Product } from 'models/product/types';
@@ -11,16 +10,25 @@ import { getAllProducts, getProductTags } from 'models/product/queries';
 
 import { HomePageMainContainer } from 'src/containers/pages/styles/HomePage';
 
+import Image from 'next/image';
 import Layout from 'src/containers/Layout';
 import MainHeaderOne from 'src/containers/headers/main/version-one/MainHeaderOne';
 import UpcommingEvents from 'src/containers/sections/UpcommingEvents';
 import ProductDisplay from 'src/containers/sections/ProductDisplay';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
+import Carousel from 'src/features/carousel/Carousel';
+import { CarouselImage } from 'src/features/carousel/styles/CarouselFeatures';
+import {
+  SectionDivider,
+  SectionTitle,
+} from 'src/containers/sections/styles/Section';
+import { useAppSelector } from 'src/redux';
+import { uiSelector } from 'src/redux/models/ui';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
 >): JSX.Element {
-  const router = useRouter();
+  const ui = useAppSelector(uiSelector);
   const { products } = useProducts();
 
   //* -------------------------------------------------
@@ -82,12 +90,38 @@ function Index({}: InferGetStaticPropsType<
         <MainHeaderOne />
         <ProductDisplay
           title={data.featured.title}
-          products={featuredProducts as Product[]}
+          products={
+            ui.status.viewport === 'tablet'
+              ? (featuredProducts as Product[]).slice(0, 6)
+              : (featuredProducts as Product[])
+          }
         />
         <UpcommingEvents title={data.events.title} />
+        <SectionTitle variant="h2">{data.carousel.title}</SectionTitle>
+        <SectionDivider
+          primary
+          variant="middle"
+          sx={{ marginBottom: '20px' }}
+        />
+        <Carousel arrows dots autoPlay={3}>
+          {data.carousel.images.map((image, index) => (
+            <CarouselImage key={index}>
+              <Image
+                src={image}
+                alt="store image"
+                layout="fill"
+                objectFit="contain"
+              />
+            </CarouselImage>
+          ))}
+        </Carousel>
         <ProductDisplay
           title={data.mostSold.title}
-          products={bestSellers as Product[]}
+          products={
+            ui.status.viewport === 'tablet'
+              ? (bestSellers as Product[]).slice(0, 6)
+              : (bestSellers as Product[])
+          }
         />
       </HomePageMainContainer>
     </Layout>
