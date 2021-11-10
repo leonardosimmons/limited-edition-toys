@@ -19,6 +19,7 @@ export enum Id {
 export enum Images {
   NAVBAR_PROMO = '/images/now-open.png',
   BOTTOM_CLOUDS_LIGHT = '/images/bottom-light.png',
+  TEST_HEADER = '/svg/test-header.svg',
   TOP_CLOUDS_LIGHT = '/svg/top-light.svg',
 }
 
