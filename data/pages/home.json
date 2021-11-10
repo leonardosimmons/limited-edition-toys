@@ -1,0 +1,48 @@
+{
+  "events": {
+    "title": "Our Upcomming Events",
+    "list": [
+      {
+        "date": "Sep-18",
+        "description": "The dude who drew Carnage and a bunch of other characters is comming to the store for a meet and greet",
+        "location": "In store",
+        "price": "Free",
+        "time": "11:30pm",
+        "title": "Spiderman dude"
+      }
+    ]
+  },
+  "featured": {
+    "title": "Featured Products",
+    "list": [
+      { "name": "Mimikyu Pin Collection Box", "sku": "820650802751" },
+      { "name": "Naruto Sanrio Plush", "sku": "883975165048" },
+      { "name": "Angry Pikachu", "sku": "889698552288" },
+      { "name": "Marvel Encyclopedia", "sku": "978146547890054000" },
+      { "name": "Pokemon Cards", "sku": "10016" },
+      { "name": "Peter and Flight", "sku": "889698515191" },
+      { "name": "Dragonball Figures", "sku": "498316416892" },
+      { "name": "Marvel Sticker Pad", "sku": "77764687723" }
+    ]
+  },
+  "mostSold": {
+    "title": "Best Sellers",
+    "list": [
+      { "name": "Ultra Pro Penny Sleeves", "sku": "10231" },
+      { "name": "Pokemon Battle Styles", "sku": "820650808180" },
+      { "name": "Pokemon Shining Fates", "sku": "8206508086855" },
+      { "name": "Pokemon Sun & Moon Crimson Invasion", "sku": "10305" },
+      { "name": "Pokemon Vivid Voltage Cards", "sku": "10076" },
+      { "name": "Pokemon Minis", "sku": "10235" },
+      { "name": "Mimikyu Pin Collection Bo", "sku": "820650802751" },
+      { "name": "Mystery Cards", "sku": "10158" }
+    ]
+  },
+  "carousel": [
+    { "name": "storefront", "src": "/images/store/storefront.jpg" },
+    { "name": "interiorOne", "src": "/images/store/interior-1.jpg" },
+    { "name": "interioTwo", "src": "/images/store/interior-2.jpg" },
+    { "name": "interiorFour", "src": "/images/store/interior-4.jpg" },
+    { "name": "interiorFive", "src": "/images/store/interior-5.jpg" }
+  ]
+}
