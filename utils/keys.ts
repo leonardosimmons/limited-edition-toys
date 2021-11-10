@@ -25,8 +25,9 @@ export enum Id {
 }
 
 export enum Images {
-  BOTTOM_CLOUDS_LIGHT = '/images/bottom-light.png',
+  BOTTOM_CLOUDS_LIGHT = '/images/bottom-clouds.png',
   CLOUD_BACKGROUND = '/svg/cloud-background.svg',
+  MASCOT_ONE = '/images/mascot-1.png',
   MIDDLE_CLOUDS = '/images/middle.png',
   NAVBAR_PROMO = '/images/now-open.png',
   STOREFRONT = '/images/store/storefront.jpg',
