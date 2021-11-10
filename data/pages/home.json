@@ -1,4 +1,14 @@
 {
+  "carousel": {
+    "title": "Our Store",
+    "images": [
+      "/images/store/storefront.jpg",
+      "/images/store/interior-1.jpg",
+      "/images/store/interior-2.jpg",
+      "/images/store/interior-4.jpg",
+      "/images/store/interior-5.jpg"
+    ]
+  },
   "events": {
     "title": "Our Upcomming Events",
     "list": [
@@ -37,12 +47,5 @@
       { "name": "Mimikyu Pin Collection Bo", "sku": "820650802751" },
       { "name": "Mystery Cards", "sku": "10158" }
     ]
-  },
-  "carousel": [
-    { "name": "storefront", "src": "/images/store/storefront.jpg" },
-    { "name": "interiorOne", "src": "/images/store/interior-1.jpg" },
-    { "name": "interioTwo", "src": "/images/store/interior-2.jpg" },
-    { "name": "interiorFour", "src": "/images/store/interior-4.jpg" },
-    { "name": "interiorFive", "src": "/images/store/interior-5.jpg" }
-  ]
+  }
 }
