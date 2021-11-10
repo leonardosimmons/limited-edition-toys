@@ -11,6 +11,10 @@ export const MainHeaderOneHeading = styled(Box)<BoxProps>(({ theme }) => ({
   [theme.breakpoints.up('tabletSm')]: {
     padding: '0 10px',
   },
+  [theme.breakpoints.up('desktopMd')]: {
+    margin: '0 auto',
+    width: '90%',
+  },
 }));
 
 export const MainHeaderOneTitle = styled(Typography)<TypographyProps>(
