@@ -6,21 +6,12 @@ import { Queries } from 'utils/keys';
 
 import { getAllProducts, getProductTags } from 'models/product/queries';
 
-import { styled } from '@mui/material/styles';
+import { HomePageMainContainer } from 'src/containers/pages/styles/HomePage';
 
 import Button from '@mui/material/Button';
-import Container, { ContainerProps } from '@mui/material/Container';
 
 import Layout from 'src/containers/Layout';
-
-const MainContainer = styled(Container)<ContainerProps>(() => ({
-  minHeight: '50vh',
-  height: '100%',
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-}));
+import MainHeaderOne from 'src/containers/headers/main/version-one/MainHeaderOne';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
@@ -28,13 +19,9 @@ function Index({}: InferGetStaticPropsType<
   const router = useRouter();
   return (
     <Layout title={'Limited Edition Toys - Store front'}>
-      <MainContainer>
-        <Button
-          variant="contained"
-          onClick={() => router.push('/search/pokemon')}>
-          Press Me
-        </Button>
-      </MainContainer>
+      <HomePageMainContainer maxWidth={false} disableGutters>
+        <MainHeaderOne />
+      </HomePageMainContainer>
     </Layout>
   );
 }
