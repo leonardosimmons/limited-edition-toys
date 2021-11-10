@@ -21,6 +21,7 @@ export const SectionWrapper = styled(Container, {
   ...(background && {
     backgroundImage: `url(${Images.MIDDLE_CLOUDS})`,
     backgroundSize: 'contain',
+    backgroundRepeat: 'repeat-x',
   }),
 }));
 
@@ -46,8 +47,8 @@ export const SectionTitle = styled(Typography)<TypographyProps>(
 export const SectionDivider = styled(Divider, {
   shouldForwardProp: (prop) => prop !== 'primary',
 })<StyledDividerProps>(({ primary, theme }) => ({
-  height: '2.5px',
-  width: '350px',
+  height: '7px',
+  width: '150px',
   backgroundColor: 'white',
   ...(primary && {
     height: '5px',

@@ -13,8 +13,14 @@ const Footer = styled('footer')(({ theme }) => ({
   height: '175px',
   backgroundImage: `url(${Images.BOTTOM_CLOUDS_LIGHT})`,
   backgroundSize: 'cover',
+  backgroundRepeat: 'repeat-x',
   [theme.breakpoints.up('desktopSm')]: {
-    height: '600px',
+    height: '425px',
+    backgroundSize: '90%',
+  },
+  [theme.breakpoints.up('desktopLg')]: {
+    height: '465px',
+    backgroundSize: '50%',
   },
 }));
 
