@@ -1,4 +1,5 @@
 import React from 'react';
+import type { PaletteColor } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { Color } from 'utils/keys';
 
@@ -37,6 +38,9 @@ declare module '@mui/material/styles' {
         flexDirection: React.CSSProperties['flexDirection'];
         justifyCenter: React.CSSProperties['justifyContent'];
         alignItems: React.CSSProperties['alignItems'];
+      };
+      colors: {
+        tertiary: PaletteColor;
       };
       loading: {
         height: React.CSSProperties['height'];
@@ -78,6 +82,9 @@ declare module '@mui/material/styles' {
         flexDirection?: React.CSSProperties['flexDirection'];
         justifyContent?: React.CSSProperties['justifyContent'];
         alignItems?: React.CSSProperties['alignItems'];
+      };
+      colors?: {
+        tertiary?: PaletteColor;
       };
       loading?: {
         height?: React.CSSProperties['height'];
@@ -140,6 +147,14 @@ export const main = createTheme({
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    colors: {
+      tertiary: {
+        light: '#c9cbe6',
+        main: '#b6add6',
+        dark: '#7a6eb2',
+        contrastText: '#8553FE',
+      },
     },
     loading: {
       height: '100%',
