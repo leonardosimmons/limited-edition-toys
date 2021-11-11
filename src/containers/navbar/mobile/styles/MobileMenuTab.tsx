@@ -16,7 +16,7 @@ const MobileMenuTab = styled(IconButton)<IconButtonProps>(({ theme }) => ({
     padding: 8,
     transform: 'scale(.9) !important',
   },
-  '& > svg.MuiSvgIcon-root': {
+  '& > span.MuiBadge-root > svg.MuiSvgIcon-root': {
     height: '40px',
     width: '40px',
     [theme.breakpoints.up('mobileLg')]: {
@@ -28,6 +28,10 @@ const MobileMenuTab = styled(IconButton)<IconButtonProps>(({ theme }) => ({
     '&:active': {
       ...theme.custom.actions.clicked,
     },
+  },
+  '& > span.MuiBadge-root > span.MuiBadge-badge ': {
+    color: 'white',
+    backgroundColor: theme.custom.colors.tertiary.dark,
   },
 }));
 

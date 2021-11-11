@@ -42,6 +42,7 @@ export enum Images {
 
 export enum Links {
   HOME = '/',
+  SHOPPING_CART = '/cart',
 }
 
 export enum Queries {
