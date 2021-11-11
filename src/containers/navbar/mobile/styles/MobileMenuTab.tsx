@@ -25,6 +25,9 @@ const MobileMenuTab = styled(IconButton)<IconButtonProps>(({ theme }) => ({
     [theme.breakpoints.up('tabletMd')]: {
       margin: '0 .5rem',
     },
+    '&:active': {
+      ...theme.custom.actions.clicked,
+    },
   },
 }));
 

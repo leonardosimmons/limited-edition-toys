@@ -19,6 +19,9 @@ export const DesktopNavbarTabButton = styled(Button)<ButtonProps>(
     },
     '& > span.MuiButton-startIcon': {
       color: theme.palette.grey[800],
+      '&:active': {
+        ...theme.custom.actions.clicked,
+      },
     },
   }),
 );
