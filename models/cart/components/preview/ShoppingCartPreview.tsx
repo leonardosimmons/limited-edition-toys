@@ -5,11 +5,10 @@ import data from 'data/pages/cart.json';
 import { uiSelector } from 'src/redux/models/ui';
 
 import {
-  PreviewCheckoutButton,
   PreviewMainContainer,
   PreviewProductGrid,
-  PreviewHeading,
 } from './styles/PreviewSection';
+import { CheckoutButton } from 'models/cart/styles/CheckoutButton';
 
 import PreviewMobileHeading from './components/mobileHeading';
 import PreviewDesktopHeading from './components/desktopHeading';
@@ -26,10 +25,9 @@ const ShoppingCartPreview: React.FunctionComponent<Props> = (): JSX.Element => {
       ) : (
         <PreviewDesktopHeading />
       )}
-
       <PreviewProductGrid />
       {ui.status.viewport !== 'mobile' && (
-        <PreviewCheckoutButton>{data.buttons.checkout}</PreviewCheckoutButton>
+        <CheckoutButton>{data.buttons.checkout}</CheckoutButton>
       )}
     </PreviewMainContainer>
   );

@@ -12,6 +12,8 @@
       "continue": "Continue Shopping"
     }
   },
-  "summary": {},
+  "summary": {
+    "button": "Proceed to checkout"
+  },
   "title": "Limited Edition Toys | Shopping Cart"
 }
