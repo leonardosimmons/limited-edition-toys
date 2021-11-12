@@ -1,0 +1,17 @@
+{
+  "buttons": {
+    "checkout": "Proceed to checkout"
+  },
+  "empty": {
+    "title": "YOUR SHOPPING BAG IS EMPTY",
+    "button": "START SHOPPING"
+  },
+  "preview": {
+    "title": "MY SHOPPING CART",
+    "links": {
+      "continue": "Continue Shopping"
+    }
+  },
+  "summary": {},
+  "title": "Limited Edition Toys | Shopping Cart"
+}
