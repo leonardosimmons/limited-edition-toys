@@ -2,9 +2,15 @@ import { styled } from '@mui/material/styles';
 
 import Button, { ButtonProps } from '@mui/material/Button';
 
-export const CheckoutButton = styled(Button)<ButtonProps>(({ theme }) => ({
+interface StyledCheckoutButton extends ButtonProps {
+  fullWidth?: boolean;
+}
+
+export const CheckoutButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== 'fullWidth',
+})<ButtonProps>(({ fullWidth, theme }) => ({
   '&.MuiButton-root': {
-    width: '100%',
+    width: '23ch',
     marginBottom: '15px',
     padding: '10px 0',
     textTransform: 'none',
@@ -14,5 +20,8 @@ export const CheckoutButton = styled(Button)<ButtonProps>(({ theme }) => ({
     '&:active': {
       ...theme.custom.actions.clicked,
     },
+    ...(fullWidth && {
+      width: '100%',
+    }),
   },
 }));

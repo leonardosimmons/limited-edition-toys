@@ -5,6 +5,7 @@ import data from 'data/pages/cart.json';
 import { uiSelector } from 'src/redux/models/ui';
 
 import {
+  PreviewAction,
   PreviewMainContainer,
   PreviewProductGrid,
 } from './styles/PreviewSection';
@@ -27,7 +28,9 @@ const ShoppingCartPreview: React.FunctionComponent<Props> = (): JSX.Element => {
       )}
       <PreviewProductGrid />
       {ui.status.viewport !== 'mobile' && (
-        <CheckoutButton>{data.buttons.checkout}</CheckoutButton>
+        <PreviewAction>
+          <CheckoutButton>{data.buttons.checkout}</CheckoutButton>
+        </PreviewAction>
       )}
     </PreviewMainContainer>
   );

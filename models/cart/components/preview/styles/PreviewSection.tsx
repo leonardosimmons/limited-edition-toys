@@ -15,7 +15,12 @@ export const PreviewMainContainer = styled(Container)<ContainerProps>(
     flex: 1,
     width: '100%',
     padding: '24px 24px 40px',
-    backgroundColor: theme.palette.grey[200],
+    [theme.breakpoints.up('tabletMd')]: {
+      padding: '24px 0 0',
+    },
+    [theme.breakpoints.up('tabletLg')]: {
+      padding: '24px 24px 0',
+    },
   }),
 );
 
@@ -26,6 +31,10 @@ export const PreviewHeading = styled(Box)<BoxProps>(({ theme }) => ({
   marginBottom: '30px',
   [theme.breakpoints.up('tabletMd')]: {
     flexDirection: 'row',
+  },
+  '& > h1.MuiTypography-h1': {
+    alignSelf: 'flex-start',
+    margin: 0,
   },
   '& > button.MuiButton-root': {
     width: '100%',
@@ -43,6 +52,10 @@ export const PreviewHeading = styled(Box)<BoxProps>(({ theme }) => ({
     '&:active': {
       transform: 'translateY(2px)',
     },
+    [theme.breakpoints.up('tabletMd')]: {
+      marginLeft: 'auto',
+      fontSize: '.9rem',
+    },
     '&::after': {
       content: "''",
       position: 'absolute',
@@ -58,20 +71,35 @@ export const PreviewHeading = styled(Box)<BoxProps>(({ theme }) => ({
 
 export const PreviewTitle = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'cartCount',
-})<StyledPreviewTitle>(({ cartCount }) => ({
+})<StyledPreviewTitle>(({ cartCount, theme }) => ({
   position: 'relative',
   margin: '0 auto',
   textAlign: 'center',
   fontFamily: 'Jost',
   fontSize: '1.8rem',
   fontWeight: 'bold',
+  [theme.breakpoints.up('mobileMd')]: {
+    width: '17.25ch',
+  },
+  [theme.breakpoints.up('tabletMd')]: {
+    marginRight: 'auto',
+    textAlign: 'left',
+  },
+  [theme.breakpoints.up('desktopSm')]: {
+    fontSize: '2.15rem',
+  },
   ...(cartCount && {
     '&:after': {
-      content: `"(${cartCount})"`,
-      position: 'absolute',
-      top: 3,
-      right: cartCount > 9 ? -12 : -3,
-      fontSize: '1rem',
+      [theme.breakpoints.up('mobileMd')]: {
+        content: `"(${cartCount})"`,
+        position: 'absolute',
+        top: 6,
+        marginLeft: '8px',
+        fontSize: '1rem',
+      },
+      [theme.breakpoints.up('desktopSm')]: {
+        top: 10,
+      },
     },
   }),
 }));
@@ -80,6 +108,9 @@ export const PreviewProductGrid = styled(Grid)<GridProps>(({ theme }) => ({
   minHeight: '300px',
 }));
 
-export const PreviewCheckoutButton = styled(Button)<ButtonProps>(
-  ({ theme }) => ({}),
-);
+export const PreviewAction = styled(Box)<BoxProps>(({ theme }) => ({
+  height: '100%',
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'flex-end',
+}));

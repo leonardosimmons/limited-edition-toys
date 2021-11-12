@@ -12,6 +12,12 @@ export const SummaryMainContainer = styled(Container)<ContainerProps>(
   ({ theme }) => ({
     padding: '24px',
     backgroundColor: theme.custom.palette.white,
+    [theme.breakpoints.up('mobileLg')]: {
+      padding: '24px 36px',
+    },
+    [theme.breakpoints.up('tabletMd')]: {
+      height: '100%',
+    },
   }),
 );
 

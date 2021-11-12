@@ -22,7 +22,7 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = (): JSX.Element => {
         <InfoDisplayItem bold title={'Total'} value={100} />
       </SummaryInfoDisplay>
       <SummaryCheckoutAction>
-        <CheckoutButton>{data.summary.button}</CheckoutButton>
+        <CheckoutButton fullWidth>{data.summary.button}</CheckoutButton>
       </SummaryCheckoutAction>
     </SummaryMainContainer>
   );

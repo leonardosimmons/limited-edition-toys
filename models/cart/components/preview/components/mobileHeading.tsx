@@ -18,7 +18,7 @@ const PreviewMobileHeading: React.FunctionComponent<Props> =
           <CheckoutButton>{data.buttons.checkout}</CheckoutButton>
           <a>{data.preview.links.continue}</a>
         </PreviewHeading>
-        <PreviewTitle variant="h1" cartCount={5}>
+        <PreviewTitle variant="h1" cartCount={cart.count}>
           {data.preview.title}
         </PreviewTitle>
       </React.Fragment>
