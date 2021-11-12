@@ -1,9 +1,10 @@
 import React from 'react';
 import data from 'data/pages/cart.json';
 
-import { PreviewHeading, PreviewTitle } from '../styles/PreviewSection';
-import { CheckoutButton } from 'models/cart/styles/CheckoutButton';
 import { useCart } from 'models/cart/useCart';
+
+import { CheckoutButton } from 'models/cart/styles/CheckoutButton';
+import { PreviewHeading, PreviewTitle } from '../styles/PreviewSection';
 
 type Props = {};
 
