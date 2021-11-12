@@ -6,14 +6,19 @@ import {
   PreviewHeading,
   PreviewTitle,
 } from '../styles/PreviewSection';
+import { useCart } from 'models/cart/useCart';
 
 type Props = {};
 
 const PreviewDesktopHeading: React.FunctionComponent<Props> =
   (): JSX.Element => {
+    const cart = useCart();
+
     return (
       <PreviewHeading>
-        <PreviewTitle>{data.preview.title}</PreviewTitle>
+        <PreviewTitle variant="h1" cartCount={cart.count}>
+          {data.preview.title}
+        </PreviewTitle>
         <a>{data.preview.links.continue}</a>
       </PreviewHeading>
     );

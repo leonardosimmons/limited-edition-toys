@@ -6,11 +6,16 @@ import Container, { ContainerProps } from '@mui/material/Container';
 import Typography, { TypographyProps } from '@mui/material/Typography';
 import Button, { ButtonProps } from '@mui/material/Button';
 
+interface StyledPreviewTitle extends TypographyProps {
+  cartCount?: number;
+}
+
 export const PreviewMainContainer = styled(Container)<ContainerProps>(
   ({ theme }) => ({
     flex: 1,
     width: '100%',
     padding: '24px 24px 40px',
+    backgroundColor: theme.palette.grey[200],
   }),
 );
 
@@ -51,15 +56,25 @@ export const PreviewHeading = styled(Box)<BoxProps>(({ theme }) => ({
   },
 }));
 
-export const PreviewTitle = styled(Typography)<TypographyProps>(
-  ({ theme }) => ({
-    margin: '0 auto',
-    textAlign: 'center',
-    fontFamily: 'Jost',
-    fontSize: '1.8rem',
-    fontWeight: 'bold',
+export const PreviewTitle = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'cartCount',
+})<StyledPreviewTitle>(({ cartCount }) => ({
+  position: 'relative',
+  margin: '0 auto',
+  textAlign: 'center',
+  fontFamily: 'Jost',
+  fontSize: '1.8rem',
+  fontWeight: 'bold',
+  ...(cartCount && {
+    '&:after': {
+      content: `"(${cartCount})"`,
+      position: 'absolute',
+      top: 3,
+      right: cartCount > 9 ? -12 : -3,
+      fontSize: '1rem',
+    },
   }),
-);
+}));
 
 export const PreviewProductGrid = styled(Grid)<GridProps>(({ theme }) => ({
   minHeight: '300px',
