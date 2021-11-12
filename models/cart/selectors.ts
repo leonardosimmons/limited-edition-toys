@@ -1,4 +1,4 @@
-import { Product } from 'models/product/types';
+import { ProductCartToken } from 'models/product/types';
 import { createSelector } from 'reselect';
 import { AppState } from 'src/redux';
 
@@ -8,13 +8,13 @@ const getCartUser = (state: AppState) => state.cart.userId;
 
 const getItemCount = createSelector(
   getItems,
-  (items: Product[]) => items.length,
+  (items: ProductCartToken[]) => items.length,
 );
 
-const getCartTotal = createSelector(getItems, (items: Product[]) => {
+const getCartTotal = createSelector(getItems, (items: ProductCartToken[]) => {
   let total: number = 0;
-  items.forEach((item: Product) => {
-    total = total + item.price_excluding_tax!;
+  items.forEach((item: ProductCartToken) => {
+    total = total + item.total;
   });
   return total;
 });

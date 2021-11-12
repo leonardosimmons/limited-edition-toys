@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Product } from 'models/product/types';
+import { ProductCartToken } from 'models/product/types';
 import {
   addProductToCart,
   removeCartUser,
@@ -7,11 +7,13 @@ import {
   resetCart,
   setCartUser,
   updateCartStatus,
+  updateProductQuantity,
+  updateProductTotal,
 } from './actions';
 import { CartStatus } from './types';
 
 type CartState = {
-  items: Product[];
+  items: ProductCartToken[];
   status: CartStatus;
   userId: string;
 };
@@ -36,8 +38,22 @@ export const cartReducer = createReducer(initialState, (builder) =>
     })
     .addCase(removeProductFromCart, (state, action) => {
       state.items = state.items.filter(
-        (item: Product) => item.id !== action.payload,
+        (item: ProductCartToken) => item.product.id !== action.payload,
       );
+    })
+    .addCase(updateProductQuantity, (state, action) => {
+      state.items.forEach((item: ProductCartToken) => {
+        if (item.product.id === action.payload.id) {
+          item.quantity = action.payload.amount;
+        }
+      });
+    })
+    .addCase(updateProductTotal, (state, action) => {
+      state.items.forEach((item: ProductCartToken) => {
+        if (item.product.id === action.payload.id) {
+          item.total = action.payload.amount;
+        }
+      });
     })
     //* Status --------------------------------
     .addCase(updateCartStatus, (state, action) => {
