@@ -39,8 +39,9 @@ declare module '@mui/material/styles' {
         justifyCenter: React.CSSProperties['justifyContent'];
         alignItems: React.CSSProperties['alignItems'];
       };
-      colors: {
+      palette: {
         tertiary: PaletteColor;
+        white: React.CSSProperties['color'];
       };
       loading: {
         height: React.CSSProperties['height'];
@@ -83,8 +84,9 @@ declare module '@mui/material/styles' {
         justifyContent?: React.CSSProperties['justifyContent'];
         alignItems?: React.CSSProperties['alignItems'];
       };
-      colors?: {
+      palette?: {
         tertiary?: PaletteColor;
+        white?: React.CSSProperties['color'];
       };
       loading?: {
         height?: React.CSSProperties['height'];
@@ -148,14 +150,6 @@ export const main = createTheme({
       justifyContent: 'center',
       alignItems: 'center',
     },
-    colors: {
-      tertiary: {
-        light: '#c9cbe6',
-        main: '#b6add6',
-        dark: '#7a6eb2',
-        contrastText: '#8553FE',
-      },
-    },
     loading: {
       height: '100%',
       display: 'flex',
@@ -164,6 +158,15 @@ export const main = createTheme({
       alignItems: 'center',
       margin: 'auto',
       padding: '1rem',
+    },
+    palette: {
+      tertiary: {
+        light: '#c9cbe6',
+        main: '#b6add6',
+        dark: '#7a6eb2',
+        contrastText: '#8553FE',
+      },
+      white: '#ffffff',
     },
     shadow: {
       card: {

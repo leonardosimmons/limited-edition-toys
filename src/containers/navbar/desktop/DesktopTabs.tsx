@@ -1,7 +1,5 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useAppSelector } from 'src/redux';
-import { cartSelector } from 'models/cart/selectors';
 
 import { DesktopNavbarTabButton } from './styles/DesktopNavbarTabButton';
 import { DesktopNavbarDivider } from './styles/DesktopNavbarDivider';
@@ -13,12 +11,13 @@ import FaceTwoTone from '@mui/icons-material/FaceTwoTone';
 import AssignmentTwoToneIcon from '@mui/icons-material/AssignmentTwoTone';
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 import { Links } from 'utils/keys';
+import { useCart } from 'models/cart/useCart';
 
 type Props = {};
 
 const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
   const router = useRouter();
-  const cart = useAppSelector(cartSelector);
+  const cart = useCart();
 
   //* -------------------------------------------------
   // Handlers

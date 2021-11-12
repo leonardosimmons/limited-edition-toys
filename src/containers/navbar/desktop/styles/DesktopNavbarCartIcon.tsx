@@ -17,7 +17,7 @@ export const DesktopNavbarCartIcon = styled(IconButton)<IconButtonProps>(
     },
     '& > span.MuiBadge-root > span.MuiBadge-badge ': {
       color: 'white',
-      backgroundColor: theme.custom.colors.tertiary.dark,
+      backgroundColor: theme.custom.palette.tertiary.dark,
     },
   }),
 );

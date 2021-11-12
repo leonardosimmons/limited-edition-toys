@@ -1,7 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useAppSelector } from 'src/redux';
-import { cartSelector } from 'models/cart/selectors';
+import { Links } from 'utils/keys';
+
+import { useCart } from 'models/cart/useCart';
 
 import MobileMenuTab from '../styles/MobileMenuTab';
 
@@ -11,7 +12,6 @@ import Zoom from '@mui/material/Zoom';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Links } from 'utils/keys';
 
 type Props = {
   drawerToggle: (
@@ -23,7 +23,7 @@ const MobileMenuTabs: React.FunctionComponent<Props> = ({
   drawerToggle,
 }): JSX.Element => {
   const router = useRouter();
-  const cart = useAppSelector(cartSelector);
+  const cart = useCart();
 
   //* -------------------------------------------------
   // Handlers
