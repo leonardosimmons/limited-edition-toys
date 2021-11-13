@@ -10,10 +10,11 @@ interface StyledSummaryInfoDisplayGridItemProps extends GridProps {
 
 export const SummaryMainContainer = styled(Container)<ContainerProps>(
   ({ theme }) => ({
+    height: '100%',
     padding: '24px',
     backgroundColor: theme.custom.palette.white,
     [theme.breakpoints.up('mobileLg')]: {
-      padding: '24px 36px',
+      padding: '24px 36px 40px',
     },
     [theme.breakpoints.up('tabletMd')]: {
       height: '100%',
@@ -25,13 +26,14 @@ export const SummaryInfoDisplay = styled(Grid)<GridProps>(({ theme }) => ({}));
 
 export const SummaryInfoDisplayGridItem = styled(Grid, {
   shouldForwardProp: (prop) => prop !== 'bold',
-})<StyledSummaryInfoDisplayGridItemProps>(({ bold }) => ({
+})<StyledSummaryInfoDisplayGridItemProps>(({ bold, theme }) => ({
   '& > div.MuiGrid-root': {
     '&:nth-of-type(1)': {
       '& > h3.MuiTypography-h3': {
         letterSpacing: 1,
         fontSize: '1rem',
         fontWeight: '500',
+        color: theme.palette.grey[700],
       },
     },
     '&:nth-of-type(2)': {
@@ -41,6 +43,7 @@ export const SummaryInfoDisplayGridItem = styled(Grid, {
         letterSpacing: 1,
         fontSize: '1rem',
         fontWeight: '500',
+        color: theme.palette.grey[700],
       },
     },
   },

@@ -54,6 +54,9 @@ declare module '@mui/material/styles' {
       };
       shadow: {
         card: {
+          cart: {
+            boxShadow: React.CSSProperties['boxShadow'];
+          };
           display: {
             boxShadow: React.CSSProperties['boxShadow'];
           };
@@ -99,6 +102,9 @@ declare module '@mui/material/styles' {
       };
       shadow: {
         card?: {
+          cart?: {
+            boxShadow?: React.CSSProperties['boxShadow'];
+          };
           display?: {
             boxShadow?: React.CSSProperties['boxShadow'];
           };
@@ -170,6 +176,9 @@ export const main = createTheme({
     },
     shadow: {
       card: {
+        cart: {
+          boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
+        },
         display: {
           boxShadow: `rgba(189, 189, 189, 0.7) 0px 2px 4px, rgba(189, 189, 189, 0.6) 0px 7px 13px -3px, rgba(189, 189, 189, 0.5) 0px -3px 0px inset`,
         },

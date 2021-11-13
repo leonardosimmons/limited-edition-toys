@@ -7,6 +7,7 @@ export enum Color {
 }
 
 export enum Default {
+  MAX_CART_CARD_QUANTITY_SELECTION = 20,
   MAX_PRODUCT_NAME_LENGTH = 25,
   MAX_PRODUCTS_PER_QUERY = 1000,
   PRODUCTS_PER_PAGE = 30,

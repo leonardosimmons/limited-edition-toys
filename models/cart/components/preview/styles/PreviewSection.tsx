@@ -14,7 +14,10 @@ export const PreviewMainContainer = styled(Container)<ContainerProps>(
   ({ theme }) => ({
     flex: 1,
     width: '100%',
-    padding: '24px 24px 40px',
+    padding: '24px 12px 40px',
+    [theme.breakpoints.up('mobileLg')]: {
+      padding: '24px 36px 40px',
+    },
     [theme.breakpoints.up('tabletMd')]: {
       padding: '24px 0 0',
     },
@@ -51,6 +54,9 @@ export const PreviewHeading = styled(Box)<BoxProps>(({ theme }) => ({
     fontSize: '1rem',
     '&:active': {
       transform: 'translateY(2px)',
+    },
+    '&:hover': {
+      cursor: 'pointer',
     },
     [theme.breakpoints.up('tabletMd')]: {
       marginLeft: 'auto',
@@ -105,7 +111,16 @@ export const PreviewTitle = styled(Typography, {
 }));
 
 export const PreviewProductGrid = styled(Grid)<GridProps>(({ theme }) => ({
-  minHeight: '300px',
+  width: '100%',
+  justifyContent: 'center',
+  alignItems: 'center',
+  margin: '20px 0 0',
+  [theme.breakpoints.up('tabletMd')]: {
+    marginBottom: '40px',
+  },
+  '& > div.MuiGrid-item': {
+    width: '100%',
+  },
 }));
 
 export const PreviewAction = styled(Box)<BoxProps>(({ theme }) => ({
