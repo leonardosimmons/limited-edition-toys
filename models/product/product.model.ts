@@ -7,22 +7,14 @@ import {
   ProductType,
 } from './types';
 
-interface ProductModelInterface {
-  filterList(
-    filter: string | string[],
-    options: ProductFilterOptions,
-    products: Product[],
-    tags?: Partial<ProductPropertyOptions>[],
-  ): Product[];
-  getAll(): Promise<Product[]>;
-}
+interface ProductModelInterface {}
 
 class ProductModel implements ProductModelInterface {
-  private productQueryChunkSize: number = parseInt(
+  private static productQueryChunkSize: number = parseInt(
     process.env.NEXT_PUBLIC_PRODUCT_CHUNK_QUERY_AMOUNT as string,
   );
 
-  public filterList(
+  static filterList(
     filter: string | string[],
     options: ProductFilterOptions,
     products: Product[],
@@ -100,7 +92,7 @@ class ProductModel implements ProductModelInterface {
     return buffer;
   }
 
-  public async getAll(): Promise<Product[]> {
+  static async getAll(): Promise<Product[]> {
     try {
       return await getPaginatedProducts(0, this.productQueryChunkSize)
         .then((vend: VendResponse<Product[]>) => vend)

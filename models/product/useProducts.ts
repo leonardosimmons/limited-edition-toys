@@ -7,7 +7,6 @@ import { useGetAllProducts, useProductTags } from './queries';
 import { Product, ProductQueryOptions } from './types';
 
 export function useProducts(options?: ProductQueryOptions) {
-  const model = new ProductModel();
   const dispatch = useAppDispatch();
   const page = useAppSelector(pageSelector);
   const { status, data: vend, error } = useGetAllProducts();
@@ -25,7 +24,7 @@ export function useProducts(options?: ProductQueryOptions) {
 
   const filteredProducts: Product[] | undefined = React.useMemo(() => {
     if (options?.filter?.value && options?.filter.type && activeProducts) {
-      return model.filterList(
+      return ProductModel.filterList(
         options?.filter?.value,
         options?.filter.type,
         activeProducts,

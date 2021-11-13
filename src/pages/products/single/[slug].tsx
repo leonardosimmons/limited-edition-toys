@@ -150,8 +150,7 @@ function ProductPage({
 export default ProductPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const productContorller = new ProductModel();
-  const products = await productContorller.getAll();
+  const products = await ProductModel.getAll();
   const paths: StaticPath[] = products.map((product) => ({
     params: {
       slug: fixSlug(product.name),

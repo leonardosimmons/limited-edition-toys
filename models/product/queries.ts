@@ -2,7 +2,6 @@ import axios from 'axios';
 import { VendResponse } from 'lib';
 import { useQuery } from 'react-query';
 import { Default, Queries } from 'utils/keys';
-import { Combinable } from 'utils/types';
 import { ProductModel } from './product.model';
 import { Product, ProductInventory, ProductPropertyOptions } from './types';
 
@@ -10,7 +9,7 @@ import { Product, ProductInventory, ProductPropertyOptions } from './types';
 // Get All Products
 
 export async function getAllProducts(): Promise<Product[]> {
-  return new ProductModel().getAll();
+  return await ProductModel.getAll();
 }
 
 export function useGetAllProducts() {
