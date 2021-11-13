@@ -23,8 +23,11 @@ const QuantitySelect: React.FunctionComponent<Props> = (): JSX.Element => {
         value={selectedQuantity.toString()}
         onChange={handleSelectionChange}
         inputProps={{ 'aria-label': 'Without label' }}>
-        {data.quantities.map((selection) => (
-          <MenuItem value={selection.value} sx={{ fontSize: '1rem' }}>
+        {data.quantities.map((selection, index) => (
+          <MenuItem
+            key={index}
+            value={selection.value}
+            sx={{ fontSize: '1rem' }}>
             {selection.label}
           </MenuItem>
         ))}
