@@ -1,8 +1,6 @@
 import React from 'react';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import data from 'data/pages/cart.json';
-
-import { useCart } from 'models/cart/useCart';
 
 import {
   ShoppingCartMainContainer,
@@ -16,16 +14,11 @@ import Layout from 'src/containers/Layout/Layout';
 import ShoppingCartPreview from 'models/cart/components/preview/ShoppingCartPreview';
 import ShoppingCartSummary from 'models/cart/components/summary/ShoppingCartSummary';
 
-function ShoppingCart({
-  title,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const cart = useCart();
-
-  //* -------------------------------------------------
-  // Render
-
+function ShoppingCart({}: InferGetStaticPropsType<
+  typeof getStaticProps
+>): JSX.Element {
   return (
-    <Layout title={title}>
+    <Layout title={data.title}>
       <ShoppingCartMainContainer disableGutters maxWidth={false}>
         <PreviewSection>
           <ShoppingCartPreview />
@@ -41,10 +34,11 @@ function ShoppingCart({
 
 export default ShoppingCart;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       title: data.title,
     },
+    revalidate: 60 * 60 * 24,
   };
 };

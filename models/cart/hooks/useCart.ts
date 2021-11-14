@@ -66,8 +66,8 @@ export function useCart() {
     dispatch(updateCartStatus(status));
   }
 
-  function updateTotal(id: string, newTotal: number): void {
-    dispatch(updateProductTotal(id, newTotal));
+  function updateTotal(id: string): void {
+    dispatch(updateProductTotal(id));
   }
 
   //* -------------------------------------------------

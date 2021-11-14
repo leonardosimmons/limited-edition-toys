@@ -1,8 +1,9 @@
 import React from 'react';
 import { useAppSelector } from 'src/redux';
-
 import data from 'data/pages/cart.json';
-import { uiSelector } from 'src/redux/models/ui';
+import { ProductCartToken } from 'models/product/types';
+
+import { appSelector } from 'src/redux/selector';
 
 import {
   PreviewAction,
@@ -11,23 +12,31 @@ import {
 } from './styles/PreviewSection';
 import { CheckoutButton } from 'models/cart/styles/CheckoutButton';
 
+import Grid from '@mui/material/Grid';
+
 import PreviewMobileHeading from './components/mobileHeading';
 import PreviewDesktopHeading from './components/desktopHeading';
+import ProductCartCard from 'models/product/components/cart-card/ProductCartCard';
 
-type Props = {};
-
-const ShoppingCartPreview: React.FunctionComponent<Props> = (): JSX.Element => {
-  const ui = useAppSelector(uiSelector);
+const ShoppingCartPreview: React.FunctionComponent = (): JSX.Element => {
+  const ctx = useAppSelector(appSelector);
 
   return (
     <PreviewMainContainer disableGutters maxWidth={false}>
-      {ui.status.viewport === 'mobile' ? (
+      {ctx.ui.status.viewport === 'mobile' ? (
         <PreviewMobileHeading />
       ) : (
         <PreviewDesktopHeading />
       )}
-      <PreviewProductGrid />
-      {ui.status.viewport !== 'mobile' && (
+      <PreviewProductGrid container>
+        {ctx.cart.items &&
+          ctx.cart.items.map((item: ProductCartToken, index: number) => (
+            <Grid item key={index}>
+              <ProductCartCard token={item} />
+            </Grid>
+          ))}
+      </PreviewProductGrid>
+      {ctx.ui.status.viewport !== 'mobile' && (
         <PreviewAction>
           <CheckoutButton>{data.buttons.checkout}</CheckoutButton>
         </PreviewAction>

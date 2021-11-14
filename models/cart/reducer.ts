@@ -50,8 +50,9 @@ export const cartReducer = createReducer(initialState, (builder) =>
     })
     .addCase(updateProductTotal, (state, action) => {
       state.items.forEach((item: ProductCartToken) => {
-        if (item.product.id === action.payload.id) {
-          item.total = action.payload.amount;
+        if (item.product.id === action.payload) {
+          item.total =
+            (item.product.price_excluding_tax as number) * item.quantity;
         }
       });
     })

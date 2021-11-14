@@ -1,36 +1,44 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from 'src/redux';
-import { productSelector } from '../../../selectors';
-import { minusProductQuantity, plusProductQuantity } from '../../../actions';
+import { useRouter } from 'next/router';
 
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { useCart } from 'models/cart/hooks/useCart';
+import { ProductCartToken } from 'models/product/types';
+import { useSingleProduct } from 'models/product/hooks/useSingleProduct';
+
 import {
   ProductActionMainGrid,
   ProductAmountButton,
 } from '../styles/ActionSection';
 
-type Props = {};
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-const ProductAction: React.FunctionComponent<Props> = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  const product = useAppSelector(productSelector);
+const ProductAction: React.FunctionComponent = (): JSX.Element => {
+  const cart = useCart();
+  const router = useRouter();
+  const ctx = useSingleProduct();
 
   //* -------------------------------------------------
   // Handlers
 
   function handleAddToCart(): void {
-    console.log('Product added to cart', product.current);
+    const token: ProductCartToken = {
+      product: ctx.current,
+      quantity: ctx.quantity,
+      total: (ctx.current.price_excluding_tax as number) * ctx.quantity,
+    };
+    cart.add(token);
+    router.push('/cart');
   }
 
   function handleAddAmount(): void {
-    dispatch(plusProductQuantity());
+    ctx.plusQuantity();
   }
 
   function handleSubtractAmount(): void {
-    dispatch(minusProductQuantity());
+    ctx.minusQuantity();
   }
 
   //* -------------------------------------------------
@@ -42,10 +50,10 @@ const ProductAction: React.FunctionComponent<Props> = (): JSX.Element => {
         <Grid item>
           <Typography
             variant="caption"
-            color={product.inventory.inStock ? 'green' : 'red'}>
-            {product.inventory.inStock
-              ? product.inventory.level <= 10
-                ? `${product.inventory.level} in stock`
+            color={ctx.inventory.inStock ? 'green' : 'red'}>
+            {ctx.inventory.inStock
+              ? ctx.inventory.level <= 10
+                ? `${ctx.inventory.level} in stock`
                 : '10+ in stock'
               : '0 in stock'}
           </Typography>
@@ -58,7 +66,7 @@ const ProductAction: React.FunctionComponent<Props> = (): JSX.Element => {
             {'-'}
           </ProductAmountButton>
           <Typography variant="caption">
-            {product.inventory.inStock ? product.quantity : 0}
+            {ctx.inventory.inStock ? ctx.quantity : 0}
           </Typography>
           <ProductAmountButton variant="outlined" onClick={handleAddAmount}>
             {'+'}
@@ -72,7 +80,7 @@ const ProductAction: React.FunctionComponent<Props> = (): JSX.Element => {
             variant="contained"
             color="secondary"
             onClick={handleAddToCart}
-            disabled={!product.inventory.inStock}>
+            disabled={!ctx.inventory.inStock}>
             {'Add To Cart'}
           </Button>
         </Box>

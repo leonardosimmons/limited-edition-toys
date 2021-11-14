@@ -31,9 +31,8 @@ export const updateProductQuantity = createAction(
   withUpdatePayload<string, number>(),
 );
 
-export const updateProductTotal = createAction(
+export const updateProductTotal = createAction<string>(
   'cart/updateProductTotal',
-  withUpdatePayload<string, number>(),
 );
 
 //* -------------------------------------------------

@@ -2,6 +2,16 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import { setFilteredProductList } from 'src/redux/models/page/actions';
 import { pageSelector } from 'src/redux/models/page/selectors';
+import {
+  minusProductQuantity,
+  plusProductQuantity,
+  resetCurrentProductSelection,
+  resetProduct,
+  resetProductInventoryLevel,
+  resetProductQuantity,
+  setCurrentProductSelection,
+  setProductInventoryLevel,
+} from './actions';
 import { ProductModel } from './product.model';
 import { useGetAllProducts, useProductTags } from './queries';
 import { Product, ProductQueryOptions } from './types';
@@ -23,15 +33,14 @@ export function useProducts(options?: ProductQueryOptions) {
   // Filtered products (if applicable)
 
   const filteredProducts: Product[] | undefined = React.useMemo(() => {
-    if (options?.filter?.value && options?.filter.type && activeProducts) {
+    if (options?.filter?.value && options?.filter?.type && activeProducts) {
       return ProductModel.filterList(
         options?.filter?.value,
-        options?.filter.type,
+        options?.filter?.type,
         activeProducts,
         tags,
       );
     }
-    return [];
   }, [options?.filter?.value, options?.filter?.type, activeProducts, tags]);
 
   React.useEffect(() => {
@@ -39,6 +48,41 @@ export function useProducts(options?: ProductQueryOptions) {
       dispatch(setFilteredProductList(filteredProducts));
     }
   }, [filteredProducts]);
+
+  //* -------------------------------------------------
+  // Wrappers
+
+  function minusQuantity(): void {
+    dispatch(minusProductQuantity());
+  }
+
+  function plusQuantity(): void {
+    dispatch(plusProductQuantity());
+  }
+
+  function resetQuantity(): void {
+    dispatch(resetProductQuantity());
+  }
+
+  function reset(): void {
+    dispatch(resetProduct());
+  }
+
+  function resetInventory(): void {
+    dispatch(resetProductInventoryLevel());
+  }
+
+  function resetSelection(): void {
+    dispatch(resetCurrentProductSelection());
+  }
+
+  function setInventoryLevel(amount: number): void {
+    dispatch(setProductInventoryLevel(amount));
+  }
+
+  function setSelection(product: Product): void {
+    dispatch(setCurrentProductSelection(product));
+  }
 
   //* -------------------------------------------------
   // Return
@@ -55,5 +99,13 @@ export function useProducts(options?: ProductQueryOptions) {
       list: tags,
       status: tagStatus,
     },
+    minusQuantity,
+    plusQuantity,
+    reset,
+    resetInventory,
+    resetQuantity,
+    resetSelection,
+    setInventoryLevel,
+    setSelection,
   };
 }

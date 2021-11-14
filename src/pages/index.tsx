@@ -5,6 +5,7 @@ import { Product } from 'models/product/types';
 import { Images, Queries } from 'utils/keys';
 
 import data from 'data/pages/home.json';
+import { useCart } from 'models/cart/hooks/useCart';
 import { useProducts } from 'models/product/useProducts';
 import { getAllProducts, getProductTags } from 'models/product/queries';
 
@@ -25,12 +26,14 @@ import {
 import { useAppSelector } from 'src/redux';
 import { uiSelector } from 'src/redux/models/ui';
 import { DisplayImage } from 'src/containers/sections/DisplayImage';
+import { appSelector } from 'src/redux/selector';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
 >): JSX.Element {
-  const ui = useAppSelector(uiSelector);
+  useCart();
   const { products } = useProducts();
+  const ctx = useAppSelector(appSelector);
 
   //* -------------------------------------------------
   // Featured Products
@@ -92,7 +95,7 @@ function Index({}: InferGetStaticPropsType<
         <ProductDisplay
           title={data.featured.title}
           products={
-            ui.status.viewport === 'tablet'
+            ctx.ui.status.viewport === 'tablet'
               ? (featuredProducts as Product[]).slice(0, 6)
               : (featuredProducts as Product[])
           }
@@ -119,7 +122,7 @@ function Index({}: InferGetStaticPropsType<
         <ProductDisplay
           title={data.mostSold.title}
           products={
-            ui.status.viewport === 'tablet'
+            ctx.ui.status.viewport === 'tablet'
               ? (bestSellers as Product[]).slice(0, 6)
               : (bestSellers as Product[])
           }

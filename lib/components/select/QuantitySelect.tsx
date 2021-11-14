@@ -6,24 +6,26 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-type Props = {};
+type Props = {
+  value: number;
+  stock: number;
+  onChange: (e: SelectChangeEvent) => void;
+};
 
-const QuantitySelect: React.FunctionComponent<Props> = (): JSX.Element => {
-  const [selectedQuantity, setSelectedQuantity] = React.useState<number>(1); // relpace with initial product quantity
-
-  function handleSelectionChange(e: SelectChangeEvent) {
-    setSelectedQuantity(parseInt(e.target.value));
-  }
-
+const QuantitySelect: React.FunctionComponent<Props> = ({
+  value,
+  stock,
+  onChange,
+}): JSX.Element => {
   return (
     <FormControl>
       <FormHelperText>Quantity</FormHelperText>
       <Select
         id="cart-quantity-select"
-        value={selectedQuantity.toString()}
-        onChange={handleSelectionChange}
+        value={value.toString()}
+        onChange={onChange}
         inputProps={{ 'aria-label': 'Without label' }}>
-        {data.quantities.map((selection, index) => (
+        {data.quantities.slice(0, stock).map((selection, index) => (
           <MenuItem
             key={index}
             value={selection.value}

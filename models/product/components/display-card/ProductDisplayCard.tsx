@@ -1,10 +1,17 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useAppDispatch, useAppSelector } from 'src/redux';
-import { Product, ProductInventory } from 'models/product/types';
-import { uiSelector } from 'src/redux/models/ui';
+import { useAppSelector } from 'src/redux';
+import {
+  Product,
+  ProductCartToken,
+  ProductInventory,
+} from 'models/product/types';
 
+import { useCart } from 'models/cart/hooks/useCart';
 import { useGetInventoryById } from 'models/product/queries';
+import { useSingleProduct } from 'models/product/hooks/useSingleProduct';
+
+import { appSelector } from 'src/redux/selector';
 
 import { ProductDisplayCardImageBox } from './styles/ProductDisplayImageBox';
 
@@ -15,10 +22,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
 import DisplayCard from '../../../../lib/components/cards/DisplayCard';
-import {
-  resetProduct,
-  setCurrentProductSelection,
-} from 'models/product/actions';
 
 type Props = {
   product: Product;
@@ -29,9 +32,10 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   product,
   index,
 }): JSX.Element => {
+  const cart = useCart();
   const router = useRouter();
-  const dispatch = useAppDispatch();
-  const ui = useAppSelector(uiSelector);
+  const ctx = useSingleProduct();
+  const app = useAppSelector(appSelector);
   const [slug, setSlug] = React.useState<string | undefined>();
   const { status, data: inventory, error } = useGetInventoryById(product.id);
 
@@ -69,14 +73,19 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   // Handlers
 
   function handleAddToCart(): void {
-    // create ProductCartToken & add to cart
-    console.log('Product added to cart', product);
+    const token: ProductCartToken = {
+      product,
+      quantity: 1,
+      total: product.price_excluding_tax as number,
+    };
+    cart.add(token);
+    router.push('/cart');
   }
 
   // redirects to product page
   function handleImageClicked(): void {
-    dispatch(resetProduct());
-    dispatch(setCurrentProductSelection(product));
+    ctx.reset();
+    ctx.setSelection(product);
     router.push(`/products/single/${slug}`);
   }
 
@@ -98,11 +107,11 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
           <ProductDisplayCardImageBox>
             <Image
               priority={
-                ui.status.viewport === 'desktop' && index && index < 8
+                app.ui.status.viewport === 'desktop' && index && index < 8
                   ? true
-                  : ui.status.viewport === 'tablet' && index && index < 6
+                  : app.ui.status.viewport === 'tablet' && index && index < 6
                   ? true
-                  : ui.status.viewport === 'mobile' && index && index < 2
+                  : app.ui.status.viewport === 'mobile' && index && index < 2
                   ? true
                   : false
               }
