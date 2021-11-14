@@ -1,8 +1,10 @@
 import React from 'react';
 import { useAppSelector } from 'src/redux';
-import data from 'data/pages/cart.json';
 import { ProductCartToken } from 'models/product/types';
+import data from 'data/pages/cart.json';
+import { Links } from 'utils/keys';
 
+import { useRouter } from 'next/router';
 import { appSelector } from 'src/redux/selector';
 
 import {
@@ -19,8 +21,18 @@ import PreviewDesktopHeading from './components/desktopHeading';
 import ProductCartCard from 'models/product/components/cart-card/ProductCartCard';
 
 const ShoppingCartPreview: React.FunctionComponent = (): JSX.Element => {
+  const router = useRouter();
   const ctx = useAppSelector(appSelector);
 
+  //* -------------------------------------------------
+  // Handlers
+
+  function handleCheckoutButton(): void {
+    router.push(Links.BILLING);
+  }
+
+  //* -------------------------------------------------
+  // Render
   return (
     <PreviewMainContainer disableGutters maxWidth={false}>
       {ctx.ui.status.viewport === 'mobile' ? (
@@ -38,7 +50,9 @@ const ShoppingCartPreview: React.FunctionComponent = (): JSX.Element => {
       </PreviewProductGrid>
       {ctx.ui.status.viewport !== 'mobile' && (
         <PreviewAction>
-          <CheckoutButton>{data.buttons.checkout}</CheckoutButton>
+          <CheckoutButton onClick={handleCheckoutButton}>
+            {data.buttons.checkout}
+          </CheckoutButton>
         </PreviewAction>
       )}
     </PreviewMainContainer>

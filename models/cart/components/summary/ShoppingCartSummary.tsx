@@ -1,5 +1,7 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import data from 'data/pages/cart.json';
+import { Links } from 'utils/keys';
 
 import { useCart } from 'models/cart/hooks/useCart';
 
@@ -13,7 +15,18 @@ import { CheckoutButton } from 'models/cart/styles/CheckoutButton';
 import InfoDisplayItem from '../InfoDisplay/CartInfoDisplayItem';
 
 const ShoppingCartSummary: React.FunctionComponent = (): JSX.Element => {
+  const router = useRouter();
   const cart = useCart();
+
+  //* -------------------------------------------------
+  // Handlers
+
+  function handleCheckoutButton(): void {
+    router.push(Links.BILLING);
+  }
+
+  //* -------------------------------------------------
+  // Render
 
   return (
     <SummaryMainContainer maxWidth={false} disableGutters>
@@ -24,7 +37,9 @@ const ShoppingCartSummary: React.FunctionComponent = (): JSX.Element => {
         <InfoDisplayItem bold title={'Total'} value={cart.total + 10.0} />
       </SummaryInfoDisplay>
       <SummaryCheckoutAction>
-        <CheckoutButton fullWidth>{data.summary.button}</CheckoutButton>
+        <CheckoutButton fullWidth onClick={handleCheckoutButton}>
+          {data.summary.button}
+        </CheckoutButton>
       </SummaryCheckoutAction>
     </SummaryMainContainer>
   );
