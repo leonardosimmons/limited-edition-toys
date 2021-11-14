@@ -1,5 +1,8 @@
 import React from 'react';
+import { Links } from 'utils/keys';
 import { useRouter } from 'next/router';
+
+import { useCart } from 'models/cart/hooks/useCart';
 
 import { DesktopNavbarTabButton } from './styles/DesktopNavbarTabButton';
 import { DesktopNavbarDivider } from './styles/DesktopNavbarDivider';
@@ -10,8 +13,6 @@ import Badge from '@mui/material/Badge';
 import FaceTwoTone from '@mui/icons-material/FaceTwoTone';
 import AssignmentTwoToneIcon from '@mui/icons-material/AssignmentTwoTone';
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
-import { Links } from 'utils/keys';
-import { useCart } from 'models/cart/useCart';
 
 type Props = {};
 

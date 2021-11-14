@@ -1,6 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Product } from 'models/product/types';
-import { Combinable, UiStatus } from 'utils/types';
 
 export const setCurrentPageNumber = createAction<number>(
   'page/setCurrentPageNumber',
@@ -11,7 +10,7 @@ export const setCurrentPaginationVersion = createAction<number>(
 );
 
 export const setFilteredProductList = createAction<Product[]>(
-  'page/setCurrentProductList',
+  'page/setFilteredProductList',
 );
 
 export const setElementsPerPage = createAction<number>(

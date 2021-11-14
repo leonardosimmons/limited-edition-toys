@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { UiStatus, Viewport } from 'utils/types';
+import { UiStatus } from 'models/ui/types';
+import { Viewport } from 'utils/types';
 import { setStatus, setViewportType } from '..';
 
 type UiState = {

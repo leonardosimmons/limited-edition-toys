@@ -1,7 +1,7 @@
 import React from 'react';
 import data from 'data/pages/cart.json';
 
-import { useCart } from 'models/cart/useCart';
+import { useCart } from 'models/cart/hooks/useCart';
 
 import { CheckoutButton } from 'models/cart/styles/CheckoutButton';
 import { PreviewHeading, PreviewTitle } from '../styles/PreviewSection';

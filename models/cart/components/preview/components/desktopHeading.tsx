@@ -2,7 +2,7 @@ import React from 'react';
 import data from 'data/pages/cart.json';
 
 import { PreviewHeading, PreviewTitle } from '../styles/PreviewSection';
-import { useCart } from 'models/cart/useCart';
+import { useCart } from 'models/cart/hooks/useCart';
 
 type Props = {};
 

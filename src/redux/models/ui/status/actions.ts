@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { UiStatus, Viewport } from 'utils/types';
+import { UiStatus } from 'models/ui/types';
+import { Viewport } from 'utils/types';
 
 // Status
 export const setStatus = createAction<UiStatus>('ui/setStatus');
