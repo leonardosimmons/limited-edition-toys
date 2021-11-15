@@ -1,0 +1,28 @@
+{
+  "billing": {
+    "title": "Billing Details",
+    "inputs": [
+      { "label": "First Name", "propName": "firstname" },
+      { "label": "Last Name", "propName": "lastname" },
+      { "label": "Email Address", "propName": "email" },
+      { "label": "Phone (optional)", "propName": "phone", "optional": true },
+      {
+        "label": "Company Name (optional)",
+        "propName": "company",
+        "optional": true
+      },
+      {
+        "label": "Address",
+        "propName": "address",
+        "placeholder": "Apt., suite, unit, etc. (optional)"
+      },
+      { "label": "City / Town", "propName": "city" },
+      { "label": "State", "propName": "state" },
+      {
+        "label": "Postal Code / ZIP",
+        "propName": "postcode",
+        "optional": true
+      }
+    ]
+  }
+}
