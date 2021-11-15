@@ -15,7 +15,7 @@ export const store = configureStore({
     search: searchReducer,
     ui: uiReducer,
   },
-  devTools: true,
+  devTools: process && process.env.NODE_ENV === 'development' ? true : false,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
