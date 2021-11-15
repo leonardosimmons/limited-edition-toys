@@ -2,7 +2,7 @@ import React from 'react';
 import { Combinable } from 'utils/types';
 import { BillingState } from 'models/checkout/types';
 
-import { BillingInputBox } from './billing/styles/BillingDetailsSection';
+import { CheckoutInputBox } from './styles/CheckoutStyles';
 
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -25,7 +25,7 @@ const CheckoutInput: React.FunctionComponent<Props> = ({
   placeholder,
 }): JSX.Element => {
   return (
-    <BillingInputBox variant="outlined">
+    <CheckoutInputBox variant="outlined">
       {label && (
         <InputLabel htmlFor={`billing-input-${propName}`}>{label}</InputLabel>
       )}
@@ -38,7 +38,7 @@ const CheckoutInput: React.FunctionComponent<Props> = ({
         placeholder={placeholder ?? undefined}
         onChange={changed(propName)}
       />
-    </BillingInputBox>
+    </CheckoutInputBox>
   );
 };
 
