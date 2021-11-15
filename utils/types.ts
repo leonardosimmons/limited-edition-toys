@@ -1,5 +1,11 @@
 export type Combinable = string | number;
 
+export type CustomInputConfig = {
+  label?: string;
+  optional?: boolean;
+  placeholder?: string;
+};
+
 export type MenuTab = {
   name: string;
   link: string;
