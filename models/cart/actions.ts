@@ -19,11 +19,18 @@ export const resetCart = createAction('cart/resetCart');
 //* -------------------------------------------------
 // Products
 
+export const addCartItemQuantity = createAction<string>(
+  'checkout/addCartItemQuantity',
+);
+
 export const addProductToCart = createAction<ProductCartToken>(
   'cart/addProductToCart',
 );
 export const removeProductFromCart = createAction<string>(
   'cart/removeProductFromCart',
+);
+export const subtractCartItemQuantity = createAction<string>(
+  'checkout/subtractCartItemQuantity',
 );
 
 export const updateProductQuantity = createAction(

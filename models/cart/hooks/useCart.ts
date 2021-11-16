@@ -2,11 +2,13 @@ import React from 'react';
 import { ProductCartToken } from 'models/product/types';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import {
+  addCartItemQuantity,
   addProductToCart,
   removeCartUser,
   removeProductFromCart,
   resetCart,
   setCartUser,
+  subtractCartItemQuantity,
   updateCartStatus,
   updateProductQuantity,
   updateProductTotal,
@@ -42,6 +44,10 @@ export function useCart() {
     dispatch(addProductToCart(token));
   }
 
+  function addItemQuantity(id: string): void {
+    dispatch(addCartItemQuantity(id));
+  }
+
   function remove(id: string): void {
     dispatch(removeProductFromCart(id));
   }
@@ -56,6 +62,10 @@ export function useCart() {
 
   function setUser(userId: string): void {
     dispatch(setCartUser(userId));
+  }
+
+  function subtractItemQuantity(id: string): void {
+    dispatch(subtractCartItemQuantity(id));
   }
 
   function updateQuantity(id: string, amount: number): void {
@@ -76,10 +86,12 @@ export function useCart() {
   return {
     ...ctx,
     add,
+    addItemQuantity,
     remove,
     removeUser,
     reset,
     setUser,
+    subtractItemQuantity,
     updateQuantity,
     updateStatus,
     updateTotal,

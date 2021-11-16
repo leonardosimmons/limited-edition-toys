@@ -1,11 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { ProductCartToken } from 'models/product/types';
 import {
+  addCartItemQuantity,
   addProductToCart,
   removeCartUser,
   removeProductFromCart,
   resetCart,
   setCartUser,
+  subtractCartItemQuantity,
   updateCartStatus,
   updateProductQuantity,
   updateProductTotal,
@@ -33,6 +35,15 @@ export const cartReducer = createReducer(initialState, (builder) =>
       state.userId = initialState.userId;
     })
     //* Products ------------------------------
+    .addCase(addCartItemQuantity, (state, action) => {
+      state.items.forEach((item) => {
+        if (item.product.id === action.payload) {
+          if (item.quantity < item.stock) {
+            ++item.quantity;
+          }
+        }
+      });
+    })
     .addCase(addProductToCart, (state, action) => {
       state.items.push(action.payload);
     })
@@ -40,6 +51,15 @@ export const cartReducer = createReducer(initialState, (builder) =>
       state.items = state.items.filter(
         (item: ProductCartToken) => item.product.id !== action.payload,
       );
+    })
+    .addCase(subtractCartItemQuantity, (state, action) => {
+      state.items.forEach((item) => {
+        if (item.product.id === action.payload) {
+          if (item.quantity > 1) {
+            --item.quantity;
+          }
+        }
+      });
     })
     .addCase(updateProductQuantity, (state, action) => {
       state.items.forEach((item: ProductCartToken) => {

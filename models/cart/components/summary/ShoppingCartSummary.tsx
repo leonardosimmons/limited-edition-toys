@@ -14,7 +14,13 @@ import { CheckoutButton } from 'models/cart/styles/CheckoutButton';
 
 import InfoDisplayItem from '../InfoDisplay/CartInfoDisplayItem';
 
-const ShoppingCartSummary: React.FunctionComponent = (): JSX.Element => {
+type Props = {
+  type?: 'checkout' | 'summary';
+};
+
+const ShoppingCartSummary: React.FunctionComponent<Props> = ({
+  type,
+}): JSX.Element => {
   const router = useRouter();
   const cart = useCart();
 
@@ -22,6 +28,10 @@ const ShoppingCartSummary: React.FunctionComponent = (): JSX.Element => {
   // Handlers
 
   function handleCheckoutButton(): void {
+    if (type === 'checkout') {
+      router.push('/');
+      return;
+    }
     router.push(Links.BILLING);
   }
 
