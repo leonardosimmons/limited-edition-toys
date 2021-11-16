@@ -24,12 +24,10 @@ const initialState: CheckoutState = {
   shipping: {
     firstname: '',
     lastname: '',
-    email: '',
     address: '',
     city: '',
     state: '',
     postcode: '',
-    phone: '',
     apt: '',
     company: '',
   },

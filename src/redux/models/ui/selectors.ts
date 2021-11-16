@@ -1,12 +1,16 @@
 import { createSelector } from 'reselect';
+import { checkboxSelector } from './checkbox/selector';
 
 import { drawerSelector } from './drawer/selectors';
 import { popupSelector } from './popup/selectors';
 import { uiStatusSelector } from './status/selectors';
 
 export const uiSelector = createSelector(
-  [drawerSelector, popupSelector, uiStatusSelector],
-  (drawer, popup, status) => ({
+  [checkboxSelector, drawerSelector, popupSelector, uiStatusSelector],
+  (checkbox, drawer, popup, status) => ({
+    checkboxes: {
+      shipping: checkbox.shipping,
+    },
     navbar: {
       categoryMenuOpen: popup.categorySearchMenuOpen,
       searchMenuOpen: popup.navbarSearchMenuOpen,

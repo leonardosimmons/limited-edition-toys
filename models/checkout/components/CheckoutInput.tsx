@@ -1,6 +1,6 @@
 import React from 'react';
 import { Combinable } from 'utils/types';
-import { BillingState } from 'models/checkout/types';
+import { BillingState, ShippingState } from 'models/checkout/types';
 
 import { CheckoutInputBox } from './styles/CheckoutStyles';
 
@@ -8,10 +8,10 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
 type Props = {
-  propName: keyof BillingState;
+  propName: keyof ShippingState | keyof BillingState;
   value: Combinable;
   changed: (
-    prop: keyof BillingState,
+    prop: keyof ShippingState | keyof BillingState,
   ) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   placeholder?: string;

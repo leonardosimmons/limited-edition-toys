@@ -6,6 +6,7 @@ import {
 
 import Layout from 'src/containers/Layout/Layout';
 import BillingDetails from 'models/checkout/components/billing/BillingDetails';
+import ShippingDetails from 'models/checkout/components/shipping/ShippingDetails';
 
 function BillingPage(): JSX.Element {
   return (
@@ -13,6 +14,7 @@ function BillingPage(): JSX.Element {
       <BillingMainContainer maxWidth={false}>
         <BillingDetailsSection disableGutters>
           <BillingDetails />
+          <ShippingDetails />
         </BillingDetailsSection>
       </BillingMainContainer>
     </Layout>

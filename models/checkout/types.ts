@@ -21,12 +21,12 @@ export type BillingState = {
 export type ShippingState = {
   firstname: string;
   lastname: string;
-  email: string;
   address: string;
   city: string;
   state: string;
   postcode: string;
   apt?: Combinable;
   company?: string;
+  email?: string;
   phone?: string;
 };

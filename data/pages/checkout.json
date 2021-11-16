@@ -24,5 +24,29 @@
         "optional": true
       }
     ]
+  },
+  "shipping": {
+    "heading": "Ship To A Different Address",
+    "inputs": [
+      { "label": "First Name", "propName": "firstname" },
+      { "label": "Last Name", "propName": "lastname" },
+      {
+        "label": "Company Name (optional)",
+        "propName": "company",
+        "optional": true
+      },
+      {
+        "label": "Address",
+        "propName": "address",
+        "placeholder": "Apt., suite, unit, etc. (optional)"
+      },
+      { "label": "City / Town", "propName": "city" },
+      { "label": "State", "propName": "state" },
+      {
+        "label": "Postal Code / ZIP",
+        "propName": "postcode",
+        "optional": true
+      }
+    ]
   }
 }
