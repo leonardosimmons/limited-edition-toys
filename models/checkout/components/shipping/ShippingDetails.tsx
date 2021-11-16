@@ -2,6 +2,8 @@ import React from 'react';
 import data from 'data/pages/checkout.json';
 import { ShippingState } from 'models/checkout/types';
 
+import { useAppSelector } from 'src/redux';
+import { uiSelector } from 'src/redux/models/ui';
 import { useCheckout } from 'models/checkout/useCheckout';
 
 import { CheckoutFormContainer } from '../styles/CheckoutStyles';
@@ -9,10 +11,10 @@ import { CheckoutFormContainer } from '../styles/CheckoutStyles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import CheckoutInputGrid from '../CheckoutInputGrid';
-import { useAppSelector } from 'src/redux';
-import { uiSelector } from 'src/redux/models/ui';
 
 const ShippingDetails: React.FunctionComponent = (): JSX.Element => {
   const checkout = useCheckout();
@@ -37,13 +39,25 @@ const ShippingDetails: React.FunctionComponent = (): JSX.Element => {
     <CheckoutFormContainer>
       <Box
         sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
-        <Checkbox
-          size="small"
-          checked={ui.checkboxes.shipping.isChecked}
-          onChange={handleCheckbox}
-          inputProps={{ 'aria-label': 'controlled-shipping-details' }}
-        />
-        <Typography variant="h2">{data.shipping.heading}</Typography>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox
+                size="small"
+                checked={ui.checkboxes.shipping.isChecked}
+                onChange={handleCheckbox}
+                inputProps={{ 'aria-label': 'controlled-shipping-details' }}
+              />
+            }
+            label={data.shipping.heading}
+            sx={{
+              '& > span.MuiTypography-body1': {
+                fontSize: '1rem',
+                fontWeight: 'bold',
+              },
+            }}
+          />
+        </FormGroup>
       </Box>
       {ui.checkboxes.shipping.isChecked && (
         <CheckoutInputGrid
