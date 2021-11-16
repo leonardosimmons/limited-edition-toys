@@ -10,7 +10,6 @@ export const CheckoutFormContainer = styled(Container)<ContainerProps>(
     height: '100%',
     ...theme.custom.centerColumn,
     padding: '20px 0',
-    margin: '2rem 0',
     '& h2.MuiTypography-h2': {
       width: '100%',
       margin: '20px 0 20px',

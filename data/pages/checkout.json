@@ -50,6 +50,7 @@
     ]
   },
   "summary": {
+    "title": "Your Order Summary",
     "heading": ["Product", "Quantity", "Total Price", ""]
   }
 }
