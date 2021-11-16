@@ -52,6 +52,8 @@ export const PreviewHeading = styled(Box)<BoxProps>(({ theme }) => ({
   ' & > a': {
     position: 'relative',
     fontSize: '1rem',
+    textDecoration: 'none',
+    color: 'inherit',
     '&:active': {
       transform: 'translateY(2px)',
     },

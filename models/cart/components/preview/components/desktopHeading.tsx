@@ -1,23 +1,25 @@
 import React from 'react';
+import Link from 'next/link';
 import data from 'data/pages/cart.json';
+import { Links } from 'utils/keys';
 
-import { PreviewHeading, PreviewTitle } from '../styles/PreviewSection';
 import { useCart } from 'models/cart/hooks/useCart';
 
-type Props = {};
+import { PreviewHeading, PreviewTitle } from '../styles/PreviewSection';
 
-const PreviewDesktopHeading: React.FunctionComponent<Props> =
-  (): JSX.Element => {
-    const cart = useCart();
+const PreviewDesktopHeading: React.FunctionComponent = (): JSX.Element => {
+  const cart = useCart();
 
-    return (
-      <PreviewHeading>
-        <PreviewTitle variant="h1" cartCount={cart.count}>
-          {data.preview.title}
-        </PreviewTitle>
+  return (
+    <PreviewHeading>
+      <PreviewTitle variant="h1" cartCount={cart.count}>
+        {data.preview.title}
+      </PreviewTitle>
+      <Link href={Links.HOME}>
         <a>{data.preview.links.continue}</a>
-      </PreviewHeading>
-    );
-  };
+      </Link>
+    </PreviewHeading>
+  );
+};
 
 export default PreviewDesktopHeading;

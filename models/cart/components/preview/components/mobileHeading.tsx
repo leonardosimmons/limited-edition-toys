@@ -1,28 +1,43 @@
 import React from 'react';
+import Link from 'next/link';
 import data from 'data/pages/cart.json';
+import { useRouter } from 'next/router';
+import { Links } from 'utils/keys';
 
 import { useCart } from 'models/cart/hooks/useCart';
 
 import { CheckoutButton } from 'models/cart/styles/CheckoutButton';
 import { PreviewHeading, PreviewTitle } from '../styles/PreviewSection';
 
-type Props = {};
+const PreviewMobileHeading: React.FunctionComponent = (): JSX.Element => {
+  const cart = useCart();
+  const router = useRouter();
 
-const PreviewMobileHeading: React.FunctionComponent<Props> =
-  (): JSX.Element => {
-    const cart = useCart();
+  //* -------------------------------------------------
+  // Handlers
 
-    return (
-      <React.Fragment>
-        <PreviewHeading>
-          <CheckoutButton>{data.buttons.checkout}</CheckoutButton>
+  function handleCheckoutButton(): void {
+    router.push(Links.BILLING);
+  }
+
+  //* -------------------------------------------------
+  // Render
+
+  return (
+    <React.Fragment>
+      <PreviewHeading>
+        <CheckoutButton onClick={handleCheckoutButton}>
+          {data.buttons.checkout}
+        </CheckoutButton>
+        <Link href={Links.HOME}>
           <a>{data.preview.links.continue}</a>
-        </PreviewHeading>
-        <PreviewTitle variant="h1" cartCount={cart.count}>
-          {data.preview.title}
-        </PreviewTitle>
-      </React.Fragment>
-    );
-  };
+        </Link>
+      </PreviewHeading>
+      <PreviewTitle variant="h1" cartCount={cart.count}>
+        {data.preview.title}
+      </PreviewTitle>
+    </React.Fragment>
+  );
+};
 
 export default PreviewMobileHeading;
