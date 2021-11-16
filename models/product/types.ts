@@ -3,6 +3,7 @@ import { Combinable } from 'utils/types';
 export type ProductCartToken = {
   product: Product;
   quantity: number;
+  stock: number;
   total: number;
 };
 

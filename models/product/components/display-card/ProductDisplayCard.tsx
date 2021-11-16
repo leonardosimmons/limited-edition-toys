@@ -56,16 +56,21 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   // Stock
 
   const [inStock, setInStock] = React.useState<boolean>(false);
+  const [stockCount, setStockCount] = React.useState<number>(0);
 
   // checks if product is 'in stock'
   React.useEffect(() => {
     if (inventory) {
+      let count: number = 0;
       inventory.forEach((item: ProductInventory) => {
         if (item.inventory_level > 0) {
-          setInStock(true);
-          return;
+          count = count + item.inventory_level;
+          if (!inStock) {
+            setInStock(true);
+          }
         }
       });
+      setStockCount(count);
     }
   }, [inventory]);
 
@@ -76,6 +81,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
     const token: ProductCartToken = {
       product,
       quantity: 1,
+      stock: stockCount,
       total: product.price_excluding_tax as number,
     };
     cart.add(token);

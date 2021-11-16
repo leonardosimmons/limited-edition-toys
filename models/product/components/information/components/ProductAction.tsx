@@ -27,6 +27,7 @@ const ProductAction: React.FunctionComponent = (): JSX.Element => {
     const token: ProductCartToken = {
       product: ctx.current,
       quantity: ctx.quantity,
+      stock: ctx.inventory.level,
       total: (ctx.current.price_excluding_tax as number) * ctx.quantity,
     };
     cart.add(token);
