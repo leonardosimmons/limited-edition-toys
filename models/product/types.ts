@@ -25,7 +25,8 @@ export type ProductFilterOptions =
   | 'type'
   | 'tag'
   | 'name'
-  | 'search';
+  | 'search'
+  | 'temp-fix';
 
 export type ProductInventory = {
   id: string;

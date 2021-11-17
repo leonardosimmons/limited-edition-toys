@@ -85,6 +85,20 @@ class ProductModel implements ProductModelInterface {
             }
           });
           break;
+        case 'temp-fix':
+          p.categories?.forEach((category: Partial<ProductType>) => {
+            if (Array.isArray(filter)) {
+              filter.forEach((item) => {
+                if (
+                  item === category.name?.toLowerCase() &&
+                  !buffer.includes(p)
+                ) {
+                  buffer.push(p);
+                }
+              });
+            }
+          });
+          break;
         default:
           break;
       }

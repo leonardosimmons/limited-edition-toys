@@ -1,13 +1,13 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from 'src/redux';
-import { productCategories } from 'data/navbar-categories';
 import { NextLinkComposed } from 'lib/components/NextLinkComposed';
 import { MenuTab } from 'utils/types';
 import {
   closeCategorySearchMenu,
   openCategorySearchMenu,
 } from 'src/redux/models/ui';
+import productCategories from 'data/categories.json';
 
 import CategoryBar from './styles/CategoryBar';
 

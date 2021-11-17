@@ -4,6 +4,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import { Product } from 'models/product/types';
 import { Queries } from 'utils/keys';
 
+import productCategories from 'data/categories.json';
 import { useProducts } from 'models/product/useProducts';
 import { getAllProducts } from 'models/product/queries';
 import { capitalizeFirstLetters } from 'lib';
@@ -19,14 +20,16 @@ import Layout from 'src/containers/Layout/Layout';
 import ProductHeader from 'src/containers/headers/products/ProductHeader';
 import ProductDisplayCard from 'models/product/components/display-card/ProductDisplayCard';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
+import { MenuTab } from 'utils/types';
 
 function ProductCategoryDisplayPage({
   category,
+  tags,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const { products } = useProducts({
     filter: {
-      value: category,
-      type: 'category',
+      value: tags,
+      type: 'temp-fix',
     },
   });
 
@@ -70,10 +73,20 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     category = category.replace(/[-]/g, ' ');
   }
 
+  let tags: string[] = [];
+  productCategories.forEach((category: MenuTab) => {
+    if (category.slug === (ctx.params!.slug as string)) {
+      category.tags.forEach((tag) => {
+        tags.push(tag.toLowerCase());
+      });
+    }
+  });
+
   return {
     props: {
       category: capitalizeFirstLetters(category),
       dehydratedState: dehydrate(queryClient),
+      tags,
     },
   };
 };

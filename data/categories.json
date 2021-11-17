@@ -1,0 +1,150 @@
+[
+  {
+    "name": "Anime",
+    "slug": "anime",
+    "link": "/categories/anime",
+    "index": 0,
+    "mouseOver": true,
+    "ariaPopup": true,
+    "tags": ["anime"]
+  },
+  {
+    "name": "Books",
+    "slug": "books",
+    "link": "/categories/books",
+    "index": 1,
+    "mouseOver": true,
+    "ariaPopup": true,
+    "tags": [
+      "teen books",
+      "pre-teen books",
+      "pokemon books",
+      "picture books",
+      "illustrated books",
+      "coloring books",
+      "comic books",
+      "childrens books",
+      "activity book"
+    ]
+  },
+  {
+    "name": "Video Games",
+    "slug": "video-games",
+    "link": "/categories/video-games",
+    "index": 2,
+    "mouseOver": true,
+    "ariaPopup": true,
+    "tags": ["video games", "ps5", "nintendo switch"]
+  },
+  {
+    "name": "Trading Cards",
+    "slug": "trading-cards",
+    "link": "/categories/trading-cards",
+    "index": 3,
+    "mouseOver": true,
+    "ariaPopup": true,
+    "tags": ["yu gi oh", "trading cards", "tcg", "pokemon trading card game"]
+  },
+  {
+    "name": "Table-Top Games",
+    "slug": "table-top-games",
+    "link": "/categories/table-top-games",
+    "index": 4,
+    "mouseOver": true,
+    "ariaPopup": true,
+    "tags": ["tabletop", "settlers of catan", "board games", "board game"]
+  },
+  {
+    "name": "Kids Toys",
+    "slug": "kids-toys",
+    "link": "/categories/kids-toys",
+    "index": 5,
+    "mouseOver": true,
+    "ariaPopup": true,
+    "tags": [
+      "minions",
+      "mickey mouse",
+      "minnie",
+      "mario kart",
+      "lol surprise dolls",
+      "lego starwars",
+      "lego",
+      "hot wheels",
+      "frozen",
+      "frozen ii",
+      "dragon ball z",
+      "children toys",
+      "children stem toys",
+      "baby toys"
+    ]
+  },
+  {
+    "name": "Clothing/Accessories",
+    "slug": "clothing-accessories",
+    "link": "/categories/clothing-accessories",
+    "index": 6,
+    "mouseOver": true,
+    "ariaPopup": true,
+    "tags": [
+      "accessories",
+      "socks",
+      "snapback",
+      "sleeping mask",
+      "lunch bags",
+      "lanyard",
+      "keychain",
+      "gaming pins",
+      "face cover",
+      "enamel pin",
+      "coin purse",
+      "clothes",
+      "clothing",
+      "cap",
+      "bag"
+    ]
+  },
+  {
+    "name": "Funko Pops",
+    "slug": "funko-pops",
+    "link": "/categories/funko-pops",
+    "index": 7,
+    "mouseOver": true,
+    "ariaPopup": true,
+    "tags": [
+      "tv funko pops",
+      "specialty funko",
+      "retro funko pop",
+      "pokemon funko pops",
+      "marvel funko",
+      "gaming funko",
+      "funko pop"
+    ]
+  },
+  {
+    "name": "Plush",
+    "slug": "plush",
+    "link": "/categories/plush",
+    "index": 8,
+    "mouseOver": true,
+    "ariaPopup": false,
+    "tags": ["plushie", "plush"]
+  },
+  {
+    "name": "Mystery Bag/Box",
+    "slug": "mystery-bag-box",
+    "link": "/categories/mystery-bag-box",
+    "index": 9,
+    "mouseOver": true,
+    "ariaPopup": false,
+    "tags": ["pop mart", "mystery box", "mystery bag", "blind box", "blind bag"]
+  },
+  {
+    "name": "Kpop",
+    "slug": "kpop",
+    "link": "/categories/kpop",
+    "index": 10,
+    "mouseOver": true,
+    "ariaPopup": true,
+    "tags": ["kpop", "bts"]
+  }
+]

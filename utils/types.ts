@@ -14,6 +14,7 @@ export type CustomInputConfig = {
 export type MenuTab = {
   name: string;
   link: string;
+  tags: string[];
   slug?: string;
   index?: number;
   mouseOver?: boolean;
