@@ -32,13 +32,10 @@ const ProductInformation: React.FunctionComponent<Props> = ({
       <ProductDetails slug={slug} />
       <ProductAction />
       <Grid item>
-        <Typography variant="h3">Product Details</Typography>
-        <Typography variant="body1">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae
-          laborum dolor quia quam commodi in, eligendi dignissimos, doloremque
-          mollitia nesciunt esse omnis aperiam cupiditate quaerat error nihil
-          quas delectus vero.
-        </Typography>
+        {/* <Typography variant="h3">{''}</Typography>
+        <Typography variant="body1" sx={{ minHeight: '100px' }}>
+          {''}
+        </Typography> */}
       </Grid>
       <Grid item>
         <Typography variant="h3">Other Categories You May Like: </Typography>
