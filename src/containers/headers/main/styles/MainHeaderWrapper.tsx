@@ -21,7 +21,10 @@ export const MainHeaderWrapper = styled(Container)<ContainerProps>(
       backgroundPosition: '50% 0',
     },
     [theme.breakpoints.up('desktopSm')]: {
-      height: '500px',
+      height: '600px',
+    },
+    [theme.breakpoints.up('desktopLg')]: {
+      height: '700px',
     },
   }),
 );

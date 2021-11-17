@@ -23,6 +23,7 @@ import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 import { MenuTab } from 'utils/types';
 
 function ProductCategoryDisplayPage({
+  title,
   category,
   tags,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -38,7 +39,7 @@ function ProductCategoryDisplayPage({
 
   if (products.status === 'loading') {
     return (
-      <Layout title={category}>
+      <Layout title={title}>
         <DisplayPageMainContainer maxWidth={false} sx={{ minHeight: '70vh' }}>
           <CircleLoadSpinner />
         </DisplayPageMainContainer>
@@ -47,8 +48,8 @@ function ProductCategoryDisplayPage({
   }
 
   return (
-    <Layout title={`Limited Edition Toys | ${category}`}>
-      <ProductHeader title={category} />
+    <Layout title={`Limited Edition Toys | ${title}`}>
+      <ProductHeader title={title} />
       <DisplayPageMainContainer maxWidth={false}>
         <DisplayPageMainGrid container direction="row" spacing={2}>
           {products.filtered.map((product: Product, index: number) => (
@@ -73,10 +74,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     category = category.replace(/[-]/g, ' ');
   }
 
+  let title: string = '';
   let tags: string[] = [];
   productCategories.forEach((category: MenuTab) => {
     if (category.slug === (ctx.params!.slug as string)) {
       category.tags.forEach((tag) => {
+        title = category.name;
         tags.push(tag.toLowerCase());
       });
     }
@@ -86,6 +89,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: {
       category: capitalizeFirstLetters(category),
       dehydratedState: dehydrate(queryClient),
+      title,
       tags,
     },
   };
