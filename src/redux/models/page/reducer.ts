@@ -26,7 +26,7 @@ type PageState = {
 const initialState: PageState = {
   pagination: {
     currentPage: 1,
-    perPage: Default.PRODUCTS_PER_PAGE,
+    perPage: Default.PRODUCTS_PER_PAGE as number,
     version: {
       current: 0,
       previous: 0,
