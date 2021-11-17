@@ -8,6 +8,7 @@ export const CarouselWrapper = styled('div')(({ theme }) => ({
   width: '100%',
   margin: '0 auto',
   overflow: 'hidden',
+  marginBottom: '6rem',
   '& > div#left-arrow': {
     left: '5px',
     [theme.breakpoints.up('mobileLg')]: {

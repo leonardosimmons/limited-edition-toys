@@ -1,22 +1,39 @@
 import React from 'react';
-
-import { SectionDivider, SectionTitle, SectionWrapper } from './styles/Section';
-import ProductDisplayGrid from 'models/product/components/display-grid/ProductDisplayGrid';
 import { Product } from 'models/product/types';
+
+import {
+  SectionBannerBox,
+  SectionDivider,
+  SectionTitle,
+  SectionWrapper,
+} from './styles/Section';
+
+import Image from 'next/image';
+import ProductDisplayGrid from 'models/product/components/display-grid/ProductDisplayGrid';
 
 type Props = {
   products: Product[];
   title: string;
+  src?: string;
 };
 
 const ProductDisplay: React.FunctionComponent<Props> = ({
   products,
   title,
+  src,
 }): JSX.Element => {
   return (
     <SectionWrapper maxWidth={false}>
-      <SectionTitle variant="h2">{title}</SectionTitle>
-      <SectionDivider primary variant="middle" />
+      {src ? (
+        <SectionBannerBox>
+          <Image src={src} alt={'Product Display'} layout={'fill'} />
+        </SectionBannerBox>
+      ) : (
+        <React.Fragment>
+          <SectionTitle variant="h2">{title}</SectionTitle>
+          <SectionDivider primary variant="middle" />
+        </React.Fragment>
+      )}
       <ProductDisplayGrid products={products} />
     </SectionWrapper>
   );

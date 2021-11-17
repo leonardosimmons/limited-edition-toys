@@ -14,7 +14,7 @@ import carouselReducer from './reducer';
 
 import { CarouselWrapper } from './styles/CarouselFeatures';
 
-import CarouselContent, { Base } from './CarouselContent';
+import CarouselContent from './CarouselContent';
 import Arrow from './components/arrows';
 import CarouselDots from './components/dots/Dots';
 
@@ -50,7 +50,7 @@ const Carousel: React.FunctionComponent<Props> = ({
     const getWidth = () => {
       const current = window.innerWidth;
 
-      if (window.innerWidth > 1850) return 1850;
+      //if (window.innerWidth > 1850) return 1850;
 
       return current;
     };

@@ -8,6 +8,7 @@ import data from 'data/pages/home.json';
 import { useCart } from 'models/cart/hooks/useCart';
 import { useProducts } from 'models/product/useProducts';
 import { getAllProducts, getProductTags } from 'models/product/queries';
+import { appSelector } from 'src/redux/selector';
 
 import { HomePageMainContainer } from 'src/containers/pages/styles/HomePage';
 
@@ -20,13 +21,12 @@ import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 import Carousel from 'src/features/carousel/Carousel';
 import { CarouselImage } from 'src/features/carousel/styles/CarouselFeatures';
 import {
-  SectionDivider,
-  SectionTitle,
+  SectionBannerBox,
+  SectionWrapper,
 } from 'src/containers/sections/styles/Section';
 import { useAppSelector } from 'src/redux';
 import { uiSelector } from 'src/redux/models/ui';
 import { DisplayImage } from 'src/containers/sections/DisplayImage';
-import { appSelector } from 'src/redux/selector';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
@@ -93,6 +93,7 @@ function Index({}: InferGetStaticPropsType<
       <HomePageMainContainer maxWidth={false} disableGutters>
         <MainHeaderOne />
         <ProductDisplay
+          src={Images.NEW_IEMS}
           title={data.featured.title}
           products={
             ctx.ui.status.viewport === 'tablet'
@@ -101,12 +102,15 @@ function Index({}: InferGetStaticPropsType<
           }
         />
         <UpcommingEvents title={data.events.title} />
-        <SectionTitle variant="h2">{data.carousel.title}</SectionTitle>
-        <SectionDivider
-          primary
-          variant="middle"
-          sx={{ marginBottom: '20px' }}
-        />
+        <SectionWrapper maxWidth={false}>
+          <SectionBannerBox sx={{ maxWidth: '1050px', marginBottom: '40px' }}>
+            <Image
+              src={Images.ABOUT_US_BANNER}
+              alt={'About Us'}
+              layout={'fill'}
+            />
+          </SectionBannerBox>
+        </SectionWrapper>
         <Carousel arrows dots autoPlay={3}>
           {data.carousel.images.map((image, index) => (
             <CarouselImage key={index}>

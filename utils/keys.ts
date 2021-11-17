@@ -29,11 +29,15 @@ export enum Id {
 }
 
 export enum Images {
+  ABOUT_US_BANNER = '/images/banners/about-us.png',
   BOTTOM_CLOUDS_LIGHT = '/images/bottom-clouds.png',
   CLOUD_BACKGROUND = '/svg/cloud-background.svg',
+  EVENTS_BANNER = '/images/banners/events.png',
+  RANDY_EMBERLIN = '/images/events/randyemberlin.jpg',
   MASCOT_ONE = '/images/mascot-1.png',
   MIDDLE_CLOUDS = '/images/middle.png',
   NAVBAR_PROMO = '/images/now-open.png',
+  NEW_IEMS = '/images/banners/new-items.png',
   STOREFRONT = '/images/store/storefront.jpg',
   STORE_INTERIOR_1 = '/images/store/interior-1.jpg',
   STORE_INTERIOR_2 = '/images/store/interior-2.jpg',

@@ -1,9 +1,16 @@
 import React from 'react';
-import { SectionDivider, SectionTitle, SectionWrapper } from './styles/Section';
-
-import Container from '@mui/material/Container';
 import { useAppSelector } from 'src/redux';
+import { Images } from 'utils/keys';
 import { uiSelector } from 'src/redux/models/ui';
+
+import {
+  SectionDivider,
+  SectionEventBox,
+  SectionTitle,
+  SectionWrapper,
+} from './styles/Section';
+
+import Image from 'next/image';
 
 type Props = {
   title: string;
@@ -27,13 +34,29 @@ const UpcommingEvents: React.FunctionComponent<Props> = ({
         }`,
         justifyContent: 'center',
       }}>
-      <SectionTitle variant="h2" sx={{ minHeight: 0 }}>
-        {title}
-      </SectionTitle>
+      <SectionTitle>{title}</SectionTitle>
       <SectionDivider variant="middle" />
-      <Container sx={{ width: '100%', height: '90%' }}>{''}</Container>
+      <SectionEventBox>
+        <Image
+          src={Images.RANDY_EMBERLIN}
+          alt={'Randy Emberlin'}
+          layout={'fill'}
+          objectFit={'contain'}
+        />
+      </SectionEventBox>
     </SectionWrapper>
   );
 };
 
 export default UpcommingEvents;
+
+/* 
+  <SectionHeader>
+    <Image
+      src={Images.EVENTS_BANNER}
+      alt={'Upcomming Events'}
+      layout={'fill'}
+      objectFit={'contain'}
+    />
+  </SectionHeader>
+*/
