@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProductInformationSection } from './styles/InformationSection';
 
-import { productCategories } from 'data/navbar-categories';
+import productCategories from 'data/categories.json';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
