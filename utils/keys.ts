@@ -7,6 +7,8 @@ export enum Color {
 }
 
 export enum Default {
+  GUEST_LOGIN_USERNAME = 'let-guest',
+  GUEST_LOGIN_PASSWORD = 'letpassword-2021',
   MAX_CART_CARD_QUANTITY_SELECTION = 20,
   MAX_PRODUCT_NAME_LENGTH = 25,
   MAX_PRODUCTS_PER_QUERY = 1000,
@@ -18,6 +20,7 @@ export enum Key {
   LEFT = 'left',
   UP = 'up',
   DOWN = 'down',
+  SESSION_COOKIES = 'letpdx-session',
 }
 
 export enum Id {
@@ -54,4 +57,8 @@ export enum Queries {
   PRODUCT_CATEGORIES = 'product-categories',
   PRODUCT_TAGS = 'product-tags',
   PRODUCT_BY_ID = 'product-by-id',
+  AUTH_LOGIN = 'user-auth-login',
+  AUTH_LOGOUT = 'user-auth-logout',
+  AUTH_SESSION = 'user-auth-session',
+  CART_SESSION = 'user-cart-session',
 }

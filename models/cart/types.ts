@@ -4,3 +4,8 @@ export type CartStatus =
   | 'empty'
   | 'error'
   | 'pending';
+
+export type CartSessionToken = {
+  id: string;
+  quantity: number;
+};

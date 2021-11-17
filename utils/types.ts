@@ -1,5 +1,10 @@
 export type Combinable = string | number;
 
+export type RouteConfirmation = {
+  ok?: boolean;
+  message?: string;
+};
+
 export type CustomInputConfig = {
   label?: string;
   optional?: boolean;
