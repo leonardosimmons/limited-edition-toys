@@ -36,4 +36,5 @@ temp.tsx
 .vscode
 favicon.ico
 /src/*.txt
+/src/pages/auth
 /buffer
