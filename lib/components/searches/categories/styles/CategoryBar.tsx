@@ -22,7 +22,7 @@ const CategoryBar = styled(Paper)<PaperProps>(({ theme }) => ({
         padding: 0,
         fontSize: '.9rem',
         [theme.breakpoints.up('desktopMd')]: {
-          margin: '0 1rem',
+          padding: '0 1rem',
           fontSize: '1rem',
         },
       },
