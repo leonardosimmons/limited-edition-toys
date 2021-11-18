@@ -7,7 +7,7 @@ import { Queries } from 'utils/keys';
 import productCategories from 'data/categories.json';
 import { useProducts } from 'models/product/useProducts';
 import { getAllProducts } from 'models/product/queries';
-import { capitalizeFirstLetters } from 'lib';
+import { capitalizeFirstLetters, shuffleArray } from '../../../lib/functions';
 
 import {
   DisplayPageMainGrid,
@@ -21,6 +21,7 @@ import ProductHeader from 'src/containers/headers/products/ProductHeader';
 import ProductDisplayCard from 'models/product/components/display-card/ProductDisplayCard';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 import { MenuTab } from 'utils/types';
+import { useShuffledProductList } from 'models/product/hooks/useShuffledProductList';
 
 function ProductCategoryDisplayPage({
   title,
@@ -33,6 +34,7 @@ function ProductCategoryDisplayPage({
       type: 'temp-fix',
     },
   });
+  const shuffled = useShuffledProductList(products.filtered, products.filtered);
 
   //* -------------------------------------------------
   // Render
@@ -52,7 +54,7 @@ function ProductCategoryDisplayPage({
       <ProductHeader title={title} />
       <DisplayPageMainContainer maxWidth={false}>
         <DisplayPageMainGrid container direction="row" spacing={2}>
-          {products.filtered.map((product: Product, index: number) => (
+          {shuffled.list.map((product: Product, index: number) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
               <ProductDisplayCard product={product} />
             </Grid>

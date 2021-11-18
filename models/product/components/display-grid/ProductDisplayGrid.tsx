@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import ProductDisplayCard from '../display-card/ProductDisplayCard';
+import { useShuffledProductList } from 'models/product/hooks/useShuffledProductList';
 
 type Props = {
   products: Product[];
@@ -17,13 +18,15 @@ const ProductDisplayGrid: React.FunctionComponent<Props> = ({
   products,
   title,
 }): JSX.Element => {
+  const shuffled = useShuffledProductList(products, products);
+
   return (
     <ProductGridMainContainer maxWidth={false}>
       {title && products.length > 0 && (
         <Typography variant="h2">{title}</Typography>
       )}
       <ProductGrid container spacing={2}>
-        {products.map((product: Product, index: number) => (
+        {shuffled.list.map((product: Product, index: number) => (
           <Grid
             item
             key={index}
