@@ -29,7 +29,7 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
 
   function handleCheckoutButton(): void {
     if (type === 'checkout') {
-      router.push('/');
+      router.push(Links.PAYMENT);
       return;
     }
     router.push(Links.BILLING);
