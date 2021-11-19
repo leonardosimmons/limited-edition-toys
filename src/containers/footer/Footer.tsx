@@ -14,13 +14,17 @@ const Footer = styled('footer')(({ theme }) => ({
   backgroundImage: `url(${Images.BOTTOM_CLOUDS_LIGHT})`,
   backgroundSize: 'cover',
   backgroundRepeat: 'repeat-x',
+  backgroundPosition: 'center',
+  [theme.breakpoints.up('tabletSm')]: {
+    height: '275px',
+    backgroundSize: 'contain',
+  },
   [theme.breakpoints.up('desktopSm')]: {
     height: '425px',
-    backgroundSize: '90%',
   },
   [theme.breakpoints.up('desktopLg')]: {
-    height: '465px',
-    backgroundSize: '50%',
+    height: '600px',
+    backgroudSize: '35%',
   },
 }));
 

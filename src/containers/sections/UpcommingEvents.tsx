@@ -1,4 +1,5 @@
 import React from 'react';
+import data from 'data/pages/home.json';
 import { useAppSelector } from 'src/redux';
 import { Images } from 'utils/keys';
 import { uiSelector } from 'src/redux/models/ui';
@@ -6,11 +7,15 @@ import { uiSelector } from 'src/redux/models/ui';
 import {
   SectionDivider,
   SectionEventBox,
+  SectionEvent,
   SectionTitle,
   SectionWrapper,
+  SectionEventCard,
 } from './styles/Section';
 
 import Image from 'next/image';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 type Props = {
   title: string;
@@ -21,30 +26,47 @@ const UpcommingEvents: React.FunctionComponent<Props> = ({
 }): JSX.Element => {
   const ui = useAppSelector(uiSelector);
   return (
-    <SectionWrapper
-      background
-      maxWidth={false}
-      sx={{
-        minHeight: `${
-          ui.status.viewport === 'mobile'
-            ? '600px'
-            : ui.status.viewport === 'tablet'
-            ? '1500px'
-            : '1100px'
-        }`,
-        justifyContent: 'center',
-      }}>
-      <SectionTitle>{title}</SectionTitle>
-      <SectionDivider variant="middle" />
-      <SectionEventBox>
-        <Image
-          src={Images.RANDY_EMBERLIN}
-          alt={'Randy Emberlin'}
-          layout={'fill'}
-          objectFit={'contain'}
-        />
-      </SectionEventBox>
-    </SectionWrapper>
+    <React.Fragment>
+      <SectionWrapper
+        background
+        maxWidth={false}
+        sx={{
+          justifyContent: 'center',
+        }}>
+        <SectionTitle>{title}</SectionTitle>
+        <SectionDivider variant="middle" />
+        <SectionEventBox>
+          <SectionEvent maxWidth={false} disableGutters>
+            <Box>
+              <Image
+                src={Images.RANDY_EMBERLIN}
+                alt={'Randy Emberlin'}
+                layout={'fill'}
+                objectFit={'contain'}
+              />
+            </Box>
+            <SectionEventCard>
+              <Typography variant="h3">{data.events.list[0].title}</Typography>
+              <Box>
+                <Typography variant="caption">
+                  {data.events.list[0].date}
+                </Typography>
+                <Typography variant="caption">
+                  {data.events.list[0].time}
+                </Typography>
+              </Box>
+              <Typography variant="body2">
+                {data.events.list[0].description.body1}
+              </Typography>
+              <Typography variant="body2">
+                {data.events.list[0].description.body2}
+              </Typography>
+            </SectionEventCard>
+          </SectionEvent>
+        </SectionEventBox>
+      </SectionWrapper>
+      <div className={'spacer'} />
+    </React.Fragment>
   );
 };
 
