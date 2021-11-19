@@ -13,26 +13,32 @@
     "title": "Our Upcomming Events",
     "list": [
       {
-        "date": "Sep-18",
-        "description": "The dude who drew Carnage and a bunch of other characters is comming to the store for a meet and greet",
+        "date": "Nov 28th",
         "location": "In store",
         "price": "Free",
-        "time": "11:30pm",
-        "title": "Spiderman dude"
+        "time": "12pm -6pm",
+        "title": "Randy Emberlin",
+        "description": {
+          "body1": "We have the pleasure to host Randy Emberlin at our store! He is the co-creator of Carnage, seen recently in the new marvel movie Venom: Let there be Carnage. You are free to bring things for him to sign and we also have posters that will be available on the day of. We will be releasing pre-sale packages, as well as have raffles on a few donated items from Randy himself. ",
+          "body2": "Feel free to call, email, or ask us in person about this event!"
+        }
       }
     ]
   },
   "featured": {
     "title": "Featured Products",
     "list": [
-      { "name": "Mimikyu Pin Collection Box", "sku": "820650802751" },
-      { "name": "Naruto Sanrio Plush", "sku": "883975165048" },
-      { "name": "Angry Pikachu", "sku": "889698552288" },
-      { "name": "Marvel Encyclopedia", "sku": "978146547890054000" },
-      { "name": "Pokemon Cards", "sku": "10016" },
-      { "name": "Peter and Flight", "sku": "889698515191" },
-      { "name": "Dragonball Figures", "sku": "498316416892" },
-      { "name": "Marvel Sticker Pad", "sku": "77764687723" }
+      { "name": "Star Wars Advent Calender", "sku": "673419342506" },
+      {
+        "name": "Coral Reef Minecraft Lego Mini Figure",
+        "sku": "673419340557"
+      },
+      { "name": "Pokemon Celebrations", "sku": "820650809422" },
+      { "name": "Lego Star Wars Micro fighter", "sku": "673419340267" },
+      { "name": "Ori the Collection", "sku": "811949033475" },
+      { "name": "Pokemon Celebrations Pikachu", "sku": "820650809408" },
+      { "name": "Voldemort Funko", "sku": "849803058616" },
+      { "name": "Mario Party Superstars", "sku": "04549659786300000" }
     ]
   },
   "mostSold": {

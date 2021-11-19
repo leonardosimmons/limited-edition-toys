@@ -30,7 +30,7 @@ export enum Id {
 
 export enum Images {
   ABOUT_US_BANNER = '/images/banners/about-us.png',
-  BOTTOM_CLOUDS_LIGHT = '/images/bottom-clouds.png',
+  BOTTOM_CLOUDS_LIGHT = '/images/bottom-light.png',
   CLOUD_BACKGROUND = '/svg/cloud-background.svg',
   EVENTS_BANNER = '/images/banners/events.png',
   RANDY_EMBERLIN = '/images/events/randyemberlin.jpg',
