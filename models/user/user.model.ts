@@ -4,10 +4,18 @@ import { RouteConfirmation } from 'utils/types';
 import { UserSessionToken } from './types';
 
 interface UserModelInterface {
-  logout(): Promise<any>;
+  guestLogin(): Promise<any>;
+  logout(): Promise<RouteConfirmation>;
 }
 
 class UserModel implements UserModelInterface {
+  public async guestLogin() {
+    return await axios
+      .get('/api/auth/login/guest')
+      .then((res: any) => res.data)
+      .catch((err) => console.log(err));
+  }
+
   public async logout(): Promise<RouteConfirmation> {
     return await axios
       .get('/api/user/logout')

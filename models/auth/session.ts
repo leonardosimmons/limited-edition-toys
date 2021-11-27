@@ -1,25 +1,24 @@
 import { IronSessionOptions } from 'iron-session';
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next';
-import { CartSessionToken } from 'models/cart/types';
 import {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
   NextApiHandler,
 } from 'next';
-import type { UserSessionToken } from '../user/types';
-import { Key } from '../../utils/keys';
+import { Default, Key } from '../../utils/keys';
 
 declare module 'iron-session' {
   interface IronSessionData {
-    user?: UserSessionToken;
-    cart?: CartSessionToken[];
+    accessToken: string;
   }
 }
 
 const sessionOptions: IronSessionOptions = {
   password: process.env.SESSION_COOKIE_SECRET as string,
   cookieName: Key.SESSION_COOKIES,
-  cookieOptions: { maxAge: undefined },
+  cookieOptions: {
+    maxAge: parseInt(process.env.NEXT_PUBLIC_SESSION_TIMEOUT as string),
+  },
 };
 
 export function withSessionApiRoute(handler: NextApiHandler) {

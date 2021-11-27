@@ -7,7 +7,7 @@ export enum Color {
 }
 
 export enum Default {
-  GUEST_LOGIN_USERNAME = 'let-guest',
+  GUEST_LOGIN_USERNAME = '$let-guest',
   GUEST_LOGIN_PASSWORD = 'letpassword-2021',
   MAX_CART_CARD_QUANTITY_SELECTION = 20,
   MAX_PRODUCT_NAME_LENGTH = 25,

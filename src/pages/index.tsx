@@ -27,13 +27,26 @@ import {
 import { useAppSelector } from 'src/redux';
 import { uiSelector } from 'src/redux/models/ui';
 import { DisplayImage } from 'src/containers/sections/DisplayImage';
+import { useUser } from 'models/user/hooks/useUser';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
 >): JSX.Element {
   useCart();
+  const user = useUser();
   const { products } = useProducts();
   const ctx = useAppSelector(appSelector);
+
+  //* -------------------------------------------------
+  // Events
+
+  // checks to see if someone is logged in
+  // if NOT then logs user in as a guest
+  React.useEffect(() => {
+    user.guest.login.mutate();
+    if (user.session.status !== 'loading') {
+    }
+  }, []);
 
   //* -------------------------------------------------
   // Featured Products
