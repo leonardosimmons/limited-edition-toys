@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { Product } from 'models/product/types';
@@ -39,6 +40,12 @@ function Index({}: InferGetStaticPropsType<
 
   //* -------------------------------------------------
   // Events
+  React.useEffect(() => {
+    axios
+      .get('/api/auth/login/guest')
+      .then((res) => console.log('index:', res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   //* -------------------------------------------------
   // Featured Products

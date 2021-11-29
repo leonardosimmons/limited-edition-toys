@@ -9,6 +9,8 @@ import { Key } from '../../utils/keys';
 
 declare module 'iron-session' {
   interface IronSessionData {
+    id: string;
+    sub: string;
     accessToken: string;
     refreshToken: string;
   }

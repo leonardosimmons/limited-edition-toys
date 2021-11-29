@@ -15,6 +15,8 @@ async function guestLogin(req: NextApiRequest, res: NextApiResponse) {
             username: Default.GUEST_LOGIN_USERNAME,
           })
           .then((res: any) => res.data);
+        req.session.id = token.id;
+        req.session.sub = token.sub;
         req.session.accessToken = token.accessToken;
         req.session.refreshToken = token.refreshToken;
 
@@ -24,7 +26,7 @@ async function guestLogin(req: NextApiRequest, res: NextApiResponse) {
           throw new Error(err);
         }
 
-        res.status(200).json({ ok: true });
+        res.status(200).json({ id: req.session.sub });
       } catch (err) {
         res.status(500).json({ message: err });
       }
