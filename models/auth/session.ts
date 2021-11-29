@@ -5,11 +5,12 @@ import {
   GetServerSidePropsResult,
   NextApiHandler,
 } from 'next';
-import { Default, Key } from '../../utils/keys';
+import { Key } from '../../utils/keys';
 
 declare module 'iron-session' {
   interface IronSessionData {
     accessToken: string;
+    refreshToken: string;
   }
 }
 

@@ -5,10 +5,13 @@ import { Product } from 'models/product/types';
 import { Images, Queries } from 'utils/keys';
 
 import data from 'data/pages/home.json';
+import { useUser } from 'models/user/hooks/useUser';
 import { useCart } from 'models/cart/hooks/useCart';
 import { useProducts } from 'models/product/useProducts';
 import { getAllProducts, getProductTags } from 'models/product/queries';
 import { appSelector } from 'src/redux/selector';
+import { uiSelector } from 'src/redux/models/ui';
+import { useAppSelector } from 'src/redux';
 
 import { HomePageMainContainer } from 'src/containers/pages/styles/HomePage';
 
@@ -24,10 +27,7 @@ import {
   SectionBannerBox,
   SectionWrapper,
 } from 'src/containers/sections/styles/Section';
-import { useAppSelector } from 'src/redux';
-import { uiSelector } from 'src/redux/models/ui';
 import { DisplayImage } from 'src/containers/sections/DisplayImage';
-import { useUser } from 'models/user/hooks/useUser';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
@@ -39,14 +39,6 @@ function Index({}: InferGetStaticPropsType<
 
   //* -------------------------------------------------
   // Events
-
-  // checks to see if someone is logged in
-  // if NOT then logs user in as a guest
-  React.useEffect(() => {
-    user.guest.login.mutate();
-    if (user.session.status !== 'loading') {
-    }
-  }, []);
 
   //* -------------------------------------------------
   // Featured Products
