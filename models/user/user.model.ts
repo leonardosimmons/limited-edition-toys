@@ -1,7 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { Default } from 'utils/keys';
 import { RouteConfirmation } from 'utils/types';
-import { UserSessionToken } from './types';
 
 interface UserModelInterface {
   guestLogin(): Promise<any>;

@@ -3,4 +3,5 @@ export type AuthTokens = {
   readonly sub: string;
   readonly accessToken: string;
   readonly refreshToken: string;
+  readonly permissionLevel: number;
 };

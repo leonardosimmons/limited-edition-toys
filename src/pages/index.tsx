@@ -29,23 +29,19 @@ import {
   SectionWrapper,
 } from 'src/containers/sections/styles/Section';
 import { DisplayImage } from 'src/containers/sections/DisplayImage';
+import { useSessionCheck } from 'models/auth/hooks/useSessionCheck';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
 >): JSX.Element {
   useCart();
+  useSessionCheck();
   const user = useUser();
   const { products } = useProducts();
   const ctx = useAppSelector(appSelector);
 
   //* -------------------------------------------------
   // Events
-  React.useEffect(() => {
-    axios
-      .get('/api/auth/login/guest')
-      .then((res) => console.log('index:', res.data))
-      .catch((err) => console.log(err));
-  }, []);
 
   //* -------------------------------------------------
   // Featured Products
@@ -63,9 +59,6 @@ function Index({}: InferGetStaticPropsType<
       return buffer;
     }
   }, [products]);
-
-  //* -------------------------------------------------
-  // Events
 
   //* -------------------------------------------------
   // Best Sellers

@@ -20,10 +20,8 @@ export type UserRoles =
   | 'vendor';
 
 export type UserSessionToken = {
-  id: string;
-  isLoggedIn: boolean;
-  role: UserRoles;
-  cart?: CartSessionToken[];
+  sub: string;
+  permissionLevel: number;
 };
 
 export type User = {

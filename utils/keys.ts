@@ -57,6 +57,7 @@ export enum Links {
 
 export enum Queries {
   ALL_PRODUCTS = 'products',
+  LOGIN_GUEST = 'guest-login',
   INVENTORY_BY_ID = 'inventory-by-id',
   PAGINATED_PRODUCTS = 'paginated-products',
   PRODUCT_CATEGORIES = 'product-categories',
@@ -64,6 +65,5 @@ export enum Queries {
   PRODUCT_BY_ID = 'product-by-id',
   AUTH_LOGIN = 'user-auth-login',
   AUTH_LOGOUT = 'user-auth-logout',
-  AUTH_SESSION = 'user-auth-session',
-  CART_SESSION = 'user-cart-session',
+  USER_SESSION = 'user-auth-session',
 }

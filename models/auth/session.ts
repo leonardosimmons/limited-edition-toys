@@ -13,6 +13,7 @@ declare module 'iron-session' {
     sub: string;
     accessToken: string;
     refreshToken: string;
+    permissionLevel: number;
   }
 }
 
