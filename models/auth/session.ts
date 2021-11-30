@@ -20,7 +20,8 @@ const sessionOptions: IronSessionOptions = {
   password: process.env.SESSION_COOKIE_SECRET as string,
   cookieName: Key.SESSION_COOKIES,
   cookieOptions: {
-    maxAge: parseInt(process.env.NEXT_PUBLIC_SESSION_TIMEOUT as string),
+    maxAge: undefined,
+    secure: process.env.NODE_ENV === 'production',
   },
 };
 

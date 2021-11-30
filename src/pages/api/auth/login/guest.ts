@@ -26,7 +26,7 @@ async function guestLogin(req: NextApiRequest, res: NextApiResponse) {
           throw new Error(err);
         }
 
-        res.status(200).json({ id: req.session.sub });
+        res.status(200).json({ sub: req.session.sub });
       } catch (err) {
         res.status(500).json({ message: err });
       }
