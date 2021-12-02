@@ -1,9 +1,6 @@
 export type Combinable = string | number;
 
-export type RouteConfirmation = {
-  ok?: boolean;
-  message?: string;
-};
+export type Constructor<T = {}> = new (...args: any[]) => T;
 
 export type CustomInputConfig = {
   label?: string;
@@ -22,6 +19,11 @@ export type MenuTab = {
 };
 
 export type OverlayState = 'open' | 'closed';
+
+export type RouteConfirmation = {
+  ok?: boolean;
+  message?: string;
+};
 
 export type StaticPath = {
   params: {

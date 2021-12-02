@@ -13,7 +13,7 @@ async function shoppingSessionRoutes(
       try {
         const response = await axios
           .post(
-            `${process.env.USER_CART_API as string}/session/create`,
+            `${process.env.ORDER_API as string}/session/create`,
             {
               id: req.session.id,
             },
