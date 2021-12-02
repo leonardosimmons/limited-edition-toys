@@ -1,9 +1,9 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { Default } from 'utils/keys';
 
 import { AuthTokens } from 'models/auth/types';
-import { withSessionApiRoute } from '../../../../../models/auth/session';
+import { withSessionApiRoute } from '../../../../../lib/session';
 
 export default withSessionApiRoute(guestLogin);
 

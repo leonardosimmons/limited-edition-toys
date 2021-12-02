@@ -1,4 +1,4 @@
-import { withSessionApiRoute } from 'models/auth/session';
+import { withSessionApiRoute } from 'lib/session';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default withSessionApiRoute(sessionRoute);

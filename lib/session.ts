@@ -5,7 +5,7 @@ import {
   GetServerSidePropsResult,
   NextApiHandler,
 } from 'next';
-import { Key } from '../../utils/keys';
+import { Key } from '../utils/keys';
 
 declare module 'iron-session' {
   interface IronSessionData {

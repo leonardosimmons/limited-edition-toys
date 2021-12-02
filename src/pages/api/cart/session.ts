@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { ApiError } from 'square';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { withSessionApiRoute } from 'models/auth/session';
+import { withSessionApiRoute } from 'lib/session';
 
 export default withSessionApiRoute(shoppingSessionRoutes);
 
