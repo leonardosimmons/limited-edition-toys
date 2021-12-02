@@ -5,7 +5,7 @@ import {
 } from 'square';
 
 export type CheckoutToken = {
-  find: SearchCustomersRequest;
+  search: SearchCustomersRequest;
   create: CreateCustomerRequest;
   options: CreateCheckoutRequest;
 };

@@ -5,7 +5,7 @@ export const Square = new Client({
     process.env.NODE_ENV === 'development'
       ? Environment.Sandbox
       : Environment.Production,
-  accessToken: process.env.SQ_ACCESS_TOKEN,
+  accessToken: process.env.SQUARE_ACCESS_TOKEN,
 });
 
 export const squarePermissionScopes = ['ORDERS_WRITE', 'PAYMENTS_WRITE'];
