@@ -1,24 +1,21 @@
 import axios, { AxiosResponse } from 'axios';
 import { RouteConfirmation } from 'utils/types';
+import { UserSessionToken } from './types';
 
 interface UserModelInterface {
-  guestLogin(): Promise<any>;
-  logout(): Promise<RouteConfirmation>;
+  guestLogin(): Promise<UserSessionToken | RouteConfirmation | void>;
 }
 
 class UserModel implements UserModelInterface {
   public async guestLogin() {
     return await axios
       .get('/api/auth/login/guest')
-      .then((res: any) => res.data)
-      .catch((err) => console.log(err));
-  }
-
-  public async logout(): Promise<RouteConfirmation> {
-    return await axios
-      .get('/api/user/logout')
-      .then((res: AxiosResponse<any>) => res.data)
-      .catch((err) => console.log(err));
+      .then(
+        (res: AxiosResponse<UserSessionToken | RouteConfirmation>) => res.data,
+      )
+      .catch((err: any) => {
+        throw new Error(err);
+      });
   }
 }
 
