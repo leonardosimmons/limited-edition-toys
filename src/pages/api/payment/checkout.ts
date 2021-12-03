@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { ApiError } from 'square';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { withSessionApiRoute } from 'models/auth/session';
+import { withSessionApiRoute } from 'lib/session';
+import { SquareCheckoutToken } from 'models/square/types';
 
 export default withSessionApiRoute(checkoutRoute);
 
@@ -9,13 +10,14 @@ async function checkoutRoute(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'POST':
       try {
-        const { token } = await req.body;
+        const { info, items } = await req.body;
         try {
           const response = await axios
             .post(
-              `${process.env.SQUARE_CHECKOUT_API!}/create`,
+              `http://localhost:4000/sq/payment/checkout/create`,
               {
-                token,
+                info,
+                items,
               },
               {
                 headers: {
@@ -24,6 +26,7 @@ async function checkoutRoute(req: NextApiRequest, res: NextApiResponse) {
               },
             )
             .then((res) => res.data);
+          console.log('final response:', response);
           res.status(200).json(response);
         } catch (err) {
           if (err instanceof ApiError) {
@@ -35,6 +38,7 @@ async function checkoutRoute(req: NextApiRequest, res: NextApiResponse) {
               message: `Unexpected Error: ${err}`,
             });
           }
+          res.status(300).json(err);
         }
       } catch (err) {
         res.status(500).send({ message: 'No request body found' });

@@ -1,9 +1,13 @@
 import React from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import data from 'data/pages/cart.json';
 import { Links } from 'utils/keys';
 
+import { useAppSelector } from 'src/redux';
+import { appSelector } from 'src/redux/selector';
 import { useCart } from 'models/cart/hooks/useCart';
+import { OrderModel } from 'models/order/order.model';
 
 import {
   SummaryCheckoutAction,
@@ -21,15 +25,30 @@ type Props = {
 const ShoppingCartSummary: React.FunctionComponent<Props> = ({
   type,
 }): JSX.Element => {
-  const router = useRouter();
   const cart = useCart();
+  const router = useRouter();
+  const ctx = useAppSelector(appSelector);
 
   //* -------------------------------------------------
   // Handlers
 
-  function handleCheckoutButton(): void {
+  async function handleCheckoutButton(): Promise<void> {
     if (type === 'checkout') {
-      router.push(Links.PAYMENT);
+      const order = new OrderModel();
+      const customerInfo = order.createCustomerToken(ctx.checkout.billing);
+      const cartItems = order.createLineItemToken();
+      console.log(customerInfo);
+      console.log(cartItems);
+      try {
+        await axios
+          .post('/api/payment/checkout', {
+            info: customerInfo,
+            items: cartItems,
+          })
+          .then((res: any) => router.push(res.data));
+      } catch (err) {
+        console.log(err);
+      }
       return;
     }
     router.push(Links.BILLING);

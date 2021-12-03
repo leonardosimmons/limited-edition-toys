@@ -1,11 +1,6 @@
-import {
-  CreateCheckoutRequest,
-  CreateCustomerRequest,
-  SearchCustomersRequest,
-} from 'square';
+import { CreateCustomerRequest, OrderLineItem } from 'square';
 
-export type CheckoutToken = {
-  search: SearchCustomersRequest;
-  create: CreateCustomerRequest;
-  options: CreateCheckoutRequest;
+export type SquareCheckoutToken = {
+  info: CreateCustomerRequest;
+  items: OrderLineItem[];
 };
