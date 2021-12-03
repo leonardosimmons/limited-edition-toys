@@ -5,7 +5,7 @@ import { Queries } from 'utils/keys';
 
 import { useCurrentSession } from 'models/auth/queries';
 import { UserModel } from '../user.model';
-import { ShoppingSessionType } from 'models/order/mixins/shoppingSession.mixin';
+import { ShoppingSession } from 'models/order/mixins/shoppingSession.mixin';
 
 function useUser(options?: UserOptions) {
   const model = new UserModel();
@@ -21,7 +21,7 @@ function useUser(options?: UserOptions) {
       onSuccess: (token: UserSessionToken | RouteConfirmation | undefined) => {
         if (token && (token as UserSessionToken)) {
           const queryClient = new QueryClient();
-          const session = new ShoppingSessionType();
+          const session = new ShoppingSession();
           queryClient.setQueryData(Queries.USER_SESSION, token);
           session
             .initShoppingSession()

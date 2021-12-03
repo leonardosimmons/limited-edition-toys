@@ -5,7 +5,7 @@ class Base {
   constructor() {}
 }
 
-export function ShoppingSession<TBase extends Constructor>(Base: TBase) {
+export function ShoppingSessionType<TBase extends Constructor>(Base: TBase) {
   return class extends Base {
     async initShoppingSession() {
       try {
@@ -19,4 +19,5 @@ export function ShoppingSession<TBase extends Constructor>(Base: TBase) {
   };
 }
 
-export const ShoppingSessionType = ShoppingSession(Base);
+export const ShoppingSession = ShoppingSessionType(Base);
+export type ShoppingSession = InstanceType<typeof ShoppingSession>;

@@ -25,6 +25,8 @@ export type RouteConfirmation = {
   message?: string;
 };
 
+export type Status = 'FAILED' | 'PENDING' | 'CANCELLED' | 'COMPLETED';
+
 export type StaticPath = {
   params: {
     id?: string;

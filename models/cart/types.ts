@@ -1,3 +1,8 @@
+export type CartItem = {
+  quantity: number;
+  productId: string;
+};
+
 export type CartStatus =
   | 'checking-out'
   | 'complete'
