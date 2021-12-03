@@ -37,8 +37,6 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
       const order = new OrderModel();
       const customerInfo = order.createCustomerToken(ctx.checkout.billing);
       const cartItems = order.createLineItemToken();
-      console.log(customerInfo);
-      console.log(cartItems);
       try {
         await axios
           .post('/api/payment/checkout', {
@@ -47,7 +45,7 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
           })
           .then((res: any) => router.push(res.data));
       } catch (err) {
-        console.log(err);
+        alert('Error: Something went wrong');
       }
       return;
     }

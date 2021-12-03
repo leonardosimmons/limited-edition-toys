@@ -14,7 +14,7 @@ async function checkoutRoute(req: NextApiRequest, res: NextApiResponse) {
         try {
           const response = await axios
             .post(
-              `http://localhost:4000/sq/payment/checkout/create`,
+              `${process.env.SQUARE_CHECKOUT_API as string}/create`,
               {
                 info,
                 items,
