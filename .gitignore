@@ -35,6 +35,8 @@ yarn-error.log*
 temp.tsx
 .vscode
 favicon.ico
+/buffer
 /src/*.txt
 /src/pages/auth
-/buffer
+/src/pages/checkout/completed.tsx
+/src/pages/api/test.ts
