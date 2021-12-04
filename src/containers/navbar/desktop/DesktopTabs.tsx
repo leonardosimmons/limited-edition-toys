@@ -35,10 +35,10 @@ const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
       <DesktopNavbarTabButton startIcon={<AssignmentTwoToneIcon />}>
         Wishlist
       </DesktopNavbarTabButton> */}
-      <DesktopNavbarTabButton startIcon={<FaceTwoTone />}>
+      {/* <DesktopNavbarTabButton startIcon={<FaceTwoTone />}>
         My Account
-      </DesktopNavbarTabButton>
-      <DesktopNavbarDivider orientation="vertical" flexItem />
+      </DesktopNavbarTabButton> */}
+      {/* <DesktopNavbarDivider orientation="vertical" flexItem /> */}
       <DesktopNavbarCartIcon
         aria-label="shopping cart"
         size="small"

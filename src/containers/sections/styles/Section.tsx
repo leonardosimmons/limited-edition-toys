@@ -23,32 +23,28 @@ export const SectionWrapper = styled(Container, {
   ...(background && {
     height: '1500px',
     backgroundImage: `url(${Images.MIDDLE_CLOUDS})`,
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     backgroundRepeat: 'repeat-x',
     backgroundPosition: 'center',
     [theme.breakpoints.up('mobileLg')]: {
-      height: '1200px',
+      height: '500px',
     },
     [theme.breakpoints.up('tabletSm')]: {
-      height: '1300px',
+      height: '550px',
     },
     [theme.breakpoints.up('tabletMd')]: {
-      height: '1400px',
-      marginTop: '-40px',
-      backgroundSize: 'cover',
+      height: '500px',
     },
     [theme.breakpoints.up('desktopSm')]: {
-      height: '1200px',
       marginTop: '-20px',
       marginBottom: '5rem',
-      backgroundSize: 'contain',
     },
     [theme.breakpoints.up('desktopMd')]: {
-      height: '1200px',
+      height: '700px',
       marginTop: 0,
     },
     [theme.breakpoints.up('desktopLg')]: {
-      height: '1300px',
+      height: '800px',
     },
   }),
 }));
@@ -138,56 +134,40 @@ export const SectionBannerBox = styled(Box)<BoxProps>(({ theme }) => ({
   },
 }));
 
+export const SectionEventWrapper = styled(Box)<BoxProps>(({ theme }) => ({
+  position: 'relative',
+  width: '100%',
+  height: '10rem',
+  backgroundImage: `url(${Images.MIDDLE_CLOUDS})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'repeat-x',
+  backgroundPosition: 'center',
+}));
+
 export const SectionEventBox = styled(Box)<BoxProps>(({ theme }) => ({
   position: 'relative',
   maxWidth: '1500px',
   width: '100%',
-  height: '70%',
   ...theme.custom.center,
   [theme.breakpoints.up('mobileMd')]: {
     marginTop: '20px',
   },
   [theme.breakpoints.up('mobileLg')]: {
-    height: '45rem',
-  },
-  [theme.breakpoints.up('tabletSm')]: {
-    height: '50rem',
-  },
-  [theme.breakpoints.up('tabletMd')]: {
-    height: '55rem',
-  },
-  [theme.breakpoints.up('tabletLg')]: {
-    height: '60rem',
+    height: '5rem',
   },
   [theme.breakpoints.up('desktopSm')]: {
-    height: '35rem',
-  },
-  [theme.breakpoints.up('desktopLg')]: {
-    height: '38rem',
+    height: '5rem',
+    marginBottom: '4rem',
   },
 }));
 
 export const SectionEvent = styled(Container)<ContainerProps>(({ theme }) => ({
   width: '100%',
-  height: '100%',
+  height: '200px',
   ...theme.custom.centerColumn,
-  '& > div.MuiBox-root': {
-    '&:nth-of-type(1)': {
-      position: 'relative',
-      height: '30rem',
-      width: '100%',
-      [theme.breakpoints.up('desktopSm')]: {
-        height: '90%',
-        flex: '0 1 50%',
-      },
-      [theme.breakpoints.up('desktopSm')]: {
-        height: '40rem',
-        flex: '0 1 50%',
-      },
-    },
-  },
-  [theme.breakpoints.up('desktopSm')]: {
-    flexDirection: 'row',
+  textAlign: 'center',
+  '& > h4.MuiTypography-h4': {
+    fontSize: '2rem',
   },
 }));
 

@@ -1,6 +1,6 @@
 {
   "billing": {
-    "title": "Billing Details",
+    "title": "Details",
     "inputs": [
       { "label": "First Name", "propName": "firstname" },
       { "label": "Last Name", "propName": "lastname" },

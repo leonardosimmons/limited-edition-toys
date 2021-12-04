@@ -52,7 +52,7 @@ function Index({}: InferGetStaticPropsType<
       });
       return buffer;
     }
-  }, [products]);
+  }, []);
 
   //* -------------------------------------------------
   // Best Sellers
@@ -69,7 +69,7 @@ function Index({}: InferGetStaticPropsType<
       });
       return buffer;
     }
-  }, [products]);
+  }, []);
 
   //* -------------------------------------------------
   // Render

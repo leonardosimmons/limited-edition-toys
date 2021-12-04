@@ -50,7 +50,9 @@ const ShoppingCartPreview: React.FunctionComponent = (): JSX.Element => {
       </PreviewProductGrid>
       {ctx.ui.status.viewport !== 'mobile' && (
         <PreviewAction>
-          <CheckoutButton onClick={handleCheckoutButton}>
+          <CheckoutButton
+            onClick={handleCheckoutButton}
+            disabled={ctx.cart.items.length === 0 ? true : false}>
             {data.buttons.checkout}
           </CheckoutButton>
         </PreviewAction>

@@ -20,10 +20,10 @@ const Footer = styled('footer')(({ theme }) => ({
     backgroundSize: 'contain',
   },
   [theme.breakpoints.up('desktopSm')]: {
-    height: '425px',
+    height: '275px',
   },
   [theme.breakpoints.up('desktopLg')]: {
-    height: '600px',
+    height: '400px',
     backgroudSize: '35%',
   },
 }));

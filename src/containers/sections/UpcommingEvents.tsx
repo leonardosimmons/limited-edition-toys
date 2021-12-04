@@ -32,12 +32,14 @@ const UpcommingEvents: React.FunctionComponent<Props> = ({
         maxWidth={false}
         sx={{
           justifyContent: 'center',
+          height: '700px',
         }}>
-        <SectionTitle>{title}</SectionTitle>
+        <SectionTitle sx={{ marginTop: '4rem' }}>{title}</SectionTitle>
         <SectionDivider variant="middle" />
         <SectionEventBox>
           <SectionEvent maxWidth={false} disableGutters>
-            <Box>
+            <Typography variant="h4">No upcomming events</Typography>
+            {/* <Box>
               <Image
                 src={Images.RANDY_EMBERLIN}
                 alt={'Randy Emberlin'}
@@ -61,7 +63,7 @@ const UpcommingEvents: React.FunctionComponent<Props> = ({
               <Typography variant="body2">
                 {data.events.list[0].description.body2}
               </Typography>
-            </SectionEventCard>
+            </SectionEventCard> */}
           </SectionEvent>
         </SectionEventBox>
       </SectionWrapper>

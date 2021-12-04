@@ -58,13 +58,16 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
   return (
     <SummaryMainContainer maxWidth={false} disableGutters>
       <SummaryInfoDisplay container>
-        <InfoDisplayItem title={'Subtotal'} value={cart.total} />
+        {/* <InfoDisplayItem title={'Subtotal'} value={cart.total} />
         <InfoDisplayItem title={'Shipping'} value={10.0} />
-        <InfoDisplayItem title={'Tax'} value={0.0} />
-        <InfoDisplayItem bold title={'Total'} value={cart.total + 10.0} />
+        <InfoDisplayItem title={'Tax'} value={0.0} /> */}
+        <InfoDisplayItem bold title={'Subtotal'} value={cart.total} />
       </SummaryInfoDisplay>
       <SummaryCheckoutAction>
-        <CheckoutButton fullWidth onClick={handleCheckoutButton}>
+        <CheckoutButton
+          fullWidth
+          onClick={handleCheckoutButton}
+          disabled={ctx.cart.items.length === 0 ? true : false}>
           {data.summary.button}
         </CheckoutButton>
       </SummaryCheckoutAction>
