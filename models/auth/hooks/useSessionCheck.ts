@@ -10,7 +10,7 @@ function useSessionCheck() {
   React.useEffect(() => {
     if (status !== 'loading') {
       if (session && !session.sub) {
-        user.guest.login();
+        // user.guest.login();
       }
     }
   }, [status]);

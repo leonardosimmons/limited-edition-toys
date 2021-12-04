@@ -37,6 +37,17 @@ export function fixSlug(slug: string): string {
   return fixed;
 }
 
+export function jsonResponse(status: number, data: any, init?: ResponseInit) {
+  return new Response(JSON.stringify(data), {
+    ...init,
+    status,
+    headers: {
+      ...init?.headers,
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
 /**
  * Checks given string or number against given regex
  * @param regex - regular expression

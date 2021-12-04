@@ -5,3 +5,8 @@ export type AuthTokens = {
   readonly refreshToken: string;
   readonly permissionLevel: number;
 };
+
+export type UserJWTPayload = {
+  jti: string;
+  iat: number;
+};

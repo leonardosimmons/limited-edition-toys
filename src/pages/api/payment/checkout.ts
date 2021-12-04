@@ -1,50 +1,56 @@
-import axios from 'axios';
-import { ApiError } from 'square';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { nanoid } from 'nanoid';
+import JSONbig from 'json-bigint';
 import { withSessionApiRoute } from 'lib/session';
 import { SquareCheckoutToken } from 'models/square/types';
+import { SquareModel } from 'models/square/square.model';
+import { Square } from 'lib/square';
+import { CreateCheckoutRequest, Customer } from 'square';
 
 export default withSessionApiRoute(checkoutRoute);
 
 async function checkoutRoute(req: NextApiRequest, res: NextApiResponse) {
+  const model = new SquareModel();
   switch (req.method) {
     case 'POST':
+      const { info, items } = (await req.body) as SquareCheckoutToken;
       try {
-        const { info, items } = await req.body;
-        try {
-          const response = await axios
-            .post(
-              `${process.env.SQUARE_CHECKOUT_API as string}/create`,
-              {
-                info,
-                items,
-              },
-              {
-                headers: {
-                  authorization: req.session.accessToken || '',
-                },
-              },
-            )
-            .then((res) => res.data);
-          console.log('final response:', response);
-          res.status(200).json(response);
-        } catch (err) {
-          if (err instanceof ApiError) {
-            res.status(err.statusCode).send({
-              message: `There was an error in your request: ${err.errors}`,
-            });
-          } else {
-            res.status(400).send({
-              message: `Unexpected Error: ${err}`,
-            });
-          }
-        }
+        const locationId = await Square.locationsApi
+          .listLocations()
+          .then((location) => location.result.locations![0].id);
+
+        const customer: Customer | undefined = await Square.customersApi
+          .createCustomer(info)
+          .then((res) => res.result.customer);
+
+        const token: CreateCheckoutRequest = {
+          idempotencyKey: nanoid(),
+          order: {
+            idempotencyKey: nanoid(),
+            order: {
+              locationId: locationId!,
+              // referenceId: req.session.id,
+              customerId: customer?.id,
+              lineItems: items,
+            },
+          },
+          //redirectUrl: process.env.SQUARE_CHECKOUT_REDIRECT,
+          askForShippingAddress: true,
+          prePopulateBuyerEmail: info.emailAddress,
+          prePopulateShippingAddress: { ...info.address },
+        };
+
+        const response = await Square.checkoutApi
+          .createCheckout(locationId!, JSONbig.parse(JSON.stringify(token)))
+          .then((res) => res.result.checkout?.checkoutPageUrl);
+
+        res.status(200).json(JSONbig.parse(JSON.stringify(response)));
       } catch (err) {
-        res.status(500).send({ message: 'No request body found' });
+        model.apiError(err, res);
       }
       break;
     default:
-      res.status(500).send({ message: `${req.method} is not a valid method` });
+      res.status(405).send({ message: `${req.method} not allowed` });
       break;
   }
 }

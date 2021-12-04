@@ -29,6 +29,9 @@
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "axios": "^0.22.0",
     "iron-session": "^6.0.2",
+    "jose": "^4.3.7",
+    "json-bigint": "^1.0.0",
+    "nanoid": "^3.1.30",
     "next": "^12.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -39,6 +42,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/json-bigint": "^1.0.1",
     "@types/md5": "^2.3.1",
     "@types/node": "^16.10.2",
     "@types/react": "^17.0.26",
