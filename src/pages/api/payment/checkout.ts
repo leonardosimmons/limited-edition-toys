@@ -38,7 +38,6 @@ async function checkoutRoute(req: NextApiRequest, res: NextApiResponse) {
               message: `Unexpected Error: ${err}`,
             });
           }
-          res.status(300).json(err);
         }
       } catch (err) {
         res.status(500).send({ message: 'No request body found' });

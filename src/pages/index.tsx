@@ -1,18 +1,17 @@
 import React from 'react';
-import axios from 'axios';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { Product } from 'models/product/types';
 import { Images, Queries } from 'utils/keys';
 
 import data from 'data/pages/home.json';
+import { useAppSelector } from 'src/redux';
+import { appSelector } from 'src/redux/selector';
 import { useUser } from 'models/user/hooks/useUser';
 import { useCart } from 'models/cart/hooks/useCart';
 import { useProducts } from 'models/product/useProducts';
 import { getAllProducts, getProductTags } from 'models/product/queries';
-import { appSelector } from 'src/redux/selector';
-import { uiSelector } from 'src/redux/models/ui';
-import { useAppSelector } from 'src/redux';
+import { useSessionCheck } from 'models/auth/hooks/useSessionCheck';
 
 import { HomePageMainContainer } from 'src/containers/pages/styles/HomePage';
 
@@ -29,7 +28,6 @@ import {
   SectionWrapper,
 } from 'src/containers/sections/styles/Section';
 import { DisplayImage } from 'src/containers/sections/DisplayImage';
-import { useSessionCheck } from 'models/auth/hooks/useSessionCheck';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
