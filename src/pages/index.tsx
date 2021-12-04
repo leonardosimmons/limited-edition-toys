@@ -7,11 +7,9 @@ import { Images, Queries } from 'utils/keys';
 import data from 'data/pages/home.json';
 import { useAppSelector } from 'src/redux';
 import { appSelector } from 'src/redux/selector';
-import { useUser } from 'models/user/hooks/useUser';
 import { useCart } from 'models/cart/hooks/useCart';
 import { useProducts } from 'models/product/useProducts';
 import { getAllProducts, getProductTags } from 'models/product/queries';
-import { useSessionCheck } from 'models/auth/hooks/useSessionCheck';
 
 import { HomePageMainContainer } from 'src/containers/pages/styles/HomePage';
 
@@ -33,8 +31,6 @@ function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
 >): JSX.Element {
   useCart();
-  useSessionCheck();
-  const user = useUser();
   const { products } = useProducts();
   const ctx = useAppSelector(appSelector);
 

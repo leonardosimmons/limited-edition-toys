@@ -1,4 +1,5 @@
 import { BillingState, ShippingState } from 'models/checkout/types';
+import { ProductCartToken } from 'models/product/types';
 import { CreateCustomerRequest, OrderLineItem } from 'square';
 import { Constructor } from '../../../utils/types';
 
@@ -26,25 +27,20 @@ export function SquareOrderTokensType<TBase extends Constructor>(Base: TBase) {
         },
       };
     }
-    createLineItemToken(): Partial<OrderLineItem[]> {
-      return [
-        {
-          name: 'Test item One',
-          quantity: '2',
+    createLineItemToken(
+      products: ProductCartToken[],
+    ): Partial<OrderLineItem[]> {
+      return products.map((token) => {
+        return {
+          name: token.product.name,
+          quantity: token.quantity.toString(),
           basePriceMoney: {
-            amount: 1500 as unknown as bigint,
+            amount: (token.product.price_excluding_tax! *
+              100) as unknown as bigint,
             currency: 'USD',
           },
-        },
-        {
-          name: 'Test item Two',
-          quantity: '5',
-          basePriceMoney: {
-            amount: 1500 as unknown as bigint,
-            currency: 'USD',
-          },
-        },
-      ];
+        };
+      });
     }
   };
 }

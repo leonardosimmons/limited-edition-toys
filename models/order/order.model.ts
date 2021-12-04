@@ -1,5 +1,6 @@
 import { ShoppingSessionType } from './mixins/shoppingSession.mixin';
 import { SquareOrderTokensType } from '../square/mixins/order.tokens.mixin';
+import { SquareModel } from 'models/square/square.model';
 
 class Order {
   constructor() {}
@@ -9,5 +10,7 @@ class Order {
   // create order in database
 }
 
-export const OrderModel = SquareOrderTokensType(ShoppingSessionType(Order));
+export const OrderModel = SquareOrderTokensType(
+  ShoppingSessionType(SquareModel),
+);
 export type OrderModel = InstanceType<typeof OrderModel>;

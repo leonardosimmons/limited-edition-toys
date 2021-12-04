@@ -36,7 +36,7 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
     if (type === 'checkout') {
       const order = new OrderModel();
       const customerInfo = order.createCustomerToken(ctx.checkout.billing);
-      const cartItems = order.createLineItemToken();
+      const cartItems = order.createLineItemToken(ctx.cart.items);
       try {
         await axios
           .post('/api/payment/checkout', {
