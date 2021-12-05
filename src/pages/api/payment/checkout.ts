@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { nanoid } from 'nanoid';
 import JSONbig from 'json-bigint';
 import { withSessionApiRoute } from 'lib/session';
-import { SquareCheckoutToken } from 'models/square/types';
-import { SquareModel } from 'models/square/square.model';
+import { SquareCheckoutToken } from 'modules/square/types';
+import { SquareModel } from 'modules/square/square.model';
 import { Square } from 'lib/square';
 import { CreateCheckoutRequest, Customer } from 'square';
 

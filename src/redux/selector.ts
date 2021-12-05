@@ -1,6 +1,6 @@
-import { cartSelector } from 'models/cart/selectors';
-import { checkoutSelector } from 'models/checkout/selector';
-import { productSelector } from 'models/product/selectors';
+import { cartSelector } from 'modules/cart/selectors';
+import { checkoutSelector } from 'modules/checkout/selector';
+import { productSelector } from 'modules/product/selectors';
 import { createSelector } from 'reselect';
 import { pageSelector } from './models/page/selectors';
 import { searchSelector } from './models/search/selectors';

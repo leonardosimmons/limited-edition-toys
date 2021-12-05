@@ -8,10 +8,10 @@ import {
   openNavbarTagMenu,
   uiSelector,
 } from 'src/redux/models/ui';
-import { Product } from 'models/product/types';
+import { Product } from 'modules/product/types';
 import { Id } from 'utils/keys';
 
-import { useProducts } from 'models/product/useProducts';
+import { useProducts } from 'modules/product/useProducts';
 import { searchSelector } from 'src/redux/models/search/selectors';
 import {
   setCurrentSearchInput,

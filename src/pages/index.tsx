@@ -1,15 +1,15 @@
 import React from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
-import { Product } from 'models/product/types';
+import { Product } from 'modules/product/types';
 import { Images, Queries } from 'utils/keys';
 
 import data from 'data/pages/home.json';
 import { useAppSelector } from 'src/redux';
 import { appSelector } from 'src/redux/selector';
-import { useCart } from 'models/cart/hooks/useCart';
-import { useProducts } from 'models/product/useProducts';
-import { getAllProducts, getProductTags } from 'models/product/queries';
+import { useCart } from 'modules/cart/hooks/useCart';
+import { useProducts } from 'modules/product/useProducts';
+import { getAllProducts, getProductTags } from 'modules/product/queries';
 
 import { HomePageMainContainer } from 'src/containers/pages/styles/HomePage';
 

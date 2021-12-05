@@ -1,11 +1,11 @@
 import React from 'react';
 import { useAppSelector } from 'src/redux';
 import { uiSelector } from 'src/redux/models/ui';
-import { ProductPropertyOptions } from 'models/product/types';
+import { ProductPropertyOptions } from 'modules/product/types';
 import { Id } from 'utils/keys';
 
 import tagNames from 'data/tags.json';
-import { useProducts } from 'models/product/useProducts';
+import { useProducts } from 'modules/product/useProducts';
 
 import TagMenu from '../styles/TagMenu';
 

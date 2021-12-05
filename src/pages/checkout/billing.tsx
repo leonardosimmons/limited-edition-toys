@@ -6,8 +6,8 @@ import {
 } from 'src/containers/pages/styles/BillingPage';
 
 import Layout from 'src/containers/Layout/Layout';
-import BillingDetails from 'models/checkout/components/billing/BillingDetails';
-import CheckoutSummary from 'models/checkout/components/summary/CheckoutSummary';
+import BillingDetails from 'modules/checkout/components/billing/BillingDetails';
+import CheckoutSummary from 'modules/checkout/components/summary/CheckoutSummary';
 
 function BillingPage(): JSX.Element {
   return (

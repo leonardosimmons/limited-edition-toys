@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Links } from 'utils/keys';
 
-import { useCart } from 'models/cart/hooks/useCart';
+import { useCart } from 'modules/cart/hooks/useCart';
 
 import MobileMenuTab from '../styles/MobileMenuTab';
 

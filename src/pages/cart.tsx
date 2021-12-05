@@ -11,8 +11,8 @@ import {
 import Divider from '@mui/material/Divider';
 
 import Layout from 'src/containers/Layout/Layout';
-import ShoppingCartPreview from 'models/cart/components/preview/ShoppingCartPreview';
-import ShoppingCartSummary from 'models/cart/components/summary/ShoppingCartSummary';
+import ShoppingCartPreview from 'modules/cart/components/preview/ShoppingCartPreview';
+import ShoppingCartSummary from 'modules/cart/components/summary/ShoppingCartSummary';
 
 function ShoppingCart({}: InferGetStaticPropsType<
   typeof getStaticProps

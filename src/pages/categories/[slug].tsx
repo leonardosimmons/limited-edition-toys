@@ -1,12 +1,12 @@
 import React from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
-import { Product } from 'models/product/types';
+import { Product } from 'modules/product/types';
 import { Queries } from 'utils/keys';
 
 import productCategories from 'data/categories.json';
-import { useProducts } from 'models/product/useProducts';
-import { getAllProducts } from 'models/product/queries';
+import { useProducts } from 'modules/product/useProducts';
+import { getAllProducts } from 'modules/product/queries';
 import { capitalizeFirstLetters, shuffleArray } from '../../../lib/functions';
 
 import {
@@ -18,10 +18,10 @@ import Grid from '@mui/material/Grid';
 
 import Layout from 'src/containers/Layout/Layout';
 import ProductHeader from 'src/containers/headers/products/ProductHeader';
-import ProductDisplayCard from 'models/product/components/display-card/ProductDisplayCard';
+import ProductDisplayCard from 'modules/product/components/display-card/ProductDisplayCard';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 import { MenuTab } from 'utils/types';
-import { useShuffledProductList } from 'models/product/hooks/useShuffledProductList';
+import { useShuffledProductList } from 'modules/product/hooks/useShuffledProductList';
 
 function ProductCategoryDisplayPage({
   title,

@@ -1,5 +1,5 @@
 import { Vend, VendResponse } from 'lib';
-import { ProductType } from 'models/product/types';
+import { ProductType } from 'modules/product/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

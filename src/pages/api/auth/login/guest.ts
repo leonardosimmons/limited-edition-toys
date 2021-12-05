@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Default } from 'utils/keys';
 
-import { AuthTokens } from 'models/auth/types';
+import { AuthTokens } from 'modules/auth/types';
 import { withSessionApiRoute } from '../../../../../lib/session';
 
 export default withSessionApiRoute(guestLogin);

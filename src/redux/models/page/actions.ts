@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Product } from 'models/product/types';
+import { Product } from 'modules/product/types';
 
 export const setCurrentPageNumber = createAction<number>(
   'page/setCurrentPageNumber',

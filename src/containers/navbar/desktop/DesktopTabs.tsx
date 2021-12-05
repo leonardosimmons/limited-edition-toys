@@ -2,7 +2,7 @@ import React from 'react';
 import { Links } from 'utils/keys';
 import { useRouter } from 'next/router';
 
-import { useCart } from 'models/cart/hooks/useCart';
+import { useCart } from 'modules/cart/hooks/useCart';
 
 import { DesktopNavbarTabButton } from './styles/DesktopNavbarTabButton';
 import { DesktopNavbarDivider } from './styles/DesktopNavbarDivider';

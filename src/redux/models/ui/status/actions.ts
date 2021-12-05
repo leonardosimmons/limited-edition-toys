@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { UiStatus } from 'models/ui/types';
+import { UiStatus } from 'modules/ui/types';
 import { Viewport } from 'utils/types';
 
 // Status

@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { Product } from 'models/product/types';
+import { Product } from 'modules/product/types';
 import { StaticPath } from 'utils/types';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import { uiSelector } from 'src/redux/models/ui';
@@ -9,11 +9,11 @@ import {
   resetProduct,
   setCurrentProductSelection,
   setProductInventoryLevel,
-} from 'models/product/actions';
+} from 'modules/product/actions';
 import { capitalizeFirstLetters, fixSlug } from 'lib';
-import { useGetInventoryById } from 'models/product/queries';
-import { ProductModel } from 'models/product/product.model';
-import { useProducts } from 'models/product/useProducts';
+import { useGetInventoryById } from 'modules/product/queries';
+import { ProductModel } from 'modules/product/product.model';
+import { useProducts } from 'modules/product/useProducts';
 
 import {
   ProductImageBox,
@@ -26,8 +26,8 @@ import Grid from '@mui/material/Grid';
 
 import Layout from 'src/containers/Layout/Layout';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
-import ProductInformation from 'models/product/components/information/ProductInformation';
-import ProductDisplayGrid from 'models/product/components/display-grid/ProductDisplayGrid';
+import ProductInformation from 'modules/product/components/information/ProductInformation';
+import ProductDisplayGrid from 'modules/product/components/display-grid/ProductDisplayGrid';
 
 function ProductPage({
   slug,
