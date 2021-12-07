@@ -1,9 +1,6 @@
-import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Default } from 'utils/keys';
-
-import { AuthTokens } from 'modules/auth/types';
 import { withSessionApiRoute } from '../../../../../lib/session';
+import { nanoid } from 'nanoid';
 
 export default withSessionApiRoute(guestLogin);
 
@@ -11,16 +8,8 @@ async function guestLogin(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
       try {
-        const token: AuthTokens = await axios
-          .post(process.env.GUEST_LOGIN as string, {
-            username: Default.GUEST_LOGIN_USERNAME,
-          })
-          .then((res: any) => res.data);
-        req.session.id = token.id;
-        req.session.sub = token.sub;
-        req.session.permissionLevel = token.permissionLevel;
-        req.session.accessToken = token.accessToken;
-        req.session.refreshToken = token.refreshToken;
+        req.session.id = nanoid();
+        req.session.permissionLevel = 0;
 
         try {
           await req.session.save();

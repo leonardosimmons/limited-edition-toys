@@ -1,8 +1,8 @@
+import jwt from 'jsonwebtoken';
 import axios, { AxiosResponse } from 'axios';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { nanoid } from 'nanoid';
-import { SignJWT, jwtVerify } from 'jose';
 
 import { UserRoles, UserSessionToken } from 'modules/user/types';
 import {
@@ -13,7 +13,7 @@ import {
   ACCESS_TOKEN,
 } from 'lib/constants';
 import { jsonResponse } from 'lib';
-import { UserJWTPayload } from './types';
+import { PermissionLevel } from './auth.config';
 
 interface AuthorizationModelInterface {
   getCurrentSession: () => Promise<UserSessionToken>;
@@ -49,6 +49,13 @@ class AuthorizationModel implements AuthorizationModelInterface {
     }
   }
 
+  public setPermissionLevel(role: UserRoles): PermissionLevel {
+    switch (role) {
+      default:
+        return PermissionLevel.GUEST
+    }
+  }
+
   /**
    * Adds the user token cookie to a response
    * @param req
@@ -63,13 +70,17 @@ class AuthorizationModel implements AuthorizationModelInterface {
     const cookie = req.cookies[ACCESS_TOKEN];
     if (!cookie) {
       const secret = this.getJWTSecret(role);
-      const token = await new SignJWT({})
-        .setProtectedHeader({ alg: 'H256' })
-        .setJti(nanoid())
-        .setIssuedAt()
-        .setExpirationTime('5min')
-        .sign(new TextEncoder().encode(secret));
-      res.cookie(ACCESS_TOKEN, token, { httpOnly: true });
+      const token = jwt.sign(
+        {
+          data: {
+            id: nanoid(),
+            permissionLevel: this.setPermissionLevel(role as UserRoles)
+          },
+        },
+        secret,
+        { expiresIn: '5min' },
+      );
+      res.cookie(ACCESS_TOKEN, token, { httpOnly: true, maxAge: 300 });
     }
     return res;
   }
@@ -87,8 +98,8 @@ class AuthorizationModel implements AuthorizationModelInterface {
 
     try {
       const secret = this.getJWTSecret(role);
-      const verified = await jwtVerify(token, new TextEncoder().encode(secret));
-      return verified.payload as UserJWTPayload;
+      //const verified = await jwtVerify(token, new TextEncoder().encode(secret));
+      //return verified.payload as UserJWTPayload;
     } catch (err) {
       return jsonResponse(401, {
         error: { message: 'Your token has expired' },
