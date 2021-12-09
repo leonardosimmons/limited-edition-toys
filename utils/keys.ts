@@ -53,6 +53,8 @@ export enum Links {
   SHOPPING_CART = '/cart',
   BILLING = '/checkout/billing',
   PAYMENT = '/api/payment/checkout',
+  REGISTER = '/user/register',
+  SIGN_IN = '/user/sign-in',
 }
 
 export enum Queries {

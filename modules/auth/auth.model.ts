@@ -52,7 +52,7 @@ class AuthorizationModel implements AuthorizationModelInterface {
   public setPermissionLevel(role: UserRoles): PermissionLevel {
     switch (role) {
       default:
-        return PermissionLevel.GUEST
+        return PermissionLevel.GUEST;
     }
   }
 
@@ -74,7 +74,7 @@ class AuthorizationModel implements AuthorizationModelInterface {
         {
           data: {
             id: nanoid(),
-            permissionLevel: this.setPermissionLevel(role as UserRoles)
+            permissionLevel: this.setPermissionLevel(role as UserRoles),
           },
         },
         secret,

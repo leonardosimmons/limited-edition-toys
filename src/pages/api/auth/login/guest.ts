@@ -18,7 +18,7 @@ async function guestLogin(req: NextApiRequest, res: NextApiResponse) {
         }
 
         res.status(200).json({
-          sub: req.session.sub,
+          sub: req.session.id,
           permissionLevel: req.session.permissionLevel,
         });
       } catch (err) {
