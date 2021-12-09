@@ -1,5 +1,7 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { NextLinkComposed } from 'lib/components/NextLinkComposed';
+import { Links } from 'utils/keys';
 
 import { styled } from '@mui/material/styles';
 
@@ -20,9 +22,14 @@ const ListText = styled(ListItemText)<ListItemTextProps>(({ theme }) => ({
 }));
 
 const MobileMenuList: React.FunctionComponent = (): JSX.Element => {
+  const router = useRouter();
+
+  function handleMyAccountClick(): void {
+    router.push(Links.SIGN_IN)
+  }
   return (
     <List disablePadding sx={{ flex: 1, marginTop: '2rem' }}>
-      <ListItem button component={NextLinkComposed} to={'/'}>
+      {/* <ListItem button component={NextLinkComposed} to={'/'}>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
@@ -31,8 +38,8 @@ const MobileMenuList: React.FunctionComponent = (): JSX.Element => {
           primary="Wishlist"
           primaryTypographyProps={{ variant: 'h4' }}
         />
-      </ListItem>
-      <ListItem button component={NextLinkComposed} to={'/'}>
+      </ListItem> */}
+      <ListItem button component={NextLinkComposed} to={'/'} onClick={handleMyAccountClick}>
         <ListItemIcon>
           <FaceIcon />
         </ListItemIcon>

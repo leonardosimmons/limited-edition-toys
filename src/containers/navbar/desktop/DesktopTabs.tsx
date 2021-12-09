@@ -27,6 +27,10 @@ const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
     router.push(Links.SHOPPING_CART);
   }
 
+  function handleMyAccountClick(): void {
+    router.push(Links.SIGN_IN)
+  }
+
   //* -------------------------------------------------
   // Render
   return (
@@ -35,10 +39,12 @@ const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
       <DesktopNavbarTabButton startIcon={<AssignmentTwoToneIcon />}>
         Wishlist
       </DesktopNavbarTabButton> */}
-      {/* <DesktopNavbarTabButton startIcon={<FaceTwoTone />}>
+      <DesktopNavbarTabButton
+        startIcon={<FaceTwoTone />}
+        onClick={handleMyAccountClick}>
         My Account
-      </DesktopNavbarTabButton> */}
-      {/* <DesktopNavbarDivider orientation="vertical" flexItem /> */}
+      </DesktopNavbarTabButton>
+      <DesktopNavbarDivider orientation="vertical" flexItem />
       <DesktopNavbarCartIcon
         aria-label="shopping cart"
         size="small"

@@ -1,0 +1,10 @@
+{
+  "heading": {
+    "title": "Sign in",
+    "caption": "Welcome"
+  },
+  "inputs": [
+    { "label": "Email Address", "propName": "email" },
+    { "label": "Password", "propName": "password" }
+  ]
+}

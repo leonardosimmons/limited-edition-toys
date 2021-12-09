@@ -10,3 +10,8 @@ export type UserJWTPayload = {
   jti: string;
   iat: number;
 };
+
+export type UserSignInToken = {
+  email: string;
+  password: string;
+};
