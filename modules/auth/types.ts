@@ -11,6 +11,13 @@ export type UserJWTPayload = {
   iat: number;
 };
 
+export type UserRegistrationToken = {
+  username: string;
+  email: string;
+  password: string;
+  checkPw: string;
+}
+
 export type UserSignInToken = {
   email: string;
   password: string;

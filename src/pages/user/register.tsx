@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { UserRegistrationToken } from 'modules/auth/types';
 import data from '../../../data/pages/signIn.json';
-import { UserSignInToken } from 'modules/auth/types';
 
 import {
   SignInHeader,
@@ -23,32 +23,51 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useRouter } from 'next/router';
 
-function SignInPage({}: InferGetStaticPropsType<
+function Registration({}: InferGetStaticPropsType<
   typeof getStaticProps
 >): JSX.Element {
   //* -------------------------------------------------
   // Properties
   const router = useRouter();
   const [showPassword, setShowPassword] = React.useState<boolean>();
-  const [token, setToken] = React.useState<UserSignInToken>({
+  const [showCheckPw, setCheckPw] = React.useState<boolean>();
+  const [token, setToken] = React.useState<UserRegistrationToken>({
+    username: '',
     email: '',
     password: '',
+    checkPw: ''
   });
 
   //* -------------------------------------------------
   // Handlers
-  function handleCreateAccount() {
-    router.push('/user/register')
+  function handleBackToSignIn(): void {
+    router.push('/user/sign-in')
   }
 
-  function handleInputChange(key: keyof UserSignInToken) {
-    return (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleRegisterUser(): void {
+    // check user credientials
+    // OK  => redirect to account page (home temp)
+    // Err => display error via alert
+    router.push('/')
+  }
+
+  function handleInputChange(key: keyof UserRegistrationToken) {
+    return (e: React.ChangeEvent<HTMLInputElement>): void => {
       setToken({ ...token, [key]: e.target.value });
     };
   }
 
-  function handlePasswordVisibility(): void {
-    setShowPassword((state) => !state);
+  function handlePasswordVisibility(type: keyof UserRegistrationToken): void {
+    switch (type) {
+      case 'checkPw':
+        setCheckPw((state) => !state);
+        break;
+      case 'password':
+        setShowPassword((state) => !state);
+        break;
+      default:
+        return;
+    }
   }
 
   function handlePasswordMouseDown(
@@ -57,44 +76,41 @@ function SignInPage({}: InferGetStaticPropsType<
     e.preventDefault();
   }
 
-  function handleSignInClicked(): void {
-    // check user credientials
-    // OK  => redirect to account page (home temp)
-    // Err => display error via alert
-    console.log('Sign in clicked');
-  }
-
   return (
     <Layout title={'Limited Edition Toys | Sign In'}>
       <SignInMainContainer>
         <SignInHeader>
-          <Typography variant="caption">{data.heading.caption}</Typography>
-          <Typography variant="h1">{data.heading.title}</Typography>
+          <Typography variant="caption">{data.register.caption}</Typography>
+          <Typography variant="h1">{data.register.title}</Typography>
         </SignInHeader>
-        {data.inputs.map((input, index) => (
+        {data.register.inputs.map((input, index) => (
           <SignInInputFormControl key={index}>
-            <InputLabel>{input.label}</InputLabel>
+            <InputLabel htmlFor={`register-input-${index}`}>{input.label}</InputLabel>
             <OutlinedInput
-              id={`signin-input-${input.label}`}
+              id={`register-input-${index}`}
               type={
                 input.propName === 'password' && showPassword
                   ? 'text'
                   : input.propName === 'password'
                   ? 'password'
+                  : input.propName === 'checkPw' && showCheckPw
+                  ? 'text'
+                  : input.propName === 'checkPw'
+                  ? 'password'
                   : 'text'
               }
               size="small"
               label={input.label}
-              value={token![input.propName as keyof UserSignInToken] as string}
+              value={token![input.propName as keyof UserRegistrationToken] as string}
               onChange={handleInputChange(
-                input.propName as keyof UserSignInToken,
+                input.propName as keyof UserRegistrationToken,
               )}
               endAdornment={
-                input.propName === 'password' && (
+                input.propName === 'password' ? (
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={handlePasswordVisibility}
+                      onClick={() => handlePasswordVisibility(input.propName as keyof UserRegistrationToken)}
                       onMouseDown={handlePasswordMouseDown}>
                       {showPassword ? (
                         <Visibility sx={{ transform: 'scale(.8)' }} />
@@ -104,16 +120,31 @@ function SignInPage({}: InferGetStaticPropsType<
                     </IconButton>
                   </InputAdornment>
                 )
+                  : input.propName === 'checkPw' ? (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => handlePasswordVisibility(input.propName as keyof UserRegistrationToken)}
+                      onMouseDown={handlePasswordMouseDown}>
+                      {showCheckPw ? (
+                        <Visibility sx={{ transform: 'scale(.8)' }} />
+                      ) : (
+                        <VisibilityOff sx={{ transform: 'scale(.8)' }} />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                  )
+                    : ''
               }
             />
           </SignInInputFormControl>
         ))}
         <SignInInputButtonBox>
-          <Button variant="contained" onClick={handleSignInClicked}>
-            Sign In
+          <Button variant="contained" onClick={handleRegisterUser}>
+            Create Account
           </Button>
           <div>
-            <Button onClick={handleCreateAccount}>Create Account</Button>
+            <Button onClick={handleBackToSignIn}>Back to Sign in</Button>
           </div>
         </SignInInputButtonBox>
       </SignInMainContainer>
@@ -121,7 +152,7 @@ function SignInPage({}: InferGetStaticPropsType<
   );
 }
 
-export default SignInPage;
+export default Registration;
 
 export const getStaticProps: GetStaticProps = async () => {
   return {

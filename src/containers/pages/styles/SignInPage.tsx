@@ -28,12 +28,11 @@ export const SignInHeader = styled(Box)<BoxProps>(({ theme }) => ({
     padding: '3rem 0'
   },
   [theme.breakpoints.up('tabletLg')]: {
-    marginBottom: '2rem',
+    marginBottom: 0,
     padding: '6rem 0'
   },
   [theme.breakpoints.up('desktopSm')]: {
     height: '400px',
-    marginBottom: '2rem',
     padding: '4rem 0'
   },
   '& > span.MuiTypography-caption': {
@@ -93,6 +92,7 @@ export const SignInInputButtonBox = styled(Box)<BoxProps>(({ theme }) => ({
   maxWidth: '400px',
   width: '100%',
   ...theme.custom.centerColumn,
+  marginTop: '2rem',
   '& > button.MuiButton-root:nth-of-type(1)': {
     width: '100%',
     fontSize: '1.2rem',
