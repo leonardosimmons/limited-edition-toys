@@ -5,3 +5,8 @@ export enum PermissionLevel {
   AFFILIATE = 8,
   ADMIN = 2048,
 }
+
+export enum Expiration {
+  ACCESS_TOKEN = 180, // seconds
+  SESSION_COOKIE = 180, // seconds
+}

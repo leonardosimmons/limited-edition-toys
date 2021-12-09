@@ -1,6 +1,8 @@
+import jwt from 'jsonwebtoken';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withSessionApiRoute } from '../../../../../lib/session';
-import { nanoid } from 'nanoid';
+import { AuthorizationModel } from 'modules/auth/auth.model';
+import { GUEST_JWT_SECRET } from 'lib/constants';
 
 export default withSessionApiRoute(guestLogin);
 
@@ -8,8 +10,10 @@ async function guestLogin(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
       try {
-        req.session.id = nanoid();
-        req.session.permissionLevel = 0;
+        const model = new AuthorizationModel();
+        const accessToken: string = model.createAccessToken('guest');
+
+        req.session.auth = accessToken;
 
         try {
           await req.session.save();
@@ -17,10 +21,14 @@ async function guestLogin(req: NextApiRequest, res: NextApiResponse) {
           throw new Error(err);
         }
 
-        res.status(200).json({
-          sub: req.session.id,
-          permissionLevel: req.session.permissionLevel,
-        });
+        try {
+          const decoded = jwt.verify(req.session.auth, GUEST_JWT_SECRET);
+          res.status(200).json({
+            result: decoded,
+          });
+        } catch (err: any) {
+          throw new Error('Invalid token');
+        }
       } catch (err) {
         res.status(500).json({ message: err });
       }

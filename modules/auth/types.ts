@@ -1,13 +1,9 @@
-export type AuthTokens = {
-  readonly id: string;
-  readonly sub: string;
-  readonly accessToken: string;
-  readonly refreshToken: string;
-  readonly permissionLevel: number;
-};
+import { CartSessionToken } from 'modules/cart/types';
+import { UserAccessToken } from 'modules/user/types';
 
-export type UserJWTPayload = {
-  jti: string;
+export type AccessToken = {
+  data: UserAccessToken;
+  exp: number;
   iat: number;
 };
 
@@ -16,7 +12,7 @@ export type UserRegistrationToken = {
   email: string;
   password: string;
   checkPw: string;
-}
+};
 
 export type UserSignInToken = {
   email: string;

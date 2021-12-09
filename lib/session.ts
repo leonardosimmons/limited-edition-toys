@@ -1,5 +1,7 @@
 import { IronSessionOptions } from 'iron-session';
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next';
+import { Expiration } from 'modules/auth/auth.config';
+import { CartSessionToken } from 'modules/cart/types';
 import {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
@@ -9,11 +11,8 @@ import { Key } from '../utils/keys';
 
 declare module 'iron-session' {
   interface IronSessionData {
-    id: string;
-    sub: string;
-    accessToken: string;
-    refreshToken: string;
-    permissionLevel: number;
+    auth: string;
+    cart: CartSessionToken[];
   }
 }
 
@@ -21,7 +20,7 @@ const sessionOptions: IronSessionOptions = {
   password: process.env.SESSION_COOKIE_SECRET as string,
   cookieName: Key.SESSION_COOKIES,
   cookieOptions: {
-    maxAge: undefined,
+    maxAge: Expiration.SESSION_COOKIE,
     secure: process.env.NODE_ENV === 'production',
   },
 };
