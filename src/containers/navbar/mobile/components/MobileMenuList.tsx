@@ -25,7 +25,7 @@ const MobileMenuList: React.FunctionComponent = (): JSX.Element => {
   const router = useRouter();
 
   function handleMyAccountClick(): void {
-    router.push(Links.SIGN_IN)
+    router.push(Links.ACCOUNT);
   }
   return (
     <List disablePadding sx={{ flex: 1, marginTop: '2rem' }}>
@@ -39,7 +39,11 @@ const MobileMenuList: React.FunctionComponent = (): JSX.Element => {
           primaryTypographyProps={{ variant: 'h4' }}
         />
       </ListItem> */}
-      <ListItem button component={NextLinkComposed} to={'/'} onClick={handleMyAccountClick}>
+      <ListItem
+        button
+        component={NextLinkComposed}
+        to={'/'}
+        onClick={handleMyAccountClick}>
         <ListItemIcon>
           <FaceIcon />
         </ListItemIcon>

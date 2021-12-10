@@ -49,6 +49,7 @@ export enum Images {
 }
 
 export enum Links {
+  ACCOUNT = '/user/account',
   HOME = '/',
   SHOPPING_CART = '/cart',
   BILLING = '/checkout/billing',

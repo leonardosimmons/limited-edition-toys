@@ -28,7 +28,7 @@ const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
   }
 
   function handleMyAccountClick(): void {
-    router.push(Links.SIGN_IN)
+    router.push(Links.ACCOUNT);
   }
 
   //* -------------------------------------------------
