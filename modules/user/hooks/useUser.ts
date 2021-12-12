@@ -1,5 +1,5 @@
 import { QueryClient, useMutation } from 'react-query';
-import { UserOptions, UserSessionToken } from '../types';
+import { UserOptions } from '../types';
 import { RouteConfirmation } from 'utils/types';
 import { Queries } from 'utils/keys';
 
@@ -18,19 +18,19 @@ function useUser(options?: UserOptions) {
     Queries.LOGIN_GUEST,
     () => model.guestLogin(),
     {
-      onSuccess: (token: UserSessionToken | RouteConfirmation | undefined) => {
-        if (token && (token as UserSessionToken)) {
-          const queryClient = new QueryClient();
-          const session = new ShoppingSession();
-          queryClient.setQueryData(Queries.USER_SESSION, token);
-          session
-            .initShoppingSession()
-            .then((res: any) => res.data)
-            .catch((err) => {
-              throw new Error(err);
-            });
-        }
-      },
+      // onSuccess: (token: UserSessionToken | RouteConfirmation | undefined) => {
+      //   if (token && (token as UserSessionToken)) {
+      //     const queryClient = new QueryClient();
+      //     const session = new ShoppingSession();
+      //     queryClient.setQueryData(Queries.USER_SESSION, token);
+      //     session
+      //       .initShoppingSession()
+      //       .then((res: any) => res.data)
+      //       .catch((err) => {
+      //         throw new Error(err);
+      //       });
+      //   }
+      // },
     },
   );
 
