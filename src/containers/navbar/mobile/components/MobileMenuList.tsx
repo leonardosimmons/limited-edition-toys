@@ -28,32 +28,33 @@ const MobileMenuList: React.FunctionComponent = (): JSX.Element => {
     router.push(Links.ACCOUNT);
   }
   return (
-    <List disablePadding sx={{ flex: 1, marginTop: '2rem' }}>
-      {/* <ListItem button component={NextLinkComposed} to={'/'}>
-        <ListItemIcon>
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListText
-          disableTypography
-          primary="Wishlist"
-          primaryTypographyProps={{ variant: 'h4' }}
-        />
-      </ListItem> */}
-      <ListItem
-        button
-        component={NextLinkComposed}
-        to={'/'}
-        onClick={handleMyAccountClick}>
-        <ListItemIcon>
-          <FaceIcon />
-        </ListItemIcon>
-        <ListText
-          disableTypography
-          primary="My Account"
-          primaryTypographyProps={{ variant: 'h4' }}
-        />
-      </ListItem>
-    </List>
+    <div />
+    // <List disablePadding sx={{ flex: 1, marginTop: '2rem' }}>
+    //   <ListItem button component={NextLinkComposed} to={'/'}>
+    //     <ListItemIcon>
+    //       <AssignmentIcon />
+    //     </ListItemIcon>
+    //     <ListText
+    //       disableTypography
+    //       primary="Wishlist"
+    //       primaryTypographyProps={{ variant: 'h4' }}
+    //     />
+    //   </ListItem>
+    //   <ListItem
+    //     button
+    //     component={NextLinkComposed}
+    //     to={'/'}
+    //     onClick={handleMyAccountClick}>
+    //     <ListItemIcon>
+    //       <FaceIcon />
+    //     </ListItemIcon>
+    //     <ListText
+    //       disableTypography
+    //       primary="My Account"
+    //       primaryTypographyProps={{ variant: 'h4' }}
+    //     />
+    //   </ListItem>
+    // </List>
   );
 };
 

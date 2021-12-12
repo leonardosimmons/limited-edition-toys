@@ -39,11 +39,11 @@ const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
       <DesktopNavbarTabButton startIcon={<AssignmentTwoToneIcon />}>
         Wishlist
       </DesktopNavbarTabButton> */}
-      <DesktopNavbarTabButton
+      {/* <DesktopNavbarTabButton
         startIcon={<FaceTwoTone />}
         onClick={handleMyAccountClick}>
         My Account
-      </DesktopNavbarTabButton>
+      </DesktopNavbarTabButton> */}
       <DesktopNavbarDivider orientation="vertical" flexItem />
       <DesktopNavbarCartIcon
         aria-label="shopping cart"
