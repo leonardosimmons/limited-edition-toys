@@ -1,10 +1,9 @@
 import { useQuery } from 'react-query';
 import { Queries } from 'utils/keys';
-import { UserSessionToken } from '../user/types';
 
 import { AuthorizationModel } from 'modules/auth/auth.model';
 
-export async function getCurrentSession(): Promise<UserSessionToken> {
+export async function getCurrentSession() {
   return new AuthorizationModel().getCurrentSession();
 }
 
