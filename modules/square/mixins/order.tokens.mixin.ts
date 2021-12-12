@@ -38,18 +38,20 @@ export function SquareOrderTokensType<TBase extends Constructor>(Base: TBase) {
           name: token.product.name,
           quantity: token.quantity.toString(),
           basePriceMoney: {
-            amount: (token.product.price_excluding_tax! *
-              100) as unknown as bigint,
+            amount: BigInt(
+              token.product.price_excluding_tax! * 100,
+            ).toString() as unknown as bigint,
             currency: 'USD',
           },
         });
       });
-
       list.push({
         name: 'Shipping',
         quantity: '1',
         basePriceMoney: {
-          amount: ((10 + total * 0.025) * 100) as unknown as bigint,
+          amount: BigInt(
+            Math.round((10 + total * 0.025) * 100),
+          ).toString() as unknown as bigint,
           currency: 'USD',
         },
       });
