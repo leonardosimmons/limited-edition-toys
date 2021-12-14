@@ -37,12 +37,6 @@ export type ProductInventory = {
   reorder_amount: number;
 };
 
-type ProductOrderToken = {
-  u_Id: string | 'guest';
-  p_Id: string;
-  quantity: number;
-};
-
 export type ProductPropertyOptions = Partial<ProductType>;
 
 export type ProductQueryOptions = {
