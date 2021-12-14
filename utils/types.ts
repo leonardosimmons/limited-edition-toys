@@ -8,6 +8,16 @@ export type CustomInputConfig = {
   placeholder?: string;
 };
 
+export type IncludeExclude = {
+  include?: FieldValuePair[];
+  exclude?: FieldValuePair[];
+};
+
+export type FieldValuePair = {
+  field: string;
+  value: string;
+};
+
 export type MenuTab = {
   name: string;
   link: string;
@@ -16,6 +26,11 @@ export type MenuTab = {
   index?: number;
   mouseOver?: boolean;
   ariaPopup?: boolean;
+};
+
+export type MinMaxQuantity = {
+  min_quantity?: number;
+  max_quantity?: number;
 };
 
 export type OverlayState = 'open' | 'closed';
