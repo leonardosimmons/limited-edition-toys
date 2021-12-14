@@ -66,16 +66,16 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   // check if item matches a current promotion
   React.useEffect(() => {
     if (promotions && promotions.length > 0) {
-      const result = checkForPromotions(product);
-      if (result && result.length > 0) {
-        setDiscounts(result);
-      }
+      checkForPromotions(product)
+        .then((result) => {
+          if (result && result.length > 0) {
+            // add discount to product
+            setDiscounts(result);
+          }
+        })
+        .catch((err) => err);
     }
   }, [promotionStatus]);
-
-  React.useEffect(() => {
-    console.log(promotions);
-  }, [promotions]);
 
   //* -------------------------------------------------
   // Stock

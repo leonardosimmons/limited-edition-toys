@@ -1,6 +1,8 @@
 import React from 'react';
 import { Promotion } from 'modules/promotions/types';
 
+import { usePromotions } from 'modules/promotions/hooks/usePromotions';
+
 import { ProductDisplayActionGrid } from '../styles/ProductDisplayActionGrid';
 
 import Grid from '@mui/material/Grid';
@@ -19,19 +21,12 @@ const ProductDisplayAction: React.FunctionComponent<Props> = ({
   addToCart,
   promotions,
 }): JSX.Element => {
+  const { calculateDiscountPrice } = usePromotions();
   const [discountPrice, setDiscountPrice] = React.useState<number>(0);
 
   React.useEffect(() => {
     if (promotions) {
-      console.log(price * promotions[0].action.value);
-      switch (promotions[0].action.type) {
-        case 'percent_pool_discount':
-          setDiscountPrice(price - price * promotions[0].action.value);
-          break;
-        default:
-          setDiscountPrice(price);
-          break;
-      }
+      setDiscountPrice(calculateDiscountPrice(price, promotions[0]));
     }
   }, [promotions]);
 
