@@ -64,6 +64,7 @@ export enum Queries {
   INVENTORY_BY_ID = 'inventory-by-id',
   PAGINATED_PRODUCTS = 'paginated-products',
   PRODUCT_CATEGORIES = 'product-categories',
+  PRODUCT_PROMOTIONS = 'product-promotions',
   PRODUCT_TAGS = 'product-tags',
   PRODUCT_BY_ID = 'product-by-id',
   AUTH_LOGIN = 'user-auth-login',

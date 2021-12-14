@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Default } from 'utils/keys';
+import { Promotion } from 'modules/promotions/types';
 
 import { ProductDisplayInfoGrid } from '../styles/ProductDisplayInfoGrid';
 
@@ -14,6 +15,7 @@ type Props = {
   rating: number;
   slug: string;
   inStock: boolean | undefined;
+  promotion?: Promotion;
 };
 
 const ProductDisplayInfo: React.FunctionComponent<Props> = ({
@@ -21,6 +23,7 @@ const ProductDisplayInfo: React.FunctionComponent<Props> = ({
   name,
   slug,
   rating,
+  promotion,
 }): JSX.Element => {
   return (
     <ProductDisplayInfoGrid item container direction="column">
@@ -39,6 +42,15 @@ const ProductDisplayInfo: React.FunctionComponent<Props> = ({
           style={{ color: inStock ? 'green' : 'red' }}>
           {inStock ? 'In Stock' : 'Out of Stock'}
         </Typography>
+        {promotion ? (
+          <Typography
+            variant="caption"
+            style={{ color: 'red', fontSize: '1.1rem', marginLeft: '15px' }}>
+            {promotion.name}
+          </Typography>
+        ) : (
+          ''
+        )}
       </Grid>
       <Grid item container>
         <ProductStarRating name={slug} rating={0} reviews={0} />

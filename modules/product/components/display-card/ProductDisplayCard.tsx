@@ -6,7 +6,9 @@ import {
   ProductCartToken,
   ProductInventory,
 } from 'modules/product/types';
+import { Promotion } from 'modules/promotions/types';
 
+import { usePromotions } from 'modules/promotions/hooks/usePromotions';
 import { useCart } from 'modules/cart/hooks/useCart';
 import { useGetInventoryById } from 'modules/product/queries';
 import { useSingleProduct } from 'modules/product/hooks/useSingleProduct';
@@ -37,6 +39,11 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   const ctx = useSingleProduct();
   const app = useAppSelector(appSelector);
   const [slug, setSlug] = React.useState<string | undefined>();
+  const {
+    checkForPromotions,
+    status: promotionStatus,
+    promotions,
+  } = usePromotions();
   const { status, data: inventory, error } = useGetInventoryById(product.id);
 
   // once populated set the url slug for the product
@@ -51,6 +58,24 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
       );
     }
   }, [product]);
+
+  //* -------------------------------------------------
+  // Promotions
+  const [discount, setDiscounts] = React.useState<Promotion[] | undefined>();
+
+  // check if item matches a current promotion
+  React.useEffect(() => {
+    if (promotions && promotions.length > 0) {
+      const result = checkForPromotions(product);
+      if (result && result.length > 0) {
+        setDiscounts(result);
+      }
+    }
+  }, [promotionStatus]);
+
+  React.useEffect(() => {
+    console.log(promotions);
+  }, [promotions]);
 
   //* -------------------------------------------------
   // Stock
@@ -134,11 +159,13 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
           rating={0}
           slug={slug as string}
           inStock={inStock}
+          promotion={discount ? discount[0] : undefined}
         />
         <ProductDisplayAction
           inStock={inStock}
           price={product.price_excluding_tax as number}
           addToCart={handleAddToCart}
+          promotions={discount}
         />
       </Grid>
     </DisplayCard>
