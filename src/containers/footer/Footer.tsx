@@ -10,7 +10,7 @@ type Props = {};
 
 const Footer = styled('footer')(({ theme }) => ({
   width: '100%',
-  height: '175px',
+  height: '150px',
   backgroundImage: `url(${Images.BOTTOM_CLOUDS_LIGHT})`,
   backgroundSize: 'contain',
   backgroundRepeat: 'repeat-x',
