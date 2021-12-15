@@ -1,4 +1,4 @@
-import { FieldValuePair, IncludeExclude, MinMaxQuantity } from 'utils/types';
+import { IncludeExclude, MinMaxQuantity } from 'utils/types';
 
 export type PromotionActionType =
   | 'basic_percent_discount'
@@ -24,6 +24,11 @@ export type PromotionCondition = IncludeExclude &
     quantity: number;
     min_price?: number;
   };
+
+export type PromotionDiscount = {
+  promotion: Promotion;
+  price: number;
+};
 
 export type PromotionSearchField =
   | 'brand_id'

@@ -1,4 +1,4 @@
-import { Combinable } from 'utils/types';
+import { PromotionDiscount } from 'modules/promotions/types';
 
 export type ProductCartToken = {
   product: Product;
@@ -103,4 +103,7 @@ export type Product = {
   updated_at?: string;
   deleted_at?: string;
   version?: number;
+  custom?: {
+    promotions?: PromotionDiscount[];
+  };
 };

@@ -1,8 +1,13 @@
 import { styled } from '@mui/material/styles';
 
 import Grid, { GridProps } from '@mui/material/Grid';
+interface StyledGridProps extends GridProps {
+  discounted?: boolean;
+}
 
-export const ProductDetailSection = styled(Grid)<GridProps>(({ theme }) => ({
+export const ProductDetailSection = styled(Grid, {
+  shouldForwardProp: (prop) => prop !== 'discounted',
+})<StyledGridProps>(({ discounted, theme }) => ({
   '& > div': {
     ...theme.custom?.center,
     [theme.breakpoints.up('tabletLg')]: {
@@ -64,17 +69,38 @@ export const ProductDetailSection = styled(Grid)<GridProps>(({ theme }) => ({
     },
   },
   '& > div:nth-of-type(3)': {
+    ...theme.custom.centerColumn,
     [theme.breakpoints.up('tabletLg')]: {
       width: '90%',
-      margin: '0 auto',
-      display: 'flex',
       justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      margin: '0 auto',
     },
     '& span.MuiTypography-body1': {
       fontSize: '1.6rem',
       fontWeight: 'bold',
       margin: '2rem 0',
-      lineSpacing: 1.2,
+      letterSpacing: 1.2,
     },
+    ...(discounted && {
+      '& caption.MuiTypography-body1': {
+        padding: '2rem 0 .5rem',
+        color: 'red',
+        fontSize: '1.2rem',
+        fontWeight: 'bold',
+      },
+      '& caption.alt-caption': {
+        marginBottom: '-2rem',
+        padding: '2rem 0 .5rem',
+      },
+      '& > div.MuiBox-root > span.MuiTypography-body1:nth-of-type(1)': {
+        textDecoration: 'line-through solid black',
+      },
+      '& > div.MuiBox-root > span.MuiTypography-body1:nth-of-type(2)': {
+        marginLeft: '15px',
+        color: 'red',
+        fontSize: '2rem',
+      },
+    }),
   },
 }));

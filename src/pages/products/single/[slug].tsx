@@ -10,7 +10,9 @@ import {
   setCurrentProductSelection,
   setProductInventoryLevel,
 } from 'modules/product/actions';
-import { capitalizeFirstLetters, fixSlug } from 'lib';
+import { capitalizeFirstLetters, fixSlug } from '../../../../lib/functions';
+import { Promotion } from 'modules/promotions/types';
+import { usePromotions } from 'modules/promotions/hooks/usePromotions';
 import { useGetInventoryById } from 'modules/product/queries';
 import { ProductModel } from 'modules/product/product.model';
 import { useProducts } from 'modules/product/useProducts';
@@ -56,14 +58,7 @@ function ProductPage({
   });
   const product: Product | undefined = React.useMemo(() => {
     if (products.list && products.list.length > 0) {
-      return products.list.find(
-        (product) =>
-          product.name
-            .toLowerCase()
-            .replace(/[' '/]/g, '-')
-            .replace(/[!:.;()""\[\]]/g, '')
-            .replace(/(--|---|-+-)/g, '-') === slug,
-      );
+      return products.list.find((product) => fixSlug(product.name) === slug);
     }
   }, [products]);
 
@@ -98,6 +93,31 @@ function ProductPage({
   }, [inventory]);
 
   //* -------------------------------------------------
+  // Promotions
+
+  const {
+    checkForPromotions,
+    status: promotionStatus,
+    promotions,
+  } = usePromotions();
+  const [discount, setDiscounts] = React.useState<Promotion[] | undefined>();
+
+  // check if item matches a current promotion
+  React.useEffect(() => {
+    if (product) {
+      if (promotions && promotions.length > 0) {
+        checkForPromotions(product)
+          .then((result) => {
+            if (result && result.length > 0) {
+              setDiscounts(result);
+            }
+          })
+          .catch((err) => err);
+      }
+    }
+  }, [promotionStatus, product]);
+
+  //* -------------------------------------------------
   // Render
 
   if (products.status === 'loading' || inventoryStatus === 'loading') {
@@ -128,7 +148,7 @@ function ProductPage({
               />
             </ProductImageBox>
           </Grid>
-          <ProductInformation item slug={slug} />
+          <ProductInformation item slug={slug} promotion={discount} />
         </ProductMainGrid>
         <ProductDisplayGrid
           title={'You May Also Like'}
