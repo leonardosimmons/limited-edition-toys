@@ -60,7 +60,7 @@ const ProductInformation: React.FunctionComponent<Props> = ({
       container
       direction="column">
       <ProductDetails slug={slug} discount={discount ? discount : undefined} />
-      <ProductAction />
+      <ProductAction discount={discount ? discount : undefined} />
       <Grid item>
         {/* <Typography variant="h3">{''}</Typography>
         <Typography variant="body1" sx={{ minHeight: '100px' }}>

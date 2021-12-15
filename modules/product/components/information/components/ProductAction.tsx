@@ -14,8 +14,15 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { PromotionDiscount } from 'modules/promotions/types';
 
-const ProductAction: React.FunctionComponent = (): JSX.Element => {
+type Props = {
+  discount?: PromotionDiscount;
+};
+
+const ProductAction: React.FunctionComponent<Props> = ({
+  discount,
+}): JSX.Element => {
   const cart = useCart();
   const router = useRouter();
   const ctx = useSingleProduct();
@@ -29,6 +36,7 @@ const ProductAction: React.FunctionComponent = (): JSX.Element => {
       quantity: ctx.quantity,
       stock: ctx.inventory.level,
       total: (ctx.current.price_excluding_tax as number) * ctx.quantity,
+      discount,
     };
     cart.add(token);
     router.push('/cart');

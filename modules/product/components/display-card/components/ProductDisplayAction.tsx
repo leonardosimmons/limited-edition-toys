@@ -12,30 +12,30 @@ type Props = {
   inStock: boolean;
   price: number;
   addToCart: () => void;
-  promotions?: Promotion[];
+  promotion?: Promotion;
 };
 
 const ProductDisplayAction: React.FunctionComponent<Props> = ({
   inStock,
   price,
   addToCart,
-  promotions,
+  promotion,
 }): JSX.Element => {
   const { calculateDiscountPrice } = usePromotions();
   const [discountPrice, setDiscountPrice] = React.useState<number>(0);
 
   React.useEffect(() => {
-    if (promotions) {
-      setDiscountPrice(calculateDiscountPrice(price, promotions[0]));
+    if (promotion) {
+      setDiscountPrice(calculateDiscountPrice(price, promotion));
     }
-  }, [promotions]);
+  }, [promotion]);
 
   return (
     <ProductDisplayActionGrid
       container
       direction="row"
-      discounted={promotions ? true : false}>
-      {promotions ? (
+      discounted={promotion ? true : false}>
+      {promotion ? (
         discountPrice === price ? (
           <Grid item>{`$${price}.00`}</Grid>
         ) : (

@@ -5,6 +5,7 @@ export type ProductCartToken = {
   quantity: number;
   stock: number;
   total: number;
+  discount?: PromotionDiscount;
 };
 
 export type ProductCategory = {

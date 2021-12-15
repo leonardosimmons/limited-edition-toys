@@ -6,7 +6,7 @@ import {
   ProductCartToken,
   ProductInventory,
 } from 'modules/product/types';
-import { Promotion } from 'modules/promotions/types';
+import { Promotion, PromotionDiscount } from 'modules/promotions/types';
 
 import { usePromotions } from 'modules/promotions/hooks/usePromotions';
 import { useCart } from 'modules/cart/hooks/useCart';
@@ -39,11 +39,6 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   const ctx = useSingleProduct();
   const app = useAppSelector(appSelector);
   const [slug, setSlug] = React.useState<string | undefined>();
-  const {
-    checkForPromotions,
-    status: promotionStatus,
-    promotions,
-  } = usePromotions();
   const { status, data: inventory, error } = useGetInventoryById(product.id);
 
   // once populated set the url slug for the product
@@ -61,7 +56,15 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
 
   //* -------------------------------------------------
   // Promotions
-  const [discount, setDiscounts] = React.useState<Promotion[] | undefined>();
+  const {
+    calculateDiscountPrice,
+    checkForPromotions,
+    status: promotionStatus,
+    promotions,
+  } = usePromotions();
+  const [discount, setDiscount] = React.useState<
+    PromotionDiscount | undefined
+  >();
 
   // check if item matches a current promotion
   React.useEffect(() => {
@@ -69,8 +72,14 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
       checkForPromotions(product)
         .then((result) => {
           if (result && result.length > 0) {
-            // add discount to product
-            setDiscounts(result);
+            const discountPrice = calculateDiscountPrice(
+              product.price_excluding_tax!,
+              result[0],
+            );
+            setDiscount({
+              promotion: result[0],
+              price: discountPrice,
+            });
           }
         })
         .catch((err) => err);
@@ -108,6 +117,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
       quantity: 1,
       stock: stockCount,
       total: product.price_excluding_tax as number,
+      discount,
     };
     cart.add(token);
     router.push('/cart');
@@ -159,13 +169,13 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
           rating={0}
           slug={slug as string}
           inStock={inStock}
-          promotion={discount ? discount[0] : undefined}
+          promotion={discount?.promotion}
         />
         <ProductDisplayAction
           inStock={inStock}
           price={product.price_excluding_tax as number}
           addToCart={handleAddToCart}
-          promotions={discount}
+          promotion={discount?.promotion}
         />
       </Grid>
     </DisplayCard>

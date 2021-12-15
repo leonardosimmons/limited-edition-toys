@@ -1,4 +1,5 @@
 import React from 'react';
+import { fixSlug } from '../../../../lib/functions';
 import { ProductCartToken, ProductInventory } from 'modules/product/types';
 import { useRouter } from 'next/router';
 
@@ -63,11 +64,7 @@ const ProductCartCard: React.FunctionComponent<Props> = ({
   // Handlers
 
   function handleViewDetails(): void {
-    const slug: string = token.product.name
-      .toLowerCase()
-      .replace(/[' '/]/g, '-')
-      .replace(/[!:.;()""\[\]]/g, '')
-      .replace(/(--|---|-+-)/g, '-');
+    const slug: string = fixSlug(token.product.name);
     router.push(`/products/single/${slug}`);
   }
 
@@ -110,7 +107,15 @@ const ProductCartCard: React.FunctionComponent<Props> = ({
               />
             )}
             <div className="cartInfo-priceBox">
-              <span>{`$${token.total}.00`}</span>
+              {token.discount ? (
+                <span>
+                  {token.discount.price.toString().includes('.')
+                    ? `$${token.discount.price}0`
+                    : `$${token.discount.price}.00`}
+                </span>
+              ) : (
+                <span>{`$${token.total}.00`}</span>
+              )}
             </div>
           </CartCardInfo>
         </Grid>
