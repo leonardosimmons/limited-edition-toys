@@ -106,13 +106,10 @@ function ProductPage({
   React.useEffect(() => {
     if (product) {
       if (promotions && promotions.length > 0) {
-        checkForPromotions(product)
-          .then((result) => {
-            if (result && result.length > 0) {
-              setDiscounts(result);
-            }
-          })
-          .catch((err) => err);
+        const result = checkForPromotions(product);
+        if (result && result.length > 0) {
+          setDiscounts(result);
+        }
       }
     }
   }, [promotionStatus, product]);

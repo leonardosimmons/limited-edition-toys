@@ -63,28 +63,26 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
     promotions,
   } = usePromotions();
   const [discount, setDiscount] = React.useState<
-    PromotionDiscount | undefined
-  >();
+    Partial<PromotionDiscount> | undefined
+  >(undefined);
 
   // check if item matches a current promotion
   React.useEffect(() => {
+    setDiscount({ promotion: undefined, price: 0 });
     if (promotions && promotions.length > 0) {
-      checkForPromotions(product)
-        .then((result) => {
-          if (result && result.length > 0) {
-            const discountPrice = calculateDiscountPrice(
-              product.price_excluding_tax!,
-              result[0],
-            );
-            setDiscount({
-              promotion: result[0],
-              price: discountPrice,
-            });
-          }
-        })
-        .catch((err) => err);
+      const result = checkForPromotions(product);
+      if (result && result.length > 0) {
+        const discountPrice = calculateDiscountPrice(
+          product.price_excluding_tax!,
+          result[0],
+        );
+        setDiscount({
+          promotion: result[0],
+          price: discountPrice,
+        });
+      }
     }
-  }, [promotionStatus]);
+  }, [product, promotionStatus, status]);
 
   //* -------------------------------------------------
   // Stock
@@ -117,7 +115,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
       quantity: 1,
       stock: stockCount,
       total: product.price_excluding_tax as number,
-      discount,
+      discount: discount as PromotionDiscount,
     };
     cart.add(token);
     router.push('/cart');
@@ -169,13 +167,13 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
           rating={0}
           slug={slug as string}
           inStock={inStock}
-          promotion={discount?.promotion}
+          promotion={(discount && discount.promotion) || undefined}
         />
         <ProductDisplayAction
           inStock={inStock}
           price={product.price_excluding_tax as number}
           addToCart={handleAddToCart}
-          promotion={discount?.promotion}
+          promotion={(discount && discount.promotion) || undefined}
         />
       </Grid>
     </DisplayCard>
