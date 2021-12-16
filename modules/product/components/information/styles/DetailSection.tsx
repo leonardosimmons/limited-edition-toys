@@ -83,13 +83,13 @@ export const ProductDetailSection = styled(Grid, {
       letterSpacing: 1.2,
     },
     ...(discounted && {
-      '& caption.MuiTypography-body1': {
+      '& p.MuiTypography-body1': {
         padding: '2rem 0 .5rem',
         color: 'red',
         fontSize: '1.2rem',
         fontWeight: 'bold',
       },
-      '& caption.alt-caption': {
+      '& p.alt-caption': {
         marginBottom: '-2rem',
         padding: '2rem 0 .5rem',
       },

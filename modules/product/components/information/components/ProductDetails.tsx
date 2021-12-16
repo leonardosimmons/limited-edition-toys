@@ -38,7 +38,7 @@ const ProductDetails: React.FunctionComponent<Props> = ({
       {discount && discount.promotion ? (
         discount!.price === product.current.price_excluding_tax ? (
           <Grid item>
-            <Typography component="caption" className="alt-caption">
+            <Typography component="p" className="alt-caption">
               {discount!.promotion.name}
             </Typography>
             <Typography component="span">
@@ -47,9 +47,7 @@ const ProductDetails: React.FunctionComponent<Props> = ({
           </Grid>
         ) : (
           <Grid item>
-            <Typography component="caption">
-              {discount!.promotion.name}
-            </Typography>
+            <Typography component="p">{discount!.promotion.name}</Typography>
             <Box>
               <Typography component="span">
                 {`$${product.current.price_excluding_tax}.00`}
