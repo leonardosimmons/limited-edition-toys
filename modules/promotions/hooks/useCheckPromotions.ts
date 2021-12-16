@@ -23,7 +23,6 @@ function useCheckPromotions(items: ProductCartToken[]) {
 
   // add
   React.useEffect(() => {
-    console.log(promotions);
     if (items) {
       if (!funkoUsed) funkoDiscount(items, 'add');
       if (!mtgFourtyUsed) checkMTGOrigns(items);

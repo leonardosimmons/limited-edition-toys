@@ -35,10 +35,6 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
 
   const { discounts } = useCheckPromotions(ctx.cart.items);
 
-  React.useEffect(() => {
-    console.log(discounts);
-  }, [discounts]);
-
   //* -------------------------------------------------
   // Handlers
 

@@ -82,7 +82,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
         });
       }
     }
-  }, [product, promotionStatus, status]);
+  }, [product]);
 
   //* -------------------------------------------------
   // Stock
