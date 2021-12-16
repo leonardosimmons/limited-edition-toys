@@ -129,7 +129,7 @@ const CheckoutSummary: React.FunctionComponent<Props> = (): JSX.Element => {
                   )}
                 </CheckoutSummaryTableCell>
                 <CheckoutSummaryTableCell>
-                  {`$${item.total}.00`}
+                  {`$${item.total.toFixed(2)}`}
                 </CheckoutSummaryTableCell>
                 <CheckoutSummaryTableCell>
                   <IconButton

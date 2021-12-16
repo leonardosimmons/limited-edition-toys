@@ -17,6 +17,7 @@ import {
 import { CheckoutButton } from 'modules/cart/styles/CheckoutButton';
 
 import InfoDisplayItem from '../InfoDisplay/CartInfoDisplayItem';
+import { useCheckPromotions } from 'modules/promotions/hooks/useCheckPromotions';
 
 type Props = {
   type?: 'checkout' | 'summary';
@@ -28,6 +29,15 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
   const cart = useCart();
   const router = useRouter();
   const ctx = useAppSelector(appSelector);
+
+  //* -------------------------------------------------
+  // Promotions
+
+  const { discounts } = useCheckPromotions(ctx.cart.items);
+
+  React.useEffect(() => {
+    console.log(discounts);
+  }, [discounts]);
 
   //* -------------------------------------------------
   // Handlers
@@ -42,6 +52,7 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
           .post('/api/payment/checkout', {
             info: customerInfo,
             items: cartItems,
+            discounts,
           })
           .then((res: any) => router.push(res.data));
       } catch (err) {
