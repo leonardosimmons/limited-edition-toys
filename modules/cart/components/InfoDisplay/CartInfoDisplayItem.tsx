@@ -22,7 +22,7 @@ const CartInfoDisplayItem: React.FunctionComponent<Props> = ({
         <Typography variant="h3">{title}</Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography variant="body1">{`$${value}`}</Typography>
+        <Typography variant="body1">{`$${value.toFixed(2)}`}</Typography>
       </Grid>
     </SummaryInfoDisplayGridItem>
   );

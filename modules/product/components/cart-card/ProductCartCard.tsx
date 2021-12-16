@@ -96,7 +96,19 @@ const ProductCartCard: React.FunctionComponent<Props> = ({
           </CartCardHeading>
         </Grid>
         <Grid item>
-          <CartCardInfo>
+          <CartCardInfo
+            discounted={
+              token.discount &&
+              token.discount.price !== token.product.price_excluding_tax
+                ? true
+                : false
+            }
+            showPromoName={
+              token.discount &&
+              token.discount.price === token.product.price_excluding_tax
+                ? true
+                : false
+            }>
             {status === 'loading' ? (
               <CircularProgress />
             ) : (
@@ -108,13 +120,21 @@ const ProductCartCard: React.FunctionComponent<Props> = ({
             )}
             <div className="cartInfo-priceBox">
               {token.discount ? (
-                <span>
-                  {token.discount.price.toString().includes('.')
-                    ? `$${token.discount.price}0`
-                    : `$${token.discount.price}.00`}
-                </span>
+                token.discount.price === token.product.price_excluding_tax ? (
+                  <React.Fragment>
+                    <span>{`${token.discount.promotion.name}`}</span>
+                    <span>{`$${token.total.toFixed(2)}`}</span>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <span>{`$${token.total.toFixed(2)}`}</span>
+                    <span>{`$${(
+                      token.product.price_excluding_tax! * token.quantity
+                    ).toFixed(2)}`}</span>
+                  </React.Fragment>
+                )
               ) : (
-                <span>{`$${token.total}.00`}</span>
+                <span>{`$${token.total.toFixed(2)}`}</span>
               )}
             </div>
           </CartCardInfo>

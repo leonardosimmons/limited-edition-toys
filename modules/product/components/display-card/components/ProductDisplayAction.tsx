@@ -37,19 +37,15 @@ const ProductDisplayAction: React.FunctionComponent<Props> = ({
       discounted={promotion ? true : false}>
       {promotion ? (
         discountPrice === price ? (
-          <Grid item>{`$${price}.00`}</Grid>
+          <Grid item>{`$${price.toFixed(2)}`}</Grid>
         ) : (
           <Grid item>
-            <span>{`$${price}.00`}</span>
-            <span>
-              {discountPrice.toString().includes('.')
-                ? `$${discountPrice}0`
-                : `$${discountPrice}.00`}
-            </span>
+            <span>{`$${price.toFixed(2)}`}</span>
+            <span>{`$${discountPrice.toFixed(2)}`}</span>
           </Grid>
         )
       ) : (
-        <Grid item>{`$${price}.00`}</Grid>
+        <Grid item>{`$${price.toFixed(2)}`}</Grid>
       )}
       <Grid item>
         <Button
