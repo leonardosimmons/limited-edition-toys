@@ -6,12 +6,14 @@ import {
   ProductCartToken,
   ProductInventory,
 } from 'modules/product/types';
-import { Promotion, PromotionDiscount } from 'modules/promotions/types';
+import { PromotionDiscount } from 'modules/promotions/types';
+import { CartSessionToken } from 'modules/cart/types';
 
 import { usePromotions } from 'modules/promotions/hooks/usePromotions';
 import { useCart } from 'modules/cart/hooks/useCart';
 import { useGetInventoryById } from 'modules/product/queries';
 import { useSingleProduct } from 'modules/product/hooks/useSingleProduct';
+import { useCartSession } from 'modules/cart/hooks/useCartSession';
 
 import { appSelector } from 'src/redux/selector';
 
@@ -37,6 +39,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   const cart = useCart();
   const router = useRouter();
   const ctx = useSingleProduct();
+  const session = useCartSession();
   const app = useAppSelector(appSelector);
   const [slug, setSlug] = React.useState<string | undefined>();
   const { status, data: inventory, error } = useGetInventoryById(product.id);
@@ -68,7 +71,9 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
 
   // check if item matches a current promotion
   React.useEffect(() => {
-    setDiscount({ promotion: undefined, price: 0 });
+    if (discount) {
+      setDiscount({ promotion: undefined, price: 0 });
+    }
     if (promotions && promotions.length > 0) {
       const result = checkForPromotions(product);
       if (result && result.length > 0) {
@@ -109,15 +114,22 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   //* -------------------------------------------------
   // Handlers
 
-  function handleAddToCart(): void {
+  async function handleAddToCart(): Promise<void> {
     const token: ProductCartToken = {
       product,
       quantity: 1,
       stock: stockCount,
       total: product.price_excluding_tax as number,
-      discount: discount as PromotionDiscount,
+      discount: discount ? (discount as PromotionDiscount) : undefined,
+    };
+    const sessionToken: CartSessionToken = {
+      sku: product.sku,
+      quantity: 1,
+      stock: stockCount,
+      discountId: (discount && discount.promotion?.id) || undefined,
     };
     cart.add(token);
+    await session.add(sessionToken);
     router.push('/cart');
   }
 

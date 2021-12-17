@@ -2,8 +2,11 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { useCart } from 'modules/cart/hooks/useCart';
+import { CartSessionToken } from 'modules/cart/types';
 import { ProductCartToken } from 'modules/product/types';
+import { PromotionDiscount } from 'modules/promotions/types';
 import { useSingleProduct } from 'modules/product/hooks/useSingleProduct';
+import { useCartSession } from 'modules/cart/hooks/useCartSession';
 
 import {
   ProductActionMainGrid,
@@ -14,7 +17,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { PromotionDiscount } from 'modules/promotions/types';
 
 type Props = {
   discount?: PromotionDiscount;
@@ -26,11 +28,12 @@ const ProductAction: React.FunctionComponent<Props> = ({
   const cart = useCart();
   const router = useRouter();
   const ctx = useSingleProduct();
+  const session = useCartSession();
 
   //* -------------------------------------------------
   // Handlers
 
-  function handleAddToCart(): void {
+  async function handleAddToCart(): Promise<void> {
     const token: ProductCartToken = {
       product: ctx.current,
       quantity: ctx.quantity,
@@ -38,7 +41,14 @@ const ProductAction: React.FunctionComponent<Props> = ({
       total: (ctx.current.price_excluding_tax as number) * ctx.quantity,
       discount,
     };
+    const sessionToken: CartSessionToken = {
+      sku: ctx.current.sku,
+      quantity: ctx.quantity,
+      stock: ctx.inventory.level,
+      discountId: (discount && discount.promotion?.id) || undefined,
+    };
     cart.add(token);
+    await session.add(sessionToken);
     router.push('/cart');
   }
 

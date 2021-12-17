@@ -11,6 +11,8 @@ export type CartStatus =
   | 'pending';
 
 export type CartSessionToken = {
-  sku: number;
+  sku: string;
   quantity: number;
+  stock: number;
+  discountId?: string;
 };
