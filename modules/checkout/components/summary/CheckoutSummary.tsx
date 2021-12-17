@@ -5,6 +5,7 @@ import { ProductCartToken } from 'modules/product/types';
 import { useAppSelector } from 'src/redux';
 import { useCart } from 'modules/cart/hooks/useCart';
 import { uiSelector } from 'src/redux/models/ui';
+import { useCartSession } from 'modules/cart/hooks/useCartSession';
 
 import {
   CheckoutSummaryHeading,
@@ -26,33 +27,66 @@ import { SelectChangeEvent } from '@mui/material';
 import ShoppingCartSummary from 'modules/cart/components/summary/ShoppingCartSummary';
 import QuantitySelect from 'lib/components/select/QuantitySelect';
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
-import { Color } from 'utils/keys';
 
 type Props = {};
 
 const CheckoutSummary: React.FunctionComponent<Props> = (): JSX.Element => {
   const cart = useCart();
   const ui = useAppSelector(uiSelector);
+  const session = useCartSession();
 
   //* -------------------------------------------------
   // Handlers
 
-  function handleAddAmount(id: string): void {
-    cart.addItemQuantity(id);
-    cart.updateTotal(id);
+  async function handleAddAmount(id: string): Promise<void> {
+    try {
+      await session.updateQuantity(id, cart.items, 'add');
+      cart.addItemQuantity(id);
+      cart.updateTotal(id);
+    } catch (err: any) {
+      throw new Error(err);
+    }
   }
 
-  function handleSubtractAmount(id: string): void {
-    cart.subtractItemQuantity(id);
-    cart.updateTotal(id);
+  async function handleSubtractAmount(id: string): Promise<void> {
+    try {
+      await session.updateQuantity(id, cart.items, 'subtract');
+      cart.subtractItemQuantity(id);
+      cart.updateTotal(id);
+    } catch (err: any) {
+      throw new Error(err);
+    }
   }
 
-  function handleQuantitySelection(id: string, e: SelectChangeEvent): void {
-    cart.updateQuantity(id, parseInt(e.target.value));
-    cart.updateTotal(id);
+  async function handleQuantitySelection(
+    id: string,
+    e: SelectChangeEvent,
+  ): Promise<void> {
+    try {
+      await session.updateQuantity(
+        id,
+        cart.items,
+        undefined,
+        parseInt(e.target.value),
+      );
+      cart.updateQuantity(id, parseInt(e.target.value));
+      cart.updateTotal(id);
+    } catch (err: any) {
+      throw new Error(err);
+    }
   }
 
-  function handleRemoveProduct(id: string): void {
+  async function handleRemoveProduct(id: string): Promise<void> {
+    cart.items.forEach((item) => {
+      if (item.product.id === id) {
+        session
+          .remove(item.product.sku)
+          .then((res) => res)
+          .catch((err: any) => {
+            throw new Error(err);
+          });
+      }
+    });
     cart.remove(id);
   }
 

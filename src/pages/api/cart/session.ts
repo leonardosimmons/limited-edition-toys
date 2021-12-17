@@ -7,7 +7,7 @@ export default withSessionApiRoute(cartSession);
 async function cartSession(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
-      res.status(200).json({ cart: req.session.cart });
+      res.status(200).json(req.session.cart);
       break;
     case 'POST':
       const token = (await req.body) as CartSessionToken;
@@ -28,8 +28,9 @@ async function cartSession(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json({ cart: req.session.cart });
       break;
     case 'DELETE':
-      const { id } = await req.body;
-      req.session.cart = req.session.cart.filter((item) => item.sku !== id);
+      req.session.cart = req.session.cart.filter(
+        (item) => item.sku !== req.body.sku,
+      );
       await req.session.save();
       res.status(200).json({ cart: req.session.cart });
       break;

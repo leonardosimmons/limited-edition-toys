@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 
 import { useCart } from 'modules/cart/hooks/useCart';
 import { useGetInventoryById } from 'modules/product/queries';
+import { useCartSession } from 'modules/cart/hooks/useCartSession';
 
 import { CartCard, CartCardMainGrid } from './styles/CartCard';
 import { CartCardHeading, CartCardImageBox } from './styles/CartCardHeading';
@@ -37,6 +38,7 @@ const ProductCartCard: React.FunctionComponent<Props> = ({
     data: inventory,
     error,
   } = useGetInventoryById(token.product.id);
+  const session = useCartSession();
 
   //* -------------------------------------------------
   // Stock
@@ -68,12 +70,27 @@ const ProductCartCard: React.FunctionComponent<Props> = ({
     router.push(`/products/single/${slug}`);
   }
 
-  function handleQuantityChange(e: SelectChangeEvent): void {
-    cart.updateQuantity(token.product.id, parseInt(e.target.value));
+  async function handleQuantityChange(e: SelectChangeEvent): Promise<void> {
+    try {
+      await session.updateQuantity(
+        token.product.id,
+        cart.items,
+        undefined,
+        parseInt(e.target.value),
+      );
+      cart.updateQuantity(token.product.id, parseInt(e.target.value));
+    } catch (err: any) {
+      throw new Error(err);
+    }
   }
 
-  function handleProductRemoval(): void {
-    cart.remove(token.product.id);
+  async function handleProductRemoval(): Promise<void> {
+    try {
+      await session.remove(token.product.sku);
+      cart.remove(token.product.id);
+    } catch (err: any) {
+      throw new Error(err);
+    }
   }
 
   //* -------------------------------------------------
