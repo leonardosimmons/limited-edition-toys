@@ -1,7 +1,7 @@
-import { Product, ProductCartToken } from 'modules/product/types';
-import { useProducts } from 'modules/product/useProducts';
 import React from 'react';
-import { Promotion } from '../types';
+import { Product, ProductCartToken } from 'modules/product/types';
+
+import { useProducts } from 'modules/product/useProducts';
 import { usePromotions } from './usePromotions';
 
 type DiscountToken = {
@@ -11,7 +11,7 @@ type DiscountToken = {
 
 function useCheckPromotions(items: ProductCartToken[]) {
   const { products } = useProducts();
-  const { checkForPromotions, status, promotions } = usePromotions();
+  const { promotions } = usePromotions();
   const [discounts, setDiscounts] = React.useState<DiscountToken>({
     total: 0,
     items: [],
@@ -43,29 +43,31 @@ function useCheckPromotions(items: ProductCartToken[]) {
     const brandId = '5f5bce96-d692-491f-a203-3fc7a2349511';
     let count = 0;
 
-    items.forEach((item) => {
-      if (item.product.brand_id === brandId) {
-        count = count + item.quantity;
-      }
-    });
+    if (items) {
+      items.forEach((item) => {
+        if (item.product.brand_id === brandId) {
+          count = count + item.quantity;
+        }
+      });
 
-    if (type === 'add') {
-      if (count >= 4) {
-        const token: DiscountToken = {
-          total: discounts.total - 12,
-          items: discounts.items,
-        };
-        setDiscounts(token);
-        setFunkoUsed(true);
-      }
-    } else if (type === 'remove') {
-      if (count < 4) {
-        const token: DiscountToken = {
-          total: discounts.total + 12,
-          items: discounts.items,
-        };
-        setDiscounts(token);
-        setFunkoUsed(false);
+      if (type === 'add') {
+        if (count >= 4) {
+          const token: DiscountToken = {
+            total: discounts.total - 12,
+            items: discounts.items,
+          };
+          setDiscounts(token);
+          setFunkoUsed(true);
+        }
+      } else if (type === 'remove') {
+        if (count < 4) {
+          const token: DiscountToken = {
+            total: discounts.total + 12,
+            items: discounts.items,
+          };
+          setDiscounts(token);
+          setFunkoUsed(false);
+        }
       }
     }
   }

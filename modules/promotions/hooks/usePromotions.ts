@@ -19,24 +19,12 @@ function usePromotions() {
   const checkForPromotions = React.useMemo(
     () => (product: Product) => {
       let promos: Promotion[] = [];
-      promotions!.forEach((promotion) => {
-        promotion.condition.include?.forEach((item) => {
-          const entries = Object.entries(product);
-          entries.forEach((entry) => {
-            if (item.field.split('_')[0] === 'product') {
-              if (item.value === entry[1]) {
-                if (!promos.includes(promotion) && !promotion.use_promo_code) {
-                  if (checkPromotionIsValid(promotion)) {
-                    promos.push(promotion);
-                  }
-                }
-              }
-            } else if (item.field.split('_')[0] === entry[0].split('_')[0]) {
-              if (
-                !Array.isArray(entry[1]) &&
-                !(entry[1] instanceof Object) &&
-                entry[1] !== null
-              ) {
+      if (promotions) {
+        promotions!.forEach((promotion) => {
+          promotion.condition.include?.forEach((item) => {
+            const entries = Object.entries(product);
+            entries.forEach((entry) => {
+              if (item.field.split('_')[0] === 'product') {
                 if (item.value === entry[1]) {
                   if (
                     !promos.includes(promotion) &&
@@ -47,14 +35,31 @@ function usePromotions() {
                     }
                   }
                 }
+              } else if (item.field.split('_')[0] === entry[0].split('_')[0]) {
+                if (
+                  !Array.isArray(entry[1]) &&
+                  !(entry[1] instanceof Object) &&
+                  entry[1] !== null
+                ) {
+                  if (item.value === entry[1]) {
+                    if (
+                      !promos.includes(promotion) &&
+                      !promotion.use_promo_code
+                    ) {
+                      if (checkPromotionIsValid(promotion)) {
+                        promos.push(promotion);
+                      }
+                    }
+                  }
+                }
               }
-            }
+            });
           });
         });
-      });
+      }
       return promos;
     },
-    [],
+    [promotions],
   );
 
   function checkPromotionIsValid(promotion: Promotion): boolean {

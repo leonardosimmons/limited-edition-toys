@@ -33,14 +33,20 @@ export function SquareOrderTokensType<TBase extends Constructor>(Base: TBase) {
       let total: number = 0;
       const list: OrderLineItem[] = [];
       products.forEach((token) => {
-        total = total + token.discount!.price;
+        total = token.discount
+          ? total + token.discount!.price
+          : total + token.product.price_excluding_tax!;
         list.push({
           name: token.product.name,
           quantity: token.quantity.toString(),
           basePriceMoney: {
-            amount: BigInt(
-              token.discount!.price * 100,
-            ).toString() as unknown as bigint,
+            amount: token.discount
+              ? (BigInt(
+                  token.discount!.price * 100,
+                ).toString() as unknown as bigint)
+              : (BigInt(
+                  token.product.price_excluding_tax! * 100,
+                ).toString() as unknown as bigint),
             currency: 'USD',
           },
         });
