@@ -2,6 +2,8 @@ import React from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import data from 'data/pages/cart.json';
 
+import { useCheckCartSession } from 'modules/cart/hooks/useCheckCartSession';
+
 import {
   ShoppingCartMainContainer,
   PreviewSection,
@@ -17,6 +19,8 @@ import ShoppingCartSummary from 'modules/cart/components/summary/ShoppingCartSum
 function ShoppingCart({}: InferGetStaticPropsType<
   typeof getStaticProps
 >): JSX.Element {
+  useCheckCartSession();
+
   return (
     <Layout title={data.title}>
       <ShoppingCartMainContainer disableGutters maxWidth={false}>

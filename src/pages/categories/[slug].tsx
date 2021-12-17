@@ -22,12 +22,14 @@ import ProductDisplayCard from 'modules/product/components/display-card/ProductD
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 import { MenuTab } from 'utils/types';
 import { useShuffledProductList } from 'modules/product/hooks/useShuffledProductList';
+import { useCheckCartSession } from 'modules/cart/hooks/useCheckCartSession';
 
 function ProductCategoryDisplayPage({
   title,
   category,
   tags,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  useCheckCartSession();
   const { products } = useProducts({
     filter: {
       value: tags,

@@ -10,6 +10,7 @@ import { appSelector } from 'src/redux/selector';
 import { useCart } from 'modules/cart/hooks/useCart';
 import { useProducts } from 'modules/product/useProducts';
 import { getAllProducts, getProductTags } from 'modules/product/queries';
+import { useCheckCartSession } from 'modules/cart/hooks/useCheckCartSession';
 
 import { HomePageMainContainer } from 'src/containers/pages/styles/HomePage';
 
@@ -31,6 +32,7 @@ function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
 >): JSX.Element {
   useCart();
+  useCheckCartSession();
   const { products } = useProducts();
   const ctx = useAppSelector(appSelector);
 

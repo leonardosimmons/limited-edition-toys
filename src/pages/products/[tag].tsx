@@ -7,8 +7,10 @@ import { Queries } from 'utils/keys';
 
 import { resetUserSearch } from 'src/redux/models/search/actions';
 import { useProducts } from 'modules/product/useProducts';
-import { getAllProducts, getProductTags } from 'modules/product/queries';
 import { capitalizeFirstLetters, shuffleArray } from '../../../lib/functions';
+import { getAllProducts, getProductTags } from 'modules/product/queries';
+import { useShuffledProductList } from 'modules/product/hooks/useShuffledProductList';
+import { useCheckCartSession } from 'modules/cart/hooks/useCheckCartSession';
 
 import {
   DisplayPageMainGrid,
@@ -21,11 +23,11 @@ import Layout from 'src/containers/Layout/Layout';
 import ProductHeader from 'src/containers/headers/products/ProductHeader';
 import ProductDisplayCard from 'modules/product/components/display-card/ProductDisplayCard';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
-import { useShuffledProductList } from 'modules/product/hooks/useShuffledProductList';
 
 function ProductTagDisplayPage({
   tag,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  useCheckCartSession();
   const dispatch = useAppDispatch();
 
   //* -------------------------------------------------

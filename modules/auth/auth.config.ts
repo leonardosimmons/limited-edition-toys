@@ -7,6 +7,6 @@ export enum PermissionLevel {
 }
 
 export enum Expiration {
-  ACCESS_TOKEN = 180, // seconds
-  SESSION_COOKIE = 180, // seconds
+  ACCESS_TOKEN = 43200, // 12hrs (seconds)
+  SESSION_COOKIE = 43200, // 12hrs (seconds)
 }

@@ -16,6 +16,7 @@ import { usePromotions } from 'modules/promotions/hooks/usePromotions';
 import { useGetInventoryById } from 'modules/product/queries';
 import { ProductModel } from 'modules/product/product.model';
 import { useProducts } from 'modules/product/useProducts';
+import { useCheckCartSession } from 'modules/cart/hooks/useCheckCartSession';
 
 import {
   ProductImageBox,
@@ -35,6 +36,7 @@ function ProductPage({
   slug,
   title,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
+  useCheckCartSession();
   const dispatch = useAppDispatch();
   const ui = useAppSelector(uiSelector);
 
