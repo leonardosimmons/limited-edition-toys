@@ -8,8 +8,10 @@ export const BillingMainContainer = styled(Container)<ContainerProps>(
     height: '100%',
     width: '100%',
     ...theme.custom.centerColumn,
+    marginBottom: '5rem',
     [theme.breakpoints.up('tabletLg')]: {
       flexDirection: 'row',
+      marginBottom: '8rem',
     },
   }),
 );
