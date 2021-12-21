@@ -13,7 +13,7 @@ async function checkoutRoute(req: NextApiRequest, res: NextApiResponse) {
   const model = new SquareModel();
   switch (req.method) {
     case 'POST':
-      const { info, items, discounts } = await req.body;
+      const { info, items, discounts, promotion } = await req.body;
       try {
         const locationId = await Square.locationsApi
           .listLocations()
@@ -32,21 +32,51 @@ async function checkoutRoute(req: NextApiRequest, res: NextApiResponse) {
               // referenceId: req.session.id,
               customerId: customer?.id,
               lineItems: items,
-              discounts: discounts
-                ? [
-                    {
-                      name: 'applied-discounts',
-                      scope: 'ORDER',
-                      type: 'FIXED_AMOUNT',
-                      amountMoney: {
-                        amount: BigInt(
-                          Math.abs(discounts.total * 100),
-                        ).toString() as unknown as bigint,
-                        currency: 'USD',
+              discounts:
+                promotion && discounts
+                  ? [
+                      {
+                        name: 'Applied discounts',
+                        scope: 'ORDER',
+                        type: 'FIXED_AMOUNT',
+                        amountMoney: {
+                          amount: BigInt(
+                            Math.abs(discounts.total * 100),
+                          ).toString() as unknown as bigint,
+                          currency: 'USD',
+                        },
                       },
-                    },
-                  ]
-                : undefined,
+                      {
+                        name: 'Employee discount',
+                        scope: 'ORDER',
+                        type: 'FIXED_PERCENTAGE',
+                        percentage: '40',
+                      },
+                    ]
+                  : promotion
+                  ? [
+                      {
+                        name: 'Employee discount',
+                        scope: 'ORDER',
+                        type: 'FIXED_PERCENTAGE',
+                        percentage: '40',
+                      },
+                    ]
+                  : discounts
+                  ? [
+                      {
+                        name: 'Applied discounts',
+                        scope: 'ORDER',
+                        type: 'FIXED_AMOUNT',
+                        amountMoney: {
+                          amount: BigInt(
+                            Math.abs(discounts.total * 100),
+                          ).toString() as unknown as bigint,
+                          currency: 'USD',
+                        },
+                      },
+                    ]
+                  : undefined,
             },
           },
           //redirectUrl: process.env.SQUARE_CHECKOUT_REDIRECT,

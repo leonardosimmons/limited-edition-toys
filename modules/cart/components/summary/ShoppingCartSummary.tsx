@@ -8,6 +8,7 @@ import { useAppSelector } from 'src/redux';
 import { appSelector } from 'src/redux/selector';
 import { useCart } from 'modules/cart/hooks/useCart';
 import { OrderModel } from 'modules/order/order.model';
+import { useCheckPromotions } from 'modules/promotions/hooks/useCheckPromotions';
 
 import {
   SummaryCheckoutAction,
@@ -17,7 +18,7 @@ import {
 import { CheckoutButton } from 'modules/cart/styles/CheckoutButton';
 
 import InfoDisplayItem from '../InfoDisplay/CartInfoDisplayItem';
-import { useCheckPromotions } from 'modules/promotions/hooks/useCheckPromotions';
+import PromoCode from 'modules/promotions/components/promo-code/PromoCode';
 
 type Props = {
   type?: 'checkout' | 'summary';
@@ -34,6 +35,13 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
   // Promotions
 
   const { discounts } = useCheckPromotions(ctx.cart.items);
+  const [hasPromoCode, setHasPromoCode] = React.useState<boolean>(false);
+
+  function handleHasPromoCode(code: boolean) {
+    setHasPromoCode(code);
+  }
+
+  // TODO: add promo code
 
   //* -------------------------------------------------
   // Handlers
@@ -48,11 +56,12 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
           .post('/api/payment/checkout', {
             info: customerInfo,
             items: cartItems,
-            discounts,
+            discounts: discounts.items.length > 0 ? true : false,
+            promotion: hasPromoCode ? true : false,
           })
           .then((res: any) => router.push(res.data));
       } catch (err) {
-        alert('Error: Something went wrong');
+        alert('Error: Something went wrong, double check entered data');
       }
       return;
     }
@@ -64,11 +73,15 @@ const ShoppingCartSummary: React.FunctionComponent<Props> = ({
 
   return (
     <SummaryMainContainer maxWidth={false} disableGutters>
+      {type === 'checkout' && <PromoCode hasPromo={handleHasPromoCode} />}
       <SummaryInfoDisplay container>
-        {/* <InfoDisplayItem title={'Subtotal'} value={cart.total} />
         <InfoDisplayItem title={'Shipping'} value={10.0} />
-        <InfoDisplayItem title={'Tax'} value={0.0} /> */}
-        <InfoDisplayItem bold title={'Subtotal'} value={cart.total} />
+        <InfoDisplayItem
+          bold
+          title={'Subtotal'}
+          value={cart.total + 10}
+          hasPromo={hasPromoCode}
+        />
       </SummaryInfoDisplay>
       <SummaryCheckoutAction>
         <CheckoutButton
