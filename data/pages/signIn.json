@@ -4,7 +4,7 @@
     "caption": "Welcome"
   },
   "inputs": [
-    { "label": "Email Address", "propName": "email" },
+    { "label": "Username", "propName": "username" },
     { "label": "Password", "propName": "password" }
   ],
   "register": {

@@ -15,6 +15,6 @@ export type UserRegistrationToken = {
 };
 
 export type UserSignInToken = {
-  email: string;
+  username: string;
   password: string;
 };

@@ -11,7 +11,10 @@ import { Key } from '../utils/keys';
 
 declare module 'iron-session' {
   interface IronSessionData {
-    auth: string;
+    auth: {
+      id: number;
+      token: string;
+    };
     cart: CartSessionToken[];
   }
 }
