@@ -1,4 +1,5 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { authReducer } from 'modules/auth/reducer';
 import { cartReducer } from 'modules/cart/reducer';
 import { checkoutReducer } from 'modules/checkout/reducer';
 import { productReducer } from 'modules/product/reducer';
@@ -8,6 +9,7 @@ import { uiReducer } from './models/ui/reducer';
 
 export const store = configureStore({
   reducer: {
+    auth: authReducer,
     cart: cartReducer,
     checkout: checkoutReducer,
     page: pageReducer,

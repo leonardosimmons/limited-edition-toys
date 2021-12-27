@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { NextLinkComposed } from 'lib/components/NextLinkComposed';
 import { Links } from 'utils/keys';
 
+import { useLogin } from 'modules/auth/hooks/useLogin';
+
 import { styled } from '@mui/material/styles';
 
 import List from '@mui/material/List';
@@ -23,38 +25,43 @@ const ListText = styled(ListItemText)<ListItemTextProps>(({ theme }) => ({
 
 const MobileMenuList: React.FunctionComponent = (): JSX.Element => {
   const router = useRouter();
+  const login = useLogin();
 
   function handleMyAccountClick(): void {
-    router.push(Links.ACCOUNT);
+    if (login.status === 'signed-in') {
+      router.push(Links.ACCOUNT);
+    } else {
+      router.push(Links.SIGN_IN);
+    }
   }
+
   return (
-    <div />
-    // <List disablePadding sx={{ flex: 1, marginTop: '2rem' }}>
-    //   <ListItem button component={NextLinkComposed} to={'/'}>
-    //     <ListItemIcon>
-    //       <AssignmentIcon />
-    //     </ListItemIcon>
-    //     <ListText
-    //       disableTypography
-    //       primary="Wishlist"
-    //       primaryTypographyProps={{ variant: 'h4' }}
-    //     />
-    //   </ListItem>
-    //   <ListItem
-    //     button
-    //     component={NextLinkComposed}
-    //     to={'/'}
-    //     onClick={handleMyAccountClick}>
-    //     <ListItemIcon>
-    //       <FaceIcon />
-    //     </ListItemIcon>
-    //     <ListText
-    //       disableTypography
-    //       primary="My Account"
-    //       primaryTypographyProps={{ variant: 'h4' }}
-    //     />
-    //   </ListItem>
-    // </List>
+    <List disablePadding sx={{ flex: 1, marginTop: '2rem' }}>
+      {/* <ListItem button component={NextLinkComposed} to={'/'}>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListText
+          disableTypography
+          primary="Wishlist"
+          primaryTypographyProps={{ variant: 'h4' }}
+        />
+      </ListItem> */}
+      <ListItem
+        button
+        component={NextLinkComposed}
+        to={'/'}
+        onClick={handleMyAccountClick}>
+        <ListItemIcon>
+          <FaceIcon />
+        </ListItemIcon>
+        <ListText
+          disableTypography
+          primary="My Account"
+          primaryTypographyProps={{ variant: 'h4' }}
+        />
+      </ListItem>
+    </List>
   );
 };
 

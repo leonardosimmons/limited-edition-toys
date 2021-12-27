@@ -2,6 +2,7 @@ import React from 'react';
 import { Links } from 'utils/keys';
 import { useRouter } from 'next/router';
 
+import { useLogin } from 'modules/auth/hooks/useLogin';
 import { useCart } from 'modules/cart/hooks/useCart';
 
 import { DesktopNavbarTabButton } from './styles/DesktopNavbarTabButton';
@@ -18,6 +19,7 @@ type Props = {};
 
 const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
   const router = useRouter();
+  const login = useLogin();
   const cart = useCart();
 
   //* -------------------------------------------------
@@ -28,7 +30,11 @@ const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
   }
 
   function handleMyAccountClick(): void {
-    router.push(Links.ACCOUNT);
+    if (login.status === 'signed-in') {
+      router.push(Links.ACCOUNT);
+    } else {
+      router.push(Links.SIGN_IN);
+    }
   }
 
   //* -------------------------------------------------
@@ -39,11 +45,11 @@ const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
       <DesktopNavbarTabButton startIcon={<AssignmentTwoToneIcon />}>
         Wishlist
       </DesktopNavbarTabButton> */}
-      {/* <DesktopNavbarTabButton
+      <DesktopNavbarTabButton
         startIcon={<FaceTwoTone />}
         onClick={handleMyAccountClick}>
         My Account
-      </DesktopNavbarTabButton> */}
+      </DesktopNavbarTabButton>
       <DesktopNavbarDivider orientation="vertical" flexItem />
       <DesktopNavbarCartIcon
         aria-label="shopping cart"

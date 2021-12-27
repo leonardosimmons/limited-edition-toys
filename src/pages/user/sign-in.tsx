@@ -1,7 +1,12 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import data from '../../../data/pages/signIn.json';
 import { UserSignInToken } from 'modules/auth/types';
+import { RouteConfirmation } from 'utils/types';
+import { Links } from 'utils/keys';
+
+import { useLogin } from 'modules/auth/hooks/useLogin';
 
 import {
   SignInHeader,
@@ -21,7 +26,6 @@ import Layout from 'src/containers/Layout/Layout';
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { useRouter } from 'next/router';
 
 function SignInPage({}: InferGetStaticPropsType<
   typeof getStaticProps
@@ -29,16 +33,23 @@ function SignInPage({}: InferGetStaticPropsType<
   //* -------------------------------------------------
   // Properties
   const router = useRouter();
+  const login = useLogin();
   const [showPassword, setShowPassword] = React.useState<boolean>();
   const [token, setToken] = React.useState<UserSignInToken>({
-    email: '',
+    username: '',
     password: '',
   });
+
+  React.useEffect(() => {
+    if (login.status === 'signed-in') {
+      router.push(Links.ACCOUNT);
+    }
+  }, [login.status]);
 
   //* -------------------------------------------------
   // Handlers
   function handleCreateAccount() {
-    router.push('/user/register')
+    router.push('/user/register');
   }
 
   function handleInputChange(key: keyof UserSignInToken) {
@@ -57,11 +68,20 @@ function SignInPage({}: InferGetStaticPropsType<
     e.preventDefault();
   }
 
-  function handleSignInClicked(): void {
-    // check user credientials
-    // OK  => redirect to account page (home temp)
-    // Err => display error via alert
-    console.log('Sign in clicked');
+  async function handleSignInClicked(): Promise<void> {
+    try {
+      const result: RouteConfirmation = await login.user(token);
+      if (result.ok) {
+        login.update('signed-in');
+        router.push(Links.ACCOUNT);
+      } else {
+        alert('Something went wrong');
+        // TODO handle login error UI & api
+      }
+    } catch (err) {
+      console.log(err);
+      alert('Something went wrong, please try again');
+    }
   }
 
   return (
