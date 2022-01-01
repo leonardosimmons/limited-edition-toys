@@ -19,11 +19,6 @@ export type UserRoles =
   | 'subscriber'
   | 'vendor';
 
-export type UserAccessToken = {
-  sub: string;
-  permissionLevel: number;
-};
-
 export type User = {
   id: number;
   username: string;
