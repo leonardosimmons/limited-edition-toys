@@ -27,11 +27,13 @@ import {
   SectionWrapper,
 } from 'src/containers/sections/styles/Section';
 import { DisplayImage } from 'src/containers/sections/DisplayImage';
+import { useSessionCheck } from 'modules/auth/hooks/useSessionCheck';
 
 function Index({}: InferGetStaticPropsType<
   typeof getStaticProps
 >): JSX.Element {
   useCart();
+  useSessionCheck();
   useCheckCartSession();
   const { products } = useProducts();
   const ctx = useAppSelector(appSelector);

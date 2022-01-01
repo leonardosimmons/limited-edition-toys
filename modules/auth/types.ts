@@ -1,3 +1,8 @@
+export type AuthSessionToken = {
+  id: String;
+  token: String;
+};
+
 export type UserRegistrationToken = {
   username: string;
   email: string;

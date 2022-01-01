@@ -1,16 +1,24 @@
 import React from 'react';
 
-import { useCurrentSession } from 'modules/auth/queries';
-import { useUser } from 'modules/user/hooks/useUser';
+import { useLogin } from './useLogin';
+import { useAuthSession } from 'modules/auth/queries';
 
 function useSessionCheck() {
-  const user = useUser();
-  const { status, data: session, error } = useCurrentSession();
+  const login = useLogin();
+  const { status, data: session, error } = useAuthSession();
 
   React.useEffect(() => {
     if (status !== 'loading') {
-      if (session && !session.sub) {
-        // user.guest.login();
+      if (session && session.id && login.status === 'guest') {
+        login.update('signed-in');
+      }
+    }
+  }, [status]);
+
+  React.useEffect(() => {
+    if (status !== 'loading') {
+      if (session && !session.id && login.status === 'signed-in') {
+        login.update('guest');
       }
     }
   }, [status]);
