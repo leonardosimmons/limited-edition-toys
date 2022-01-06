@@ -1,13 +1,6 @@
-import { CartSessionToken } from 'modules/cart/types';
-
 export type UserLoginCredentials = {
   username: string;
   password: string;
-};
-
-export type UserOptions = {
-  redirectTo?: string;
-  redirectIfFound?: boolean;
 };
 
 export type UserRoles =
@@ -36,7 +29,7 @@ export type User = {
   roles: UserRoles[];
   password?: string;
   capabilities?: object;
-  extraCapabilites?: object;
+  extraCapabilities?: object;
   avatarUrls?: object;
   meta?: object;
 };

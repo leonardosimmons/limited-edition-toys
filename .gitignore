@@ -34,6 +34,7 @@ yarn-error.log*
 # User
 temp.tsx
 .vscode
+.idea/
 favicon.ico
 /buffer
 /src/*.txt

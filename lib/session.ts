@@ -14,6 +14,7 @@ declare module 'iron-session' {
     auth: {
       id: number;
       token: string;
+      displayName: string;
     };
     cart: CartSessionToken[];
   }

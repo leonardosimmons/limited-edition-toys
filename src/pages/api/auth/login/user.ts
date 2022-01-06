@@ -19,10 +19,9 @@ async function userLogin(req: NextApiRequest, res: NextApiResponse) {
         req.session.auth = {
           id: (user as any).data.id,
           token: (user as any).data.token,
+          displayName: (user as any).data.displayName
         };
         await req.session.save();
-
-        console.log(req.session.auth);
 
         res.status(200).json({ ok: true });
       } catch (err) {
