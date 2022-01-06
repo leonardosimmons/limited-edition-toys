@@ -1,18 +1,14 @@
-import axios, { AxiosResponse } from 'axios';
-import { RouteConfirmation } from 'utils/types';
+import axios from 'axios';
 
 interface UserModelInterface {
-  guestLogin(): Promise<any | RouteConfirmation | void>;
+
 }
 
 class UserModel implements UserModelInterface {
-  public async guestLogin() {
-    return await axios
-      .get('/api/auth/login/guest')
-      .then((res: AxiosResponse<any | RouteConfirmation>) => res.data)
-      .catch((err: any) => {
-        throw new Error(err);
-      });
+  public async get(): Promise<any> {
+    return await axios.get('/api/user/info')
+      .then((res) => res.data)
+      .then((data) => (data as any).user)
   }
 }
 

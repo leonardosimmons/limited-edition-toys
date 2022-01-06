@@ -1,10 +1,10 @@
 import React from 'react';
-import jwt from 'jsonwebtoken';
-import { InferGetServerSidePropsType } from 'next';
-import { CLIENT_JWT_SECRET } from 'lib/constants';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { withSessionSsr } from 'lib/session';
 
-import { PermissionLevel } from 'modules/auth/auth.config';
+import { useUser } from '../../../modules/user/hooks/useUser';
+
+import { DashBoard } from 'src/features/dashboard/styles/Dashboard';
 
 import Typography from '@mui/material/Typography';
 
@@ -13,10 +13,11 @@ import {
   AccountHeader,
   AccountMainContainer,
 } from 'src/containers/pages/styles/AccountPage';
-import { DashBoard } from 'src/features/dashboard/styles/Dashboard';
 
-function UserAccountPage({}: //user,
+function UserAccountPage({ }:
 InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const user = useUser();
+
   return (
     <Layout title={'Limited Edition Toys | My Account'}>
       <AccountMainContainer>
@@ -31,34 +32,18 @@ InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
 
 export default UserAccountPage;
 
-export const getServerSideProps = withSessionSsr(
+export const getServerSideProps: GetServerSideProps = withSessionSsr(
   async function getServerSideProps({ req }) {
-    // try {
-    //   const decoded = jwt.verify(req.session.auth, CLIENT_JWT_SECRET);
-    //   if ((decoded as any).data.permissionLevel >= PermissionLevel.USER) {
-    //     return {
-    //       props: {
-    //         user: decoded,
-    //       },
-    //     };
-    //   } else {
-    //     return {
-    //       redirect: {
-    //         destination: '/user/sign-in',
-    //         permanent: false,
-    //       },
-    //     };
-    //   }
-    // } catch (err) {
-    //   return {
-    //     redirect: {
-    //       destination: '/user/sign-in',
-    //       permanent: false,
-    //     },
-    //   };
-    // }
+    if (req.session && !req.session.auth) {
+      return {
+        redirect: {
+          destination: '/user/sign-in',
+          permanent: false
+        }
+      }
+    }
     return {
-      props: {},
+      props: { },
     };
-  },
+  }
 );
