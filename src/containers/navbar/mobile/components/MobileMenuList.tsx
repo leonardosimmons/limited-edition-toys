@@ -4,6 +4,7 @@ import { NextLinkComposed } from 'lib/components/NextLinkComposed';
 import { Links } from 'utils/keys';
 
 import { useLogin } from 'modules/auth/hooks/useLogin';
+import { useSessionCheck } from '../../../../../modules/auth/hooks/useSessionCheck';
 
 import { styled } from '@mui/material/styles';
 
@@ -24,6 +25,7 @@ const ListText = styled(ListItemText)<ListItemTextProps>(({ theme }) => ({
 }));
 
 const MobileMenuList: React.FunctionComponent = (): JSX.Element => {
+  useSessionCheck();
   const router = useRouter();
   const login = useLogin();
 

@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 import { useLogin } from 'modules/auth/hooks/useLogin';
 import { useCart } from 'modules/cart/hooks/useCart';
+import { useSessionCheck } from '../../../../modules/auth/hooks/useSessionCheck';
 
 import { DesktopNavbarTabButton } from './styles/DesktopNavbarTabButton';
 import { DesktopNavbarDivider } from './styles/DesktopNavbarDivider';
@@ -17,6 +18,7 @@ import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 type Props = {};
 
 const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
+  useSessionCheck();
   const router = useRouter();
   const login = useLogin();
   const cart = useCart();

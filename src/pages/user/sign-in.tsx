@@ -7,7 +7,6 @@ import { RouteConfirmation } from 'utils/types';
 import { Links } from 'utils/keys';
 
 import { useLogin } from 'modules/auth/hooks/useLogin';
-import { useSessionCheck } from 'modules/auth/hooks/useSessionCheck';
 
 import {
   SignInHeader,
@@ -33,7 +32,6 @@ function SignInPage({}: InferGetStaticPropsType<
 >): JSX.Element {
   //* -------------------------------------------------
   // Properties
-  useSessionCheck();
   const login = useLogin();
   const router = useRouter();
   const [showPassword, setShowPassword] = React.useState<boolean>();
