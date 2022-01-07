@@ -8,6 +8,10 @@ async function authSessionRoute(req: NextApiRequest, res: NextApiResponse) {
     case 'GET':
       res.json(req.session.auth);
       break;
+    case'DELETE':
+      req.session.destroy();
+      res.status(200).json({ ok: true })
+      break;
     default:
       res.status(405).end();
   }

@@ -15,6 +15,21 @@ function useLogin() {
     dispatch(updateAuthLoginStatus(status));
   }
 
+  async function signOut(): Promise<RouteConfirmation> {
+    try {
+      const response: AxiosResponse<RouteConfirmation> = await axios
+        .delete('/api/auth/session', { data: {}});
+      if (response.data) {
+        dispatch(updateAuthLoginStatus('guest'));
+        return response.data
+      } else {
+        return { message: 'unable to logout user'}
+      }
+    } catch (err) {
+      throw new Error('Unable to logout user')
+    }
+  }
+
   async function user(token: UserLoginCredentials): Promise<RouteConfirmation> {
     try {
       const response: AxiosResponse<RouteConfirmation> = await axios.post(
@@ -31,6 +46,7 @@ function useLogin() {
   }
 
   return {
+    signOut,
     status: ctx.status,
     user,
     update: updateLoginStatus,

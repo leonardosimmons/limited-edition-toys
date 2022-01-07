@@ -1,9 +1,12 @@
 import React from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useRouter } from 'next/router';
 
 import { withSessionSsr } from 'lib/session';
 import { appSelector } from '../../redux/selector';
 import { useAppSelector } from '../../redux';
+import { useSessionCheck } from '../../../modules/auth/hooks/useSessionCheck';
+import { useLogin } from '../../../modules/auth/hooks/useLogin';
 
 import Typography from '@mui/material/Typography';
 
@@ -14,10 +17,20 @@ import {
 } from 'src/containers/pages/styles/AccountPage';
 import UserDashBoard from '../../features/dashboard/UserDashboard';
 import DashboardSpeedDial from '../../features/dashboard/components/DashboardSpeedDial';
+import { Links } from '../../../utils/keys';
 
 function UserAccountPage({ }:
 InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  useSessionCheck();
+  const login = useLogin();
+  const router = useRouter();
   const ctx = useAppSelector(appSelector);
+
+  React.useEffect(() => {
+    if (login.status === 'guest') {
+      router.push(Links.SIGN_IN)
+    }
+  }, [login.status]);
 
   const [ mobileSelection, setMobileSelection ] = React.useState<number>(0);
 

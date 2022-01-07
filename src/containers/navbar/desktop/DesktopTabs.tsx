@@ -12,7 +12,6 @@ import { DesktopNavbarCartIcon } from './styles/DesktopNavbarCartIcon';
 import Badge from '@mui/material/Badge';
 
 import FaceTwoTone from '@mui/icons-material/FaceTwoTone';
-import AssignmentTwoToneIcon from '@mui/icons-material/AssignmentTwoTone';
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 
 type Props = {};
@@ -25,31 +24,42 @@ const DesktopTabs: React.FunctionComponent<Props> = (): JSX.Element => {
   //* -------------------------------------------------
   // Handlers
 
-  function handleCartIconClick(): void {
-    router.push(Links.SHOPPING_CART);
+  async function handleCartIconClick(): Promise<void> {
+    await router.push(Links.SHOPPING_CART);
   }
 
-  function handleMyAccountClick(): void {
+  async function handleMyAccountClick(): Promise<void> {
     if (login.status === 'signed-in') {
-      router.push(Links.ACCOUNT);
+      await router.push(Links.ACCOUNT);
     } else {
-      router.push(Links.SIGN_IN);
+      await router.push(Links.SIGN_IN);
     }
+  }
+
+  async function handleSignOut(): Promise<void> {
+    await login.signOut();
   }
 
   //* -------------------------------------------------
   // Render
   return (
     <React.Fragment>
-      {/* WISHLIST comming soon 
-      <DesktopNavbarTabButton startIcon={<AssignmentTwoToneIcon />}>
-        Wishlist
-      </DesktopNavbarTabButton> */}
-      <DesktopNavbarTabButton
-        startIcon={<FaceTwoTone />}
-        onClick={handleMyAccountClick}>
-        My Account
-      </DesktopNavbarTabButton>
+      { login.status === 'signed-in'
+        ? <React.Fragment>
+            <DesktopNavbarTabButton
+                startIcon={<FaceTwoTone />}
+                onClick={handleMyAccountClick}>
+                My Account
+              </DesktopNavbarTabButton>
+              <DesktopNavbarTabButton onClick={handleSignOut}>
+                Sign Out
+              </DesktopNavbarTabButton>
+          </React.Fragment>
+        : <DesktopNavbarTabButton
+            startIcon={<FaceTwoTone />}
+            onClick={handleMyAccountClick}>
+            My Account
+          </DesktopNavbarTabButton>}
       <DesktopNavbarDivider orientation="vertical" flexItem />
       <DesktopNavbarCartIcon
         aria-label="shopping cart"
