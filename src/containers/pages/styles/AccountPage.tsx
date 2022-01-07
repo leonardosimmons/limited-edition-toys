@@ -2,14 +2,17 @@ import { styled } from '@mui/material/styles';
 
 import Box, { BoxProps } from '@mui/material/Box';
 import Container, { ContainerProps } from '@mui/material/Container';
-import Typography, { TypographyProps } from '@mui/material/Typography';
 
 export const AccountMainContainer = styled(Container)<ContainerProps>(
   ({ theme }) => ({
     width: '100%',
     height: '100%',
+    minHeight: '800px',
     padding: '4rem 0',
     ...theme.custom.centerColumn,
+    [theme.breakpoints.up('desktopMd')]: {
+      minHeight: '1000px'
+    }
   }),
 );
 
