@@ -46,6 +46,7 @@ async function userRegistration(req: NextApiRequest, res: NextApiResponse) {
             req.session.auth = {
               id: (login as any).data.id,
               token: (login as any).data.token,
+              displayName: (login as any).data.displayName
             };
             await req.session.save();
 
