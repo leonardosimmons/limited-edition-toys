@@ -71,7 +71,7 @@ export default ProductCategoryDisplayPage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const queryClient = new QueryClient();
-  queryClient.prefetchQuery(Queries.ALL_PRODUCTS, getAllProducts);
+  await queryClient.prefetchQuery(Queries.ALL_PRODUCTS, getAllProducts);
 
   let category: string = ctx.params!.slug as string;
   if (category.includes('-')) {
