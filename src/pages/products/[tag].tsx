@@ -90,8 +90,8 @@ export default ProductTagDisplayPage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(Queries.ALL_PRODUCTS, getAllProducts);
-  await queryClient.prefetchQuery(Queries.PRODUCT_TAGS, getProductTags);
+  queryClient.prefetchQuery(Queries.ALL_PRODUCTS, getAllProducts);
+  queryClient.prefetchQuery(Queries.PRODUCT_TAGS, getProductTags);
 
   let tag: string = ctx.params!.tag as string;
   if (tag.includes('-')) {
