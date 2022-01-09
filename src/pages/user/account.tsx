@@ -1,5 +1,6 @@
 import React from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { Links } from '../../../utils/keys';
 import { useRouter } from 'next/router';
 
 import { withSessionSsr } from 'lib/session';
@@ -17,7 +18,6 @@ import {
 } from 'src/containers/pages/styles/AccountPage';
 import UserDashBoard from '../../features/dashboard/UserDashboard';
 import DashboardSpeedDial from '../../features/dashboard/components/DashboardSpeedDial';
-import { Links } from '../../../utils/keys';
 
 function UserAccountPage({ }:
 InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
