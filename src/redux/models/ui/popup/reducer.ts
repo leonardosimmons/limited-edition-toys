@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { OverlayState } from 'utils/types';
-import { closeNavbarTagMenu, openNavbarTagMenu } from '..';
+import { closeDashboardMobileMenu, closeNavbarTagMenu, openDashboardMobileMenu, openNavbarTagMenu } from '..';
 import {
   closeCategorySearchMenu,
   closeNavbarSearchMenu,
@@ -9,19 +9,33 @@ import {
 } from './actions';
 
 type PopupState = {
+  categorySearchMenu: OverlayState;
+  dashboardMobileMenu: OverlayState;
   navbarSearchMenu: OverlayState;
   navbarTagMenu: OverlayState;
-  categorySearchMenu: OverlayState;
 };
 
 const initialState: PopupState = {
+  categorySearchMenu: 'closed',
+  dashboardMobileMenu: 'closed',
   navbarSearchMenu: 'closed',
   navbarTagMenu: 'closed',
-  categorySearchMenu: 'closed',
 };
 
 export const popupReducer = createReducer(initialState, (builder) =>
   builder
+    .addCase(openCategorySearchMenu, (state) => {
+      state.categorySearchMenu = 'open';
+    })
+    .addCase(closeCategorySearchMenu, (state) => {
+      state.categorySearchMenu = 'closed';
+    })
+    .addCase(openDashboardMobileMenu, (state) => {
+      state.dashboardMobileMenu = 'open'
+    })
+    .addCase(closeDashboardMobileMenu, (state) => {
+      state.dashboardMobileMenu = 'closed'
+    })
     .addCase(openNavbarSearchMenu, (state) => {
       state.navbarSearchMenu = 'open';
     })
@@ -34,10 +48,4 @@ export const popupReducer = createReducer(initialState, (builder) =>
     .addCase(closeNavbarTagMenu, (state) => {
       state.navbarTagMenu = 'closed';
     })
-    .addCase(openCategorySearchMenu, (state) => {
-      state.categorySearchMenu = 'open';
-    })
-    .addCase(closeCategorySearchMenu, (state) => {
-      state.categorySearchMenu = 'closed';
-    }),
 );

@@ -11,6 +11,9 @@ export const uiSelector = createSelector(
     checkboxes: {
       shipping: checkbox.shipping,
     },
+    dashboard: {
+      mobileMenu: popup.dashboardMobileMenuOpen
+    },
     navbar: {
       categoryMenuOpen: popup.categorySearchMenuOpen,
       searchMenuOpen: popup.navbarSearchMenuOpen,

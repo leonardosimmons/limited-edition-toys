@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { useAppDispatch, useAppSelector } from '../../../redux';
+import { closeDashboardMobileMenu, openDashboardMobileMenu, uiSelector } from '../../../redux/models/ui';
+
 import { DashboardSpeedDialBox } from '../styles/Dashboard';
 
 import Backdrop from '@mui/material/Backdrop';
@@ -34,19 +37,21 @@ const DashboardSpeedDial: React.FunctionComponent<Props> = (
     panelHandler
   }
 ): JSX.Element => {
-  const [ open, setOpen ] = React.useState<boolean>(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const dispatch = useAppDispatch();
+  const ctx = useAppSelector(uiSelector);
+
+  const handleOpen = () => dispatch(openDashboardMobileMenu());
+  const handleClose = () => dispatch(closeDashboardMobileMenu());
 
   return (
     <DashboardSpeedDialBox>
-      <Backdrop open={open} />
+      <Backdrop open={ctx.dashboard.mobileMenu} />
       <SpeedDial
         ariaLabel={"User Dashboard Speed dial"}
         icon={<SpeedDialIcon />}
         onClose={handleClose}
         onOpen={handleOpen}
-        open={open}
+        open={ctx.dashboard.mobileMenu}
       >
         {actions.map((action, index) => (
           <SpeedDialAction
