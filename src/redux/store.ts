@@ -2,6 +2,7 @@ import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { authReducer } from 'modules/auth/reducer';
 import { cartReducer } from 'modules/cart/reducer';
 import { checkoutReducer } from 'modules/checkout/reducer';
+import { dashboardReducer } from '../features/dashboard/reducer';
 import { productReducer } from 'modules/product/reducer';
 import { pageReducer } from './models/page/reducer';
 import { searchReducer } from './models/search/reducer';
@@ -12,12 +13,13 @@ export const store = configureStore({
     auth: authReducer,
     cart: cartReducer,
     checkout: checkoutReducer,
+    dashboard: dashboardReducer,
     page: pageReducer,
     product: productReducer,
     search: searchReducer,
     ui: uiReducer,
   },
-  devTools: process && process.env.NODE_ENV === 'development' ? true : false,
+  devTools: process && process.env.NODE_ENV === 'development',
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

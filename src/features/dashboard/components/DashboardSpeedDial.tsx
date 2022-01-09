@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useDashboard } from '../../hooks/useDashboard';
 import { useAppDispatch, useAppSelector } from '../../../redux';
 import { closeDashboardMobileMenu, openDashboardMobileMenu, uiSelector } from '../../../redux/models/ui';
 
@@ -15,10 +16,6 @@ import AssignmentTwoToneIcon from '@mui/icons-material/AssignmentTwoTone';
 import LocalShippingTwoToneIcon from '@mui/icons-material/LocalShippingTwoTone';
 import LocalMallTwoToneIcon from '@mui/icons-material/LocalMallTwoTone';
 
-type Props = {
-  panelHandler: (value: number) => void
-}
-
 type SpeedDialAction = {
   icon: JSX.Element,
   name: string,
@@ -32,16 +29,21 @@ const actions: SpeedDialAction[] = [
   { icon: <AccountCircleTwoToneIcon />, name: 'INFORMATION', value: 0 },
 ]
 
-const DashboardSpeedDial: React.FunctionComponent<Props> = (
-  {
-    panelHandler
-  }
-): JSX.Element => {
+const DashboardSpeedDial: React.FunctionComponent = (): JSX.Element => {
+  const dashboard = useDashboard();
   const dispatch = useAppDispatch();
   const ctx = useAppSelector(uiSelector);
 
+  //* -------------------------------------------------
+  // Handlers
+
   const handleOpen = () => dispatch(openDashboardMobileMenu());
   const handleClose = () => dispatch(closeDashboardMobileMenu());
+
+  const handlePanelSelection = (selection: number) => {
+    handleClose();
+    dashboard.panel.set(selection);
+  };
 
   return (
     <DashboardSpeedDialBox>
@@ -59,10 +61,7 @@ const DashboardSpeedDial: React.FunctionComponent<Props> = (
             icon={action.icon}
             tooltipTitle={action.name}
             tooltipOpen
-            onClick={() => {
-              handleClose();
-              panelHandler(action.value);
-            }}
+            onClick={() => handlePanelSelection(action.value)}
           />
         ))}
       </SpeedDial>

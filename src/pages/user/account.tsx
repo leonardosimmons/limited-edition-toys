@@ -32,23 +32,15 @@ InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
     }
   }, [login.status]);
 
-  const [ mobileSelection, setMobileSelection ] = React.useState<number>(0);
-
-  function handleMobilePanelMenu(value: number) {
-    setMobileSelection(value)
-  }
-
   return (
     <Layout title={'Limited Edition Toys | My Account'} >
       <AccountMainContainer sx={{ position: 'relative' }}>
         <AccountHeader>
           <Typography variant="h1">My Account</Typography>
         </AccountHeader>
-        <UserDashBoard mobileSelection={mobileSelection}/>
+        <UserDashBoard />
         { ctx.ui.status.viewport === 'mobile' &&
-          <DashboardSpeedDial
-            panelHandler={handleMobilePanelMenu}
-          />
+          <DashboardSpeedDial />
         }
       </AccountMainContainer>
     </Layout>
