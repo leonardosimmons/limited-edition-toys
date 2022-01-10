@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useDashboard } from '../../hooks/useDashboard';
+import { useDashboard } from '../hooks/useDashboard';
 import { useAppDispatch, useAppSelector } from '../../../redux';
 import { closeDashboardMobileMenu, openDashboardMobileMenu, uiSelector } from '../../../redux/models/ui';
 

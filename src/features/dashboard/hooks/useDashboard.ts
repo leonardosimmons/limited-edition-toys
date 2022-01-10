@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '../../redux';
-import { dashboardSelector } from '../dashboard/selectors';
-import { setCurrentPanel } from '../dashboard/actions';
+import { useAppDispatch, useAppSelector } from '../../../redux';
+import { dashboardSelector } from '../selectors';
+import { setCurrentPanel } from '../actions';
 
 
 function useDashboard() {
