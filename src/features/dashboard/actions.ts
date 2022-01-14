@@ -1,4 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const setCurrentPanel = createAction<number>('dashboard/setCurrentPanel');
-export const resetCurrentPanel = createAction('dashboard/resetCurrentPanel');
+export const setCurrentPanelSelection = createAction<number>('dashboard/setCurrentPanelSelection');
+export const resetCurrentPanelSelection = createAction('dashboard/resetCurrentPanelSelection');

@@ -1,22 +1,29 @@
-import { useAppDispatch, useAppSelector } from '../../../redux';
 import { dashboardSelector } from '../selectors';
-import { setCurrentPanel } from '../actions';
-
+import { useAppDispatch, useAppSelector } from '../../../redux';
+import {
+  resetCurrentPanelSelection,
+  setCurrentPanelSelection,
+} from '../actions';
 
 function useDashboard() {
   const dispatch = useAppDispatch();
   const ctx = useAppSelector(dashboardSelector);
 
+  function resetPanel() {
+    dispatch(resetCurrentPanelSelection());
+  }
+
   function setPanel(selection: number) {
-    dispatch(setCurrentPanel(selection));
+    dispatch(setCurrentPanelSelection(selection));
   }
 
   return {
     panel: {
       current: ctx.panel.current,
-      set: setPanel
-    }
-  }
+      reset: resetPanel,
+      set: setPanel,
+    },
+  };
 }
 
 export { useDashboard };

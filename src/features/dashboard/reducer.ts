@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { resetCurrentPanel, setCurrentPanel } from './actions';
+import { resetCurrentPanelSelection, setCurrentPanelSelection } from './actions';
 
 type DashboardState = {
   panel: {
@@ -15,10 +15,10 @@ const initialState: DashboardState = {
 
 export const dashboardReducer = createReducer(initialState, (builder) =>
   builder
-    .addCase(setCurrentPanel, (state, action) => {
+    .addCase(setCurrentPanelSelection, (state, action) => {
       state.panel.current = action.payload;
     })
-    .addCase(resetCurrentPanel, (state) => {
+    .addCase(resetCurrentPanelSelection, (state) => {
       state.panel.current = 0;
     })
 );
