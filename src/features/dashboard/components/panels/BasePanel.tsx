@@ -22,7 +22,7 @@ const DashboardPanel: React.FunctionComponent<Props> = ({
       style={{ flex: 1, height: '100%' }}>
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
