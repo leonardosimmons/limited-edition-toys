@@ -10,7 +10,7 @@ import { Dashboard, DashboardTab, DashboardTabs } from './styles/Dashboard';
 
 import Box from '@mui/material/Box';
 
-import DashboardPanel from './components/DashboardPanel';
+import DashboardPanels from './components/DashboardPanels';
 
 function a11yProps(index: number) {
   return {
@@ -45,17 +45,13 @@ const UserDashBoard: React.FunctionComponent = (): JSX.Element => {
             onChange={handleChange}
             aria-label="dashboard tabs">
             {data.panels.map((panel, index) => (
-              <DashboardTab label={panel.label} {...a11yProps(index)} />
+              <DashboardTab key={index} label={panel.label} {...a11yProps(index)} />
             ))}
           </DashboardTabs>
         )}
         <Box
           sx={{ position: 'relative', flex: 1, width: '100%', height: '100%' }}>
-          {data.panels.map((panel, index) => (
-            <DashboardPanel index={index} value={ctx.dashboard.panel.current}>
-              {panel.name}
-            </DashboardPanel>
-          ))}
+          <DashboardPanels value={ctx.dashboard.panel.current} />
         </Box>
       </Dashboard>
     </React.Fragment>

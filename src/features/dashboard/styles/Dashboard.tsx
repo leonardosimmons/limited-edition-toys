@@ -19,6 +19,30 @@ export const Dashboard = styled(Box)<BoxProps>(({ theme }) => ({
   }
 }));
 
+export const DashboardCustomInput = styled('input')(({ theme }) => ({
+  width: '320px',
+  fontSize: '1rem',
+  fontFamily: 'IBM Plex Sans, sans-serif',
+  fontWeight: 400,
+  lineHeight: 1.5,
+  color: theme.palette.grey[900],
+  background: theme.palette.grey[50],
+  border: `1px solid ${theme.palette.grey[300]}`,
+  borderRadius: '8px',
+  marginBottom: '1rem',
+  padding: '12px 12px',
+  transition: 'all 150ms ease',
+  '&:hover': {
+  background: theme.palette.grey[100],
+  borderColor: theme.palette.grey[400],
+  },
+  '&:focus': {
+    outline: `2px solid ${theme.palette.primary.main}`,
+    outlineOffset: '2px',
+  },
+}));
+
+
 export const DashboardTabs = styled(Tabs)<TabsProps>(({ theme }) => ({
   height: '100%',
   justifyContent: 'space-evenly',

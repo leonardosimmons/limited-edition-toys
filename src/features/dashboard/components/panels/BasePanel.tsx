@@ -1,32 +1,26 @@
 import React from 'react';
 
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 
 type Props = {
-  index: number;
-  value: number;
+  name: string;
 };
 
-const DashboardPanel: React.FunctionComponent<Props> = ({
+const BasePanel: React.FunctionComponent<Props> = ({
   children,
-  index,
-  value,
+  name,
 }): JSX.Element => {
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
-      id={`dashboard-panel-${index}`}
-      aria-labelledby={`dashboard-tab-${index}`}
+      id={`dashboard-panel-${name}`}
+      aria-labelledby={`dashboard-tab-${name}`}
       style={{ flex: 1, height: '100%' }}>
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
+      <Box sx={{ display: "flex", flexDirection: 'column', justifyContent: 'flex-start', padding: 3 }}>
+        {children}
+      </Box>
     </div>
   );
 };
 
-export default DashboardPanel;
+export default BasePanel;
