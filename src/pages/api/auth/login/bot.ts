@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { Wordpress } from '../../../../../lib/wordpress';
+import { WordpressApi } from '../../../../../lib/wordpress';
 import { withSessionApiRoute } from '../../../../../lib/session';
 
 export default withSessionApiRoute(botLogin);
@@ -9,7 +9,7 @@ async function botLogin(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
       try {
-        const response = await Wordpress.post('/jwt-auth/v1/token', {
+        const response = await WordpressApi.post('/jwt-auth/v1/token', {
           username: process.env.WORDPRESS_EDITOR_UN as string,
           password: process.env.WORDPRESS_EDITOR_PW as string,
         });

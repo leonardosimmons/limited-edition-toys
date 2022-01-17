@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Wordpress } from '../../../../../lib/wordpress';
+import { WordpressApi } from '../../../../../lib/wordpress';
 import { withSessionApiRoute } from '../../../../../lib/session';
 import { UserSignInToken } from 'modules/auth/types';
 
@@ -10,7 +10,7 @@ async function userLogin(req: NextApiRequest, res: NextApiResponse) {
     case 'POST':
       try {
         const { username, password } = (await req.body) as UserSignInToken;
-        const response = await Wordpress.post('/jwt-auth/v1/token', {
+        const response = await WordpressApi.post('/jwt-auth/v1/token', {
           username,
           password,
         });

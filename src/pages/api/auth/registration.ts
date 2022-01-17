@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { UserRegistrationToken } from 'modules/auth/types';
 
-import { Wordpress } from '../../../../lib/wordpress';
+import { WordpressApi } from '../../../../lib/wordpress';
 import { withSessionApiRoute } from '../../../../lib/session';
 
 export default withSessionApiRoute(userRegistration);
@@ -13,7 +13,7 @@ async function userRegistration(req: NextApiRequest, res: NextApiResponse) {
         const { username, email, password } =
           (await req.body) as Partial<UserRegistrationToken>;
 
-        const response = await Wordpress.post('/jwt-auth/v1/token', {
+        const response = await WordpressApi.post('/jwt-auth/v1/token', {
           username: process.env.WORDPRESS_EDITOR_UN as string,
           password: process.env.WORDPRESS_EDITOR_PW as string,
         });
@@ -21,7 +21,7 @@ async function userRegistration(req: NextApiRequest, res: NextApiResponse) {
         const token = (data as any).data.token;
 
         try {
-          const userResponse = await Wordpress.post(
+          const userResponse = await WordpressApi.post(
             '/wp/v2/users',
             {
               username,
@@ -37,7 +37,7 @@ async function userRegistration(req: NextApiRequest, res: NextApiResponse) {
           const name = userResponse.data.username;
 
           try {
-            const loginResponse = await Wordpress.post('/jwt-auth/v1/token', {
+            const loginResponse = await WordpressApi.post('/jwt-auth/v1/token', {
               username,
               password,
             });
