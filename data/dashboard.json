@@ -24,10 +24,16 @@
       "password": "CHANGE PASSWORD"
     },
     "inputs": [
-      { "placeholder": "First name", "propName": "firstname" },
-      { "placeholder": "Last name", "propName": "lastname" },
-      { "placeholder": "Email", "propName": "email" },
-      { "placeholder": "Username", "propName": "username" }
+      { "placeholder": "First name", "propName": "firstname", "key": "first_name" },
+      { "placeholder": "Last name", "propName": "lastname", "key": "last_name" },
+      { "placeholder": "Email", "propName": "email", "key": "email" },
+      { "placeholder": "Username", "propName": "username", "key": "username" }
+    ],
+    "textInputs": [
+      { "placeholder": "First name", "key": "first_name" },
+      { "placeholder": "Last name", "key": "last_name" },
+      { "placeholder": "Email", "key": "email" },
+      { "placeholder": "Username", "key": "username" }
     ]
   }
 }

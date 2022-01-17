@@ -42,6 +42,13 @@ export const DashboardCustomInput = styled('input')(({ theme }) => ({
   },
 }));
 
+export const DashboardLoadSpinner = styled(Box)<BoxProps>(({ theme }) => ({
+  minHeight: '150px',
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}));
 
 export const DashboardTabs = styled(Tabs)<TabsProps>(({ theme }) => ({
   height: '100%',

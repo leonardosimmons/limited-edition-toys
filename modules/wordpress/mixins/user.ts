@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { WordpressBase } from './base';
+import { WordpressUser } from '../types';
 import { Constructor } from '../../../utils/types';
 
 export function WordpressUserModel<TBase extends Constructor>(Base: TBase) {
   return class extends Base {
-    async user() {
+    async user(): Promise<WordpressUser> {
       return await axios
         .get('/api/user/info')
         .then((res) => res.data)
@@ -12,6 +12,3 @@ export function WordpressUserModel<TBase extends Constructor>(Base: TBase) {
     }
   };
 }
-
-export const WordpressUser = WordpressUserModel(WordpressBase);
-export type WordpressUser = InstanceType<typeof WordpressUser>;

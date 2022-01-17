@@ -1,21 +1,17 @@
 import { UserRoles } from '../user/types';
 
-export type WpUserSignInResponse = {
-  token: string;
-  id: number;
-  email: string;
-  displayName: string;
-  firstName?: string;
-  lastName?: string;
-  nicename?: string;
-};
+export type WordpressAvatarUrl = {
+  24: string;
+  48: string;
+  96: string;
+}
 
-export type WpUser = {
+export type WordpressUser = {
   id: number;
   username: string;
   name: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   url: string;
   description: string;
@@ -23,11 +19,12 @@ export type WpUser = {
   locale: string;
   nickname: string;
   slug: string;
-  registeredDate: string;
+  registered_date: string;
   roles: UserRoles[];
+  is_super_admin: boolean,
   password?: string;
   capabilities?: object;
-  extraCapabilities?: object;
-  avatarUrls?: object;
-  meta?: object;
+  extra_capabilities?: object;
+  avatarUrls?: WordpressAvatarUrl;
+  meta?: [];
 };
