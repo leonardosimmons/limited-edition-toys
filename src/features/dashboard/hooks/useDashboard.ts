@@ -4,10 +4,12 @@ import {
   resetCurrentPanelSelection,
   setCurrentPanelSelection,
 } from '../actions';
+import useDashboardInformation from './useDashboardInformation';
 
 function useDashboard() {
   const dispatch = useAppDispatch();
   const ctx = useAppSelector(dashboardSelector);
+  const information = useDashboardInformation();
 
   function resetPanel() {
     dispatch(resetCurrentPanelSelection());
@@ -18,6 +20,7 @@ function useDashboard() {
   }
 
   return {
+    information,
     panel: {
       current: ctx.panel.current,
       reset: resetPanel,

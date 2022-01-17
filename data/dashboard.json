@@ -16,5 +16,18 @@
       "name": "Wishlist Panel",
       "label": "Wishlist"
     }
-  ]
+  ],
+  "information": {
+    "headers": {
+      "account": "ACCOUNT INFORMATION",
+      "main": "EDIT INFORMATION",
+      "password": "CHANGE PASSWORD"
+    },
+    "inputs": [
+      { "placeholder": "First name", "propName": "firstname" },
+      { "placeholder": "Last name", "propName": "lastname" },
+      { "placeholder": "Email", "propName": "email" },
+      { "placeholder": "Username", "propName": "username" }
+    ]
+  }
 }
