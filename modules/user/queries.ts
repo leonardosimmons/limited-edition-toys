@@ -1,9 +1,9 @@
-import { useQuery } from 'react-query';
 import { Queries } from 'utils/keys';
-import { UserModel } from './user.model';
+import { useQuery } from 'react-query';
+import { Wordpress } from '../wordpress/wordpress.model';
 
 export async function getUser() {
-  return await new UserModel().get();
+  return await new Wordpress().user();
 }
 
 export function useUserInfo() {

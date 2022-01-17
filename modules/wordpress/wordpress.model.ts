@@ -1,5 +1,6 @@
 import { WordpressBase } from './mixins/base';
 import { WordpressLoginModel } from './mixins/login';
+import { WordpressUserModel } from './mixins/user';
 
-export const WordpressModel = WordpressLoginModel(WordpressBase);
-export type Wordpress = InstanceType<typeof WordpressModel>;
+export const Wordpress = WordpressUserModel(WordpressLoginModel(WordpressBase));
+export type Wordpress = InstanceType<typeof Wordpress>;

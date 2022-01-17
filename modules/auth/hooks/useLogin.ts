@@ -5,12 +5,12 @@ import { UserLoginCredentials } from 'modules/user/types';
 
 import { updateAuthLoginStatus } from '../actions';
 import { authSelector } from '../selectors';
-import { Wordpress, WordpressModel } from '../../wordpress/wordpress.model';
+import { Wordpress } from '../../wordpress/wordpress.model';
 
 function useLogin() {
   const dispatch = useAppDispatch();
+  const wordpress = new Wordpress();
   const ctx = useAppSelector(authSelector);
-  const wordpress: Wordpress = new WordpressModel();
 
   function updateLoginStatus(status: LoginStatus): void {
     dispatch(updateAuthLoginStatus(status));
