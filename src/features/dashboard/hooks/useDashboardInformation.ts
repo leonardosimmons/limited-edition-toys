@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../../redux';
 import { dashboardSelector } from '../selectors';
+import { AccountInformation } from '../types';
 import {
   setAccountInformation,
   setAccountInformationEditMode,
@@ -9,7 +10,7 @@ function useDashboardInformation() {
   const dispatch = useAppDispatch();
   const ctx = useAppSelector(dashboardSelector);
 
-  function setInformation(key: string, value: string): void {
+  function setInformation(key: keyof AccountInformation, value: string): void {
     dispatch(setAccountInformation(key, value));
   }
 

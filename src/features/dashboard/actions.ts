@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
+import { AccountInformation } from './types';
 
 function withKeyValuePayload<K, V>() {
   return (key: K, value: V) => ({
@@ -12,7 +13,7 @@ function withKeyValuePayload<K, V>() {
 //* Account -------------------------------------------------
 export const setAccountInformation = createAction(
   'dashboard/setAccountInformation',
-  withKeyValuePayload<string, string>(),
+  withKeyValuePayload<keyof AccountInformation, string>(),
 );
 export const setAccountInformationEditMode = createAction<boolean>(
   'dashboard/toggleAccountInformationEdit',
