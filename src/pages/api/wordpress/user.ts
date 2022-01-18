@@ -21,7 +21,6 @@ async function user(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json({ user });
       break;
     case 'POST':
-      console.log('made it')
       const { key, value } = await req.body;
       try {
         const postResponse = await WordpressApi.post(
