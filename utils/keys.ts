@@ -55,3 +55,7 @@ export enum Queries {
   WORDPRESS_USER = 'wordpress-user',
   USER_SESSION = 'user-auth-session',
 }
+
+export enum Timer {
+  DASHBOARD_INPUT_TIMER = 5 * 1000
+}

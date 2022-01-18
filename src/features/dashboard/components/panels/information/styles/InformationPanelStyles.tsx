@@ -19,21 +19,23 @@ export const AccountInformationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   height: '100%',
 }));
 
-export const AccountInformationHeading = styled(Container)<ContainerProps>(({ theme }) => ({
-  display: 'flex',
-  '& > h3.MuiTypography-h3': {
-    flex: '0 1 95%',
-    fontSize: '1.8rem',
-    marginBottom: '15px'
-  },
-  '& > span.MuiTypography-caption': {
-    padding: '1rem 0',
-    color: theme.palette.primary.main,
-    '&:active': {
-      transform: 'translateY(2px)',
+export const AccountInformationHeading = styled(Container)<ContainerProps>(
+  ({ theme }) => ({
+    display: 'flex',
+    '& > h3.MuiTypography-h3': {
+      flex: '0 1 95%',
+      fontSize: '1.8rem',
+      marginBottom: '15px',
     },
-  }
-}));
+    '& > span.MuiTypography-caption': {
+      padding: '1rem 0',
+      color: theme.palette.primary.main,
+      '&:active': {
+        transform: 'translateY(2px)',
+      },
+    },
+  }),
+);
 
 interface StyledInformationInput extends BoxProps {
   type?: 'input' | 'text';
@@ -49,16 +51,29 @@ export const AccountInformationInput = styled(Box, {
     fontSize: '1.6rem',
     flex: '0 1 25%',
   },
-  ...(type && type === 'text' && {
-    alignItems: 'flex-end',
-    height: '3rem'
-  })
+  ...(type &&
+    type === 'text' && {
+      alignItems: 'flex-end',
+      height: '3rem',
+    }),
 }));
 
-export const AccountInformationButton = styled(Button)<ButtonProps>(({ theme }) => ({
+interface StyledInformationButton extends ButtonProps {
+  status: 'error' | 'pending' | 'success';
+}
+
+export const AccountInformationButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== 'status',
+})<StyledInformationButton>(({ status, theme }) => ({
   marginLeft: '20px',
   fontSize: '1rem',
   '&:active': {
-    transform: 'translateY(2px)'
-  }
-}))
+    transform: 'translateY(2px)',
+  },
+  ...(status === 'success' && {
+    backgroundColor: 'green',
+  }),
+  ...(status === 'error' && {
+    backgroundColor: 'red',
+  }),
+}));

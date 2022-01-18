@@ -43,12 +43,16 @@ const AccountInformation: React.FunctionComponent = (): JSX.Element => {
     await user.update.info(newValue);
   }
 
+  function handleValueReset(propName: keyof AccountInformation): void {
+    ctx.information.update.info(propName, '');
+  }
+
   return (
     <AccountInformationWrapper>
       <AccountInformationHeading disableGutters>
         <Header variant={'h3'}>{data.information.headers.account}</Header>
         <Typography variant={'caption'} onClick={handleEditMode}>
-          {'edit'}
+          {ctx.information.status.editMode ? 'back' : 'edit'}
         </Typography>
       </AccountInformationHeading>
       {ctx.information.status.editMode ? (
@@ -62,6 +66,7 @@ const AccountInformation: React.FunctionComponent = (): JSX.Element => {
             placeholder={user.info[input.key as keyof WordpressUser] as string}
             onChange={handleInputChange}
             onClick={handleUpdate}
+            valueReset={handleValueReset}
           />
         ))
       ) : user.status === 'loading' ? (
