@@ -2,11 +2,11 @@ import React from 'react';
 import { Timer } from '../../../../utils/keys';
 import { KeyValuePair } from '../../../../utils/types';
 
-import { DashboardCustomInput } from '../styles/Dashboard';
 import {
-  AccountInformationButton,
-  AccountInformationInput,
-} from './panels/information/styles/InformationPanelStyles';
+  DashboardCustomInput,
+  DashboardInputButton,
+  DashboardInputWrapper,
+} from '../styles/Dashboard';
 
 import Typography from '@mui/material/Typography';
 
@@ -42,7 +42,7 @@ const DashboardInput: React.FunctionComponent<Props> = ({
     if (status === 'success' || status === 'error') {
       reset = setTimeout(() => {
         resetInput();
-      }, Timer.DASHBOARD_INPUT_TIMER);
+      }, Timer.DASHBOARD_INPUT_RESET);
     }
 
     return () => {
@@ -64,7 +64,7 @@ const DashboardInput: React.FunctionComponent<Props> = ({
   }
 
   return (
-    <AccountInformationInput>
+    <DashboardInputWrapper>
       <Typography variant={'h6'}>{label}</Typography>
       <CustomInput
         placeholder={placeholder}
@@ -73,7 +73,7 @@ const DashboardInput: React.FunctionComponent<Props> = ({
         onChange={onChange}
         input={DashboardCustomInput}
       />
-      <AccountInformationButton
+      <DashboardInputButton
         status={status}
         variant={'contained'}
         onClick={handleUpdate}>
@@ -84,8 +84,8 @@ const DashboardInput: React.FunctionComponent<Props> = ({
           : status === 'error'
           ? 'Error'
           : 'Update'}
-      </AccountInformationButton>
-    </AccountInformationInput>
+      </DashboardInputButton>
+    </DashboardInputWrapper>
   );
 };
 

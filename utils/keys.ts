@@ -42,7 +42,7 @@ export enum Links {
   SHOPPING_CART = '/cart',
   BILLING = '/checkout/billing',
   SIGN_IN = '/user/sign-in',
-  USER = '/user'
+  USER = '/user',
 }
 
 export enum Queries {
@@ -57,5 +57,5 @@ export enum Queries {
 }
 
 export enum Timer {
-  DASHBOARD_INPUT_TIMER = 5 * 1000
+  DASHBOARD_INPUT_RESET = 5 * 1000
 }

@@ -9,11 +9,10 @@ import { useDashboard } from '../../../../hooks/useDashboard';
 
 import {
   AccountInformationHeading,
-  AccountInformationInput,
   AccountInformationWrapper,
   Header,
 } from '../styles/InformationPanelStyles';
-import { DashboardLoadSpinner } from '../../../../styles/Dashboard';
+import { DashboardInputWrapper, DashboardLoadSpinner } from '../../../../styles/Dashboard';
 
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -75,13 +74,13 @@ const AccountInformation: React.FunctionComponent = (): JSX.Element => {
         </DashboardLoadSpinner>
       ) : (
         data.information.textInputs.map((input, index) => (
-          <AccountInformationInput key={index} type={'text'}>
+          <DashboardInputWrapper key={index} type={'text'}>
             <Typography variant={'h6'}>{input.placeholder}</Typography>
             <Typography variant={'caption'}>
               {user.status !== 'loading' &&
                 user.info[input.key as keyof WordpressUser]}
             </Typography>
-          </AccountInformationInput>
+          </DashboardInputWrapper>
         ))
       )}
     </AccountInformationWrapper>
