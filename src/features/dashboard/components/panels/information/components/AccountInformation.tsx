@@ -8,21 +8,17 @@ import { useUser } from 'modules/user/useUser';
 import { useDashboard } from '../../../../hooks/useDashboard';
 
 import {
-  AccountInformationButton,
   AccountInformationHeading,
   AccountInformationInput,
   AccountInformationWrapper,
   Header,
 } from '../styles/InformationPanelStyles';
-import {
-  DashboardCustomInput,
-  DashboardLoadSpinner,
-} from '../../../../styles/Dashboard';
+import { DashboardLoadSpinner } from '../../../../styles/Dashboard';
 
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import CustomInput from 'lib/components/input/CustomInput';
+import DashboardInput from '../../../DashboardInput';
 
 const AccountInformation: React.FunctionComponent = (): JSX.Element => {
   const user = useUser();
@@ -57,30 +53,16 @@ const AccountInformation: React.FunctionComponent = (): JSX.Element => {
       </AccountInformationHeading>
       {ctx.information.status.editMode ? (
         data.information.inputs.map((input, index) => (
-          <AccountInformationInput key={index}>
-            <Typography variant={'h6'}>{input.placeholder}</Typography>
-            <CustomInput
-              placeholder={
-                user.info[input.key as keyof WordpressUser] as string
-              }
-              propName={input.propName}
-              value={
-                ctx.information![input.propName as keyof AccountInformation]
-              }
-              onChange={handleInputChange}
-              input={DashboardCustomInput}
-            />
-            <AccountInformationButton
-              variant={'contained'}
-              onClick={() =>
-                handleUpdate({
-                  key: input.key as keyof WordpressUser,
-                  value: ctx.information[input.propName as keyof AccountInformation],
-                })
-              }>
-              {'Update'}
-            </AccountInformationButton>
-          </AccountInformationInput>
+          <DashboardInput
+            key={index}
+            propName={input.propName}
+            label={input.placeholder}
+            valueKey={input.key as keyof WordpressUser}
+            value={ctx.information![input.propName as keyof AccountInformation]}
+            placeholder={user.info[input.key as keyof WordpressUser] as string}
+            onChange={handleInputChange}
+            onClick={handleUpdate}
+          />
         ))
       ) : user.status === 'loading' ? (
         <DashboardLoadSpinner>
