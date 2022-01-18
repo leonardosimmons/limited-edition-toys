@@ -4,7 +4,7 @@ import data from '../../../data/dashboard.json';
 import { useAppSelector } from '../../redux';
 import { appSelector } from '../../redux/selector';
 import { useDashboard } from './hooks/useDashboard';
-import { useUser } from '../../../modules/user/hooks/useUser';
+import { useUser } from '../../../modules/user/useUser';
 
 import { Dashboard, DashboardTab, DashboardTabs } from './styles/Dashboard';
 

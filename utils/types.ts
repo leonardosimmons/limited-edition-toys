@@ -18,6 +18,11 @@ export type FieldValuePair = {
   value: string;
 };
 
+export type KeyValuePair<T, U> = {
+  key: T;
+  value: U;
+}
+
 export type MenuTab = {
   name: string;
   link: string;

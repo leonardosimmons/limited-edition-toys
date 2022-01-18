@@ -29,7 +29,6 @@ export const DashboardCustomInput = styled('input')(({ theme }) => ({
   background: theme.palette.grey[50],
   border: `1px solid ${theme.palette.grey[300]}`,
   borderRadius: '8px',
-  marginBottom: '1rem',
   padding: '12px 12px',
   transition: 'all 150ms ease',
   '&:hover': {
@@ -53,9 +52,7 @@ export const DashboardLoadSpinner = styled(Box)<BoxProps>(({ theme }) => ({
 export const DashboardTabs = styled(Tabs)<TabsProps>(({ theme }) => ({
   height: '100%',
   justifyContent: 'space-evenly',
-  padding: '10px',
-  borderRight: '1rem',
-  borderColor: theme.palette.grey[200]
+  borderRight: `1px solid ${theme.palette.grey[200]}`
 }));
 
 export const DashboardTab = styled(Tab)<TabProps>(({ theme }) => ({
@@ -67,9 +64,6 @@ export const DashboardTab = styled(Tab)<TabProps>(({ theme }) => ({
     borderTop: `1.5px solid ${theme.palette.grey[200]}`,
     borderBottom: `1.5px solid ${theme.palette.grey[200]}`,
   },
-  '&:last-of-type': {
-    borderBottom: 0
-  }
 }));
 
 export const DashboardSpeedDialBox = styled(Box)<BoxProps>(({ theme }) => ({

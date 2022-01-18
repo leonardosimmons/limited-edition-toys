@@ -52,5 +52,6 @@ export enum Queries {
   PRODUCT_PROMOTIONS = 'product-promotions',
   PRODUCT_TAGS = 'product-tags',
   USER = 'user',
+  WORDPRESS_USER = 'wordpress-user',
   USER_SESSION = 'user-auth-session',
 }
