@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles';
 
 import Box, { BoxProps } from '@mui/material/Box';
+import Button, { ButtonProps } from '@mui/material/Button';
 import Container, { ContainerProps } from '@mui/material/Container';
 import Typography, { TypographyProps } from '@mui/material/Typography';
 
@@ -41,7 +42,9 @@ interface StyledInformationInput extends BoxProps {
 export const AccountInformationInput = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'type',
 })<StyledInformationInput>(({ type, theme }) => ({
-  display: 'flex',
+  ...theme.custom.center,
+  justifyContent: 'flex-start',
+  marginBottom: '1rem',
   '& > h6.MuiTypography-h6': {
     fontSize: '1.6rem',
     flex: '0 1 25%',
@@ -51,3 +54,11 @@ export const AccountInformationInput = styled(Box, {
     height: '3rem'
   })
 }));
+
+export const AccountInformationButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  marginLeft: '20px',
+  fontSize: '1rem',
+  '&:active': {
+    transform: 'translateY(2px)'
+  }
+}))

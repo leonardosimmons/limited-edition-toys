@@ -2,11 +2,13 @@ import React from 'react';
 import data from 'data/dashboard.json';
 import { AccountInformation } from '../../../../types';
 import { WordpressUser } from 'modules/wordpress/types';
+import { KeyValuePair } from 'utils/types';
 
-import { useUser } from 'modules/user/hooks/useUser';
+import { useUser } from 'modules/user/useUser';
 import { useDashboard } from '../../../../hooks/useDashboard';
 
 import {
+  AccountInformationButton,
   AccountInformationHeading,
   AccountInformationInput,
   AccountInformationWrapper,
@@ -26,14 +28,23 @@ const AccountInformation: React.FunctionComponent = (): JSX.Element => {
   const user = useUser();
   const ctx = useDashboard();
 
+  function handleEditMode(): void {
+    ctx.information.editMode(!ctx.information.status.editMode);
+  }
+
   function handleInputChange<T>(key: keyof T) {
     return (e: React.ChangeEvent<HTMLInputElement>): void => {
-      ctx.information.update.info(key as string, e.target.value);
+      ctx.information.update.info(
+        key as keyof AccountInformation,
+        e.target.value,
+      );
     };
   }
 
-  function handleEditMode(): void {
-    ctx.information.editMode(!ctx.information.status.editMode);
+  async function handleUpdate(
+    newValue: KeyValuePair<keyof WordpressUser, string>,
+  ): Promise<void> {
+    await user.update.info(newValue);
   }
 
   return (
@@ -49,7 +60,9 @@ const AccountInformation: React.FunctionComponent = (): JSX.Element => {
           <AccountInformationInput key={index}>
             <Typography variant={'h6'}>{input.placeholder}</Typography>
             <CustomInput
-              placeholder={user.info[input.key as keyof WordpressUser] as string}
+              placeholder={
+                user.info[input.key as keyof WordpressUser] as string
+              }
               propName={input.propName}
               value={
                 ctx.information![input.propName as keyof AccountInformation]
@@ -57,6 +70,16 @@ const AccountInformation: React.FunctionComponent = (): JSX.Element => {
               onChange={handleInputChange}
               input={DashboardCustomInput}
             />
+            <AccountInformationButton
+              variant={'contained'}
+              onClick={() =>
+                handleUpdate({
+                  key: input.key as keyof WordpressUser,
+                  value: ctx.information[input.propName as keyof AccountInformation],
+                })
+              }>
+              {'Update'}
+            </AccountInformationButton>
           </AccountInformationInput>
         ))
       ) : user.status === 'loading' ? (
