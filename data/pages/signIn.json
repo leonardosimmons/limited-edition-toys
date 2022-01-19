@@ -13,6 +13,8 @@
     "inputs": [
       { "label": "Username", "propName": "username" },
       { "label": "Email Address", "propName": "email" },
+      { "label": "First Name", "propName": "firstname" },
+      { "label": "Last Name", "propName": "lastname" },
       { "label": "Password", "propName": "password" },
       { "label": "Retype Password", "propName": "checkPw" }
     ]

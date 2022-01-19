@@ -6,6 +6,8 @@ export type AuthSessionToken = {
 export type UserRegistrationToken = {
   username: string;
   email: string;
+  firstname: string;
+  lastname: string;
   password: string;
   checkPw: string;
 };

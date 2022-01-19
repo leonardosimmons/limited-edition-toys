@@ -18,6 +18,8 @@ function useUserRegistration() {
     try {
       return await axios
         .post('/api/auth/registration', {
+          firstname: token.firstname,
+          lastname: token.lastname,
           username: token.username,
           password: token.password,
           email: token.email,

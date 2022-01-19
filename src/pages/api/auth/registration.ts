@@ -10,7 +10,7 @@ async function userRegistration(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'POST':
       try {
-        const { username, email, password } =
+        const { firstname, lastname, username, email, password } =
           (await req.body) as Partial<UserRegistrationToken>;
 
         const response = await WordpressApi.post('/jwt-auth/v1/token', {
@@ -21,12 +21,15 @@ async function userRegistration(req: NextApiRequest, res: NextApiResponse) {
         const token = (data as any).data.token;
 
         try {
-          const userResponse = await WordpressApi.post(
+          await WordpressApi.post(
             '/wp/v2/users',
             {
               username,
               email,
               password,
+              first_name: firstname,
+              last_name: lastname,
+              roles: ['customer']
             },
             {
               headers: {
@@ -34,29 +37,7 @@ async function userRegistration(req: NextApiRequest, res: NextApiResponse) {
               },
             },
           );
-          const name = userResponse.data.username;
-
-          try {
-            const loginResponse = await WordpressApi.post('/jwt-auth/v1/token', {
-              username,
-              password,
-            });
-            const login = loginResponse.data;
-
-            req.session.auth = {
-              id: (login as any).data.id,
-              token: (login as any).data.token,
-              displayName: (login as any).data.displayName
-            };
-            await req.session.save();
-
-            res.status(200).json({
-              auth: req.session.auth,
-              user: name,
-            });
-          } catch (err: any) {
-            throw new Error(err);
-          }
+          res.status(200).json({ ok: true })
         } catch (err: any) {
           throw new Error(err);
         }

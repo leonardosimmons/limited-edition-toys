@@ -26,6 +26,8 @@ import Layout from 'src/containers/Layout/Layout';
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { RouteConfirmation } from '../../../utils/types';
+import { CircularProgress } from '@mui/material';
 
 function Registration({}: InferGetStaticPropsType<
   typeof getStaticProps
@@ -38,6 +40,8 @@ function Registration({}: InferGetStaticPropsType<
   const [token, setToken] = React.useState<UserRegistrationToken>({
     username: '',
     email: '',
+    firstname: '',
+    lastname: '',
     password: '',
     checkPw: '',
   });
@@ -46,6 +50,7 @@ function Registration({}: InferGetStaticPropsType<
   // Registration
   const login = useLogin();
   const registration = useUserRegistration();
+  const [registered, setRegistered] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (registration.isValid) {
@@ -53,13 +58,51 @@ function Registration({}: InferGetStaticPropsType<
     }
   }, []);
 
+  React.useEffect(() => {
+    let reset: any;
+    if(registered) {
+      reset = setTimeout(() => {
+        setRegistered(false)
+      }, 20 * 1000);
+    }
+
+    return () => {
+      clearInterval(reset);
+    }
+  }, [registered])
+
   async function handleRegisterUser(): Promise<void> {
     registration.verify(token);
     if (registration.isValid) {
       try {
-        await registration.register.user(token);
-        login.update('signed-in');
-        router.push(Links.ACCOUNT);
+        setRegistered(true);
+        const response: RouteConfirmation = await registration.register.user(
+          token,
+        );
+        if (response.ok) {
+          const result: RouteConfirmation = await login.user({
+            username: token.username,
+            password: token.password,
+          });
+          if (result.ok) {
+            await login.signOut().then(() => {
+              login
+                .user({
+                  username: token.username,
+                  password: token.password,
+                })
+                .then((res: RouteConfirmation) => {
+                  if (res.ok) {
+                    login.update('signed-in');
+                    router.push(Links.ACCOUNT);
+                  }
+                });
+            });
+          } else {
+            alert('Something went wrong');
+            // TODO handle login error UI & api
+          }
+        }
       } catch (err) {
         return;
       }
@@ -97,92 +140,100 @@ function Registration({}: InferGetStaticPropsType<
     e.preventDefault();
   }
 
-  return (
-    <Layout title={'Limited Edition Toys | Sign In'}>
-      <SignInMainContainer>
-        <SignInHeader>
-          <Typography variant="caption">{data.register.caption}</Typography>
-          <Typography variant="h1">{data.register.title}</Typography>
-        </SignInHeader>
-        {data.register.inputs.map((input, index) => (
-          <SignInInputFormControl key={index}>
-            <InputLabel htmlFor={`register-input-${index}`}>
-              {input.label}
-            </InputLabel>
-            <OutlinedInput
-              id={`register-input-${index}`}
-              type={
-                input.propName === 'password' && showPassword
-                  ? 'text'
-                  : input.propName === 'password'
-                  ? 'password'
-                  : input.propName === 'checkPw' && showCheckPw
-                  ? 'text'
-                  : input.propName === 'checkPw'
-                  ? 'password'
-                  : 'text'
-              }
-              size="small"
-              label={input.label}
-              value={
-                token![input.propName as keyof UserRegistrationToken] as string
-              }
-              onChange={handleInputChange(
-                input.propName as keyof UserRegistrationToken,
-              )}
-              endAdornment={
-                input.propName === 'password' ? (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() =>
-                        handlePasswordVisibility(
-                          input.propName as keyof UserRegistrationToken,
-                        )
-                      }
-                      onMouseDown={handlePasswordMouseDown}>
-                      {showPassword ? (
-                        <Visibility sx={{ transform: 'scale(.8)' }} />
-                      ) : (
-                        <VisibilityOff sx={{ transform: 'scale(.8)' }} />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ) : input.propName === 'checkPw' ? (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() =>
-                        handlePasswordVisibility(
-                          input.propName as keyof UserRegistrationToken,
-                        )
-                      }
-                      onMouseDown={handlePasswordMouseDown}>
-                      {showCheckPw ? (
-                        <Visibility sx={{ transform: 'scale(.8)' }} />
-                      ) : (
-                        <VisibilityOff sx={{ transform: 'scale(.8)' }} />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ) : (
-                  ''
-                )
-              }
-            />
-          </SignInInputFormControl>
-        ))}
-        <SignInInputButtonBox>
-          <Button variant="contained" onClick={handleRegisterUser}>
-            Create Account
-          </Button>
-          <div>
-            <Button onClick={handleBackToSignIn}>Back to Sign in</Button>
-          </div>
-        </SignInInputButtonBox>
-      </SignInMainContainer>
-    </Layout>
-  );
+    return (
+      <Layout title={'Limited Edition Toys | Sign In'}>
+        <SignInMainContainer>
+          <SignInHeader>
+            <Typography variant="caption">{data.register.caption}</Typography>
+            <Typography variant="h1">{data.register.title}</Typography>
+          </SignInHeader>
+          {data.register.inputs.map((input, index) => (
+            <SignInInputFormControl key={index}>
+              <InputLabel htmlFor={`register-input-${index}`}>
+                {input.label}
+              </InputLabel>
+              <OutlinedInput
+                id={`register-input-${index}`}
+                type={
+                  input.propName === 'password' && showPassword
+                    ? 'text'
+                    : input.propName === 'password'
+                    ? 'password'
+                    : input.propName === 'checkPw' && showCheckPw
+                    ? 'text'
+                    : input.propName === 'checkPw'
+                    ? 'password'
+                    : 'text'
+                }
+                size="small"
+                label={input.label}
+                value={
+                  token![
+                    input.propName as keyof UserRegistrationToken
+                  ] as string
+                }
+                onChange={handleInputChange(
+                  input.propName as keyof UserRegistrationToken,
+                )}
+                endAdornment={
+                  input.propName === 'password' ? (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() =>
+                          handlePasswordVisibility(
+                            input.propName as keyof UserRegistrationToken,
+                          )
+                        }
+                        onMouseDown={handlePasswordMouseDown}>
+                        {showPassword ? (
+                          <Visibility sx={{ transform: 'scale(.8)' }} />
+                        ) : (
+                          <VisibilityOff sx={{ transform: 'scale(.8)' }} />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ) : input.propName === 'checkPw' ? (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() =>
+                          handlePasswordVisibility(
+                            input.propName as keyof UserRegistrationToken,
+                          )
+                        }
+                        onMouseDown={handlePasswordMouseDown}>
+                        {showCheckPw ? (
+                          <Visibility sx={{ transform: 'scale(.8)' }} />
+                        ) : (
+                          <VisibilityOff sx={{ transform: 'scale(.8)' }} />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ) : (
+                    ''
+                  )
+                }
+              />
+            </SignInInputFormControl>
+          ))}
+          {registered ? (
+            <SignInInputButtonBox>
+              <CircularProgress />
+            </SignInInputButtonBox>
+          ) : (
+            <SignInInputButtonBox>
+              <Button variant="contained" onClick={handleRegisterUser}>
+                Create Account
+              </Button>
+              <div>
+                <Button onClick={handleBackToSignIn}>Back to Sign in</Button>
+              </div>
+            </SignInInputButtonBox>
+          )}
+        </SignInMainContainer>
+      </Layout>
+    );
 }
 
 export default Registration;
