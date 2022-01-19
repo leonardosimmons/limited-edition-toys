@@ -1,4 +1,4 @@
-import { Vend, VendResponse } from 'lib';
+import { VendApi, VendResponse } from 'lib';
 import { Product } from 'modules/product/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Default } from 'utils/keys';
@@ -15,13 +15,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const version: string = req.query.version as string;
 
     res.json(
-      await Vend.get(`/products?after=${version}&page_size=${pageSize}`)
+      await VendApi.get(`/products?after=${version}&page_size=${pageSize}`)
         .then((res) => res.data)
         .then((vend: VendResponse<Product[]>) => vend),
     );
   } else {
     res.json(
-      await Vend.get(`/products?page_size=${Default.MAX_PRODUCTS_PER_QUERY}`)
+      await VendApi.get(`/products?page_size=${Default.MAX_PRODUCTS_PER_QUERY}`)
         .then((res) => res.data)
         .then((vend: VendResponse<Product[]>) => vend),
     );

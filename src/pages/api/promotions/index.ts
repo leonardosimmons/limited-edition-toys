@@ -1,4 +1,4 @@
-import { Vend, VendResponse } from 'lib';
+import { VendApi, VendResponse } from 'lib';
 import { VEND_BASE_CUSTOMER_GROUP_ID, VEND_OUTLET_ID } from 'lib/constants';
 import { VendDiscount } from 'modules/vend/types';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // get All discounts
     case 'GET':
       res.status(200).json(
-        await Vend.get('/promotions')
+        await VendApi.get('/promotions')
           .then((res: any) => res.data)
           .then((res: VendResponse<any>) => res.data)
           .catch((err: any) => {
@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         };
         console.log('token:', token);
         res.status(200).json(
-          await Vend.post('/discount', token)
+          await VendApi.post('/discount', token)
             .then((res) => res.data)
             .then((res: any) => res.data),
         );

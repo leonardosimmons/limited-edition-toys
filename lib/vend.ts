@@ -10,7 +10,7 @@ export type VendResponse<T> = {
   version: VendVersion;
 };
 
-export const Vend = axios.create({
+export const VendApi = axios.create({
   baseURL: ('https://' + process.env.VEND_API) as string,
   headers: { Authorization: `Bearer ${process.env.VEND_API_KEY as string}` },
 });

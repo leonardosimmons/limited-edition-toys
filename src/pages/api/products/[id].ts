@@ -1,4 +1,4 @@
-import { Vend, VendResponse } from 'lib';
+import { VendApi, VendResponse } from 'lib';
 import { Product } from 'modules/product/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const id: string = req.query.id as string;
 
     return res.json(
-      await Vend.get(`/products/${id}`)
+      await VendApi.get(`/products/${id}`)
         .then((res) => res.data)
         .then((vend: VendResponse<Product>) => vend),
     );

@@ -1,4 +1,4 @@
-import { Vend, VendResponse } from 'lib';
+import { VendApi, VendResponse } from 'lib';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -6,7 +6,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     case 'GET':
       const id: string = req.query.id as string;
       res.status(200).json(
-        await Vend.get(`/promotions/${id}/products`)
+        await VendApi.get(`/promotions/${id}/products`)
           .then((res: any) => res.data)
           .then((res: VendResponse<any>) => console.log(res.data))
           .catch((err: any) => {

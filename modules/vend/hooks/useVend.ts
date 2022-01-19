@@ -20,10 +20,8 @@ function useVend() {
         (item.discount && item.discount.price) ||
         item.product.price_excluding_tax,
       price_adjusted:
-        item.discount &&
-        item.discount.price !== item.product.price_excluding_tax
-          ? true
-          : false,
+        !!(item.discount &&
+          item.discount.price !== item.product.price_excluding_tax),
       promotion_ids: discounted ? [item.discount?.promotion.id] : undefined,
     } as VendLineItem;
   }
