@@ -1,5 +1,4 @@
 export type VendCreateCustomerToken = {
-  id: string;
   first_name: string;
   last_name: string;
   email: string;
@@ -49,10 +48,10 @@ export type VendCustomer = {
   postal_country_id: string | null;
   customer_group_id: string | null;
   enable_loyalty: boolean;
-  custom_field_1: string | null; // WordPress User ID
-  custom_field_2: string | null; // Square User ID
-  custom_field_3: string | null; // WooCommerce User ID
-  custom_field_4: string | null;
+  custom_field_1: string | null; // WordPress Username
+  custom_field_2: string | null; // WordPress User ID
+  custom_field_3: string | null; // Square User ID
+  custom_field_4: string | null; // WooCommerce User ID
 };
 
 export type VendCustomerResponse = VendCustomerMeta & VendCustomer;

@@ -23,11 +23,15 @@ function useVendCustomers(id: string) {
     lastname: string,
     email: string,
   ): Promise<VendCustomerResponse> {
-    return await model.createCustomer({
-      first_name: firstname,
-      last_name: lastname,
-      email,
-    });
+    const customer = model.checkCustomerExists(email, customers!);
+    if (!customer) {
+      return await model.createCustomer({
+        first_name: firstname,
+        last_name: lastname,
+        email,
+      });
+    }
+    return customer;
   }
 
   const update = useMutation(

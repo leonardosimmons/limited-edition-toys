@@ -2,10 +2,12 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { UserRegistrationToken } from 'modules/auth/types';
-import data from '../../../data/pages/signIn.json';
+import { RouteConfirmation } from '../../../utils/types';
 import { Links } from 'utils/keys';
 
+import data from '../../../data/pages/signIn.json';
 import { useLogin } from 'modules/auth/hooks/useLogin';
+import { useVend } from '../../../modules/vend/useVend';
 import { useUserRegistration } from 'modules/auth/hooks/useUserRegistration';
 
 import {
@@ -18,6 +20,7 @@ import {
 import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
@@ -26,8 +29,6 @@ import Layout from 'src/containers/Layout/Layout';
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { RouteConfirmation } from '../../../utils/types';
-import { CircularProgress } from '@mui/material';
 
 function Registration({}: InferGetStaticPropsType<
   typeof getStaticProps
@@ -48,6 +49,7 @@ function Registration({}: InferGetStaticPropsType<
 
   //* -------------------------------------------------
   // Registration
+  const vend = useVend();
   const login = useLogin();
   const registration = useUserRegistration();
   const [registered, setRegistered] = React.useState<boolean>(false);
@@ -85,6 +87,7 @@ function Registration({}: InferGetStaticPropsType<
             password: token.password,
           });
           if (result.ok) {
+            await vend.customers.create(token.firstname, token.lastname, token.email);
             await login.signOut().then(() => {
               login
                 .user({

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useVendCustomers } from './hooks/useVendCustomers';
 import { VEND_GUEST_ID } from '../../lib/constants';
 import { useUser } from '../user/useUser';
@@ -11,12 +12,13 @@ function useVend() {
   // converts WordPress ID to Vend ID
   React.useEffect(() => {
     if (
+      user.auth.session &&
       user.auth.status !== 'loading' &&
       customers.status.list !== 'loading' &&
       customers.list
     ) {
       customers.list.forEach((customer) => {
-        if (customer.custom_field_1! === user.auth.session?.id) {
+        if (customer.custom_field_2 === user.auth.session?.id.toString()) {
           setVendCustomerId(customer.id);
           return;
         }

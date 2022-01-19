@@ -1,6 +1,7 @@
 export type AuthSessionToken = {
   id: String;
   token: String;
+  displayName: string;
 };
 
 export type UserRegistrationToken = {
