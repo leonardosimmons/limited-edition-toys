@@ -5,32 +5,35 @@ import { WordpressApi } from '../../../../lib/wordpress';
 export default withSessionApiRoute(user);
 
 async function user(req: NextApiRequest, res: NextApiResponse) {
-  const { id, token } = req.session.auth;
   switch (req.method) {
     case 'GET':
-      const getResponse = await WordpressApi.get(
-        `/wp/v2/users/${id}?context=edit`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      if(req.session && req.session.auth) {
+        const getResponse = await WordpressApi.get(
+          `/wp/v2/users/${req.session.auth.id}?context=edit`,
+          {
+            headers: {
+              Authorization: `Bearer ${req.session.auth.token}`,
+            },
           },
-        },
-      );
-      const user = getResponse.data;
+        );
+        const user = getResponse.data;
 
-      res.status(200).json({ user });
+        res.status(200).json({ user });
+      } else {
+        res.status(200).json({ ok: true })
+      }
       break;
     case 'POST':
       const { key, value } = await req.body;
       try {
         const postResponse = await WordpressApi.post(
-          `/wp/v2/users/${id}?context=edit`,
+          `/wp/v2/users/${req.session.auth.id}?context=edit`,
           {
             [key]: value,
           },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${req.session.auth.token}`,
             },
           },
         );
@@ -38,7 +41,7 @@ async function user(req: NextApiRequest, res: NextApiResponse) {
         res.status(200).json({ update });
       }
       catch(err: any) {
-        console.log(err)
+        res.status(400).json({ msg: `Unable to update user: ${err}`})
       }
 
       break;

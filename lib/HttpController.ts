@@ -9,13 +9,13 @@ class HttpController {
 
   async post<T, U>(api: string, data: T): Promise<U> {
     return await axios
-      .post(api, { data })
+      .post(api, { ...data })
       .then((res: AxiosResponse<any>) => res.data);
   }
 
   async put<T, U>(api: string, data: T): Promise<U> {
     return await axios
-      .put(api, { data })
+      .put(api, { ...data })
       .then((res: AxiosResponse<any>) => res.data);
   }
 
