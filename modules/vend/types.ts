@@ -1,17 +1,23 @@
+export type VendCreateCustomerToken = {
+  first_name: string;
+  last_name: string;
+  email: string;
+};
+
 export type VendCustomerMeta = {
   created_at: string | null;
   updated_at: string | null;
   deleted_at: string | null;
   version: number;
-}
+};
 
 export type VendCustomer = {
   id: string;
-  customer_code: string | null;
-  name: string | null;
+  customer_code?: string | null;
+  name?: string | null;
   first_name: string;
   last_name: string;
-  email: string | null;
+  email: string;
   year_to_date: number;
   balance: number;
   loyalty_balance: number;
@@ -19,7 +25,7 @@ export type VendCustomer = {
   gender: string | null;
   date_of_birth: string | null;
   company_name: string | null;
-  do_not_email: boolean,
+  do_not_email: boolean;
   contact_source: string | null;
   phone: string | null;
   mobile: string | null;
@@ -41,14 +47,19 @@ export type VendCustomer = {
   postal_state: string | null;
   postal_country_id: string | null;
   customer_group_id: string | null;
-  enable_loyalty: boolean,
-  custom_field_1: string | null;
-  custom_field_2: string | null;
-  custom_field_3: string | null;
+  enable_loyalty: boolean;
+  custom_field_1: string | null; // WordPress User ID
+  custom_field_2: string | null; // Square User ID
+  custom_field_3: string | null; // WooCommerce User ID
   custom_field_4: string | null;
-}
+};
 
 export type VendCustomerResponse = VendCustomerMeta & VendCustomer;
+
+export type VendCustomerUpdateToken = {
+  id: string;
+  token: Partial<VendCustomer>;
+};
 
 export type VendDiscount = {
   customer: {

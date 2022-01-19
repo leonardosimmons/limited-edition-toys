@@ -51,6 +51,8 @@ export enum Queries {
   PAGINATED_PRODUCTS = 'paginated-products',
   PRODUCT_PROMOTIONS = 'product-promotions',
   PRODUCT_TAGS = 'product-tags',
+  VEND_CUSTOMER = 'vend-customer',
+  VEND_CUSTOMERS = 'vend-customers',
   USER = 'user',
   WOOCOMMERCE_CUSTOMERS = 'woocommerce-customers',
   WORDPRESS_USER = 'wordpress-user',
