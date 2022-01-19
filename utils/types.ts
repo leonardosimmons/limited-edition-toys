@@ -54,4 +54,9 @@ export type StaticPath = {
   };
 };
 
+export type UpdateToken<T, U> = {
+  id: Combinable;
+  token: KeyValuePair<keyof T, U>
+}
+
 export type Viewport = 'desktop' | 'mobile' | 'tablet' | undefined;

@@ -52,10 +52,11 @@ export enum Queries {
   PRODUCT_PROMOTIONS = 'product-promotions',
   PRODUCT_TAGS = 'product-tags',
   USER = 'user',
+  WOOCOMMERCE_CUSTOMERS = 'woocommerce-customers',
   WORDPRESS_USER = 'wordpress-user',
   USER_SESSION = 'user-auth-session',
 }
 
 export enum Timer {
-  DASHBOARD_INPUT_RESET = 5 * 1000
+  DASHBOARD_INPUT_RESET = 5 * 1000,
 }

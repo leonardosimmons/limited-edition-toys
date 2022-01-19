@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 
 import Box, { BoxProps } from '@mui/material/Box';
-import Button, { ButtonProps } from '@mui/material/Button';
 import Container, { ContainerProps } from '@mui/material/Container';
 import Typography, { TypographyProps } from '@mui/material/Typography';
 
@@ -36,7 +35,3 @@ export const AccountInformationHeading = styled(Container)<ContainerProps>(
     },
   }),
 );
-
-interface StyledInformationInput extends BoxProps {
-  type?: 'input' | 'text';
-}
