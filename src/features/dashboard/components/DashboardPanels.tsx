@@ -1,6 +1,7 @@
 import React from 'react';
 import BasePanel from './panels/BasePanel';
 import InformationPanel from './panels/information/InformationPanel';
+import ShippingPanel from './panels/shipping/ShippingPanel';
 
 type Props = {
   value: number;
@@ -12,6 +13,9 @@ const DashboardPanels: React.FunctionComponent<Props> = ({
   switch (value) {
     case 0: {
       return <InformationPanel />;
+    }
+    case 1: {
+      return <ShippingPanel />;
     }
     default:
       return <BasePanel name={'placeholder'}>{'Placeholder panel'}</BasePanel>;

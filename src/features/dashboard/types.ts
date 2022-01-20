@@ -11,6 +11,14 @@ export type Password = {
   confirm: string;
 }
 
+export type ShippingInformation = {
+  addressOne: string | null;
+  apt: string | null;
+  city: string | null;
+  state: string | null;
+  postcode: string | null;
+}
+
 export type Dashboard = {
   account: AccountInformation;
   password: Password;

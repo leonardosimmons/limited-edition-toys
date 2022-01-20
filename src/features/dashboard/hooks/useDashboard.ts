@@ -5,11 +5,13 @@ import {
   setCurrentPanelSelection,
 } from '../actions';
 import useDashboardInformation from './useDashboardInformation';
+import useDashboardShipping from './useDashboardShipping';
 
 function useDashboard() {
   const dispatch = useAppDispatch();
   const ctx = useAppSelector(dashboardSelector);
   const information = useDashboardInformation();
+  const shipping = useDashboardShipping();
 
   function resetPanel() {
     dispatch(resetCurrentPanelSelection());
@@ -27,6 +29,7 @@ function useDashboard() {
       reset: resetPanel,
       set: setPanel,
     },
+    shipping,
   };
 }
 

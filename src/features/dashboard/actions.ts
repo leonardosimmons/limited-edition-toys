@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AccountInformation } from './types';
+import { AccountInformation, ShippingInformation } from './types';
 
 function withKeyValuePayload<K, V>() {
   return (key: K, value: V) => ({
@@ -28,4 +28,13 @@ export const setCurrentPanelSelection = createAction<number>(
 );
 export const resetCurrentPanelSelection = createAction(
   'dashboard/resetCurrentPanelSelection',
+);
+
+//* Shipping -------------------------------------------------
+export const setShippingInformation = createAction(
+  'dashboard/setShippingInformation',
+  withKeyValuePayload<keyof ShippingInformation, string>(),
+);
+export const setShippingInformationEditMode = createAction<boolean>(
+  'dashboard/toggleShippingInformationEdit',
 );

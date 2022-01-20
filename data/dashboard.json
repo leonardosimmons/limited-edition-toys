@@ -11,10 +11,6 @@
     {
       "name": "Orders Panel",
       "label": "Orders"
-    },
-    {
-      "name": "Wishlist Panel",
-      "label": "Wishlist"
     }
   ],
   "information": {
@@ -34,6 +30,26 @@
       { "placeholder": "Last name", "key": "last_name" },
       { "placeholder": "Email", "key": "email" },
       { "placeholder": "Username", "key": "custom_field_1" }
+    ]
+  },
+  "shipping": {
+    "headers": {
+      "account": "SHIPPING INFORMATION",
+      "main": "EDIT INFORMATION"
+    },
+    "inputs": [
+      { "placeholder": "Address", "propName": "addressOne", "key": "postal_address_1" },
+      { "placeholder": "Apt./suite, etc.", "propName": "apt", "key": "postal_address_2" },
+      { "placeholder": "City", "propName": "city", "key": "postal_city" },
+      { "placeholder": "State", "propName": "state", "key": "postal_city" },
+      { "placeholder": "Zip code", "propName": "postcode", "key": "postal_postcode" }
+    ],
+    "textInputs": [
+      { "placeholder": "Address", "key": "postal_address_1" },
+      { "placeholder": "Apt./suite, etc.", "key": "postal_address_2" },
+      { "placeholder": "City", "key": "postal_city" },
+      { "placeholder": "State", "key": "postal_city" },
+      { "placeholder": "Zip code", "key": "postal_postcode" }
     ]
   }
 }
