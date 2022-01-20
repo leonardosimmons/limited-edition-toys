@@ -17,6 +17,9 @@ const DashboardPanels: React.FunctionComponent<Props> = ({
     case 1: {
       return <ShippingPanel />;
     }
+    case 2: {
+      return <BasePanel name={'orders'}>{'No past orders'}</BasePanel>
+    }
     default:
       return <BasePanel name={'placeholder'}>{'Placeholder panel'}</BasePanel>;
   }

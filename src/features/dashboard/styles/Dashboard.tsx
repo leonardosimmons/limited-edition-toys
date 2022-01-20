@@ -15,11 +15,12 @@ interface StyledDashboardInputButton extends ButtonProps {
 
 export const Dashboard = styled(Box)<BoxProps>(({ theme }) => ({
   width: '90%',
-  height: '500px',
+  height: '550px',
   ...theme.custom.center,
   margin: '4rem 0 1rem',
   borderRadius: '10px',
   border: `3px solid ${theme.palette.grey[200]}`,
+  boxShadow: `2px 2px 0 ${theme.palette.grey[300]}, -1px -1px 0 ${theme.palette.grey[300]}, 1px -1px 0 ${theme.palette.grey[300]}, -1px 1px 0 ${theme.palette.grey[300]}, 1px 1px 0 ${theme.palette.grey[300]}`,
   [theme.breakpoints.up('tabletMd')]: {
     width: '100%',
   },

@@ -25,6 +25,17 @@ export const ShippingPanelHeading = styled(Container)<ContainerProps>(
       flex: '0 1 95%',
       fontSize: '1.8rem',
       marginBottom: '15px',
+      fontWeight: 'bold',
+      fontFamily: 'Jost',
+      color: theme.palette.secondary.main,
+      paintOrder: 'stroke fill',
+      textShadow: `2px 2px 0 ${theme.palette.secondary.dark}, -1px -1px 0 ${theme.palette.secondary.dark}, 1px -1px 0 ${theme.palette.secondary.dark}, -1px 1px 0 ${theme.palette.secondary.dark}, 1px 1px 0 ${theme.palette.secondary.dark}`,
+      [theme.breakpoints.up('tabletSm')]: {
+        fontSize: '1.8rem'
+      },
+      [theme.breakpoints.up('desktopSm')]: {
+        fontSize: '2.4rem'
+      },
     },
     '& > span.MuiTypography-caption': {
       padding: '1rem 0',
