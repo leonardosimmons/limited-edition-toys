@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import data from '../../../data/pages/signIn.json';
 import { UserSignInToken } from 'modules/auth/types';
-import { RouteConfirmation } from 'utils/types';
 import { Links } from 'utils/keys';
 
 import { useLogin } from 'modules/auth/hooks/useLogin';
@@ -70,16 +69,8 @@ function SignInPage({}: InferGetStaticPropsType<
 
   async function handleSignInClicked(): Promise<void> {
     try {
-      const result: RouteConfirmation = await login.user(token);
-      if (result.ok) {
-        login.update('signed-in');
-        router.push(Links.ACCOUNT);
-      } else {
-        alert('Something went wrong');
-        // TODO handle login error UI & api
-      }
+      await login.user(token);
     } catch (err) {
-      console.log(err);
       alert('Something went wrong, please try again');
     }
   }

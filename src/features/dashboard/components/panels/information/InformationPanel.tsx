@@ -10,7 +10,6 @@ const InformationPanel: React.FunctionComponent = (): JSX.Element => {
     <BasePanel name={'information'}>
       <Header variant={'h3'}>EDIT INFORMATION</Header>
       <AccountInformation />
-      <Header variant={'h3'}>CHANGE PASSWORD</Header>
     </BasePanel>
   );
 };

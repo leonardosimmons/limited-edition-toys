@@ -2,12 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { UserRegistrationToken } from 'modules/auth/types';
-import { RouteConfirmation } from '../../../utils/types';
-import { Links } from 'utils/keys';
 
 import data from '../../../data/pages/signIn.json';
-import { useLogin } from 'modules/auth/hooks/useLogin';
-import { useVend } from '../../../modules/vend/useVend';
 import { useUserRegistration } from 'modules/auth/hooks/useUserRegistration';
 
 import {
@@ -49,16 +45,8 @@ function Registration({}: InferGetStaticPropsType<
 
   //* -------------------------------------------------
   // Registration
-  const vend = useVend();
-  const login = useLogin();
   const registration = useUserRegistration();
   const [registered, setRegistered] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    if (registration.isValid) {
-      registration.toggleValidity();
-    }
-  }, []);
 
   React.useEffect(() => {
     let reset: any;
@@ -73,40 +61,21 @@ function Registration({}: InferGetStaticPropsType<
     }
   }, [registered])
 
+  React.useEffect(() => {
+    if (registration.isValid) {
+      registration.toggleValidity();
+    }
+  }, []);
+
   async function handleRegisterUser(): Promise<void> {
     registration.verify(token);
     if (registration.isValid) {
       try {
         setRegistered(true);
-        const response: RouteConfirmation = await registration.register.user(
-          token,
-        );
-        if (response.ok) {
-          const result: RouteConfirmation = await login.user({
-            username: token.username,
-            password: token.password,
-          });
-          if (result.ok) {
-            await vend.customers.create(token.firstname, token.lastname, token.email);
-            await login.signOut().then(() => {
-              login
-                .user({
-                  username: token.username,
-                  password: token.password,
-                })
-                .then((res: RouteConfirmation) => {
-                  if (res.ok) {
-                    login.update('signed-in');
-                    router.push(Links.ACCOUNT);
-                  }
-                });
-            });
-          } else {
-            alert('Something went wrong');
-            // TODO handle login error UI & api
-          }
-        }
+        await registration.register.user(token);
       } catch (err) {
+        alert('Something went wrong');
+        // TODO handle login error UI & api
         return;
       }
     }

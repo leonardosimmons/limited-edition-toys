@@ -53,9 +53,10 @@ export function VendCustomerModel<TBase extends Constructor>(Base: TBase) {
     async updateCustomer(
       id: string,
       token: Partial<VendCustomer>,
-    ): Promise<VendCustomerResponse> {
+      customer: Partial<VendCustomer>
+    ) {
       try {
-        return await this.http.put('/api/vend/customers', token);
+        return await this.http.put('/api/vend/customers', { id, token, customer });
       } catch (err: any) {
         throw new Error(`Unable to update customer ${id}: ${err}`);
       }

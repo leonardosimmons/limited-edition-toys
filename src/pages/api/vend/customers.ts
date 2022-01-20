@@ -31,22 +31,31 @@ async function customers(req: NextApiRequest, res: NextApiResponse) {
           email: req.body.email as string,
           custom_field_1: req.session.auth.displayName,
           custom_field_2: req.session.auth.id,
+          customer_group_id: process.env.VEND_ONLINE_CUSTOMER_GROUP_ID as string
+        })
+          .then((res: any) => {
+            return res.data
+          })
+          .then((res: VendResponse<VendCustomerResponse>) => res.data);
+
+        res.status(200).json({ ...newCustomer });
+      } catch (err: any) {
+        res.status(400).json({ msg: `Unable to create new customer: ${err}` });
+      }
+      break;
+    case 'PUT':
+      try {
+        const updatedCustomer = await VendApi.put(`/customers/${req.body.id}`, {
+          ...req.body.token,
         })
           .then((res: any) => res.data)
           .then((res: VendResponse<VendCustomerResponse>) => res.data);
 
-        res.status(200).json({ ...newCustomer });
+        res.status(200).json({ ...updatedCustomer  });
       }
       catch(err: any) {
-        res.status(400).json({ msg: `Unable to create new customer: ${err}`})
+        res.status(400).json({ err })
       }
-      break;
-    case 'PUT':
-      const updatedCustomer = await VendApi.put(`/customers/${req.body.id}`, { ...req.body.token })
-        .then((res: any) => res.data)
-        .then((res: VendResponse<VendCustomerResponse>) => res.data);
-
-      res.status(200).json({ ...updatedCustomer });
       break;
     default:
       res.status(405).end();

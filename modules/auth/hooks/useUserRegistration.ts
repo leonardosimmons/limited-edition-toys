@@ -1,10 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useMutation } from 'react-query';
+import { Links } from '../../../utils/keys';
 import { UserRegistrationToken } from '../types';
 
 import useValidation from 'lib/hooks/useValidation';
 
 function useUserRegistration() {
+  const router = useRouter();
   const validate = useValidation();
   const [isValid, setIsValid] = React.useState<boolean>(false);
 
@@ -12,7 +16,7 @@ function useUserRegistration() {
     setIsValid((state) => !state);
   }
 
-  async function registerNewUser(
+  async function register(
     token: Partial<UserRegistrationToken>,
   ): Promise<any> {
     try {
@@ -24,11 +28,21 @@ function useUserRegistration() {
           password: token.password,
           email: token.email,
         })
-        .then((res) => res.data);
+        .then((res) => token);
     } catch (err) {
       alert('Something went wrong, unable to add register as a new user');
     }
   }
+
+  const registerNewUser = useMutation(
+    (token: Partial<UserRegistrationToken>) =>
+      register(token),
+    {
+      onSuccess: async () => {
+        await router.push(Links.SIGN_IN);
+      },
+    },
+  );
 
   function verifyUserRegistration(reg: UserRegistrationToken): boolean {
     let fail: string = '';
@@ -51,7 +65,7 @@ function useUserRegistration() {
 
   return {
     register: {
-      user: registerNewUser,
+      user: registerNewUser.mutate,
     },
     toggleValidity,
     verify: verifyUserRegistration,

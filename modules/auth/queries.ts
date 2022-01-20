@@ -4,7 +4,7 @@ import { Queries } from 'utils/keys';
 import { AuthorizationModel } from 'modules/auth/auth.model';
 
 export async function getAuthSession() {
-  return new AuthorizationModel().getAuthSession();
+  return await new AuthorizationModel().getAuthSession();
 }
 
 export function useAuthSession() {

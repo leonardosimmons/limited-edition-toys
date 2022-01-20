@@ -60,5 +60,5 @@ export enum Queries {
 }
 
 export enum Timer {
-  DASHBOARD_INPUT_RESET = 5 * 1000,
+  DASHBOARD_INPUT_RESET = 2 * 1000,
 }

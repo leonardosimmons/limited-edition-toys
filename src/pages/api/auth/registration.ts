@@ -21,7 +21,7 @@ async function userRegistration(req: NextApiRequest, res: NextApiResponse) {
         const token = (data as any).data.token;
 
         try {
-          await WordpressApi.post(
+          const user = await WordpressApi.post(
             '/wp/v2/users',
             {
               username,
@@ -29,7 +29,7 @@ async function userRegistration(req: NextApiRequest, res: NextApiResponse) {
               password,
               first_name: firstname,
               last_name: lastname,
-              roles: ['customer']
+              roles: ['customer'],
             },
             {
               headers: {
@@ -37,12 +37,13 @@ async function userRegistration(req: NextApiRequest, res: NextApiResponse) {
               },
             },
           );
-          res.status(200).json({ ok: true })
+          res
+            .status(200)
+            .json({ ok: true, payload: { user: (user as any).data } });
         } catch (err: any) {
-          throw new Error(err);
+          res.status(400).json({ err })
         }
       } catch (err) {
-        console.log(err);
         res.status(500).json({ message: err });
       }
       break;

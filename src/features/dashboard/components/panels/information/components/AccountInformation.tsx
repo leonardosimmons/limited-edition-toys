@@ -1,11 +1,11 @@
 import React from 'react';
 import data from 'data/dashboard.json';
-import { AccountInformation } from '../../../../types';
-import { WordpressUser } from 'modules/wordpress/types';
 import { KeyValuePair } from 'utils/types';
+import { AccountInformation } from '../../../../types';
+import { VendCustomer } from '../../../../../../../modules/vend/types';
 
-import { useUser } from 'modules/user/useUser';
 import { useDashboard } from '../../../../hooks/useDashboard';
+import { useVend } from '../../../../../../../modules/vend/useVend';
 
 import {
   AccountInformationHeading,
@@ -20,7 +20,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import DashboardInput from '../../../DashboardInput';
 
 const AccountInformation: React.FunctionComponent = (): JSX.Element => {
-  const user = useUser();
+  const vend = useVend();
   const ctx = useDashboard();
 
   function handleEditMode(): void {
@@ -37,9 +37,19 @@ const AccountInformation: React.FunctionComponent = (): JSX.Element => {
   }
 
   async function handleUpdate(
-    newValue: KeyValuePair<keyof WordpressUser, string>,
+    newValue: KeyValuePair<keyof VendCustomer, string>,
   ): Promise<void> {
-    await user.update.info(newValue);
+    try {
+      await vend.customers.update({
+        id: vend.customers.current?.id as string,
+        token: {
+          [newValue.key]: newValue.value
+        }
+      })
+    }
+    catch(err: any) {
+      alert('Unable to update user at the moment, please try again later')
+    }
   }
 
   function handleValueReset(propName: keyof AccountInformation): void {
@@ -60,15 +70,15 @@ const AccountInformation: React.FunctionComponent = (): JSX.Element => {
             key={index}
             propName={input.propName}
             label={input.placeholder}
-            valueKey={input.key as keyof WordpressUser}
+            valueKey={input.key as keyof VendCustomer}
             value={ctx.information![input.propName as keyof AccountInformation]}
-            placeholder={user.info[input.key as keyof WordpressUser] as string}
+            placeholder={vend.customers.current![input.key as keyof VendCustomer] as string}
             onChange={handleInputChange}
             onClick={handleUpdate}
             valueReset={handleValueReset}
           />
         ))
-      ) : user.status === 'loading' ? (
+      ) : vend.customers.status.current === 'loading' ? (
         <DashboardLoadSpinner>
           <CircularProgress />
         </DashboardLoadSpinner>
@@ -77,8 +87,8 @@ const AccountInformation: React.FunctionComponent = (): JSX.Element => {
           <DashboardInputWrapper key={index} type={'text'}>
             <Typography variant={'h6'}>{input.placeholder}</Typography>
             <Typography variant={'caption'}>
-              {user.status !== 'loading' &&
-                user.info[input.key as keyof WordpressUser]}
+              {vend.customers.status.current !== 'loading' &&
+                vend.customers.current![input.key as keyof VendCustomer]}
             </Typography>
           </DashboardInputWrapper>
         ))

@@ -3,10 +3,11 @@ import {
   resetCurrentPanelSelection,
   setCurrentPanelSelection,
   setAccountInformation,
-  setAccountInformationEditMode,
+  setAccountInformationEditMode, setDashboardId,
 } from './actions';
 
 type DashboardState = {
+  id: string;
   information: {
     firstname: string;
     lastname: string;
@@ -22,6 +23,7 @@ type DashboardState = {
 };
 
 const initialState: DashboardState = {
+  id: '',
   information: {
     firstname: '',
     lastname: '',
@@ -38,6 +40,10 @@ const initialState: DashboardState = {
 
 export const dashboardReducer = createReducer(initialState, (builder) =>
   builder
+    //* Auth ----------------------------------------------------
+    .addCase(setDashboardId, (state, action) => {
+      state.id = action.payload;
+    })
     //* Account -------------------------------------------------
     .addCase(setAccountInformation, (state, action) => {
       state.information = {

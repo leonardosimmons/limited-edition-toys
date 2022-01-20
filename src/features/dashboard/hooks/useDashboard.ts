@@ -20,6 +20,7 @@ function useDashboard() {
   }
 
   return {
+    id: ctx.id,
     information,
     panel: {
       current: ctx.panel.current,

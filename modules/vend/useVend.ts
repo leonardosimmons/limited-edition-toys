@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { useVendCustomers } from './hooks/useVendCustomers';
-import { VEND_GUEST_ID } from '../../lib/constants';
 import { useUser } from '../user/useUser';
 
 function useVend() {
   const user = useUser();
-  const [vendCustomerId, setVendCustomerId] = React.useState<string>(VEND_GUEST_ID);
+  const [vendCustomerId, setVendCustomerId] = React.useState<string>('');
   const customers = useVendCustomers(vendCustomerId);
 
   // converts WordPress ID to Vend ID

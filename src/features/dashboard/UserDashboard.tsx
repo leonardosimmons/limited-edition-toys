@@ -4,7 +4,6 @@ import data from '../../../data/dashboard.json';
 import { useAppSelector } from '../../redux';
 import { appSelector } from '../../redux/selector';
 import { useDashboard } from './hooks/useDashboard';
-import { useUser } from '../../../modules/user/useUser';
 
 import { Dashboard, DashboardTab, DashboardTabs } from './styles/Dashboard';
 
@@ -29,10 +28,6 @@ const UserDashBoard: React.FunctionComponent = (): JSX.Element => {
   function handleChange(e: React.SyntheticEvent, newValue: number) {
     dashboard.panel.set(newValue);
   }
-
-  //* -------------------------------------------------
-  // User
-  const user = useUser();
 
   return (
     <React.Fragment>

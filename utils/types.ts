@@ -43,6 +43,7 @@ export type OverlayState = 'open' | 'closed';
 export type RouteConfirmation = {
   ok?: boolean;
   message?: string;
+  payload?: any;
 };
 
 export type Status = 'FAILED' | 'PENDING' | 'CANCELLED' | 'COMPLETED';

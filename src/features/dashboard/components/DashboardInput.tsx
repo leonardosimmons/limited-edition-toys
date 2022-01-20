@@ -1,5 +1,4 @@
 import React from 'react';
-import { Timer } from '../../../../utils/keys';
 import { KeyValuePair } from '../../../../utils/types';
 
 import {
@@ -36,24 +35,6 @@ const DashboardInput: React.FunctionComponent<Props> = ({
   const [status, setStatus] = React.useState<'error' | 'pending' | 'success'>(
     'pending',
   );
-
-  React.useEffect(() => {
-    let reset: any;
-    if (status === 'success' || status === 'error') {
-      reset = setTimeout(() => {
-        resetInput();
-      }, Timer.DASHBOARD_INPUT_RESET);
-    }
-
-    return () => {
-      clearInterval(reset);
-    };
-  }, [status]);
-
-  function resetInput(): void {
-    valueReset(propName);
-    setStatus('pending');
-  }
 
   async function handleUpdate(): Promise<void> {
     try {

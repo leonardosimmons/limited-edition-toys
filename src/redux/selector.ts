@@ -6,9 +6,11 @@ import { productSelector } from 'modules/product/selectors';
 import { pageSelector } from './models/page/selectors';
 import { searchSelector } from './models/search/selectors';
 import { uiSelector } from './models/ui';
+import { authSelector } from '../../modules/auth/selectors';
 
 export const appSelector = createSelector(
   [
+    authSelector,
     cartSelector,
     checkoutSelector,
     dashboardSelector,
@@ -17,7 +19,8 @@ export const appSelector = createSelector(
     searchSelector,
     uiSelector,
   ],
-  (cart, checkout, dashboard , page, product, search, ui) => ({
+  (auth, cart, checkout, dashboard , page, product, search, ui) => ({
+    auth,
     cart,
     checkout,
     dashboard,

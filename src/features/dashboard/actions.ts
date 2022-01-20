@@ -10,6 +10,9 @@ function withKeyValuePayload<K, V>() {
   });
 }
 
+//* Auth ----------------------------------------------------
+export const setDashboardId = createAction<string>('dashboard/setDashboardId');
+
 //* Account -------------------------------------------------
 export const setAccountInformation = createAction(
   'dashboard/setAccountInformation',

@@ -1,7 +1,11 @@
 import { Vend } from '../vend.model';
 import { QueryClient, useMutation } from 'react-query';
 import { useVendCustomerData, useVendCustomersData } from '../queries';
-import { VendCustomerResponse, VendCustomerUpdateToken } from '../types';
+import {
+  VendCustomer,
+  VendCustomerResponse,
+  VendCustomerUpdateToken,
+} from '../types';
 import { Queries } from '../../../utils/keys';
 
 function useVendCustomers(id: string) {
@@ -36,7 +40,10 @@ function useVendCustomers(id: string) {
 
   const update = useMutation(
     (newValue: VendCustomerUpdateToken) =>
-      model.updateCustomer(newValue.id, newValue.token),
+      model.updateCustomer(newValue.id, newValue.token, {
+        first_name: customer?.first_name,
+        last_name: customer?.last_name,
+      } as Partial<VendCustomer>),
     {
       onSuccess: (customer) => {
         queryClient.setQueryData(Queries.VEND_CUSTOMER, customer);
@@ -56,7 +63,7 @@ function useVendCustomers(id: string) {
       list: listStatus,
     },
     create,
-    update,
+    update: update.mutate,
   };
 }
 
