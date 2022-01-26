@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { nanoid } from 'nanoid';
 import JSONbig from 'json-bigint';
 import { withSessionApiRoute } from 'lib/session';
-import { SquareCheckoutToken } from 'modules/square/types';
 import { SquareModel } from 'modules/square/square.model';
 import { Square } from 'lib/square';
 import { CreateCheckoutRequest, Customer } from 'square';
@@ -79,7 +78,7 @@ async function checkoutRoute(req: NextApiRequest, res: NextApiResponse) {
                   : undefined,
             },
           },
-          //redirectUrl: process.env.SQUARE_CHECKOUT_REDIRECT,
+          redirectUrl: process.env.SQUARE_CHECKOUT_REDIRECT,
           askForShippingAddress: true,
           prePopulateBuyerEmail: info.emailAddress,
           prePopulateShippingAddress: { ...info.address },

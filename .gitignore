@@ -39,5 +39,4 @@ favicon.ico
 /buffer
 /src/*.txt
 /src/pages/auth
-/src/pages/checkout/completed.tsx
 /src/pages/api/test.ts

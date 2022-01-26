@@ -1,4 +1,5 @@
 import { Combinable, CustomInputConfig } from 'utils/types';
+import { ProductCheckoutToken } from '../product/types';
 
 export type CheckoutInputConfig = CustomInputConfig & {
   label: string;
@@ -17,6 +18,11 @@ export type BillingState = {
   company?: string;
   phone?: string;
 };
+
+export type CheckoutSuccessToken = {
+  items: ProductCheckoutToken[];
+  shipping: ShippingState;
+}
 
 export type ShippingState = {
   firstname: string;

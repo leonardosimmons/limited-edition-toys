@@ -37,6 +37,7 @@ export function SquareOrderTokensType<TBase extends Constructor>(Base: TBase) {
           ? total + token.discount!.price
           : total + token.product.price_excluding_tax!;
         list.push({
+          uid: token.product.id,
           name: token.product.name,
           quantity: token.quantity.toString(),
           basePriceMoney: {
@@ -56,7 +57,7 @@ export function SquareOrderTokensType<TBase extends Constructor>(Base: TBase) {
         quantity: '1',
         basePriceMoney: {
           amount: BigInt(
-            Math.round((10 + total * 0.025) * 100),
+            Math.round(10 * 100),
           ).toString() as unknown as bigint,
           currency: 'USD',
         },

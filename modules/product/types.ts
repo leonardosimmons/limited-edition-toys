@@ -21,6 +21,12 @@ export type ProductCategory = {
   _links: any;
 };
 
+export type ProductCheckoutToken = {
+  name: string;
+  quantity: number;
+  price: string;
+}
+
 export type ProductFilterOptions =
   | 'category'
   | 'type'
