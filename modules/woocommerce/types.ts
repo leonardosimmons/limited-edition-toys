@@ -1,4 +1,4 @@
-import { KeyValuePair } from '../../utils/types';
+import { Combinable } from '../../utils/types';
 
 export type WooCommerceCustomerBilling = {
   first_name: string;
@@ -16,9 +16,10 @@ export type WooCommerceCustomerBilling = {
 
 export type WooCommerceCustomerInformation = {
   email: string;
-  username: string;
   first_name?: string;
   last_name?: string;
+  username?: string;
+  password?: string;
 };
 
 export type WooCommerceCustomerMetaData = {
@@ -50,7 +51,40 @@ export type WooCommerceCustomerShipping = {
 export type WooCommerceCustomer = WooCommerceCustomerInformation & {
   billing?: WooCommerceCustomerBilling;
   shipping?: WooCommerceCustomerShipping;
+  role?: string;
+  is_paying_customer?: boolean;
 };
 
 export type WooCommerceCustomerResponse = WooCommerceCustomerMetaData &
   WooCommerceCustomer;
+
+export type WooCommerceLineItem = {
+  sku: string;
+  quantity: number;
+  price: string;
+  total: string;
+  subTotal: string;
+  variation_id?: Combinable;
+}
+
+export type WooCommerceOrderToken = {
+  currency: string;
+  customer_id: number;
+  payment_method: string;
+  payment_method_title: string;
+  set_paid: boolean;
+  shipping_total: string;
+  transaction_id: string;
+  total: string;
+  discount_total?: string;
+  billing: WooCommerceCustomerBilling;
+  shipping: WooCommerceCustomerShipping;
+  lineItems: WooCommerceLineItem[],
+  shipping_lines: WooCommerceShippingLine[]
+}
+
+export type WooCommerceShippingLine = {
+  method_id: string;
+  method_title: string;
+  total: string;
+}
