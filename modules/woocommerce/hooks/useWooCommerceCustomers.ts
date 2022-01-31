@@ -1,24 +1,15 @@
-import { useWooCommerceCustomersData } from '../queries';
-import {
-  WooCommerceCustomer,
-  WooCommerceCustomerResponse,
-  WooCommerceCustomerShipping,
-} from '../types';
+import { WooCommerceCustomer, WooCommerceCustomerShipping } from '../types';
 import { UpdateToken } from '../../../utils/types';
+import { useMutation } from 'react-query';
+
 import { WooCommerce } from '../woocommerce.model';
-import { useMutation, useQueryClient } from 'react-query';
-import { Queries } from '../../../utils/keys';
 
 function useWooCommerceCustomers() {
   const model = new WooCommerce();
-  const queryClient = useQueryClient();
-  const { status, data: customers, error } = useWooCommerceCustomersData();
 
-  async function create(
-    token: WooCommerceCustomer,
-  ): Promise<WooCommerceCustomerResponse> {
-    return await model.createCustomer(token);
-  }
+  const create = useMutation((customer: WooCommerceCustomer) =>
+    model.createCustomer(customer),
+  );
 
   const updateInformation = useMutation(
     (newValue: UpdateToken<WooCommerceCustomer, string>) =>
@@ -41,10 +32,7 @@ function useWooCommerceCustomers() {
   );
 
   return {
-    error,
-    list: customers,
-    status,
-    create,
+    create: create.mutate,
     update: {
       info: updateInformation,
       shipping: updateShipping,

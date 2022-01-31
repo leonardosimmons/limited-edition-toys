@@ -12,6 +12,10 @@ export enum Default {
   PRODUCTS_PER_PAGE = 30,
 }
 
+export enum ErrorCode {
+  WOOCOMMERCE_EMAIL_EXISTS = 'registration-error-email-exists'
+}
+
 export enum Key {
   RIGHT = 'right',
   LEFT = 'left',
@@ -54,6 +58,7 @@ export enum Queries {
   VEND_CUSTOMER = 'vend-customer',
   VEND_CUSTOMERS = 'vend-customers',
   USER = 'user',
+  WOOCOMMERCE_CUSTOMER = 'woocommerce-customer',
   WOOCOMMERCE_CUSTOMERS = 'woocommerce-customers',
   WORDPRESS_USER = 'wordpress-user',
   USER_SESSION = 'user-auth-session',

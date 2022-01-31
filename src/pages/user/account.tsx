@@ -1,7 +1,9 @@
 import React from 'react';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { Links } from '../../../utils/keys';
 import { useRouter } from 'next/router';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { WooCommerceCustomerResponse } from '../../../modules/woocommerce/types';
+import { WooCommerceApi } from '../../../lib';
+import { Links } from '../../../utils/keys';
 
 import { withSessionSsr } from 'lib/session';
 import { appSelector } from '../../redux/selector';
@@ -19,8 +21,9 @@ import {
 import UserDashBoard from '../../features/dashboard/UserDashboard';
 import DashboardSpeedDial from '../../features/dashboard/components/DashboardSpeedDial';
 
-function UserAccountPage({ }:
-InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+function UserAccountPage({
+  customer,
+}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   useSessionCheck();
   const login = useLogin();
   const router = useRouter();
@@ -28,20 +31,18 @@ InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
 
   React.useEffect(() => {
     if (login.status === 'guest') {
-      router.push(Links.SIGN_IN)
+      router.push(Links.SIGN_IN);
     }
   }, [login.status]);
 
   return (
-    <Layout title={'Limited Edition Toys | My Account'} >
+    <Layout title={'Limited Edition Toys | My Account'}>
       <AccountMainContainer sx={{ position: 'relative' }}>
         <AccountHeader>
           <Typography variant="h1">My Account</Typography>
         </AccountHeader>
         <UserDashBoard />
-        { ctx.ui.status.viewport === 'mobile' &&
-          <DashboardSpeedDial />
-        }
+        {ctx.ui.status.viewport === 'mobile' && <DashboardSpeedDial />}
       </AccountMainContainer>
     </Layout>
   );
@@ -51,16 +52,23 @@ export default UserAccountPage;
 
 export const getServerSideProps: GetServerSideProps = withSessionSsr(
   async function getServerSideProps({ req }) {
-    if (req.session && !req.session.auth) {
+    if (req.session && !req.session.auth.token) {
       return {
         redirect: {
           destination: '/user/sign-in',
-          permanent: false
-        }
-      }
+          permanent: false,
+        },
+      };
     }
+
+    const customer = await WooCommerceApi.get(
+      `customers/${req.session.auth.id}`,
+    ).then((res: any) => res.data);
+
     return {
-      props: { },
+      props: {
+        customer: customer as WooCommerceCustomerResponse,
+      },
     };
-  }
+  },
 );

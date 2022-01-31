@@ -12,7 +12,11 @@ export function WordpressLoginModel<TBase extends Constructor>(Base: TBase) {
             password,
           },
         );
-        return response.data;
+        return {
+          ...response.data,
+          username,
+          password
+        };
       } catch (err) {
         throw new Error('Unable to login user');
       }

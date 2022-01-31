@@ -1,8 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import data from '../../../data/pages/signIn.json';
 import { UserSignInToken } from 'modules/auth/types';
+import data from '../../../data/pages/signIn.json';
 import { Links } from 'utils/keys';
 
 import { useLogin } from 'modules/auth/hooks/useLogin';

@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { Customer } from 'square';
 import {
-  WooCommerceCustomer as WooCommerceCustomerType, WooCommerceCustomerBilling,
+  WooCommerceCustomer as WooCommerceCustomerType,
+  WooCommerceCustomerBilling,
+  WooCommerceCustomerInformation,
   WooCommerceCustomerResponse,
   WooCommerceCustomerShipping,
 } from '../types';
@@ -13,31 +15,37 @@ export function WooCommerceCustomerModel<TBase extends Constructor>(
   Base: TBase,
 ) {
   return class extends Base {
-    public createCustomerToken(customer: Customer, registration: boolean, auth?: UserSignInToken): WooCommerceCustomerType {
+    public createCustomerToken(
+      customer: Customer,
+      registration: boolean,
+      auth?: UserSignInToken,
+    ): WooCommerceCustomerType {
       return registration
-      ? {
-          first_name: customer.givenName!,
-          last_name: customer.familyName!,
-          email: customer.emailAddress!,
-          username: auth!.username,
-          password: auth!.password,
-          role: 'customer',
-          is_paying_customer: false
-        } as WooCommerceCustomerType
-      : {
-          first_name: customer.givenName!,
-          last_name: customer.familyName!,
-          email: customer.emailAddress!,
-          username: '',
-          password: 'temp123',
-          shipping: this.createCustomerShippingToken(customer),
-          billing: this.createCustomerBillingToken(customer),
-          role: 'customer',
-          is_paying_customer: true
-        } as WooCommerceCustomerType
+        ? ({
+            first_name: customer.givenName!,
+            last_name: customer.familyName!,
+            email: customer.emailAddress!,
+            username: auth!.username,
+            password: auth!.password,
+            role: 'customer',
+            is_paying_customer: false,
+          } as WooCommerceCustomerType)
+        : ({
+            first_name: customer.givenName!,
+            last_name: customer.familyName!,
+            email: customer.emailAddress!,
+            username: '',
+            password: 'temp123',
+            shipping: this.createCustomerShippingToken(customer),
+            billing: this.createCustomerBillingToken(customer),
+            role: 'customer',
+            is_paying_customer: true,
+          } as WooCommerceCustomerType);
     }
 
-    public createCustomerBillingToken(customer: Customer): WooCommerceCustomerBilling {
+    public createCustomerBillingToken(
+      customer: Customer,
+    ): WooCommerceCustomerBilling {
       return {
         first_name: customer.givenName!,
         last_name: customer.familyName!,
@@ -45,15 +53,18 @@ export function WooCommerceCustomerModel<TBase extends Constructor>(
         address_1: customer.address?.addressLine1!,
         address_2: customer.address?.addressLine2,
         city: customer.address?.locality!,
-        state: customer.address?.administrativeDistrictLevel1?.toUpperCase() as string,
+        state:
+          customer.address?.administrativeDistrictLevel1?.toUpperCase() as string,
         postcode: customer.address?.postalCode!,
         country: 'US',
         email: customer.emailAddress!,
-        phone: customer.phoneNumber!
-      } as WooCommerceCustomerBilling
+        phone: customer.phoneNumber!,
+      } as WooCommerceCustomerBilling;
     }
 
-    public createCustomerShippingToken(customer: Customer): WooCommerceCustomerShipping {
+    public createCustomerShippingToken(
+      customer: Customer,
+    ): WooCommerceCustomerShipping {
       return {
         first_name: customer.givenName!,
         last_name: customer.familyName!,
@@ -61,33 +72,45 @@ export function WooCommerceCustomerModel<TBase extends Constructor>(
         address_1: customer.address?.addressLine1!,
         address_2: customer.address?.addressLine2,
         city: customer.address?.locality!,
-        state: customer.address?.administrativeDistrictLevel1?.toUpperCase() as string,
+        state:
+          customer.address?.administrativeDistrictLevel1?.toUpperCase() as string,
         postcode: customer.address?.postalCode!,
-        country: 'US'
-      } as WooCommerceCustomerShipping
+        country: 'US',
+      } as WooCommerceCustomerShipping;
     }
 
     public async createCustomer(
       token: WooCommerceCustomerType,
-    ): Promise<WooCommerceCustomerResponse> {
+    ): Promise<
+      | { customer: WooCommerceCustomerResponse }
+      | { token: WooCommerceCustomerInformation }
+    > {
       try {
         return await axios
-          .post('/api/woocommerce/customer', { token })
-          .then((res: any) => {
-            return res.data;
-          });
+          .post('/api/woocommerce/customers', { token })
+          .then((res: any) => res.data);
       } catch (err: any) {
         throw new Error(`Unable to create new customer: ${err}`);
       }
     }
 
-   public async getCustomers(): Promise<WooCommerceCustomerResponse[]> {
+    public async getCustomer(id: number): Promise<WooCommerceCustomerResponse> {
       try {
-        return await axios.get('/api/woocommerce/customer').then((res: any) => {
-          return res.data;
-        });
+        return await axios
+          .get(`/api/woocommerce/customers?id=${id}`)
+          .then((res) => res.data);
       } catch (err: any) {
-        throw new Error(`Unable to create new customer: ${err}`);
+        throw new Error(`Unable to retrieve user ${id}: ${err}`);
+      }
+    }
+
+    public async getCustomers() {
+      try {
+        return await axios
+          .get('/api/woocommerce/customers')
+          .then((res: any) => res.data);
+      } catch (err: any) {
+        throw new Error(`Unable to retrieve customers: ${err}`);
       }
     }
 
