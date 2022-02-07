@@ -1,8 +1,10 @@
 import React from 'react';
+import Link from 'next/link';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { CheckoutSuccessToken } from '../../../modules/checkout/types';
 import { withSessionSsr } from '../../../lib/session';
 import { Square } from '../../../lib/square';
+import { Links } from '../../../utils/keys';
 
 import { CheckoutModel } from '../../../modules/checkout/checkout.model';
 import { WooCommerce } from '../../../modules/woocommerce/woocommerce.model';
@@ -15,6 +17,7 @@ import {
 } from 'src/containers/pages/styles/CheckoutCompleted';
 
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 
@@ -43,6 +46,11 @@ function CheckoutCompleted({
           items={data.items}
           shipping={data.shipping}
         />
+        <Link href={Links.HOME}>
+          <Button variant={'contained'} sx={{ marginBottom: '8rem'}}>
+            {'Return Home'}
+          </Button>
+        </Link>
       </CompletedMainContainer>
     </Layout>
   );

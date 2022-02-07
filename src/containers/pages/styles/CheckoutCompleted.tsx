@@ -9,10 +9,25 @@ export const CompletedMainContainer = styled(Container)<ContainerProps>(
     width: '100%',
     ...theme.custom.centerColumn,
     '& > p.MuiTypography-body1': {
-      width: '900px',
+      width: '100%',
       ...theme.custom.center,
-      padding: '4.5rem 3rem 6rem',
-      textAlign: 'center'
+      padding: '2rem',
+      textAlign: 'center',
+      fontSize: '1rem',
+      [theme.breakpoints.up('mobileMd')]: {
+        fontSize: '1.1rem'
+      },
+      [theme.breakpoints.up('tabletSm')]: {
+        fontSize: '1.2rem',
+      },
+      [theme.breakpoints.up('tabletLg')]: {
+        width: '900px',
+        padding: '3rem 2rem 4rem',
+      },
+      [theme.breakpoints.up('desktopLg')]: {
+        padding: '4.5rem 3rem 6rem',
+        fontSize: '1.4rem'
+      },
     }
   }),
 );
@@ -23,12 +38,12 @@ export const CompletedTopBanner = styled(Box)<BoxProps>(({ theme }) => ({
   backgroundColor: 'green',
   ...theme.custom.center,
   '& > svg.MuiSvgIcon-root': {
-    height: '.8em',
-    width: '.8em',
+    height: '.7em',
+    width: '.7em',
     color: 'white',
     [theme.breakpoints.up('mobileMd')]: {
-      // height: '1em',
-      // width: '1em',
+      height: '.8em',
+      width: '.8em',
       marginBottom: '5px',
     },
   },
@@ -48,8 +63,17 @@ export const ConfirmationBanner = styled(Box)<BoxProps>(({ theme }) => ({
   borderBottom: `2.5px solid ${theme.palette.grey[200]}`,
   ...theme.custom.center,
   '& > h1.MuiTypography-h1': {
-    fontSize: '3.25rem',
+    fontSize: '2.5rem',
     fontWeight: 200,
-    color: theme.palette.grey[700]
+    color: theme.palette.grey[700],
+    [theme.breakpoints.up('tabletSm')]: {
+      fontSize: '3rem',
+    },
+    [theme.breakpoints.up('desktopSm')]: {
+      fontSize: '3.25rem',
+    },
+    [theme.breakpoints.up('desktopLg')]: {
+      fontSize: '3.65rem'
+    },
   },
 }));

@@ -28,7 +28,7 @@ const CheckoutSuccessDisplay: React.FunctionComponent<Props> = ({
         <strong>Order</strong>
         {`: #${orderId}`}
       </CheckoutDisplayHeading>
-      <CheckoutDisplayOrder maxWidth={false}>
+      <CheckoutDisplayOrder maxWidth={false} disableGutters>
         <CheckoutSuccessShipping shipping={shipping}/>
         <CheckoutReceipt items={items} />
       </CheckoutDisplayOrder>

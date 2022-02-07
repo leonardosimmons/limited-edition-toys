@@ -29,8 +29,14 @@ export const CheckoutReceiptItem = styled(Box, {
 })<ReceiptItemProps>(({ caption, lineItem, shipping, subtotal, total, theme }) => ({
   display: 'flex',
   padding: '2rem 0',
+  '& > p.MuiTypography-body1': {
+    fontSize: '1.2rem',
+    [theme.breakpoints.up('desktopMd')]: {
+      fontSize: '1.4rem'
+    },
+  },
   '& > p.MuiTypography-body1:nth-of-type(1)': {
-    flex: 1
+    flex: 1,
   },
   '& > p.MuiTypography-body1:nth-of-type(2)': {
     flex: '0 1 20%',
