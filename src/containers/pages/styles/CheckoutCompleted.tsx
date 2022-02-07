@@ -8,6 +8,12 @@ export const CompletedMainContainer = styled(Container)<ContainerProps>(
     height: '100%',
     width: '100%',
     ...theme.custom.centerColumn,
+    '& > p.MuiTypography-body1': {
+      width: '900px',
+      ...theme.custom.center,
+      padding: '4.5rem 3rem 6rem',
+      textAlign: 'center'
+    }
   }),
 );
 
@@ -38,10 +44,12 @@ export const CompletedTopBanner = styled(Box)<BoxProps>(({ theme }) => ({
 
 export const ConfirmationBanner = styled(Box)<BoxProps>(({ theme }) => ({
   height: '100px',
-  width: '100%',
+  width: '85%',
   borderBottom: `2.5px solid ${theme.palette.grey[200]}`,
   ...theme.custom.center,
   '& > h1.MuiTypography-h1': {
-    fontSize: '2.25rem',
+    fontSize: '3.25rem',
+    fontWeight: 200,
+    color: theme.palette.grey[700]
   },
 }));
