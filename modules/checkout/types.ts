@@ -20,6 +20,7 @@ export type BillingState = {
 };
 
 export type CheckoutSuccessToken = {
+  id: string;
   items: ProductCheckoutToken[];
   shipping: ShippingState;
 }

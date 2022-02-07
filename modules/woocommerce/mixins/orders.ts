@@ -50,7 +50,7 @@ export function WooCommerceOrderModel<TBase extends Constructor>(
 
     private createLineItemToken(item: OrderLineItem): WooCommerceLineItem {
       return {
-        sku: item.uid!,
+        sku: item.note!,
         quantity: parseInt(item.quantity!),
         price: this.base.convertPriceFromBigint(item.basePriceMoney?.amount!),
         subTotal: this.base.convertPriceFromBigint(item.grossSalesMoney?.amount!),

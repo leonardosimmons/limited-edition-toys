@@ -4,8 +4,9 @@ import { CheckoutSuccessToken } from './types';
 import { VendApi } from '../../lib';
 
 class CheckoutModel {
-  createCheckoutDataToken(customer: Customer, items: ProductCheckoutToken[]): CheckoutSuccessToken {
+  createCheckoutDataToken(id: string, customer: Customer, items: ProductCheckoutToken[]): CheckoutSuccessToken {
     return {
+      id,
       items,
       shipping: {
         firstname: customer.givenName!,

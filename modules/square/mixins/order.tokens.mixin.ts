@@ -37,8 +37,9 @@ export function SquareOrderTokensType<TBase extends Constructor>(Base: TBase) {
           ? total + token.discount!.price
           : total + token.product.price_excluding_tax!;
         list.push({
-          uid: token.product.sku,
+          uid: token.product.id,
           name: token.product.name,
+          note: token.product.sku,
           quantity: token.quantity.toString(),
           basePriceMoney: {
             amount: token.discount

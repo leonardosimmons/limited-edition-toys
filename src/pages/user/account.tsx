@@ -52,7 +52,7 @@ export default UserAccountPage;
 
 export const getServerSideProps: GetServerSideProps = withSessionSsr(
   async function getServerSideProps({ req }) {
-    if (req.session && !req.session.auth.token) {
+    if (req.session && !req.session.auth) {
       return {
         redirect: {
           destination: '/user/sign-in',
