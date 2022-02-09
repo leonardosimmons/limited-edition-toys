@@ -41,6 +41,7 @@ export type MinMaxQuantity = {
 export type OverlayState = 'open' | 'closed';
 
 export type RouteConfirmation = {
+  error?: boolean;
   ok?: boolean;
   message?: string;
   payload?: any;

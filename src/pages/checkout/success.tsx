@@ -6,6 +6,7 @@ import { withSessionSsr } from '../../../lib/session';
 import { Square } from '../../../lib/square';
 import { Links } from '../../../utils/keys';
 
+import { SendGridModel } from '../../../modules/sendgrid/sendgrid.model';
 import { CheckoutModel } from '../../../modules/checkout/checkout.model';
 import { WooCommerce } from '../../../modules/woocommerce/woocommerce.model';
 
@@ -37,9 +38,7 @@ function CheckoutCompleted({
           <Typography variant="h1">Confirmation</Typography>
         </ConfirmationBanner>
         <Typography variant="body1">
-          {
-            'Thank you for your order. If you have any questions about your order, please contact us at contact@limitededitionpdx.com'
-          }
+          {'Thank you for your order. If you have any questions about your order, please contact us at contact@limitededitionpdx.com'}
         </Typography>
         <CheckoutSuccessDisplay
           orderId={data.id}
@@ -60,6 +59,7 @@ export default CheckoutCompleted;
 
 export const getServerSideProps: GetServerSideProps = withSessionSsr(
   async function getServerSideProps({ query, req }) {
+    const email = new SendGridModel();
     const checkout = new CheckoutModel();
     const woocommerce = new WooCommerce();
     const transactionId = query.transactionId as string;
@@ -92,6 +92,14 @@ export const getServerSideProps: GetServerSideProps = withSessionSsr(
           transactionId,
           (req.session.auth && req.session.auth.id) || undefined,
         );
+        
+        // TODO: send email receipt to customer
+        const result = await email.sendMail({
+          email: 'mm0leo@yahoo.com',
+          name: `${customerResponse.customer?.givenName as string} ${customerResponse.customer?.familyName as string}`,
+          subject: 'Your Receipt - Limited Edition Toys',
+          message: 'Your receipt'
+        }).then((res) => res);
       }
     }
 
