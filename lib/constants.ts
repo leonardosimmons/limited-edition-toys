@@ -1,9 +1,8 @@
 //* -------------------------------------------------
-// JWT AUTH
+// SENDGRID
 
-export const ACCESS_TOKEN = 'letpdx-accessToken';
-export const CLIENT_JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET!;
-export const JWT_SECRET = process.env.JWT_SECRET!;
+export const EMAIL_SENDER = process.env.EMAIL_SENDER!;
+export const EMAIL_TEMPLATE_ID = process.env.TEMPLATE_ID!;
 
 //* -------------------------------------------------
 // VEND

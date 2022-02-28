@@ -86,20 +86,23 @@ export const getServerSideProps: GetServerSideProps = withSessionSsr(
           productToken,
         );
 
-        const newWooCommerceOrder = await woocommerce.createNewOrder(
-          customerResponse.customer!,
-          orderResponse.order!,
-          transactionId,
-          (req.session.auth && req.session.auth.id) || undefined,
-        );
-        
-        // TODO: send email receipt to customer
-        const result = await email.sendMail({
-          email: 'mm0leo@yahoo.com',
-          name: `${customerResponse.customer?.givenName as string} ${customerResponse.customer?.familyName as string}`,
-          subject: 'Your Receipt - Limited Edition Toys',
-          message: 'Your receipt'
-        }).then((res) => res);
+        let count  = 0;
+
+        if (count < 1) {
+          // TODO: create new order in WooCommerce
+          const newWooCommerceOrder = await woocommerce.createNewOrder(
+            customerResponse.customer!,
+            orderResponse.order!,
+            transactionId,
+            (req.session.auth && req.session.auth.id) || undefined,
+          );
+
+          const emailToken = email.createEmailToken(transactionId, customerResponse.customer!, dataToken.items);
+          await email.sendMail(emailToken)
+            .then((res) => res)
+            .catch((err: any) => console.log('email error', err));
+          ++count;
+        }
       }
     }
 

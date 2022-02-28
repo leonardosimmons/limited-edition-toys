@@ -53,11 +53,12 @@ class CheckoutModel {
     return VendApi.get(`/products/${item.uid}`)
       .then((res: any) => res.data)
       .then((product: any) => {
+        const price = Number(item.basePriceMoney!.amount as unknown) / 100;
         return {
           name: item.name,
           quantity: parseInt(item.quantity),
-          price: product.data.price_excluding_tax.toString(),
-        } as ProductCheckoutToken;
+          price,
+        } as unknown as ProductCheckoutToken;
       });
   }
 }
