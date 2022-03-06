@@ -23,6 +23,10 @@ import Button from '@mui/material/Button';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 
 import CheckoutSuccessDisplay from '../../../modules/checkout/components/success/CheckoutSuccessDisplay';
+import { WooCommerceApi } from '../../../lib';
+import { WooCommerceProductVerification } from '../../../modules/woocommerce/types';
+
+const NOT_FOUND_SKU = '10610'
 
 function CheckoutCompleted({
   data,
@@ -86,23 +90,38 @@ export const getServerSideProps: GetServerSideProps = withSessionSsr(
           productToken,
         );
 
-        let count  = 0;
-
-        if (count < 1) {
-          // TODO: create new order in WooCommerce
-          const newWooCommerceOrder = await woocommerce.createNewOrder(
-            customerResponse.customer!,
-            orderResponse.order!,
-            transactionId,
-            (req.session.auth && req.session.auth.id) || undefined,
-          );
-
-          const emailToken = email.createEmailToken(transactionId, customerResponse.customer!, dataToken.items);
-          await email.sendMail(emailToken)
-            .then((res) => res)
-            .catch((err: any) => console.log('email error', err));
-          ++count;
+        const ids: WooCommerceProductVerification[] = [];
+        // TODO: create new order in WooCommerce
+        for (const p of orderResponse.order?.lineItems!) {
+          if (p.note) {
+            await WooCommerceApi.get(`products?sku=${p.note}`)
+              .then((res: any) => res.data)
+              .then((data) => {
+                ids.push({
+                  id: data[0].id,
+                  sku: p.note!
+                })
+              })
+              .catch((err: any) => alert("Cannot get product ids"));
+          }
         }
+
+        const token = woocommerce.createOrderToken(
+          customerResponse.customer!,
+          orderResponse.order!,
+          transactionId,
+          ids,
+          (req.session.auth && req.session.auth.id) || undefined,
+        );
+
+        await WooCommerceApi.post('orders', token)
+          .then((res: any) => res)
+          .catch((err: any) => alert("Cannot place order"));
+
+        const emailToken = email.createEmailToken(transactionId, customerResponse.customer!, dataToken.items);
+        await email.sendMail(emailToken)
+          .then((res) => res)
+          .catch((err: any) => alert("Unable to send receipt"));
       }
     }
 
@@ -113,3 +132,6 @@ export const getServerSideProps: GetServerSideProps = withSessionSsr(
     };
   },
 );
+
+// checkout demo
+// http://localhost:3000/checkout/success?checkoutId=CBASEIgSbC90zS5WshjRBVJSKok&transactionId=vDms22DbPxenYWtztSkvCvMJq4EZY

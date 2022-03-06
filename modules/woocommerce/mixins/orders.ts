@@ -1,8 +1,9 @@
 import { Constructor } from '../../../utils/types';
-import { WooCommerceLineItem, WooCommerceOrderToken } from '../types';
+import { WooCommerceLineItem, WooCommerceOrderToken, WooCommerceProductVerification } from '../types';
 import { Customer, Order, OrderLineItem } from 'square';
 import { WooCommerceCustomer } from './customer';
 import { WooCommerceBase } from './base';
+import { WooCommerceApi } from '../../../lib';
 
 export function WooCommerceOrderModel<TBase extends Constructor>(
   Base: TBase,
@@ -11,13 +12,9 @@ export function WooCommerceOrderModel<TBase extends Constructor>(
     private base = new WooCommerceBase();
     private wooCommerceCustomer = new WooCommerceCustomer();
 
-    public async createNewOrder(customer: Customer, order: Order, transId: string, uid?: number) {
-      const token = this.createOrderToken(customer, order, transId, uid);
-      //return await WooCommerceApi.post('orders', token);
-      return token;
-    }
-
-    public createOrderToken(customer: Customer, order: Order, transId: string, uid?: number): WooCommerceOrderToken {
+    public createOrderToken(customer: Customer, order: Order, transId: string, tokens: WooCommerceProductVerification[], uid?: number): WooCommerceOrderToken {
+      const lineItems = this.createOrderLineItemTokens(order.lineItems!, tokens);
+      console.log("line", lineItems)
       return {
         currency: 'USD',
         customer_id: uid || 0,
@@ -28,7 +25,7 @@ export function WooCommerceOrderModel<TBase extends Constructor>(
         transaction_id: transId,
         billing: this.wooCommerceCustomer.createCustomerBillingToken(customer),
         shipping: this.wooCommerceCustomer.createCustomerShippingToken(customer),
-        lineItems: this.createOrderLineItemTokens(order.lineItems!),
+        line_items: this.createOrderLineItemTokens(order.lineItems!, tokens),
         total: this.base.convertPriceFromBigint(order.netAmounts?.totalMoney?.amount!),
         shipping_lines: [
           {
@@ -40,21 +37,22 @@ export function WooCommerceOrderModel<TBase extends Constructor>(
       } as WooCommerceOrderToken
     }
 
-    public createOrderLineItemTokens(items: OrderLineItem[]): WooCommerceLineItem[] {
+    public createOrderLineItemTokens(items: OrderLineItem[], tokens: WooCommerceProductVerification[]): WooCommerceLineItem[] {
       let buffer: WooCommerceLineItem[] = [];
       items.forEach((item) => {
-        buffer.push(this.createLineItemToken(item));
+        tokens.forEach((token) => {
+          if (token.sku === item.note) {
+            buffer.push(this.createLineItemToken(item, token));
+          }
+        })
       });
       return buffer;
     }
 
-    private createLineItemToken(item: OrderLineItem): WooCommerceLineItem {
+    private createLineItemToken(item: OrderLineItem, token: WooCommerceProductVerification): WooCommerceLineItem {
       return {
-        sku: item.note!,
+        product_id: token.id,
         quantity: parseInt(item.quantity!),
-        price: this.base.convertPriceFromBigint(item.basePriceMoney?.amount!),
-        subTotal: this.base.convertPriceFromBigint(item.grossSalesMoney?.amount!),
-        total: this.base.convertPriceFromBigint(item.totalMoney?.amount!)
       }
     }
   };

@@ -1,3 +1,5 @@
+export type VendAccountStatus = 'SAVED'| 'CLOSED'| 'ON_ACCOUNT'| 'LAYBY' | 'ON_ACCOUNT_CLOSED' | 'LAYBY_CLOSED';
+
 export type VendCreateCustomerToken = {
   first_name: string;
   last_name: string;
@@ -95,3 +97,38 @@ export type VendLineItem = {
   variant_parent_id?: string;
   unit_discount?: number;
 };
+
+export type VendRegisterSalePayment = {
+  retailer_payment_type_id: string; // api/2.0/payment_types
+  amount: number;
+  register_id?: string;
+  payment_date?: string;
+}
+
+export type VendOrderItem = {
+  product_id: string;
+  quantity: number;
+  price: number;
+  tax: number;
+  tax_id: string; // api/2.0/taxes
+  register_id?: string;
+  cost?: number;
+  price_set?: number;
+  discount?: number;
+  loyalty_value?: number;
+  status?: VendAccountStatus;
+}
+
+export type VendOrder = {
+  register_id: string;
+  user_id: string;
+  status: string;
+  register_sale_products: VendOrderItem[];
+  customer_id?: string;
+  sale_date?: string;
+  note?: string;
+  short_code?: string;
+  invoice_number?: string;
+  invoice_sequence?: string;
+  register_sale_payments?: VendRegisterSalePayment[];
+}
