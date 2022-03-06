@@ -61,13 +61,13 @@ export const getServerSideProps: GetServerSideProps = withSessionSsr(
       };
     }
 
-    const customer = await WooCommerceApi.get(
-      `customers/${req.session.auth.id}`,
-    ).then((res: any) => res.data);
+    // const customer = await WooCommerceApi.get(
+    //   `customers/${req.session.auth.id}`,
+    // ).then((res: any) => res.data);
 
     return {
       props: {
-        customer: customer as WooCommerceCustomerResponse,
+        customer: {},
       },
     };
   },
