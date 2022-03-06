@@ -115,7 +115,9 @@ export const getServerSideProps: GetServerSideProps = withSessionSsr(
         );
 
         await WooCommerceApi.post('orders', token)
-          .then((res: any) => res)
+          .then((res: any) => {
+            req.session.cart = [];
+          })
           .catch((err: any) => alert("Cannot place order"));
 
         const emailToken = email.createEmailToken(transactionId, customerResponse.customer!, dataToken.items);
