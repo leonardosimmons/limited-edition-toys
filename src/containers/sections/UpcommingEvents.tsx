@@ -38,7 +38,7 @@ const UpcommingEvents: React.FunctionComponent<Props> = ({
         <SectionDivider variant="middle" />
         <SectionEventBox>
           <SectionEvent maxWidth={false} disableGutters>
-            <Typography variant="h4">No upcomming events</Typography>
+            <Typography variant="h4">No Upcoming Events</Typography>
             {/* <Box>
               <Image
                 src={Images.RANDY_EMBERLIN}
