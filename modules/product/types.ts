@@ -1,7 +1,7 @@
 import { PromotionDiscount } from 'modules/promotions/types';
 
 export type ProductCartToken = {
-  product: Product;
+  product: VendProduct;
   quantity: number;
   stock: number;
   total: number;
@@ -62,7 +62,7 @@ export type ProductType = {
   version?: number;
 };
 
-export type Product = {
+export type VendProduct = {
   id: string;
   name: string;
   description?: string;

@@ -1,5 +1,5 @@
 import { VendApi, VendResponse } from 'lib';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.json(
       await VendApi.get(`/products/${id}`)
         .then((res) => res.data)
-        .then((vend: VendResponse<Product>) => vend),
+        .then((vend: VendResponse<VendProduct>) => vend),
     );
   } else {
     return res.json({

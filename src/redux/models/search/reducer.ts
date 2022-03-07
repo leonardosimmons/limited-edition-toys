@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 import {
   resetCurrentSearchInput,
   resetSearchRequest,
@@ -13,7 +13,7 @@ import {
 type SearchState = {
   input: string;
   request: string;
-  result: Product[];
+  result: VendProduct[];
 };
 
 const initialState: SearchState = {

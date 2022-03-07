@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Product, ProductInventory } from './types';
+import { VendProduct, ProductInventory } from './types';
 
 export const resetProduct = createAction('product/resetProduct');
 
@@ -23,7 +23,7 @@ export const resetCurrentProductSelection = createAction(
   'product/resetCurrentProductSelection',
 );
 
-export const setCurrentProductSelection = createAction<Product>(
+export const setCurrentProductSelection = createAction<VendProduct>(
   'product/setCurrentProductSelection',
 );
 

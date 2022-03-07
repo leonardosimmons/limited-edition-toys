@@ -1,7 +1,7 @@
 import { VendResponse } from 'lib';
 import { getPaginatedProducts } from './queries';
 import {
-  Product,
+  VendProduct,
   ProductFilterOptions,
   ProductPropertyOptions,
   ProductType,
@@ -17,11 +17,11 @@ class ProductModel implements ProductModelInterface {
   static filterList(
     filter: string | string[],
     options: ProductFilterOptions,
-    products: Product[],
+    products: VendProduct[],
     tags?: Partial<ProductPropertyOptions>[],
-  ): Product[] {
-    const buffer: Product[] = [];
-    products.forEach((p: Product) => {
+  ): VendProduct[] {
+    const buffer: VendProduct[] = [];
+    products.forEach((p: VendProduct) => {
       switch (options) {
         case 'category':
           p.categories?.forEach((c: Partial<ProductType>) => {
@@ -106,25 +106,25 @@ class ProductModel implements ProductModelInterface {
     return buffer;
   }
 
-  static async getAll(): Promise<Product[]> {
+  static async getAll(): Promise<VendProduct[]> {
     try {
       return await getPaginatedProducts(0, this.productQueryChunkSize)
-        .then((vend: VendResponse<Product[]>) => vend)
-        .then(async (firstSet: VendResponse<Product[]>) => {
-          const secondSet: VendResponse<Product[]> = await getPaginatedProducts(
+        .then((vend: VendResponse<VendProduct[]>) => vend)
+        .then(async (firstSet: VendResponse<VendProduct[]>) => {
+          const secondSet: VendResponse<VendProduct[]> = await getPaginatedProducts(
             firstSet.version.max,
             this.productQueryChunkSize,
-          ).then((vend: VendResponse<Product[]>) => vend);
+          ).then((vend: VendResponse<VendProduct[]>) => vend);
           return {
             data: [...firstSet.data, ...secondSet.data],
             version: secondSet.version,
           };
         })
-        .then(async (currentSet: VendResponse<Product[]>) => {
-          const thirdSet: Product[] = await getPaginatedProducts(
+        .then(async (currentSet: VendResponse<VendProduct[]>) => {
+          const thirdSet: VendProduct[] = await getPaginatedProducts(
             currentSet.version.max,
             this.productQueryChunkSize,
-          ).then((vend: VendResponse<Product[]>) => vend.data);
+          ).then((vend: VendResponse<VendProduct[]>) => vend.data);
           return [...currentSet.data, ...thirdSet];
         })
         .catch((err) => {

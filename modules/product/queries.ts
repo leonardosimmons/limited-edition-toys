@@ -3,12 +3,12 @@ import { VendResponse } from 'lib';
 import { useQuery } from 'react-query';
 import { Default, Queries } from 'utils/keys';
 import { ProductModel } from './product.model';
-import { Product, ProductInventory, ProductPropertyOptions } from './types';
+import { VendProduct, ProductInventory, ProductPropertyOptions } from './types';
 
 //* -------------------------------------------------
 // Get All Products
 
-export async function getAllProducts(): Promise<Product[]> {
+export async function getAllProducts(): Promise<VendProduct[]> {
   return await ProductModel.getAll();
 }
 
@@ -38,7 +38,7 @@ export function useProductTags() {
 export async function getPaginatedProducts(
   version = 0,
   pageSize?: number,
-): Promise<VendResponse<Product[]>> {
+): Promise<VendResponse<VendProduct[]>> {
   return await axios
     .get(
       (process.env.NEXT_PUBLIC_PRODUCTS_API as string) +
@@ -65,11 +65,11 @@ export function useGetPaginatedProducts(version = 0, pageSize?: number) {
 //* -------------------------------------------------
 // Get SINGLE Product by ID
 
-export async function getProductById(id: string): Promise<Product> {
+export async function getProductById(id: string): Promise<VendProduct> {
   return await axios
     .get((process.env.NEXT_PUBLIC_PRODUCTS_API as string) + `/${id}`)
     .then((res: any) => res.data)
-    .then((vend: VendResponse<Product>) => vend.data)
+    .then((vend: VendResponse<VendProduct>) => vend.data)
     .catch((err) => {
       throw new Error(err);
     });

@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useAppSelector } from 'src/redux';
 import {
-  Product,
+  VendProduct,
   ProductCartToken,
   ProductInventory,
 } from 'modules/product/types';
@@ -26,9 +26,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
 import DisplayCard from '../../../../lib/components/cards/DisplayCard';
+import { WooCommerceProduct } from '../../../woocommerce/types';
 
 type Props = {
-  product: Product;
+  product: VendProduct | WooCommerceProduct;
   index?: number;
 };
 
@@ -42,13 +43,13 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   const session = useCartSession();
   const app = useAppSelector(appSelector);
   const [slug, setSlug] = React.useState<string | undefined>();
-  const { status, data: inventory, error } = useGetInventoryById(product.id);
+  const { status, data: inventory, error } = useGetInventoryById((product as VendProduct).id);
 
   // once populated set the url slug for the product
   React.useEffect(() => {
     if (product) {
       setSlug(
-        product.name
+        (product as VendProduct).name
           .toLowerCase()
           .replace(/[' '/]/g, '-')
           .replace(/[!:.;()""\[\]]/g, '')
@@ -75,10 +76,10 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
       setDiscount({ promotion: undefined, price: 0 });
     }
     if (promotions && promotions.length > 0) {
-      const result = checkForPromotions(product);
+      const result = checkForPromotions(product as VendProduct);
       if (result && result.length > 0) {
         const discountPrice = calculateDiscountPrice(
-          product.price_excluding_tax!,
+          (product as VendProduct).price_excluding_tax!,
           result[0],
         );
         setDiscount({
@@ -116,14 +117,14 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
 
   async function handleAddToCart(): Promise<void> {
     const token: ProductCartToken = {
-      product,
+      product: product as VendProduct,
       quantity: 1,
       stock: stockCount,
-      total: product.price_excluding_tax as number,
+      total: (product as VendProduct).price_excluding_tax as number,
       discount: discount ? (discount as PromotionDiscount) : undefined,
     };
     const sessionToken: CartSessionToken = {
-      sku: product.sku,
+      sku: (product as VendProduct).sku,
       quantity: 1,
       stock: stockCount,
       discountId: (discount && discount.promotion?.id) || undefined,
@@ -136,7 +137,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   // redirects to product page
   function handleImageClicked(): void {
     ctx.reset();
-    ctx.setSelection(product);
+    ctx.setSelection(product as VendProduct);
     router.push(`/products/single/${slug}`);
   }
 
@@ -162,11 +163,9 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
                   ? true
                   : app.ui.status.viewport === 'tablet' && index && index < 6
                   ? true
-                  : app.ui.status.viewport === 'mobile' && index && index < 2
-                  ? true
-                  : false
+                  : !!(app.ui.status.viewport === 'mobile' && index && index < 2)
               }
-              src={product.image_url as string}
+              src={(product as VendProduct).image_url as string}
               alt="product image"
               layout="fill"
               objectFit="contain"
@@ -175,7 +174,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
           </ProductDisplayCardImageBox>
         </Grid>
         <ProductDisplayInfo
-          name={product.name}
+          name={(product as VendProduct).name}
           rating={0}
           slug={slug as string}
           inStock={inStock}
@@ -183,7 +182,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
         />
         <ProductDisplayAction
           inStock={inStock}
-          price={product.price_excluding_tax as number}
+          price={(product as VendProduct).price_excluding_tax as number}
           addToCart={handleAddToCart}
           promotion={(discount && discount.promotion) || undefined}
         />

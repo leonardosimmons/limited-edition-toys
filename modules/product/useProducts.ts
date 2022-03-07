@@ -14,7 +14,7 @@ import {
 } from './actions';
 import { ProductModel } from './product.model';
 import { useGetAllProducts, useProductTags } from './queries';
-import { Product, ProductQueryOptions } from './types';
+import { VendProduct, ProductQueryOptions } from './types';
 
 export function useProducts(options?: ProductQueryOptions) {
   const dispatch = useAppDispatch();
@@ -32,7 +32,7 @@ export function useProducts(options?: ProductQueryOptions) {
   //* -------------------------------------------------
   // Filtered products (if applicable)
 
-  const filteredProducts: Product[] | undefined = React.useMemo(() => {
+  const filteredProducts: VendProduct[] | undefined = React.useMemo(() => {
     if (options?.filter?.value && options?.filter?.type && activeProducts) {
       return ProductModel.filterList(
         options?.filter?.value,
@@ -80,7 +80,7 @@ export function useProducts(options?: ProductQueryOptions) {
     dispatch(setProductInventoryLevel(amount));
   }
 
-  function setSelection(product: Product): void {
+  function setSelection(product: VendProduct): void {
     dispatch(setCurrentProductSelection(product));
   }
 
@@ -91,7 +91,7 @@ export function useProducts(options?: ProductQueryOptions) {
     products: {
       error,
       ...page.products,
-      list: activeProducts as Product[],
+      list: activeProducts as VendProduct[],
       status,
     },
     tags: {

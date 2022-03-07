@@ -1,7 +1,7 @@
 import React from 'react';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetServerSideProps, GetStaticProps, InferGetServerSidePropsType, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 import { Images, Queries } from 'utils/keys';
 
 import data from 'data/pages/home.json';
@@ -28,9 +28,12 @@ import {
 } from 'src/containers/sections/styles/Section';
 import { DisplayImage } from 'src/containers/sections/DisplayImage';
 import { useSessionCheck } from 'modules/auth/hooks/useSessionCheck';
+import { WooCommerceApi } from '../../lib';
 
-function Index({}: InferGetStaticPropsType<
-  typeof getStaticProps
+function Index({
+  newProducts
+}: InferGetServerSidePropsType<
+  typeof getServerSideProps
 >): JSX.Element {
   useCart();
   useSessionCheck();
@@ -46,7 +49,7 @@ function Index({}: InferGetStaticPropsType<
 
   const featuredProducts = React.useMemo(() => {
     if (products) {
-      const buffer: Product[] = [];
+      const buffer: VendProduct[] = [];
       products.list.forEach((product) => {
         data.featured.list.forEach((item) => {
           if (item.sku === product.sku && !buffer.includes(product)) {
@@ -63,7 +66,7 @@ function Index({}: InferGetStaticPropsType<
 
   const bestSellers = React.useMemo(() => {
     if (products) {
-      const buffer: Product[] = [];
+      const buffer: VendProduct[] = [];
       products.list.forEach((product) => {
         data.mostSold.list.forEach((item) => {
           if (item.sku === product.sku && !buffer.includes(product)) {
@@ -100,8 +103,8 @@ function Index({}: InferGetStaticPropsType<
           title={data.featured.title}
           products={
             ctx.ui.status.viewport === 'tablet'
-              ? (featuredProducts as Product[]).slice(0, 6)
-              : (featuredProducts as Product[])
+              ? (featuredProducts as VendProduct[]).slice(0, 6)
+              : (featuredProducts as VendProduct[])
           }
         />
         <UpcommingEvents title={data.events.title} />
@@ -130,8 +133,8 @@ function Index({}: InferGetStaticPropsType<
           title={data.mostSold.title}
           products={
             ctx.ui.status.viewport === 'tablet'
-              ? (bestSellers as Product[]).slice(0, 6)
-              : (bestSellers as Product[])
+              ? (bestSellers as VendProduct[]).slice(0, 6)
+              : (bestSellers as VendProduct[])
           }
         />
         <DisplayImage>
@@ -149,15 +152,19 @@ function Index({}: InferGetStaticPropsType<
 
 export default Index;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(Queries.ALL_PRODUCTS, getAllProducts);
   await queryClient.prefetchQuery(Queries.PRODUCT_TAGS, getProductTags);
 
+  const newProducts = await WooCommerceApi.get('products')
+    .then((res: any) => res.data)
+    .catch((err: any) => console.log(err));
+
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-    },
-    revalidate: 60 * 60 * 12,
+      newProducts
+    }
   };
 };

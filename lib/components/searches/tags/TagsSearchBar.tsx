@@ -8,7 +8,7 @@ import {
   openNavbarTagMenu,
   uiSelector,
 } from 'src/redux/models/ui';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 import { Id } from 'utils/keys';
 
 import { useProducts } from 'modules/product/useProducts';
@@ -63,7 +63,7 @@ const TagsSearchBar: React.FunctionComponent = (): JSX.Element => {
   // filter product according to entered user search
   React.useEffect(() => {
     if (search.input.length > 2) {
-      const buffer: Product[] = [];
+      const buffer: VendProduct[] = [];
       products.list?.forEach((product) => {
         if (
           RegExp(search.input.toLowerCase()).test(product.name.toLowerCase())

@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 import { StaticPath } from 'utils/types';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import { uiSelector } from 'src/redux/models/ui';
@@ -49,7 +49,7 @@ function ProductPage({
   }, []);
 
   //* -------------------------------------------------
-  // Product
+  // VendProduct
 
   const filter = React.useRef<string | string[]>([]);
   const { products } = useProducts({
@@ -58,7 +58,7 @@ function ProductPage({
       value: filter.current[1],
     },
   });
-  const product: Product | undefined = React.useMemo(() => {
+  const product: VendProduct | undefined = React.useMemo(() => {
     if (products.list && products.list.length > 0) {
       return products.list.find((product) => fixSlug(product.name) === slug);
     }
@@ -141,7 +141,7 @@ function ProductPage({
               <Image
                 priority
                 src={product?.image_url as string}
-                alt="Product Image"
+                alt="VendProduct Image"
                 layout={'fill'}
                 objectFit={'contain'}
               />
@@ -155,10 +155,10 @@ function ProductPage({
             ui.status.viewport === 'tablet'
               ? products.filtered
                   .slice(0, 6)
-                  .filter((p: Product) => p !== (product as Product))
+                  .filter((p: VendProduct) => p !== (product as VendProduct))
               : products.filtered
                   .slice(0, 8)
-                  .filter((p: Product) => p !== (product as Product))
+                  .filter((p: VendProduct) => p !== (product as VendProduct))
           }
         />
       </ProductMainContainer>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Promotion } from '../types';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 
 import { useGetPromotions } from '../queries';
 
@@ -17,7 +17,7 @@ function usePromotions() {
   }
 
   const checkForPromotions = React.useMemo(
-    () => (product: Product) => {
+    () => (product: VendProduct) => {
       let promos: Promotion[] = [];
       if (promotions) {
         promotions!.forEach((promotion) => {

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Product, ProductCartToken } from 'modules/product/types';
+import { VendProduct, ProductCartToken } from 'modules/product/types';
 
 import { useProducts } from 'modules/product/useProducts';
 import { usePromotions } from './usePromotions';
 
 type DiscountToken = {
   total: number;
-  items: Product[];
+  items: VendProduct[];
 };
 
 function useCheckPromotions(items: ProductCartToken[]) {
@@ -100,8 +100,8 @@ function useCheckPromotions(items: ProductCartToken[]) {
           total: discounts.total,
           items:
             discounts && discounts.items.length > 0
-              ? [...discounts.items, product as Product]
-              : [product as Product],
+              ? [...discounts.items, product as VendProduct]
+              : [product as VendProduct],
         });
         SetMtgFourtyUsed(true);
       }

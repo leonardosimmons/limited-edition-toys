@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 import { Default } from 'utils/keys';
 import {
   setCurrentPageNumber,
@@ -19,7 +19,7 @@ type PageState = {
     };
   };
   products: {
-    filtered: Product[];
+    filtered: VendProduct[];
   };
 };
 

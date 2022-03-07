@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 
 import { ProductGrid, ProductGridMainContainer } from './styles/ProductGrid';
 
@@ -10,7 +10,7 @@ import ProductDisplayCard from '../display-card/ProductDisplayCard';
 import { useShuffledProductList } from 'modules/product/hooks/useShuffledProductList';
 
 type Props = {
-  products: Product[];
+  products: VendProduct[];
   title?: string;
 };
 
@@ -26,7 +26,7 @@ const ProductDisplayGrid: React.FunctionComponent<Props> = ({
         <Typography variant="h2">{title}</Typography>
       )}
       <ProductGrid container spacing={2}>
-        {shuffled.list.map((product: Product, index: number) => (
+        {shuffled.list.map((product: VendProduct, index: number) => (
           <Grid
             item
             key={index}

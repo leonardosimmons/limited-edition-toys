@@ -1,12 +1,12 @@
 import React from 'react';
-import { Product } from '../types';
+import { VendProduct } from '../types';
 import { shuffleArray } from '../../../lib/functions';
 
-function useShuffledProductList(list: Product[], watcher: any) {
-  const [shuffledList, setShuffledList] = React.useState<Product[]>([]);
+function useShuffledProductList(list: VendProduct[], watcher: any) {
+  const [shuffledList, setShuffledList] = React.useState<VendProduct[]>([]);
 
   React.useEffect(() => {
-    const newArr: Product[] = shuffleArray(list.slice());
+    const newArr: VendProduct[] = shuffleArray(list.slice());
     setShuffledList(newArr);
   }, [watcher]);
 

@@ -9,16 +9,16 @@ import {
   setCurrentProductSelection,
   setProductInventoryLevel,
 } from './actions';
-import { Product } from './types';
+import { VendProduct } from './types';
 
 type ProductState = {
-  current: Product;
+  current: VendProduct;
   quantity: number;
   stock: number;
 };
 
 const initialState: ProductState = {
-  current: {} as Product,
+  current: {} as VendProduct,
   quantity: 1,
   stock: 0,
 };

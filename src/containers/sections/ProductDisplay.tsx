@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 
 import {
   SectionBannerBox,
@@ -12,7 +12,7 @@ import Image from 'next/image';
 import ProductDisplayGrid from 'modules/product/components/display-grid/ProductDisplayGrid';
 
 type Props = {
-  products: Product[];
+  products: VendProduct[];
   title: string;
   src?: string;
 };

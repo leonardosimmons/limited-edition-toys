@@ -11,7 +11,7 @@ import {
   setProductInventoryLevel,
 } from '../actions';
 import { productSelector } from '../selectors';
-import { Product } from '../types';
+import { VendProduct } from '../types';
 
 function useSingleProduct() {
   const dispatch = useAppDispatch();
@@ -48,7 +48,7 @@ function useSingleProduct() {
     dispatch(setProductInventoryLevel(amount));
   }
 
-  function setSelection(product: Product): void {
+  function setSelection(product: VendProduct): void {
     dispatch(setCurrentProductSelection(product));
   }
 

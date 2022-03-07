@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 import { Queries } from 'utils/keys';
 
 import productCategories from 'data/categories.json';
@@ -56,7 +56,7 @@ function ProductCategoryDisplayPage({
       <ProductHeader title={title} />
       <DisplayPageMainContainer maxWidth={false}>
         <DisplayPageMainGrid container direction="row" spacing={2}>
-          {shuffled.list.map((product: Product, index: number) => (
+          {shuffled.list.map((product: VendProduct, index: number) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
               <ProductDisplayCard product={product} />
             </Grid>

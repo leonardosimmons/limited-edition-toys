@@ -1,5 +1,5 @@
 import { VendApi, VendResponse } from 'lib';
-import { Product } from 'modules/product/types';
+import { VendProduct } from 'modules/product/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Default } from 'utils/keys';
 
@@ -17,13 +17,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.json(
       await VendApi.get(`/products?after=${version}&page_size=${pageSize}`)
         .then((res) => res.data)
-        .then((vend: VendResponse<Product[]>) => vend),
+        .then((vend: VendResponse<VendProduct[]>) => vend),
     );
   } else {
     res.json(
       await VendApi.get(`/products?page_size=${Default.MAX_PRODUCTS_PER_QUERY}`)
         .then((res) => res.data)
-        .then((vend: VendResponse<Product[]>) => vend),
+        .then((vend: VendResponse<VendProduct[]>) => vend),
     );
   }
 };
