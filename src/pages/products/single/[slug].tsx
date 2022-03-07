@@ -150,6 +150,7 @@ function ProductPage({
           <ProductInformation item slug={slug} promotion={discount} />
         </ProductMainGrid>
         <ProductDisplayGrid
+          type={'vend'}
           title={'You May Also Like'}
           products={
             ui.status.viewport === 'tablet'

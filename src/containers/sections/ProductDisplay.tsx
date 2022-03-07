@@ -1,5 +1,5 @@
 import React from 'react';
-import { VendProduct } from 'modules/product/types';
+import { ProductOrigin, VendProduct } from 'modules/product/types';
 
 import {
   SectionBannerBox,
@@ -10,16 +10,19 @@ import {
 
 import Image from 'next/image';
 import ProductDisplayGrid from 'modules/product/components/display-grid/ProductDisplayGrid';
+import { WooCommerceProduct } from '../../../modules/woocommerce/types';
 
 type Props = {
-  products: VendProduct[];
+  products: VendProduct[] | WooCommerceProduct[];
   title: string;
+  type: ProductOrigin;
   src?: string;
 };
 
 const ProductDisplay: React.FunctionComponent<Props> = ({
   products,
   title,
+  type,
   src,
 }): JSX.Element => {
   return (
@@ -34,7 +37,7 @@ const ProductDisplay: React.FunctionComponent<Props> = ({
           <SectionDivider primary variant="middle" />
         </React.Fragment>
       )}
-      <ProductDisplayGrid products={products} />
+      <ProductDisplayGrid type={type} products={products} />
     </SectionWrapper>
   );
 };

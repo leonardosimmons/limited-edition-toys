@@ -5,8 +5,10 @@ import {
   VendProduct,
   ProductCartToken,
   ProductInventory,
+  ProductOrigin,
 } from 'modules/product/types';
 import { PromotionDiscount } from 'modules/promotions/types';
+import { WooCommerceProduct } from '../../../woocommerce/types';
 import { CartSessionToken } from 'modules/cart/types';
 
 import { usePromotions } from 'modules/promotions/hooks/usePromotions';
@@ -26,15 +28,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ProductDisplayInfo from './components/ProductDisplayInfo';
 import ProductDisplayAction from './components/ProductDisplayAction';
 import DisplayCard from '../../../../lib/components/cards/DisplayCard';
-import { WooCommerceProduct } from '../../../woocommerce/types';
 
 type Props = {
   product: VendProduct | WooCommerceProduct;
+  type: ProductOrigin;
   index?: number;
 };
 
 const ProductDisplayCard: React.FunctionComponent<Props> = ({
   product,
+  type,
   index,
 }): JSX.Element => {
   const cart = useCart();

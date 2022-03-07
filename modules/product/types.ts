@@ -44,6 +44,8 @@ export type ProductInventory = {
   reorder_amount: number;
 };
 
+export type ProductOrigin = 'vend' | 'woocommerce' | 'square';
+
 export type ProductPropertyOptions = Partial<ProductType>;
 
 export type ProductQueryOptions = {

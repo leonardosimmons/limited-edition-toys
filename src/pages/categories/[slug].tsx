@@ -58,7 +58,7 @@ function ProductCategoryDisplayPage({
         <DisplayPageMainGrid container direction="row" spacing={2}>
           {shuffled.list.map((product: VendProduct, index: number) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-              <ProductDisplayCard product={product} />
+              <ProductDisplayCard type={'vend'} product={product} />
             </Grid>
           ))}
         </DisplayPageMainGrid>
