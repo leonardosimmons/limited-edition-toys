@@ -1,14 +1,17 @@
 import React from 'react';
-import { GetServerSideProps, GetStaticProps, InferGetServerSidePropsType, InferGetStaticPropsType } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { VendProduct } from 'modules/product/types';
+import { WooCommerceProduct } from '../../modules/woocommerce/types';
 import { Images, Queries } from 'utils/keys';
+import { WooCommerceApi } from '../../lib';
 
 import data from 'data/pages/home.json';
 import { useAppSelector } from 'src/redux';
 import { appSelector } from 'src/redux/selector';
 import { useCart } from 'modules/cart/hooks/useCart';
 import { useProducts } from 'modules/product/useProducts';
+import { useSessionCheck } from 'modules/auth/hooks/useSessionCheck';
 import { getAllProducts, getProductTags } from 'modules/product/queries';
 import { useCheckCartSession } from 'modules/cart/hooks/useCheckCartSession';
 
@@ -17,7 +20,7 @@ import { HomePageMainContainer } from 'src/containers/pages/styles/HomePage';
 import Image from 'next/image';
 import Layout from 'src/containers/Layout';
 import MainHeaderOne from 'src/containers/headers/main/version-one/MainHeaderOne';
-import UpcommingEvents from 'src/containers/sections/UpcommingEvents';
+import UpcomingEvents from 'src/containers/sections/UpcomingEvents';
 import ProductDisplay from 'src/containers/sections/ProductDisplay';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 import Carousel from 'src/features/carousel/Carousel';
@@ -27,10 +30,9 @@ import {
   SectionWrapper,
 } from 'src/containers/sections/styles/Section';
 import { DisplayImage } from 'src/containers/sections/DisplayImage';
-import { useSessionCheck } from 'modules/auth/hooks/useSessionCheck';
-import { WooCommerceApi } from '../../lib';
 
 function Index({
+  bestSellers,
   newProducts
 }: InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -43,40 +45,6 @@ function Index({
 
   //* -------------------------------------------------
   // Events
-
-  //* -------------------------------------------------
-  // Featured Products
-
-  const featuredProducts = React.useMemo(() => {
-    if (products) {
-      const buffer: VendProduct[] = [];
-      products.list.forEach((product) => {
-        data.featured.list.forEach((item) => {
-          if (item.sku === product.sku && !buffer.includes(product)) {
-            buffer.push(product);
-          }
-        });
-      });
-      return buffer;
-    }
-  }, []);
-
-  //* -------------------------------------------------
-  // Best Sellers
-
-  const bestSellers = React.useMemo(() => {
-    if (products) {
-      const buffer: VendProduct[] = [];
-      products.list.forEach((product) => {
-        data.mostSold.list.forEach((item) => {
-          if (item.sku === product.sku && !buffer.includes(product)) {
-            buffer.push(product);
-          }
-        });
-      });
-      return buffer;
-    }
-  }, []);
 
   //* -------------------------------------------------
   // Render
@@ -99,15 +67,16 @@ function Index({
       <HomePageMainContainer maxWidth={false} disableGutters>
         <MainHeaderOne />
         <ProductDisplay
-          src={Images.NEW_IEMS}
+          type={'woocommerce'}
+          src={Images.NEW_ITEMS}
           title={data.featured.title}
           products={
             ctx.ui.status.viewport === 'tablet'
-              ? (featuredProducts as VendProduct[]).slice(0, 6)
-              : (featuredProducts as VendProduct[])
+              ? (newProducts as WooCommerceProduct[]).slice(0, 6)
+              : (newProducts as WooCommerceProduct[]).slice(0, 8)
           }
         />
-        <UpcommingEvents title={data.events.title} />
+        <UpcomingEvents title={data.events.title} />
         <SectionWrapper maxWidth={false}>
           <SectionBannerBox sx={{ maxWidth: '1050px', marginBottom: '40px' }}>
             <Image
@@ -130,11 +99,12 @@ function Index({
           ))}
         </Carousel>
         <ProductDisplay
+          type={'woocommerce'}
           title={data.mostSold.title}
           products={
             ctx.ui.status.viewport === 'tablet'
               ? (bestSellers as VendProduct[]).slice(0, 6)
-              : (bestSellers as VendProduct[])
+              : (bestSellers as VendProduct[]).slice(0, 8)
           }
         />
         <DisplayImage>
@@ -161,9 +131,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
     .then((res: any) => res.data)
     .catch((err: any) => console.log(err));
 
+  const bestSellers = await WooCommerceApi.get('products?orderby=popularity')
+    .then((res: any) => res.data)
+    .catch((err) => console.log(err))
+
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
+      bestSellers,
       newProducts
     }
   };

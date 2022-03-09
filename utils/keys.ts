@@ -35,7 +35,7 @@ export enum Images {
   MASCOT_ONE = '/images/mascot-1.png',
   MIDDLE_CLOUDS = '/images/middle.png',
   NAVBAR_PROMO = '/images/now-open.png',
-  NEW_IEMS = '/images/banners/new-items.png',
+  NEW_ITEMS = '/images/banners/new-items.png',
   TEST_HEADER = '/svg/test-header.svg',
   TOP_CLOUDS_LIGHT = '/svg/top-light.svg',
 }
@@ -62,8 +62,4 @@ export enum Queries {
   WOOCOMMERCE_CUSTOMERS = 'woocommerce-customers',
   WORDPRESS_USER = 'wordpress-user',
   USER_SESSION = 'user-auth-session',
-}
-
-export enum Timer {
-  DASHBOARD_INPUT_RESET = 2 * 1000,
 }

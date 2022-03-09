@@ -21,7 +21,7 @@ type Props = {
   title: string;
 };
 
-const UpcommingEvents: React.FunctionComponent<Props> = ({
+const UpcomingEvents: React.FunctionComponent<Props> = ({
   title,
 }): JSX.Element => {
   const ui = useAppSelector(uiSelector);
@@ -72,7 +72,7 @@ const UpcommingEvents: React.FunctionComponent<Props> = ({
   );
 };
 
-export default UpcommingEvents;
+export default UpcomingEvents;
 
 /* 
   <SectionHeader>
