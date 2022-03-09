@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    domains: ['vendimageuploadcdn.global.ssl.fastly.net', 'secure.vendhq.com'],
+    domains: ['vendimageuploadcdn.global.ssl.fastly.net', 'secure.vendhq.com', 'i0.wp.com'],
   },
   async headers() {
     return [

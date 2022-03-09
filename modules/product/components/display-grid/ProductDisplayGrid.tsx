@@ -1,4 +1,5 @@
 import React from 'react';
+import { WooCommerceProduct } from '../../../woocommerce/types';
 import { ProductOrigin, VendProduct } from 'modules/product/types';
 
 import { ProductGrid, ProductGridMainContainer } from './styles/ProductGrid';
@@ -7,8 +8,6 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import ProductDisplayCard from '../display-card/ProductDisplayCard';
-import { useShuffledProductList } from 'modules/product/hooks/useShuffledProductList';
-import { WooCommerceProduct } from '../../../woocommerce/types';
 
 type Props = {
   products: VendProduct[] | WooCommerceProduct[];
@@ -18,17 +17,16 @@ type Props = {
 
 const ProductDisplayGrid: React.FunctionComponent<Props> = ({
   products,
+  type,
   title,
 }): JSX.Element => {
-  const shuffled = useShuffledProductList(products as VendProduct[], products as VendProduct[]);
-
   return (
     <ProductGridMainContainer maxWidth={false}>
       {title && products.length > 0 && (
         <Typography variant="h2">{title}</Typography>
       )}
       <ProductGrid container spacing={2}>
-        {shuffled.list.map((product: VendProduct, index: number) => (
+        {products.map((product: VendProduct | WooCommerceProduct, index: number) => (
           <Grid
             item
             key={index}
@@ -36,7 +34,7 @@ const ProductDisplayGrid: React.FunctionComponent<Props> = ({
             sm={6}
             md={products.length > 6 ? 3 : 4}
             lg={3}>
-            <ProductDisplayCard type={'vend'} product={product}/>
+            <ProductDisplayCard type={type} product={product}/>
           </Grid>
         ))}
       </ProductGrid>

@@ -46,13 +46,17 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
   const session = useCartSession();
   const app = useAppSelector(appSelector);
   const [slug, setSlug] = React.useState<string | undefined>();
-  const { status, data: inventory, error } = useGetInventoryById((product as VendProduct).id);
+  const {
+    status,
+    data: inventory,
+    error,
+  } = useGetInventoryById((product as VendProduct).id);
 
   // once populated set the url slug for the product
   React.useEffect(() => {
     if (product) {
       setSlug(
-        (product as VendProduct).name
+        product.name
           .toLowerCase()
           .replace(/[' '/]/g, '-')
           .replace(/[!:.;()""\[\]]/g, '')
@@ -73,6 +77,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
     Partial<PromotionDiscount> | undefined
   >(undefined);
 
+  // TODO: Check if WooCommerce Products have a discount
   // check if item matches a current promotion
   React.useEffect(() => {
     if (discount) {
@@ -101,6 +106,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
 
   // checks if product is 'in stock'
   React.useEffect(() => {
+    // VendProduct
     if (inventory) {
       let count: number = 0;
       inventory.forEach((item: ProductInventory) => {
@@ -112,6 +118,10 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
         }
       });
       setStockCount(count);
+    } else { // WooCommerceProduct
+      if ((product as WooCommerceProduct).stock_quantity > 0) {
+        setInStock(true);
+      }
     }
   }, [inventory]);
 
@@ -166,9 +176,17 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
                   ? true
                   : app.ui.status.viewport === 'tablet' && index && index < 6
                   ? true
-                  : !!(app.ui.status.viewport === 'mobile' && index && index < 2)
+                  : !!(
+                      app.ui.status.viewport === 'mobile' &&
+                      index &&
+                      index < 2
+                    )
               }
-              src={(product as VendProduct).image_url as string}
+              src={
+                type === 'vend'
+                  ? ((product as VendProduct).image_url as string)
+                  : (product as WooCommerceProduct).images[0].src
+              }
               alt="product image"
               layout="fill"
               objectFit="contain"
@@ -177,7 +195,7 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
           </ProductDisplayCardImageBox>
         </Grid>
         <ProductDisplayInfo
-          name={(product as VendProduct).name}
+          name={product.name}
           rating={0}
           slug={slug as string}
           inStock={inStock}
@@ -185,7 +203,11 @@ const ProductDisplayCard: React.FunctionComponent<Props> = ({
         />
         <ProductDisplayAction
           inStock={inStock}
-          price={(product as VendProduct).price_excluding_tax as number}
+          price={
+            type === 'vend'
+              ? ((product as VendProduct).price_excluding_tax as number)
+              : parseInt((product as WooCommerceProduct).price)
+          }
           addToCart={handleAddToCart}
           promotion={(discount && discount.promotion) || undefined}
         />
