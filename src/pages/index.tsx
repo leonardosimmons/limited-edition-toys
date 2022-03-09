@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { VendProduct } from 'modules/product/types';
 import { WooCommerceProduct } from '../../modules/woocommerce/types';
@@ -34,8 +34,8 @@ import { DisplayImage } from 'src/containers/sections/DisplayImage';
 function Index({
   bestSellers,
   newProducts
-}: InferGetServerSidePropsType<
-  typeof getServerSideProps
+}: InferGetStaticPropsType<
+  typeof getStaticProps
 >): JSX.Element {
   useCart();
   useSessionCheck();
@@ -122,7 +122,7 @@ function Index({
 
 export default Index;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(Queries.ALL_PRODUCTS, getAllProducts);
   await queryClient.prefetchQuery(Queries.PRODUCT_TAGS, getProductTags);
@@ -140,6 +140,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       dehydratedState: dehydrate(queryClient),
       bestSellers,
       newProducts
-    }
+    },
+    revalidate: 60 * 60 * 12
   };
 };
