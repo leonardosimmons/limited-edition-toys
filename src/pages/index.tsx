@@ -17,7 +17,7 @@ import { HomePageMainContainer } from 'src/containers/pages/styles/HomePage';
 import Image from 'next/image';
 import Layout from 'src/containers/Layout';
 import MainHeaderOne from 'src/containers/headers/main/version-one/MainHeaderOne';
-import UpcommingEvents from 'src/containers/sections/UpcommingEvents';
+import UpcomingEvents from 'src/containers/sections/UpcomingEvents';
 import ProductDisplay from 'src/containers/sections/ProductDisplay';
 import CircleLoadSpinner from 'lib/components/loading/CircleLoadSpinner';
 import Carousel from 'src/features/carousel/Carousel';
@@ -104,7 +104,7 @@ function Index({}: InferGetStaticPropsType<
               : (featuredProducts as Product[])
           }
         />
-        <UpcommingEvents title={data.events.title} />
+        <UpcomingEvents title={data.events.title} />
         <SectionWrapper maxWidth={false}>
           <SectionBannerBox sx={{ maxWidth: '1050px', marginBottom: '40px' }}>
             <Image
